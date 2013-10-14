@@ -12,7 +12,7 @@
 // counts of loops easily.
 //===----------------------------------------------------------------------===//
 
-#define DEBUG_TYPE "loop-unroll"
+#define DEBUG_TYPE "pgo-loop-unroll"
 #include "llvm/Transforms/Scalar.h"
 #include "llvm/Analysis/CodeMetrics.h"
 #include "llvm/Analysis/LoopPass.h"
@@ -29,20 +29,20 @@
 using namespace llvm;
 
 static cl::opt<unsigned>
-UnrollThreshold("unroll-threshold", cl::init(150), cl::Hidden,
+UnrollThreshold("pgo-unroll-threshold", cl::init(150), cl::Hidden,
   cl::desc("The cut-off point for automatic loop unrolling"));
 
 static cl::opt<unsigned>
-UnrollCount("unroll-count", cl::init(0), cl::Hidden,
+UnrollCount("pgo-unroll-count", cl::init(0), cl::Hidden,
   cl::desc("Use this unroll count for all loops, for testing purposes"));
 
 static cl::opt<bool>
-UnrollAllowPartial("unroll-allow-partial", cl::init(false), cl::Hidden,
+UnrollAllowPartial("pgo-unroll-allow-partial", cl::init(false), cl::Hidden,
   cl::desc("Allows loops to be partially unrolled until "
            "-unroll-threshold loop size is reached."));
 
 static cl::opt<bool>
-UnrollRuntime("unroll-runtime", cl::ZeroOrMore, cl::init(false), cl::Hidden,
+UnrollRuntime("pgo-unroll-runtime", cl::ZeroOrMore, cl::init(false), cl::Hidden,
   cl::desc("Unroll loops with run-time trip counts"));
 
 namespace {
@@ -102,13 +102,15 @@ namespace {
 }
 
 char LoopUnroll::ID = 0;
-INITIALIZE_PASS_BEGIN(LoopUnroll, "loop-unroll", "Unroll loops", false, false)
+static RegisterPass<LoopUnroll> X("pgo-loop-unroll", "Unroll loops", false, false);
+
+INITIALIZE_PASS_BEGIN(LoopUnroll, "pgo-loop-unroll", "Unroll loops", false, false)
 INITIALIZE_AG_DEPENDENCY(TargetTransformInfo)
 INITIALIZE_PASS_DEPENDENCY(LoopInfo)
 INITIALIZE_PASS_DEPENDENCY(LoopSimplify)
 INITIALIZE_PASS_DEPENDENCY(LCSSA)
 INITIALIZE_PASS_DEPENDENCY(ScalarEvolution)
-INITIALIZE_PASS_END(LoopUnroll, "loop-unroll", "Unroll loops", false, false)
+INITIALIZE_PASS_END(LoopUnroll, "pgo-loop-unroll", "Unroll loops", false, false)
 
 Pass *llvm::createLoopUnrollPass(int Threshold, int Count, int AllowPartial) {
   return new LoopUnroll(Threshold, Count, AllowPartial);
