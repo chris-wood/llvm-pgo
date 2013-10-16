@@ -1,3 +1,5 @@
 build/*
 !build/clang
 !build/opt
+!build/llcD
+!build/llvm-prof
