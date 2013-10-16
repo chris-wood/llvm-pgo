@@ -5,3 +5,4 @@ build/*
 !build/llvm-prof
 !build/profile.sh
 !build/clean.sh
+!build/runpgo.sh
