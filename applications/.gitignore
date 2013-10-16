@@ -1,5 +1,7 @@
 build/*
 !build/clang
 !build/opt
-!build/llcD
+!build/llc
 !build/llvm-prof
+!build/profile.sh
+!build/clean.sh
