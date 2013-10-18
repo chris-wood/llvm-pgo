@@ -144,13 +144,16 @@ static unsigned ApproximateLoopSize(const Loop *L, unsigned &NumCalls,
 bool LoopUnroll::runOnLoop(Loop *L, LPPassManager &LPM) {
   ProfileInfo *PI = &getAnalysis<ProfileInfo>();
 
-  int blub = 0;
   for (Loop::block_iterator I = L->block_begin(), E = L->block_end();
        I != E; ++I) {
     double executionCount = PI->getExecutionCount(*I);
-    DEBUG(dbgs() << "Execution count of block in loop: " << executionCount 
-                 << " ... " << blub << "\n");
-    blub++;
+    DEBUG(dbgs() << "Execution count of block in loop: " << executionCount << "\n");
+
+    BasicBlock *bb = *I;
+    Function *enclosingFunction = bb->getParent();
+    DEBUG(dbgs() << "Name of enclosing function: " << enclosingFunction->getName() << "\n");
+    double functionExecutionCount = PI->getExecutionCount(enclosingFunction);
+    DEBUG(dbgs() << "Execution count of enclosing function: " << functionExecutionCount << "\n");
   }
 
   LoopInfo *LI = &getAnalysis<LoopInfo>();
