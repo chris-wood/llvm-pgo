@@ -16,7 +16,8 @@ file_profile_bc="$filename.profile.bc"
 file_profile_s="$filename.profile.s"
 file_profile="$filename.profile"
 
-profiling="-insert-edge-profiling"
+profiling="-insert-edge-profiling -insert-gcov-profiling"
+# -insert-path-profiling and -insert-optimal-edge-profiling give errors ...
 
 ./clang -c -O1 -emit-llvm "$path" -o $file_bc
 ./opt $profiling $file_bc -o $file_profile_bc
