@@ -16,6 +16,7 @@
 #include "llvm/Transforms/Scalar.h"
 #include "llvm/Analysis/CodeMetrics.h"
 #include "llvm/Analysis/LoopPass.h"
+#include "llvm/Analysis/ProfileInfo.h"
 #include "llvm/Analysis/ScalarEvolution.h"
 #include "llvm/Analysis/TargetTransformInfo.h"
 #include "llvm/IR/DataLayout.h"
@@ -83,6 +84,9 @@ namespace {
     /// loop preheaders be inserted into the CFG...
     ///
     virtual void getAnalysisUsage(AnalysisUsage &AU) const {
+      AU.addRequired<ProfileInfo>();
+      AU.addPreserved<ProfileInfo>();
+
       AU.addRequired<LoopInfo>();
       AU.addPreserved<LoopInfo>();
       AU.addRequiredID(LoopSimplifyID);
@@ -138,6 +142,17 @@ static unsigned ApproximateLoopSize(const Loop *L, unsigned &NumCalls,
 }
 
 bool LoopUnroll::runOnLoop(Loop *L, LPPassManager &LPM) {
+  ProfileInfo *PI = &getAnalysis<ProfileInfo>();
+
+  int blub = 0;
+  for (Loop::block_iterator I = L->block_begin(), E = L->block_end();
+       I != E; ++I) {
+    double executionCount = PI->getExecutionCount(*I);
+    DEBUG(dbgs() << "Execution count of block in loop: " << executionCount 
+                 << " ... " << blub << "\n");
+    blub++;
+  }
+
   LoopInfo *LI = &getAnalysis<LoopInfo>();
   ScalarEvolution *SE = &getAnalysis<ScalarEvolution>();
   const TargetTransformInfo &TTI = getAnalysis<TargetTransformInfo>();
