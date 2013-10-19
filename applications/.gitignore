@@ -1,9 +1,6 @@
 build/*
+!build/*.sh
 !build/clang
 !build/opt
 !build/llc
 !build/llvm-prof
-!build/build-llvm.sh
-!build/profile.sh
-!build/clean.sh
-!build/runpgo.sh
