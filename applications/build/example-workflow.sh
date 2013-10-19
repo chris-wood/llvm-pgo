@@ -38,6 +38,23 @@ $ ./loop.profile
 # 5) Display the gathered profiling information (optional).
 $ ./llvm-prof loop.bc
 # Creates: - (prints info to stdout)
+# ===-------------------------------------------------------------------------===
+# LLVM profiling output for execution:
+#   ./loop.profile 
+
+# ===-------------------------------------------------------------------------===
+# Function execution frequencies:
+
+#  ##   Frequency
+#   1.     1/1 main
+
+# ===-------------------------------------------------------------------------===
+# Top 20 most frequently executed basic blocks:
+
+#  ##      %% 	Frequency
+#   1. 83.3333%    10/12	main() - for.body
+#   2. 8.33333%     1/12	main() - entry
+#   3. 8.33333%     1/12	main() - for.end
 
 # 6) Run custom pass.
 $ ./opt -S -profile-loader -profile-metadata-loader -profile-verifier -debug-only=pgo-loop-unroll -load PgoLoopUnroll.dylib -pgo-loop-unroll < loop.bc > loop-pgo.s
