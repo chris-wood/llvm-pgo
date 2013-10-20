@@ -110,6 +110,7 @@ static RegisterPass<LoopUnroll> X("pgo-loop-unroll", "Unroll loops", false, fals
 
 INITIALIZE_PASS_BEGIN(LoopUnroll, "pgo-loop-unroll", "Unroll loops", false, false)
 INITIALIZE_AG_DEPENDENCY(TargetTransformInfo)
+INITIALIZE_AG_DEPENDENCY(ProfileInfo)
 INITIALIZE_PASS_DEPENDENCY(LoopInfo)
 INITIALIZE_PASS_DEPENDENCY(LoopSimplify)
 INITIALIZE_PASS_DEPENDENCY(LCSSA)
