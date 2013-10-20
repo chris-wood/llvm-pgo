@@ -145,6 +145,8 @@ static unsigned ApproximateLoopSize(const Loop *L, unsigned &NumCalls,
 bool LoopUnroll::runOnLoop(Loop *L, LPPassManager &LPM) {
   ProfileInfo *PI = &getAnalysis<ProfileInfo>();
 
+  // HELP! This is the debug code that always prints -1.0 for execution count.
+  // Use the ./opt '-debug-only=pgo-loop-unroll' switch instead of '-debug' to show debug messages only for this module.
   for (Loop::block_iterator I = L->block_begin(), E = L->block_end();
        I != E; ++I) {
     double executionCount = PI->getExecutionCount(*I);
