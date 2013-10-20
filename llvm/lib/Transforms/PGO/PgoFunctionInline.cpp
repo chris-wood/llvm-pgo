@@ -1,20 +1,30 @@
 // -*- compile-command: "cd ../../../../build/lib/Transforms/PGO/; make" -*-
-#include "llvm/Pass.h"
-#include "llvm/IR/Function.h"
+
+#include "llvm/Transforms/IPO/InlinerPass.h"
 #include "llvm/Support/raw_ostream.h"
 #include "llvm/Analysis/ProfileInfo.h"
+#include "llvm/Analysis/InlineCost.h"
 
 using namespace llvm;
 
 namespace {
-  struct PgoFunctionInline : public FunctionPass {
+  struct PgoFunctionInline : public Inliner {
     static char ID;
-    PgoFunctionInline() : FunctionPass(ID) {}
-    virtual bool runOnFunction(Function &F);
-
+    PgoFunctionInline() : Inliner(ID) {}
+    
     virtual void getAnalysisUsage(AnalysisUsage &AU) const {
       AU.addRequired<ProfileInfo>();
+      AU.addPreserved<ProfileInfo>();
+      AU.addRequired<InlineCostAnalysis>();
+      Inliner::getAnalysisUsage(AU);
     }
+    
+    virtual InlineCost getInlineCost(CallSite CS) {
+      return ICA->getInlineCost(CS, getInlineThreshold(CS));
+    }
+    virtual bool runOnSCC(CallGraphSCC &SCC);
+  private:
+    InlineCostAnalysis *ICA;
   };
 }
 
@@ -23,8 +33,12 @@ char PgoFunctionInline::ID = 0;
 
 static RegisterPass<PgoFunctionInline> X("pgo-function-inline", "Profile guided function inlining pass", false, false);
 
-bool PgoFunctionInline::runOnFunction(Function &F) {
+bool PgoFunctionInline::runOnSCC(CallGraphSCC &SCC) {
   ProfileInfo *PI = &getAnalysis<ProfileInfo>();
-  errs().write_escaped(F.getName()) << ": " << PI->getExecutionCount(&F) << '\n';
+  CallGraphSCC::iterator i, e;
+  for (i = SCC.begin(), e = SCC.end(); i != e; ++i) {
+    Function *F = (*i)->getFunction();
+    errs().write_escaped(F->getName()) << ": " << PI->getExecutionCount(F) << '\n';
+  }
   return false;
 }
