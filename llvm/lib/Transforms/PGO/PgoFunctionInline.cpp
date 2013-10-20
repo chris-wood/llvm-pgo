@@ -34,7 +34,7 @@ InlineCost PgoFunctionInline::getInlineCost(CallSite CS){
   ProfileInfo *PI = &getAnalysis<ProfileInfo>();
   Function *F = CS.getCalledFunction();
   if(F)
-    errs().write_escaped(F->getName()) << ": " << PI->getExecutionCount(F) << '\n';
+    DEBUG(dbgs().write_escaped(F->getName()) << ": " << PI->getExecutionCount(F) << '\n');
   return ICA->getInlineCost(CS, getInlineThreshold(CS));
 }
 
