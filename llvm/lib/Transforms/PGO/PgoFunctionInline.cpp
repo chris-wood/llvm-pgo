@@ -20,6 +20,10 @@ namespace {
     }
     
     virtual InlineCost getInlineCost(CallSite CS) {
+      ProfileInfo *PI = &getAnalysis<ProfileInfo>();
+      Function *F = CS.getCalledFunction();
+      if(F)
+	errs().write_escaped(F->getName()) << ": " << PI->getExecutionCount(F) << '\n';
       return ICA->getInlineCost(CS, getInlineThreshold(CS));
     }
     virtual bool runOnSCC(CallGraphSCC &SCC);
@@ -28,17 +32,11 @@ namespace {
   };
 }
 
-
 char PgoFunctionInline::ID = 0;
 
 static RegisterPass<PgoFunctionInline> X("pgo-function-inline", "Profile guided function inlining pass", false, false);
 
 bool PgoFunctionInline::runOnSCC(CallGraphSCC &SCC) {
-  ProfileInfo *PI = &getAnalysis<ProfileInfo>();
-  CallGraphSCC::iterator i, e;
-  for (i = SCC.begin(), e = SCC.end(); i != e; ++i) {
-    Function *F = (*i)->getFunction();
-    errs().write_escaped(F->getName()) << ": " << PI->getExecutionCount(F) << '\n';
-  }
-  return false;
+  ICA = &getAnalysis<InlineCostAnalysis>();
+  return Inliner::runOnSCC(SCC);
 }
