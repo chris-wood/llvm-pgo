@@ -4,13 +4,22 @@
 #include "llvm/Support/raw_ostream.h"
 #include "llvm/Analysis/ProfileInfo.h"
 #include "llvm/Analysis/InlineCost.h"
+#include "llvm/Support/CommandLine.h"
 
 using namespace llvm;
+
+static cl::opt<int>
+ExecutionCountInlineThreshold("inline-threshold", cl::Hidden,
+			      cl::init(4), cl::Optional,
+			      cl::desc("Exectution count threshold for inlining functions"));
 
 namespace {
   struct PgoFunctionInline : public Inliner {
     static char ID;
-    PgoFunctionInline() : Inliner(ID) {}
+    explicit PgoFunctionInline(int threshold = ExecutionCountInlineThreshold)
+      : Inliner(ID)
+      , InlineThreshold(threshold)
+    {}
 
     virtual void getAnalysisUsage(AnalysisUsage &AU) const {
       AU.addRequired<ProfileInfo>();
@@ -23,6 +32,7 @@ namespace {
     virtual bool runOnSCC(CallGraphSCC &SCC);
   private:
     InlineCostAnalysis *ICA;
+    int InlineThreshold;
   };
 }
 
@@ -34,7 +44,16 @@ InlineCost PgoFunctionInline::getInlineCost(CallSite CS){
   ProfileInfo *PI = &getAnalysis<ProfileInfo>();
   Function *F = CS.getCalledFunction();
   if(F)
-    DEBUG(dbgs().write_escaped(F->getName()) << ": " << PI->getExecutionCount(F) << '\n');
+    {
+      DEBUG(dbgs().write_escaped(F->getName()) << ": " << PI->getExecutionCount(F) << '\n');
+      double executionCount = PI->getExecutionCount(F);
+      if (executionCount > InlineThreshold) {
+	DEBUG((dbgs() << "Inlining function: ").write_escaped(F->getName())
+	      << '\n');
+	return InlineCost::getAlways();
+      }
+	return InlineCost::getNever();
+    }
   return ICA->getInlineCost(CS, getInlineThreshold(CS));
 }
 
