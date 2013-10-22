@@ -26,6 +26,6 @@ profiling="-insert-edge-profiling -insert-gcov-profiling"
 
 ./clang -o $file_profile $file_profile_bc ../../build/Debug+Asserts/lib/libprofile_rt.dylib
 
-./$file_profile
+./$file_profile "$2"
 
 ./llvm-prof $file_bc

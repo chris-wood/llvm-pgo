@@ -22,3 +22,5 @@ debug_options="-debug-only=pgo-loop-unroll"
 # Also create an executable so that we can run it for timing and making sure it prints the right output.
 ./llvm-as "$filename-pgo.s" -o "$filename-pgo.bc"
 ./clang "$filename-pgo.bc" -o "$filename-pgo"
+
+#./$filename-pgo
