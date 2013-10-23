@@ -172,11 +172,26 @@ void print_eps(point pts, int len, point cent, int n_cluster)
 #	undef for_len
 }
  
-#define PTS 100000
-#define K 11
-int main()
+// #define PTS 100000
+// #define K 11
+int main(int argc, char* argv[])
 {
-	int i;
+	// Input: PTS K.
+	// Number of points and number of clusters (optional).
+	 
+	if (argc != 2 && argc != 3) {
+    printf("usage: %s n_points [n_clusters]\n", argv[0]);
+    return -1;
+  }
+
+	int PTS = atoi(argv[1]);
+	int K;
+	if (argc == 3)
+		K = atoi(argv[2]);
+	else
+		K = 11;
+
+	// int i;
 	point v = gen_xy(PTS, 10);
 	point c = lloyd(v, PTS, K);
 	print_eps(v, PTS, c, K);
