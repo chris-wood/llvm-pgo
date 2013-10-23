@@ -25,13 +25,15 @@ point gen_xy(int count, double radius)
 	return pt;
 }
  
-inline double dist2(point a, point b)
+// inline double dist2(point a, point b) // clang/llvm linker complains about undefined symbol
+double dist2(point a, point b)
 {
 	double x = a->x - b->x, y = a->y - b->y;
 	return x*x + y*y;
 }
  
-inline int
+// inline int // clang/llvm linker complains about undefined symbol
+int
 nearest(point pt, point cent, int n_cluster, double *d2)
 {
 	int i, min_i;
