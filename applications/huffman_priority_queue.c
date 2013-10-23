@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
  
 typedef struct node_t {
 	struct node_t *left, *right;
@@ -103,20 +104,40 @@ void decode(const char *s, node t)
 	if (t != n) printf("garbage input\n");
 }
  
-int main(void)
+int main(int argc, char* argv[])
 {
+	// Input x.
+  // Repeat the dummy input of the original version x times.
+   
+  if (argc != 2) {
+    printf("usage: %s x-repeat\n", argv[0]);
+    return -1;
+  }
+
+  int x = atoi(argv[1]);
+
 	int i;
-	const char *str = "this is an example for huffman encoding", buf[1024];
+	// const char *str = "this is an example for huffman encoding", buf[1024];
+	char str[] = "This is an example for huffman encoding.";
+	int charCount = sizeof(str) - 1;
+	char *input = malloc(x * charCount + 1);
+	char buf[1024*1024];
+
+	for (i = 0; i < x; i++) {
+    strcpy(input + i * charCount, str);
+  }
  
 	init(str);
 	for (i = 0; i < 128; i++)
 		if (code[i]) printf("'%c': %s\n", i, code[i]);
  
-	encode(str, buf);
+	encode(input, buf);
 	printf("encoded: %s\n", buf);
  
 	printf("decoded: ");
 	decode(buf, q[1]);
  
+	free(input);
+
 	return 0;
 }
