@@ -144,10 +144,27 @@ void inttobits(int c, int n, char *s)
   }
 }
  
-const char *test = "this is an example for huffman encoding";
+// String literals are always '\0' terminated.
+const char test[] = "This is an example for huffman encoding.";
  
-int main()
+int main(int argc, char* argv[])
 {
+  // Input x.
+  // Repeat the dummy input of the original version x times.
+   
+  if (argc != 2) {
+    printf("usage: %s x-repeat\n", argv[0]);
+    return -1;
+  }
+
+  int x = atoi(argv[1]);
+
+  int charCount = sizeof(test) - 1;
+  char* input = malloc(x * charCount + 1);
+  for (int i = 0; i < x; i++) {
+    strcpy(input + i * charCount, test);
+  }
+
   huffcode_t **r;
   int i;
   char strbit[MAXBITSPERCODE];
@@ -156,15 +173,18 @@ int main()
  
   memset(freqs, 0, sizeof freqs);
  
-  p = test;
+  // p = test;
+  p = input;
   while(*p != '\0') freqs[*p++]++;
+
+  free(input);
  
   r = create_huffman_codes(freqs);
  
   for(i=0; i < BYTES; i++) {
     if ( r[i] != NULL ) {
       inttobits(r[i]->code, r[i]->nbits, strbit);
-      printf("%c (%d) %s\n", i, r[i]->code, strbit);
+      printf("%2ld * %c (%d) %s\n", freqs[i], i, r[i]->code, strbit);
     }
   }
  
