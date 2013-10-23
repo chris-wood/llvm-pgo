@@ -1,12 +1,13 @@
 #!/bin/bash
-if [ -z "$1" ]; then
-	echo usage: $0 "source.c"
+if [[ -z "$1" || -z "$2" ]]; then
+	echo usage: $0 "source.c number"
 	exit	
 fi
 
 path="$1"
 file_ext=$(basename "$path")
 filename="${file_ext%.*}"
+n_input="$2"
 
 ./clean.sh "$filename"
 
@@ -26,6 +27,6 @@ profiling="-insert-edge-profiling -insert-gcov-profiling"
 
 ./clang -o $file_profile $file_profile_bc ../../build/Debug+Asserts/lib/libprofile_rt.dylib
 
-./$file_profile "$2"
+./$file_profile $n_input
 
 ./llvm-prof $file_bc
