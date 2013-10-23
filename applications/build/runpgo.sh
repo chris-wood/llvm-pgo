@@ -17,6 +17,7 @@ profiling_options="-profile-loader -profile-metadata-loader -profile-verifier"
 # corresponds to #define DEBUG_TYPE "pgo-loop-unroll"
 debug_options="-debug-only=pgo-loop-unroll"
 
+# $2 might be -simple or empty
 ./opt -S $profiling_options $debug_options -load PgoLoopUnroll.dylib "$2-pgo-loop-unroll" < "$file_ext" > "$filename-pgo.s"
 
 # Also create an executable so that we can run it for timing and making sure it prints the right output.

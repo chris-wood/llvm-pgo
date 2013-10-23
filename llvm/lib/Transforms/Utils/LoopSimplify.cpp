@@ -49,6 +49,7 @@
 #include "llvm/Analysis/InstructionSimplify.h"
 #include "llvm/Analysis/LoopPass.h"
 #include "llvm/Analysis/ScalarEvolution.h"
+#include "llvm/Analysis/ProfileInfo.h"
 #include "llvm/IR/Constants.h"
 #include "llvm/IR/Function.h"
 #include "llvm/IR/Instructions.h"
@@ -92,6 +93,9 @@ namespace {
       AU.addPreserved<ScalarEvolution>();
       AU.addPreserved<DependenceAnalysis>();
       AU.addPreservedID(BreakCriticalEdgesID);  // No critical edges added.
+
+      // Hacked by yln!!
+      AU.addPreserved<ProfileInfo>();
     }
 
     /// verifyAnalysis() - Verify LoopSimplifyForm's guarantees.
