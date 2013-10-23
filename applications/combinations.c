@@ -1,5 +1,5 @@
 #include <stdio.h>
- 
+#include "stdlib.h"
 /* Type marker stick: using bits to indicate what's chosen.  The stick can't
  * handle more than 32 items, but the idea is there; at worst, use array instead */
 typedef unsigned long marker;
@@ -21,9 +21,10 @@ void comb(int pool, int need, marker chosen, int at)
 	comb(pool, need - 1, chosen | (one << at), at + 1);
 	comb(pool, need, chosen, at + 1);  /* or don't choose it, go to next */
 }
- 
-int main()
+
+int main(int argc, char *argv[])
 {
-	comb(5, 3, 0, 0);
-	return 0;
+  int n = atoi(argv[1]);
+  comb(n*2, n, 0, 0);
+  return 0;
 }
