@@ -43,7 +43,8 @@ UnrollAllowPartial("pgo-unroll-allow-partial", cl::init(false), cl::Hidden,
            "-unroll-threshold loop size is reached."));
 
 static cl::opt<bool>
-UnrollRuntime("pgo-unroll-runtime", cl::ZeroOrMore, cl::init(false), cl::Hidden,
+// UnrollRuntime("pgo-unroll-runtime", cl::ZeroOrMore, cl::init(false), cl::Hidden,
+UnrollRuntime("pgo-unroll-runtime", cl::ZeroOrMore, cl::init(true), cl::Hidden,
   cl::desc("Unroll loops with run-time trip counts"));
 
 namespace {
@@ -145,17 +146,18 @@ static unsigned ApproximateLoopSize(const Loop *L, unsigned &NumCalls,
 bool LoopUnroll::runOnLoop(Loop *L, LPPassManager &LPM) {
   ProfileInfo *PI = &getAnalysis<ProfileInfo>();
 
-  // HELP! This is the debug code that always prints -1.0 for execution count.
+  DEBUG(dbgs() << "Running COMPLEX pgo loop unroll pass.\n");
+
   // Use the ./opt '-debug-only=pgo-loop-unroll' switch instead of '-debug' to show debug messages only for this module.
   for (Loop::block_iterator I = L->block_begin(), E = L->block_end();
        I != E; ++I) {
-    double executionCount = PI->getExecutionCount(*I);
+    int executionCount = (int) (PI->getExecutionCount(*I) + 0.5);
     DEBUG(dbgs() << "Execution count of block in loop: " << executionCount << "\n");
 
     BasicBlock *bb = *I;
     Function *enclosingFunction = bb->getParent();
     DEBUG(dbgs() << "Name of enclosing function: " << enclosingFunction->getName() << "\n");
-    double functionExecutionCount = PI->getExecutionCount(enclosingFunction);
+    int functionExecutionCount = (int) (PI->getExecutionCount(enclosingFunction) + 0.5);
     DEBUG(dbgs() << "Execution count of enclosing function: " << functionExecutionCount << "\n");
   }
 
@@ -202,8 +204,10 @@ bool LoopUnroll::runOnLoop(Loop *L, LPPassManager &LPM) {
     // completely unroll (subject to the threshold, checked below); otherwise
     // try to find greatest modulo of the trip count which is still under
     // threshold value.
-    if (TripCount == 0)
+    if (TripCount == 0) {
+      DEBUG(dbgs() << "Can't unroll loop.\n");
       return false;
+    }
     Count = TripCount;
   }
 
@@ -254,6 +258,12 @@ bool LoopUnroll::runOnLoop(Loop *L, LPPassManager &LPM) {
   }
 
   // Unroll the loop.
+  // 
+  DEBUG(dbgs()
+        << "Count: " << Count << "\n"
+        << "TripCount: " << TripCount << "\n"
+        << "TripMultiple: " << TripMultiple << "\n"
+        << "UnrollRuntime: " << UnrollRuntime << "\n");
   if (!UnrollLoop(L, Count, TripCount, UnrollRuntime, TripMultiple, LI, &LPM))
     return false;
 
