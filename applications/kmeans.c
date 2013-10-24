@@ -194,7 +194,7 @@ int main(int argc, char* argv[])
 	// int i;
 	point v = gen_xy(PTS, 10);
 	point c = lloyd(v, PTS, K);
-	print_eps(v, PTS, c, K);
+	// print_eps(v, PTS, c, K); // console output
 	// free(v); free(c);
 	return 0;
 }

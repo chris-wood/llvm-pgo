@@ -67,10 +67,10 @@ int main(int argc, char* argv[])
 		memcpy(buf + i * 8, template, 8 * sizeof(cplx)); // dest, src, count
 	}
 
-	show("Data: ", buf, n);
+	// show("Data: ", buf, n); // console output
 	fft(buf, n);
-	show("\nFFT : ", buf, n);
+	// show("\nFFT : ", buf, n); // console output
  
- 	printf("\n");
+ 	// printf("\n"); // console output
 	return 0;
 }

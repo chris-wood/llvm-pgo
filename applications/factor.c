@@ -71,13 +71,14 @@ int main(int argc, char*argv[])
     // for (i=0; i<4; i++) {
     for (i=0; i<1; i++) {
         factor( nums2factor[i], &ftors );
-        printf("\nfactors of %d are:\n  ", nums2factor[i]);
-        sep = ' ';
-        for (j=0; j<ftors.count; j++) {
-            printf("%c %d", sep, ftors.list[j]);
-            sep = ',';
-        }
-        printf("\n");
+        // console output
+        // printf("\nfactors of %d are:\n  ", nums2factor[i]);
+        // sep = ' ';
+        // for (j=0; j<ftors.count; j++) {
+        //     printf("%c %d", sep, ftors.list[j]);
+        //     sep = ',';
+        // }
+        // printf("\n");
     }
     return 0;
 }

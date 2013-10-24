@@ -97,10 +97,13 @@ void decode(const char *s, node t)
 		if (*s++ == '0') n = n->left;
 		else n = n->right;
  
-		if (n->c) putchar(n->c), n = t;
+		if (n->c) {
+			// putchar(n->c); // console output
+			n = t;
+		}
 	}
  
-	putchar('\n');
+	// putchar('\n'); // console output
 	if (t != n) printf("garbage input\n");
 }
  
@@ -121,23 +124,30 @@ int main(int argc, char* argv[])
 	char str[] = "This is an example for huffman encoding.";
 	int charCount = sizeof(str) - 1;
 	char *input = malloc(x * charCount + 1);
-	char buf[1024*1024];
+	char *buf = malloc(x * charCount * 6);  // this holds "bit string", that is, a very wastefull representation
+
+	if (input == NULL || buf == NULL) {
+		printf("Could not allocate enough memory!");
+		return 2;
+	}
 
 	for (i = 0; i < x; i++) {
     strcpy(input + i * charCount, str);
   }
  
-	init(str);
-	for (i = 0; i < 128; i++)
-		if (code[i]) printf("'%c': %s\n", i, code[i]);
+	init(input);
+	// console output
+	// for (i = 0; i < 128; i++)
+	// 	if (code[i]) printf("'%c': %s\n", i, code[i]);
  
 	encode(input, buf);
-	printf("encoded: %s\n", buf);
+	// printf("encoded: %s\n", buf); // console output
  
-	printf("decoded: ");
+	// printf("decoded: "); // console output
 	decode(buf, q[1]);
  
 	free(input);
+	free(buf);
 
 	return 0;
 }

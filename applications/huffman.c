@@ -180,13 +180,14 @@ int main(int argc, char* argv[])
   free(input);
  
   r = create_huffman_codes(freqs);
- 
-  for(i=0; i < BYTES; i++) {
-    if ( r[i] != NULL ) {
-      inttobits(r[i]->code, r[i]->nbits, strbit);
-      printf("%2ld * %c (%d) %s\n", freqs[i], i, r[i]->code, strbit);
-    }
-  }
+
+  // console output 
+  // for(i=0; i < BYTES; i++) {
+  //   if ( r[i] != NULL ) {
+  //     inttobits(r[i]->code, r[i]->nbits, strbit);
+  //     printf("%2ld * %c (%d) %s\n", freqs[i], i, r[i]->code, strbit);
+  //   }
+  // }
  
   free_huffman_codes(r);
  
