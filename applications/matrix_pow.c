@@ -1,6 +1,8 @@
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
+
+#define CAP
  
 typedef struct squareMtxStruct {
     int   dim;
@@ -151,32 +153,43 @@ void fillInit( double *cells, int rw, int dim, void *data)
     double theta = 3.1415926536/6.0;
     double c1 = cos( theta);
     double s1 = sin( theta);
- 
-    switch(rw) {
-    case 0:
-        cells[0]=c1; cells[1]=s1; cells[2]=0.0;
-        break;
-    case 1:
-        cells[0]=-s1; cells[1]=c1; cells[2]=0;
-        break;
-    case 2:
-        cells[0]=0.0; cells[1]=0.0; cells[2]=1.0;
-        break;
+    int r, c;
+
+    for (r = 0; r < dim; r++)
+    {
+        for (c = 0; c < dim; c++)
+        {
+            cells[r*dim + c] = rand() % CAP;
+        }
     }
+
+ 
+    // switch(rw) {
+    // case 0:
+    //     cells[0]=c1; cells[1]=s1; cells[2]=0.0;
+    //     break;
+    // case 1:
+    //     cells[0]=-s1; cells[1]=c1; cells[2]=0;
+    //     break;
+    // case 2:
+    //     cells[0]=0.0; cells[1]=0.0; cells[2]=1.0;
+    //     break;
+    // }
 }
  
-int main()
+int main(int argc, char** argv)
 {
-    SquareMtx m0 = NewSquareMtx( 3, fillInit, NULL);
-    SquareMtx m1 = SquareMtxPow( m0, 5);
-    SquareMtx m2 = SquareMtxPow( m0, 9);
-    SquareMtx m3 = SquareMtxPow( m0, 2);
+    int size = atoi(argv[1]);
+    SquareMtx m0 = NewSquareMtx( size, fillInit, NULL);
+    // SquareMtx m1 = SquareMtxPow( m0, 4);
+    // SquareMtx m2 = SquareMtxPow( m0, 8);
+    SquareMtx m3 = SquareMtxPow( m0, 20);
  
 //  fout = stdout;
     fout = fopen("matrx_exp.txt", "w");
     SquareMtxPrint(m0, "m0"); FreeSquareMtx(m0);
-    SquareMtxPrint(m1, "m0^5"); FreeSquareMtx(m1);
-    SquareMtxPrint(m2, "m0^9"); FreeSquareMtx(m2);
+    // SquareMtxPrint(m1, "m0^5"); FreeSquareMtx(m1);
+    // SquareMtxPrint(m2, "m0^9"); FreeSquareMtx(m2);
     SquareMtxPrint(m3, "m0^2"); FreeSquareMtx(m3);
     fclose(fout);
  
