@@ -28,7 +28,7 @@ void show_matrix(double *A, int n) {
     }
 }
  
-int main() {
+int run_benchmark() {
     int n = 3;
     double m1[] = {25, 15, -5,
                    15, 18,  0,
@@ -46,6 +46,13 @@ int main() {
     double *c2 = cholesky(m2, n);
     show_matrix(c2, n);
     free(c2);
- 
     return 0;
+}
+
+int main(int argc, char *argv[])
+{
+  int n = atoi(argv[1]);
+  for(int i = 0; i< n; i++)
+    run_benchmark();
+  return 0;
 }
