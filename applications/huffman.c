@@ -171,15 +171,24 @@ int main(int argc, char* argv[])
   const char *p;
   long freqs[BYTES];
  
-  memset(freqs, 0, sizeof freqs);
+  // memset(freqs, 0, sizeof freqs);
  
   // p = test;
-  p = input;
-  while(*p != '\0') freqs[*p++]++;
+  // p = input;
+  // while(*p != '\0') freqs[*p++]++;
+ 
+  // Do it more than once, otherwise it is too fast.
+  for (long j = 0; j < 1000; j++) {
+    // Frequency counting is also part of the algorithm and must be inside the loop.
+    memset(freqs, 0, sizeof freqs);
+    p = input;
+    while(*p != '\0') freqs[*p++]++;
+  
+    r = create_huffman_codes(freqs);
+    free_huffman_codes(r);
+  }
 
   free(input);
- 
-  r = create_huffman_codes(freqs);
 
   // console output 
   // for(i=0; i < BYTES; i++) {
@@ -189,7 +198,7 @@ int main(int argc, char* argv[])
   //   }
   // }
  
-  free_huffman_codes(r);
+  // free_huffman_codes(r);
  
   return 0;
 }
