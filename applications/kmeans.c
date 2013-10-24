@@ -25,15 +25,13 @@ point gen_xy(int count, double radius)
 	return pt;
 }
  
-// inline double dist2(point a, point b) // clang/llvm linker complains about undefined symbol
-double dist2(point a, point b)
+inline double dist2(point a, point b)
 {
 	double x = a->x - b->x, y = a->y - b->y;
 	return x*x + y*y;
 }
  
-// inline int // clang/llvm linker complains about undefined symbol
-int
+inline int
 nearest(point pt, point cent, int n_cluster, double *d2)
 {
 	int i, min_i;
@@ -172,29 +170,15 @@ void print_eps(point pts, int len, point cent, int n_cluster)
 #	undef for_len
 }
  
-// #define PTS 100000
-// #define K 11
-int main(int argc, char* argv[])
+//#define PTS 100000
+#define K 11
+int main(int argc, char** argv)
 {
-	// Input: PTS K.
-	// Number of points and number of clusters (optional).
-	 
-	if (argc != 2 && argc != 3) {
-    printf("usage: %s n_points [n_clusters]\n", argv[0]);
-    return -1;
-  }
-
 	int PTS = atoi(argv[1]);
-	int K;
-	if (argc == 3)
-		K = atoi(argv[2]);
-	else
-		K = 11;
-
-	// int i;
+	int i;
 	point v = gen_xy(PTS, 10);
 	point c = lloyd(v, PTS, K);
-	// print_eps(v, PTS, c, K); // console output
+	print_eps(v, PTS, c, K);
 	// free(v); free(c);
 	return 0;
 }
