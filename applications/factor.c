@@ -63,14 +63,16 @@ int main(int argc, char*argv[])
     int n = atoi(argv[1]);
 
     // int nums2factor[] = { 2059, 223092870, 3135, 45 };
-    int nums2factor[] = { n };
-    Factors ftors = { NULL, 0};
+    // Factors ftors = { NULL, 0};
     char sep;
     int i,j;
  
     // for (i=0; i<4; i++) {
-    for (i=0; i<1; i++) {
-        factor( nums2factor[i], &ftors );
+    for (i=0; i<100000; i++) {
+
+        Factors ftors = { NULL, 0};
+
+        factor( n, &ftors );
         // console output
         // printf("\nfactors of %d are:\n  ", nums2factor[i]);
         // sep = ' ';
@@ -79,6 +81,9 @@ int main(int argc, char*argv[])
         //     sep = ',';
         // }
         // printf("\n");
+        // 
+        
+        // This loop is a memory leak... ignore it!
     }
     return 0;
 }
