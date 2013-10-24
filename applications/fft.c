@@ -51,24 +51,28 @@ int main(int argc, char* argv[])
 
   int x = atoi(argv[1]);
 
-  if ((x & (x-1)) != 0) {
-  	printf("input must be power of 2\n");
-  	return -2;
-  }
+  // Not true anymore: We are looping now with constant (large) input size.
+  // if ((x & (x-1)) != 0) {
+  // 	printf("input must be power of 2\n");
+  // 	return -2;
+  // }
 
 	PI = atan2(1, 1) * 4;
 	// cplx buf[] = {1, 1, 1, 1, 0, 0, 0, 0};
 	cplx template[] = {1, 1, 1, 1, 0, 0, 0, 0};
 
-	int n = x * 8;
+	const int INPUT_REPEAT = 1024;
+	int n = INPUT_REPEAT * 8;
 	cplx buf[n];
 
-	for (int i = 0; i < x; i++) {
+	for (int i = 0; i < INPUT_REPEAT; i++) {
 		memcpy(buf + i * 8, template, 8 * sizeof(cplx)); // dest, src, count
 	}
 
 	// show("Data: ", buf, n); // console output
-	fft(buf, n);
+	// We have to do this more than once, otherwise it always finishes instantly.
+	for (int i = 0; i < x; i++)
+		fft(buf, n);
 	// show("\nFFT : ", buf, n); // console output
  
  	// printf("\n"); // console output
