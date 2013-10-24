@@ -124,7 +124,7 @@ void deconv3(void *g, int gx, int gy, int gz, void *f, int fx, int fy, int fz, v
 	free(f2);
 }
  
-int main()
+int run_benchmark()
 {
 	PI = atan2(1,1) * 4;
 	double h[2][3][4] = {
@@ -173,7 +173,15 @@ int main()
 		if (i < gx - hx) printf("\n");
 	}
 }
- 
+
+int main(int argc, char *argv[])
+{
+  int n = atoi(argv[1]);
+  for(int i = 0; i< n; i++)
+    run_benchmark();
+  return 0;
+}
+
 /* two-D case; since task doesn't require showing it, it's commented out */
 /*
 int main()
