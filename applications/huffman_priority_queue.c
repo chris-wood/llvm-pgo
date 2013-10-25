@@ -68,6 +68,15 @@ void build_code(node n, char *s, int len)
  
 void init(const char *s)
 {
+	//struct node_t pool[256] = {{0}};
+	memset(pool, 0, sizeof(pool));
+	q = qqq - 1;
+	n_nodes = 0;
+	qend = 1;
+	// char *code[128] = {0};
+	for (int j = 0; j < 128; j++)
+		code[j] = 0;
+
 	int i, freq[128] = {0};
 	char c[16];
  
@@ -135,16 +144,22 @@ int main(int argc, char* argv[])
     strcpy(input + i * charCount, str);
   }
  
-	init(input);
-	// console output
-	// for (i = 0; i < 128; i++)
-	// 	if (code[i]) printf("'%c': %s\n", i, code[i]);
- 
-	encode(input, buf);
-	// printf("encoded: %s\n", buf); // console output
- 
-	// printf("decoded: "); // console output
-	decode(buf, q[1]);
+ 	for (int j = 0; j < 8; j++) {
+
+ 		// printf("before input\n");
+		init(input);
+		// console output
+		// for (i = 0; i < 128; i++)
+		// 	if (code[i]) printf("'%c': %s\n", i, code[i]);
+	 
+ 		// printf("before encode\n");
+		encode(input, buf);
+		// printf("encoded: %s\n", buf); // console output
+	 
+ 		// printf("before decode: %d\n", j);
+		// printf("decoded: "); // console output
+		decode(buf, q[1]);
+	}
  
 	free(input);
 	free(buf);
