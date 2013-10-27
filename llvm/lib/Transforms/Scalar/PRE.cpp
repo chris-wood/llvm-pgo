@@ -1,4 +1,4 @@
-//===- PRE.cpp - Partial Redundancy Elimination ---------------------------===//
+//===- PGOPRE.cpp - Partial Redundancy Elimination ---------------------------===//
 // 
 //                     The LLVM Compiler Infrastructure
 //
@@ -11,7 +11,7 @@
 // optimization, using an SSA formulation based on e-paths.  See this paper for
 // more information:
 //
-//  E-path_PRE: partial redundancy elimination made easy
+//  E-path_PGOPRE: partial redundancy elimination made easy
 //  By: Dhananjay M. Dhamdhere   In: ACM SIGPLAN Notices. Vol 37, #8, 2002
 //    http://doi.acm.org/10.1145/596992.597004
 //
@@ -20,11 +20,14 @@
 //
 //===----------------------------------------------------------------------===//
 
+#include "llvm/ADT/Statistic.h"
+#include "llvm/Analysis/ProfileInfo.h"
 #include "llvm/Pass.h"
 #include "llvm/Function.h"
 #include "llvm/Type.h"
 #include "llvm/Instructions.h"
 #include "llvm/Support/CFG.h"
+#include "llvm/Support/InstIterator.h"
 #include "llvm/Analysis/Dominators.h"
 #include "llvm/Analysis/PostDominators.h"
 #include "llvm/Analysis/ValueNumbering.h"
@@ -36,12 +39,42 @@
 #include "Support/hash_set"
 using namespace llvm;
 
-namespace {
-  Statistic<> NumExprsEliminated("pre", "Number of expressions constantified");
-  Statistic<> NumRedundant      ("pre", "Number of redundant exprs eliminated");
-  Statistic<> NumInserted       ("pre", "Number of expressions inserted");
+// for convenience
+#include <vector>
+#include <map>
+#include <set>
+using namespace std; 
 
-  struct PRE : public FunctionPass {
+typedef GraphEdge std::pair<const BasicBlock*, const BasicBlock*>;
+
+// Helpful class/container for CFG subpaths - just a set of ordered pairs/edges
+class GraphPath
+{
+public:
+  // containers and fields
+  vector<GraphEdge> edges;
+  vector<int> weights;
+  vector<const BasicBlock*> nodes;
+
+  // methods
+  // TODO: buildSubgraph() = returns new instance of this class, or emtpy
+
+  int totalWeight() {
+    int acc = 0;
+    for (int i = 0; i < weights.size(); i++)
+    {
+      acc = acc + weights.get(i);
+    }
+    return acc;
+  }
+};
+
+namespace {
+  Statistic<> NumExprsEliminated("pgo-pre", "Number of expressions constantified");
+  Statistic<> NumRedundant      ("pgo-pre", "Number of redundant exprs eliminated");
+  Statistic<> NumInserted       ("pgo-pre", "Number of expressions inserted");
+
+  struct PGOPRE : public FunctionPass {
     virtual void getAnalysisUsage(AnalysisUsage &AU) const {
       AU.addRequiredID(BreakCriticalEdgesID);  // No critical edges for now!
       AU.addRequired<PostDominatorTree>();
@@ -50,10 +83,18 @@ namespace {
       AU.addRequired<DominatorTree>();
       AU.addRequired<DominanceFrontier>();
       AU.addRequired<ValueNumbering>();
+
+      // PGO additions
+      AU.addRequired<ProfileInfo>();
+      //AU.addPreserved<ProfileInfo>();  // Does this work?
     }
     virtual bool runOnFunction(Function &F);
 
   private:
+    // New content fancy shmancy
+    ProfileInfo *PI;
+    vector<GraphPath> paths;
+
     // Block information - Map basic blocks in a function back and forth to
     // unsigned integers.
     std::vector<BasicBlock*> BlockMapping;
@@ -78,6 +119,12 @@ namespace {
     typedef hash_map<BasicBlock*, Instruction*> AvailableBlocksTy;
     AvailableBlocksTy AvailableBlocks;
 
+    // Containers of CFG paths (and subpaths)
+    hash_map<const BasicBlock*, GraphPath*> AvailableSubPaths;
+    hash_map<const BasicBlock*, GraphPath*> UnAvailableSubPaths;
+    hash_map<const BasicBlock*, GraphPath*> AnticipableSubPaths;
+    hash_map<const BasicBlock*, GraphPath*> UnAnticipableSubPaths;
+
     bool ProcessBlock(BasicBlock *BB);
     
     // Anticipatibility calculation...
@@ -86,23 +133,26 @@ namespace {
                                                Instruction *Occurrence);
     void CalculateAnticipatiblityForOccurrence(unsigned BlockNo,
                                               std::vector<char> &AntBlocks,
-                                              Instruction *Occurrence);
+                                              Instruction *Occurrence
+                                              );
     void CalculateAnticipatibleBlocks(const std::map<unsigned, Instruction*> &D,
                                       std::vector<char> &AnticipatibleBlocks);
 
-    // PRE for an expression
     void MarkOccurrenceAvailableInAllDominatedBlocks(Instruction *Occurrence,
                                                      BasicBlock *StartBlock);
     void ReplaceDominatedAvailableOccurrencesWith(Instruction *NewOcc,
                                                   DominatorTree::Node *N);
     bool ProcessExpression(Instruction *I);
+
+    // PGOPRE for an expression
+    bool PGOPRE::EnabSpec(Instruction *I);
   };
 
-  RegisterOpt<PRE> Z("pre", "Partial Redundancy Elimination");
+  RegisterOpt<PGOPRE> Z("pgo-pre", "PGO-Based Partial Redundancy Elimination");
 }
 
 
-bool PRE::runOnFunction(Function &F) {
+bool PGOPRE::runOnFunction(Function &F) {
   VN  = &getAnalysis<ValueNumbering>();
   DS  = &getAnalysis<DominatorSet>();
   DT  = &getAnalysis<DominatorTree>();
@@ -110,7 +160,10 @@ bool PRE::runOnFunction(Function &F) {
   PDT = &getAnalysis<PostDominatorTree>();
   PDF = &getAnalysis<PostDominanceFrontier>();
 
-  DEBUG(std::cerr << "\n*** Running PRE on func '" << F.getName() << "'...\n");
+  // Gather the profile information.
+  PI = &getAnalysis<ProfileInfo>();
+
+  DEBUG(std::cerr << "\n*** Running PGOPRE on func '" << F.getName() << "'...\n");
 
   // Number the basic blocks based on a reverse post-order traversal of the CFG
   // so that all predecessors of a block (ignoring back edges) are visited
@@ -131,6 +184,108 @@ bool PRE::runOnFunction(Function &F) {
     DEBUG(std::cerr << "\n");
   }
 
+  /* need to initialize the subpath collections with their frequencies here
+
+  hash_map<const BasicBlock*, GraphPath*> AvailableSubPaths;
+  hash_map<const BasicBlock*, GraphPath*> UnAvailableSubPaths;
+  hash_map<const BasicBlock*, GraphPath*> AnticipableSubPaths;
+  hash_map<const BasicBlock*, GraphPath*> UnAnticipableSubPaths;
+  */
+
+  // Fetch start node to use in all calculations
+  Function::iterator startItr = F.begin();
+  const BasicBlock* startNode = *(F.begin());
+
+  // Build all paths through the graph using BFS
+  // getSinglePredecessor().
+  queue<const BasicBlock*> bfsQueue;
+  bfsQueue.push(startNode);
+  set<const BasicBlock*> visited;
+
+  // Maintain tails of all paths constructed so far...
+  GraphPath* startPath = new GraphPath();
+  startPath.nodes.push_back(startNode);
+  paths.push_back(startPath);
+
+  // Now BFS walk
+  while (bfsQueue.empty() == false)
+  {
+    const BasicBlock* curr = bfsQueue.front();
+    bfsQueue.pop();
+    visited.insert(curr);
+
+    // Find a way to extend all known paths by this given path
+    const BasicBlock* parent = curr->getSinglePredecessor();
+    if (parent != null)
+    {
+      for (unsigned int i = 0; i < paths.size(); i++)
+      {
+        int numNodes = paths.get(i)->nodes.size();
+        if (paths.get(i)->nodes.get(numNodes - 1) == parent)
+        {
+          // We found a way to EXTEND this path, so create an entirely 
+          //  new graph path and add it to the set of tails.
+          GraphPath* newPath = new GraphPath();
+          for (unsigned int j = 0; j < numNodes; j++) // save old paths
+          {
+            newPath->nodes.push_back(paths.get(i)->nodes.get(j));
+          }
+          for (unsigned int j = 0; j < numNodes - 1; j++) // #edges = (numNodes - 1) by properties of path
+          {
+            newPath->edges.push_back(paths.get(i)->edges.get(j));
+            newPath->weights.push_back(paths.get(i)->weights.get(j));
+          }
+
+          // Fetch the weight of this new edge
+          std::pair<const BasicBlock*, const BasicBlock*> e = PI->getEdge(parent, curr);
+          double newWeight = PI->getEdgeWeight(e);
+
+          // Build the new edge
+          // typedef GraphEdge std::pair<const BasicBlock*, const BasicBlock*>;
+          GraphEdge newEdge = GraphEdge(parent, curr);
+
+          // Append the new path vertex, edge, and weight of the edge, resp
+          newPath->nodes.push_back(curr);
+          newPath->edges.push_back(newEdge);
+          newPath->weights.push_back(newWeight);
+
+          // Finally, append this new path to our collection obtained so far...
+          paths.push_back(newPath);
+        }
+      }
+    } 
+
+    // Push this block's successors into the queue as per BFS
+    for (llvm::succ_const_iterator itr = succ_begin(curr); itr != succ_end(curr); itr++)
+    {
+      if (visited.find(*itr) == visited.end()) // not in the set of visited blocks
+      {
+        bfsQueue.push(*itr);
+      }
+      else
+      {
+        cout << "Skipping block (already visited) @" << *itr << endl;
+      }
+    }
+  }
+
+  // Walk the instructions in the function to build up the available, unavailable, anticipable, unanticipable sets
+  for (inst_iterator instItr = inst_begin(&F), E = inst_end(&F); instItr != E; ++instItr)
+  {
+    Instruction& inst = *instItr;
+    cout << "Calculating sets for instruction: " << inst << endl;
+
+    // 1. Build AvailableSubPaths for all blocks that are not the start, using BFS of basic blocks to build paths
+    for (Function::iterator itr = F.begin(); itr != F.end(); itr++)
+    {
+      if (itr != startItr)
+      {
+        // 1. extract all subpaths from start to this block
+        // 2. check to see if evaluation of expression is encountered...
+      }
+    }
+  }
+
   // Traverse the current function depth-first in dominator-tree order.  This
   // ensures that we see all definitions before their uses (except for PHI
   // nodes), allowing us to hoist dependent expressions correctly.
@@ -148,10 +303,10 @@ bool PRE::runOnFunction(Function &F) {
 
 // ProcessBlock - Process any expressions first seen in this block...
 //
-bool PRE::ProcessBlock(BasicBlock *BB) {
+bool PGOPRE::ProcessBlock(BasicBlock *BB) {
   bool Changed = false;
 
-  // PRE expressions first defined in this block...
+  // PGOPRE expressions first defined in this block...
   Instruction *PrevInst = 0;
   for (BasicBlock::iterator I = BB->begin(); I != BB->end(); )
     if (ProcessExpression(I)) {
@@ -169,7 +324,7 @@ bool PRE::ProcessBlock(BasicBlock *BB) {
   return Changed;
 }
 
-void PRE::MarkPostDominatingBlocksAnticipatible(PostDominatorTree::Node *N,
+void PGOPRE::MarkPostDominatingBlocksAnticipatible(PostDominatorTree::Node *N,
                                                 std::vector<char> &AntBlocks,
                                                 Instruction *Occurrence) {
   unsigned BlockNo = BlockNumbering[N->getBlock()];
@@ -195,9 +350,23 @@ void PRE::MarkPostDominatingBlocksAnticipatible(PostDominatorTree::Node *N,
     MarkPostDominatingBlocksAnticipatible(*I, AntBlocks, Occurrence);
 }
 
-void PRE::CalculateAnticipatiblityForOccurrence(unsigned BlockNo,
+/// caw: this is where profile-guided data is actually leveraged
+
+bool PGOPRE::EnabSpec(Instruction *I)
+{
+
+  // EnabSpec is true iff:
+  // (cost(exp, n) / freq(n)) < (benefit(exp, n) / freq(n)),
+  // cost(exp, n) = sum_{paths p in CostPaths} p.frequency,
+  // cost(exp, n) = sum_{paths p in BenefitPaths} p.frequency,
+
+  return false;
+}
+
+void PGOPRE::CalculateAnticipatiblityForOccurrence(unsigned BlockNo,
                                                 std::vector<char> &AntBlocks,
-                                                Instruction *Occurrence) {
+                                                Instruction *Occurrence
+                                                ) {
   if (AntBlocks[BlockNo]) return;  // Block already anticipatible!
 
   BasicBlock *BB = BlockMapping[BlockNo];
@@ -229,15 +398,13 @@ void PRE::CalculateAnticipatiblityForOccurrence(unsigned BlockNo,
 }
 
 
-void PRE::CalculateAnticipatibleBlocks(const std::map<unsigned,
-                                                      Instruction*> &Defs,
+void PGOPRE::CalculateAnticipatibleBlocks(const std::map<unsigned, Instruction*> &Defs,
                                        std::vector<char> &AntBlocks) {
   // Initialize to zeros...
   AntBlocks.resize(BlockMapping.size());
 
   // Loop over all of the expressions...
-  for (std::map<unsigned, Instruction*>::const_iterator I = Defs.begin(),
-         E = Defs.end(); I != E; ++I)
+  for (std::map<unsigned, Instruction*>::const_iterator I = Defs.begin(), E = Defs.end(); I != E; ++I)
     CalculateAnticipatiblityForOccurrence(I->first, AntBlocks, I->second);
 }
 
@@ -245,7 +412,7 @@ void PRE::CalculateAnticipatibleBlocks(const std::map<unsigned,
 /// for all nodes dominated by the occurrence to indicate that it is now the
 /// available occurrence to use in any of these blocks.
 ///
-void PRE::MarkOccurrenceAvailableInAllDominatedBlocks(Instruction *Occurrence,
+void PGOPRE::MarkOccurrenceAvailableInAllDominatedBlocks(Instruction *Occurrence,
                                                       BasicBlock *BB) {
   // FIXME: There are much more efficient ways to get the blocks dominated
   // by a block.  Use them.
@@ -258,7 +425,7 @@ void PRE::MarkOccurrenceAvailableInAllDominatedBlocks(Instruction *Occurrence,
 
 /// ReplaceDominatedAvailableOccurrencesWith - This loops over the region
 /// dominated by N, replacing any available expressions with NewOcc.
-void PRE::ReplaceDominatedAvailableOccurrencesWith(Instruction *NewOcc,
+void PGOPRE::ReplaceDominatedAvailableOccurrencesWith(Instruction *NewOcc,
                                                    DominatorTree::Node *N) {
   BasicBlock *BB = N->getBlock();
   Instruction *&ExistingAvailableVal = AvailableBlocks[BB];
@@ -294,13 +461,13 @@ void PRE::ReplaceDominatedAvailableOccurrencesWith(Instruction *NewOcc,
 
 /// ProcessExpression - Given an expression (instruction) process the
 /// instruction to remove any partial redundancies induced by equivalent
-/// computations.  Note that we only need to PRE each expression once, so we
-/// keep track of whether an expression has been PRE'd already, and don't PRE an
+/// computations.  Note that we only need to PGOPRE each expression once, so we
+/// keep track of whether an expression has been PGOPRE'd already, and don't PGOPRE an
 /// expression again.  Expressions may be seen multiple times because process
 /// the entire equivalence class at once, which may leave expressions later in
 /// the control path.
 ///
-bool PRE::ProcessExpression(Instruction *Expr) {
+bool PGOPRE::ProcessExpression(Instruction *Expr) {
   if (Expr->mayWriteToMemory() || Expr->getType() == Type::VoidTy ||
       isa<PHINode>(Expr))
     return false;         // Cannot move expression
@@ -526,7 +693,7 @@ bool PRE::ProcessExpression(Instruction *Expr) {
       // the edge if the predecessor didn't anticipate the expression and we
       // didn't break critical edges.
       //
-      PHINode *PN = new PHINode(ExprType, Expr->getName()+".PRE",
+      PHINode *PN = new PHINode(ExprType, Expr->getName()+".PGOPRE",
                                 AFBlock->begin());
       DEBUG(std::cerr << "INSERTING PHI for PR: " << *PN);
 
@@ -564,7 +731,7 @@ bool PRE::ProcessExpression(Instruction *Expr) {
             // to the definitions list...
             assert(NonPHIOccurrence && "No non-phi occurrences seen so far???");
             Instruction *New = NonPHIOccurrence->clone();
-            New->setName(NonPHIOccurrence->getName() + ".PRE-inserted");
+            New->setName(NonPHIOccurrence->getName() + ".PGOPRE-inserted");
             ProcessedExpressions.insert(New);
 
             DEBUG(std::cerr << "  INSERTING OCCURRRENCE: " << *New);
