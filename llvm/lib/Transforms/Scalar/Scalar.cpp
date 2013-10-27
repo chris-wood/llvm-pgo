@@ -28,6 +28,7 @@ using namespace llvm;
 /// ScalarOpts library.
 void llvm::initializeScalarOpts(PassRegistry &Registry) {
   initializeADCEPass(Registry);
+  initializePgoPrePass(Registry);
   initializeBlockPlacementPass(Registry);
   initializeCodeGenPreparePass(Registry);
   initializeConstantPropagationPass(Registry);
@@ -82,6 +83,10 @@ void LLVMAddDeadStoreEliminationPass(LLVMPassManagerRef PM) {
 void LLVMAddGVNPass(LLVMPassManagerRef PM) {
   unwrap(PM)->add(createGVNPass());
 }
+
+// void LLVMAddPgoPrePass(LLVMPassManagerRef PM) {
+//   unwrap(PM)->add(createPgoPrePass());
+// }
 
 void LLVMAddIndVarSimplifyPass(LLVMPassManagerRef PM) {
   unwrap(PM)->add(createIndVarSimplifyPass());
