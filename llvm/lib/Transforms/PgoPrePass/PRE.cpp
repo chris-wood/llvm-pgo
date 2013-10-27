@@ -1,5 +1,98 @@
+//===-- BasicBlockPlacement.cpp - Basic Block Code Layout optimization ----===//
+//
+//                     The LLVM Compiler Infrastructure
+//
+// This file is distributed under the University of Illinois Open Source
+// License. See LICENSE.TXT for details.
+//
+//===----------------------------------------------------------------------===//
+//
+// This file implements a very simple profile guided basic block placement
+// algorithm.  The idea is to put frequently executed blocks together at the
+// start of the function, and hopefully increase the number of fall-through
+// conditional branches.  If there is no profile information for a particular
+// function, this pass basically orders blocks in depth-first order
+//
+// The algorithm implemented here is basically "Algo1" from "Profile Guided Code
+// Positioning" by Pettis and Hansen, except that it uses basic block counts
+// instead of edge counts.  This should be improved in many ways, but is very
+// simple for now.
+//
+// Basically we "place" the entry block, then loop over all successors in a DFO,
+// placing the most frequently executed successor until we run out of blocks.  I
+// told you this was _extremely_ simplistic. :) This is also much slower than it
+// could be.  When it becomes important, this pass will be rewritten to use a
+// better algorithm, and then we can worry about efficiency.
+//
+//===----------------------------------------------------------------------===//
+
+/*
+
+To run with the profile data in tact
+
+./clang -03 -emit-llvm mod_inverse.c -c -o mod_inverse.bc
+./opt -insert-edge-profiling mod_inverse.bc -o mod_inverse.profile.bc
+./llc mod_inverse.profile.bc -o mod_inverse.profile.s
+./clang -o mod_inverse.profile mod_inverse.profile.s ../lib/libprofile_rt.so
+./mod_inverse.profile
+./llvm-prof mod_inverse.profile.bc
+./opt -profile-loader -block-placement mod_inverse.profile.bc
+
+*/
+
+#define DEBUG_TYPE "pgo-pre"
+#include "llvm/Transforms/Scalar.h"
+#include "llvm/ADT/Statistic.h"
+#include "llvm/Analysis/ProfileInfo.h"
+#include "llvm/IR/Function.h"
+#include "llvm/Pass.h"
+#include "llvm/Support/CFG.h"
+#include <set>
+#include <vector>
+#include <queue>
+using namespace llvm;
+
+#include <iostream>
+using namespace std;
+
+//STATISTIC(NumMoved, "Number of basic blocks moved");
+
+namespace {
+  struct PRE : public FunctionPass {
+    static char ID; // Pass identification, replacement for typeid
+    PRE() : FunctionPass(ID) {
+      initializePgoPrePass(*PassRegistry::getPassRegistry());
+    }
+
+    virtual bool runOnFunction(Function &F);
+
+    virtual void getAnalysisUsage(AnalysisUsage &AU) const {
+      AU.setPreservesCFG();
+      AU.addRequired<ProfileInfo>();
+      //AU.addPreserved<ProfileInfo>();  // Does this work?
+    }
+  private:
+    /// PI - The profile information that is guiding us.
+    ///
+    ProfileInfo *PI;
+
+    /// NumMovedBlocks - Every time we move a block, increment this counter.
+    ///
+    //unsigned NumMovedBlocks;
+  };
+}
+
+char PgoPre::ID = 0;
+INITIALIZE_PASS_BEGIN(PgoPre, "pgo-pre",
+                "Profile Guided PRE", false, false)
+INITIALIZE_AG_DEPENDENCY(ProfileInfo)
+INITIALIZE_PASS_END(PgoPre, "pgo-pre",
+                "Profile Guided PRE", false, false)
+
+FunctionPass *llvm::createPgoPrePass() { return new PgoPre(); }
+
+bool PRE::runOnFunction(Function &F) {
 /// runOnFunction - This is the main transformation entry point for a function.
-bool PRE::runOnFunction(Function& F) {
   if (!NoLoads)
     MD = &getAnalysis<MemoryDependenceAnalysis>();
   DT = &getAnalysis<DominatorTree>();
