@@ -283,6 +283,12 @@ FunctionPass *createGVNPass(bool NoLoads = false);
 
 //===----------------------------------------------------------------------===//
 //
+// PRE - Profile guided PRE.
+//
+FunctionPass *createPgoPrePass();
+
+//===----------------------------------------------------------------------===//
+//
 // MemCpyOpt - This pass performs optimizations related to eliminating memcpy
 // calls and/or combining multiple stores into memset's.
 //
