@@ -120,6 +120,7 @@ namespace {
     AvailableBlocksTy AvailableBlocks;
 
     // Containers of CFG paths (and subpaths)
+    // TODO: this should really be a map from pairs of (expressions/instructions exp, block n) to a path
     hash_map<const BasicBlock*, GraphPath*> AvailableSubPaths;
     hash_map<const BasicBlock*, GraphPath*> UnAvailableSubPaths;
     hash_map<const BasicBlock*, GraphPath*> AnticipableSubPaths;
