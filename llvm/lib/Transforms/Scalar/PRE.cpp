@@ -23,29 +23,30 @@
 #include "llvm/ADT/Statistic.h"
 #include "llvm/Analysis/ProfileInfo.h"
 #include "llvm/Pass.h"
-#include "llvm/Function.h"
-#include "llvm/Type.h"
-#include "llvm/Instructions.h"
+#include "llvm/IR/Function.h"
+#include "llvm/IR/Type.h"
+#include "llvm/IR/Instructions.h"
 #include "llvm/Support/CFG.h"
 #include "llvm/Support/InstIterator.h"
 #include "llvm/Analysis/Dominators.h"
 #include "llvm/Analysis/PostDominators.h"
-#include "llvm/Analysis/ValueNumbering.h"
+//#include "llvm/Analysis/ValueNumbering.h"
 #include "llvm/Transforms/Scalar.h"
-#include "Support/Debug.h"
-#include "Support/DepthFirstIterator.h"
-#include "Support/PostOrderIterator.h"
-#include "Support/Statistic.h"
-#include "Support/hash_set"
+//#include "Support/Debug.h"
+//#include "Support/DepthFirstIterator.h"
+//#include "Support/PostOrderIterator.h"
+//#include "Support/Statistic.h"
+//#include "Support/hash_set"
 using namespace llvm;
 
 // for convenience
+#include <iostream>
 #include <vector>
 #include <map>
 #include <set>
 using namespace std; 
 
-typedef GraphEdge std::pair<const BasicBlock*, const BasicBlock*>;
+typedef std::pair<const BasicBlock*, const BasicBlock*> GraphEdge;
 
 // Helpful class/container for CFG subpaths - just a set of ordered pairs/edges
 class GraphPath
@@ -61,28 +62,28 @@ public:
 
   int totalWeight() {
     int acc = 0;
-    for (int i = 0; i < weights.size(); i++)
+    for (unsigned int i = 0; i < weights.size(); i++)
     {
-      acc = acc + weights.get(i);
+      acc = acc + weights.at(i);
     }
     return acc;
   }
 };
 
 namespace {
-  Statistic<> NumExprsEliminated("pgo-pre", "Number of expressions constantified");
-  Statistic<> NumRedundant      ("pgo-pre", "Number of redundant exprs eliminated");
-  Statistic<> NumInserted       ("pgo-pre", "Number of expressions inserted");
+  //Statistic<> NumExprsEliminated("pgo-pre", "Number of expressions constantified");
+  //Statistic<> NumRedundant      ("pgo-pre", "Number of redundant exprs eliminated");
+  //Statistic<> NumInserted       ("pgo-pre", "Number of expressions inserted");
 
   struct PGOPRE : public FunctionPass {
     virtual void getAnalysisUsage(AnalysisUsage &AU) const {
       AU.addRequiredID(BreakCriticalEdgesID);  // No critical edges for now!
       AU.addRequired<PostDominatorTree>();
-      AU.addRequired<PostDominanceFrontier>();
-      AU.addRequired<DominatorSet>();
+      //AU.addRequired<PostDominanceFrontier>();
+      //AU.addRequired<DominatorSet>();
       AU.addRequired<DominatorTree>();
-      AU.addRequired<DominanceFrontier>();
-      AU.addRequired<ValueNumbering>();
+      //AU.addRequired<DominanceFrontier>();
+      //AU.addRequired<ValueNumbering>();
 
       // PGO additions
       AU.addRequired<ProfileInfo>();
@@ -98,17 +99,19 @@ namespace {
     // Block information - Map basic blocks in a function back and forth to
     // unsigned integers.
     std::vector<BasicBlock*> BlockMapping;
-    hash_map<BasicBlock*, unsigned> BlockNumbering;
+    map<BasicBlock*, unsigned> BlockNumbering;
 
     // ProcessedExpressions - Keep track of which expressions have already been
     // processed.
-    hash_set<Instruction*> ProcessedExpressions;
+    set<Instruction*> ProcessedExpressions;
 
     // Provide access to the various analyses used...
-    DominatorSet      *DS;
-    DominatorTree     *DT; PostDominatorTree *PDT;
-    DominanceFrontier *DF; PostDominanceFrontier *PDF;
-    ValueNumbering    *VN;
+    //DominatorSet      *DS;
+    DominatorTree     *DT; 
+    PostDominatorTree *PDT;
+    //DominanceFrontier *DF; 
+    //PostDominanceFrontier *PDF;
+    //ValueNumbering    *VN;
 
     // AvailableBlocks - Contain a mapping of blocks with available expression
     // values to the expression value itself.  This can be used as an efficient
@@ -116,15 +119,15 @@ namespace {
     // which version to use.  This map is only used while processing a single
     // expression.
     //
-    typedef hash_map<BasicBlock*, Instruction*> AvailableBlocksTy;
+    typedef map<BasicBlock*, Instruction*> AvailableBlocksTy;
     AvailableBlocksTy AvailableBlocks;
 
     // Containers of CFG paths (and subpaths)
     // TODO: this should really be a map from pairs of (expressions/instructions exp, block n) to a path
-    hash_map<const BasicBlock*, GraphPath*> AvailableSubPaths;
-    hash_map<const BasicBlock*, GraphPath*> UnAvailableSubPaths;
-    hash_map<const BasicBlock*, GraphPath*> AnticipableSubPaths;
-    hash_map<const BasicBlock*, GraphPath*> UnAnticipableSubPaths;
+    map<const BasicBlock*, GraphPath*> AvailableSubPaths;
+    map<const BasicBlock*, GraphPath*> UnAvailableSubPaths;
+    map<const BasicBlock*, GraphPath*> AnticipableSubPaths;
+    map<const BasicBlock*, GraphPath*> UnAnticipableSubPaths;
 
     bool ProcessBlock(BasicBlock *BB);
     
@@ -154,12 +157,12 @@ namespace {
 
 
 bool PGOPRE::runOnFunction(Function &F) {
-  VN  = &getAnalysis<ValueNumbering>();
-  DS  = &getAnalysis<DominatorSet>();
+  //VN  = &getAnalysis<ValueNumbering>();
+  //DS  = &getAnalysis<DominatorSet>();
   DT  = &getAnalysis<DominatorTree>();
-  DF  = &getAnalysis<DominanceFrontier>();
+  //DF  = &getAnalysis<DominanceFrontier>();
   PDT = &getAnalysis<PostDominatorTree>();
-  PDF = &getAnalysis<PostDominanceFrontier>();
+  //PDF = &getAnalysis<PostDominanceFrontier>();
 
   // Gather the profile information.
   PI = &getAnalysis<ProfileInfo>();
@@ -221,20 +224,20 @@ bool PGOPRE::runOnFunction(Function &F) {
     {
       for (unsigned int i = 0; i < paths.size(); i++)
       {
-        int numNodes = paths.get(i)->nodes.size();
-        if (paths.get(i)->nodes.get(numNodes - 1) == parent)
+        int numNodes = paths.at(i)->nodes.size();
+        if (paths.at(i)->nodes.at(numNodes - 1) == parent)
         {
           // We found a way to EXTEND this path, so create an entirely 
           //  new graph path and add it to the set of tails.
           GraphPath* newPath = new GraphPath();
           for (unsigned int j = 0; j < numNodes; j++) // save old paths
           {
-            newPath->nodes.push_back(paths.get(i)->nodes.get(j));
+            newPath->nodes.push_back(paths.at(i)->nodes.at(j));
           }
           for (unsigned int j = 0; j < numNodes - 1; j++) // #edges = (numNodes - 1) by properties of path
           {
-            newPath->edges.push_back(paths.get(i)->edges.get(j));
-            newPath->weights.push_back(paths.get(i)->weights.get(j));
+            newPath->edges.push_back(paths.at(i)->edges.at(j));
+            newPath->weights.push_back(paths.at(i)->weights.at(j));
           }
 
           // Fetch the weight of this new edge

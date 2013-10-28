@@ -4,6 +4,8 @@
  * handle more than 32 items, but the idea is there; at worst, use array instead */
 typedef unsigned long marker;
 marker one = 1;
+
+unsigned long combs = 0;
  
 void comb(int pool, int need, marker chosen, int at)
 {
@@ -13,8 +15,7 @@ void comb(int pool, int need, marker chosen, int at)
 		/* got all we needed; print the thing.  if other actions are
 		 * desired, we could have passed in a callback function. */
 		for (at = 0; at < pool; at++)
-			if (chosen & (one << at)) printf("%d ", at);
-		printf("\n");
+			if (chosen & (one << at)) combs = combs + 1;
 		return;
 	}
 	/* if we choose the current item, "or" (|) the bit to mark it so. */

@@ -1,5 +1,5 @@
 #!/bin/bash
-
+  
 echo Running experiment for optimization: $1
 
 # ./$1.sh is_prime "" 5 1024 2048 4096 8192 16384
