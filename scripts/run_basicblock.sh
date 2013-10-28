@@ -27,8 +27,8 @@ do
 	COUNTER=0
 	while [  $COUNTER -lt $count ]; do
 		echo Running iteration $COUNTER with size $i and storing the time...
-		perl time.pl $var      $i > $var.out.$COUNTER
-		perl time.pl $var.mod  $i > $var.mod.out.$COUNTER
+		perl time.pl $var      $i > $var.out.$i.$COUNTER
+		perl time.pl $var.mod  $i > $var.mod.out.$i.$COUNTER
 		let COUNTER=COUNTER+1
 	done
 done
