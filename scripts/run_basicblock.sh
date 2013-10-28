@@ -3,7 +3,12 @@ echo Running script: "$0"
 program="$1"
 compilerArgs="$2"
 count="$3"
-for i in ${@:5}
+
+# Storage for the last size param
+# firstSize="$4"
+# lastSize=0
+
+for i in ${@:4}
 do
 	echo ----------------------------------------
 	echo *** Size: $i
@@ -33,5 +38,7 @@ do
 		perl time.pl $program.mod  $i > $program.mod.out.$i.$COUNTER
 		let COUNTER=COUNTER+1
 	done
+	# lastSize=$i
 done
 
+# Now 
