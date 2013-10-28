@@ -1,15 +1,16 @@
 #!/bin/bash
-echo Running script: $1
-program=$2
-compilerArgs=$3
-count=$4
+echo Running script: "$0"
+program="$1"
+compilerArgs="$2"
+count="$3"
 for i in ${@:5}
 do
 	echo ----------------------------------------
 	echo *** Size: $i
 	echo ----------------------------------------
-    ./clang -03 -emit-llvm $program.c -c -o $program.bc $compilerArgs >> $program.$i.build 2>&1
-    ./opt -insert-edge-profiling $program.bc -o $program.profile.bc >> $program.$i.build 2>&1
+	echo $program $compilerArgs $count
+	./clang -03 -emit-llvm $program.c -c -o $program.bc $compilerArgs >> $program.$i.build 2>&1
+	./opt -insert-edge-profiling $program.bc -o $program.profile.bc >> $program.$i.build 2>&1
 	./llc $program.profile.bc -o $program.profile.s >> $program.$i.build 2>&1
 	./clang -o $program.profile $program.profile.s ../lib/libprofile_rt.so $compilerArgs >> $program.$i.build 2>&1
 
