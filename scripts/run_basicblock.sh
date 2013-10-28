@@ -9,7 +9,7 @@ do
 	echo *** Size: $i
 	echo ----------------------------------------
 	echo $program $compilerArgs $count
-	./clang -03 -emit-llvm $program.c -c -o $program.bc $compilerArgs >> $program.$i.build 2>&1
+	./clang -O3 -emit-llvm $program.c -c -o $program.bc $compilerArgs >> $program.$i.build 2>&1
 	./opt -insert-edge-profiling $program.bc -o $program.profile.bc >> $program.$i.build 2>&1
 	./llc $program.profile.bc -o $program.profile.s >> $program.$i.build 2>&1
 	./clang -o $program.profile $program.profile.s ../lib/libprofile_rt.so $compilerArgs >> $program.$i.build 2>&1
@@ -23,7 +23,7 @@ do
 	./llc $program.bc -o $program.mod.s >> $program.$i.optbuild 2>&1
 	./clang -o $program.mod $program.mod.s ../lib/libprofile_rt.so $compilerArgs >> $program.$i.optbuild 2>&1
 	./$program.mod $i > $program.mod.out >> $program.$i.dump 2>&1
-	./clang -o $program $program.c $compilerArgs >> $program.$i.optbuild 2>&1
+	./clang -O3 -o $program $program.c $compilerArgs >> $program.$i.optbuild 2>&1
 
 	# Now run the program with the time script and save the output
 	COUNTER=0
