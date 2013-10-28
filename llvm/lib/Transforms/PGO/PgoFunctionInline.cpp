@@ -6,9 +6,8 @@
 #include "llvm/Analysis/InlineCost.h"
 #include "llvm/Support/CommandLine.h"
 
-#define PGO_PASS_NAME "pgo-function-inline"
 #undef DEBUG_TYPE
-#define DEBUG_TYPE PGO_PASS_NAME
+#define DEBUG_TYPE "pgo"
 
 using namespace llvm;
 
@@ -42,7 +41,7 @@ namespace {
 
 char PgoFunctionInline::ID = 0;
 
-static RegisterPass<PgoFunctionInline> X(PGO_PASS_NAME, "Profile guided function inlining pass", false, false);
+static RegisterPass<PgoFunctionInline> X("pgo-function-inline", "Profile guided function inlining pass", false, false);
 
 InlineCost PgoFunctionInline::getInlineCost(CallSite CS){
   ProfileInfo *PI = &getAnalysis<ProfileInfo>();
