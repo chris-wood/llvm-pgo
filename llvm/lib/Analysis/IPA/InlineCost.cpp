@@ -31,6 +31,7 @@
 #include "llvm/Support/Debug.h"
 #include "llvm/Support/GetElementPtrTypeIterator.h"
 #include "llvm/Support/raw_ostream.h"
+#include "llvm/Analysis/PgoInlineAnalysis.h"
 
 using namespace llvm;
 
@@ -1154,12 +1155,14 @@ InlineCostAnalysis::~InlineCostAnalysis() {}
 void InlineCostAnalysis::getAnalysisUsage(AnalysisUsage &AU) const {
   AU.setPreservesAll();
   AU.addRequired<TargetTransformInfo>();
+  AU.addRequired<PgoInlineAnalysis>();
   CallGraphSCCPass::getAnalysisUsage(AU);
 }
 
 bool InlineCostAnalysis::runOnSCC(CallGraphSCC &SCC) {
   TD = getAnalysisIfAvailable<DataLayout>();
   TTI = &getAnalysis<TargetTransformInfo>();
+  PIA = &getAnalysis<PgoInlineAnalysis>();
   return false;
 }
 
