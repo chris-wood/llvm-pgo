@@ -2,7 +2,7 @@
   
 echo Running experiment for optimization: $1
 
-./$1.sh is_prime "" 5 1024 2048 4096 8192 16384
+./$1.sh is_prime "" 5 16384 32768 65536 131072 262144
 ./$1.sh block_test "" 5 1000 2000 3000 4000 5000
 ./$1.sh blocked "" 5 500 600 700 800 900 1000
 ./$1.sh factor "" 5 1000000 2000000 3000000 4000000 5000000
