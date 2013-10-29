@@ -38,6 +38,7 @@
 //#include "Support/Statistic.h"
 //#include "Support/hash_set"
 #include <vector>
+#include <algorithm>
 #include <map>
 #include <set>
 #include <queue>
@@ -104,8 +105,8 @@ namespace {
 
     // Block information - Map basic blocks in a function back and forth to
     // unsigned integers.
-    std::vector<BasicBlock*> BlockMapping;
-    map<BasicBlock*, unsigned> BlockNumbering;
+    std::vector<const BasicBlock*> BlockMapping;
+    map<const BasicBlock*, unsigned> BlockNumbering;
 
     // ProcessedExpressions - Keep track of which expressions have already been
     // processed.
@@ -156,9 +157,22 @@ namespace {
 
     // // PgoPre for an expression
     // bool PgoPre::EnabSpec(Instruction *I);
+
+    void BuildReversePostOrderBlockMap(vector<const BasicBlock*> &visited, const BasicBlock* curr);
   };
 
   // RegisterOpt<PgoPre> Z("pgo-pre", "PGO-Based Partial Redundancy Elimination");
+}
+
+void PgoPre::BuildReversePostOrderBlockMap(vector<const BasicBlock*> &visited, const BasicBlock* curr)
+{
+  if (curr == NULL)
+    return;
+  for (llvm::succ_const_iterator itr = succ_begin(curr); itr != succ_end(curr); itr++)
+  {
+    BuildReversePostOrderBlockMap(visited, *itr);
+  }
+  visited.push_back(curr);
 }
 
 // register the pass information
@@ -166,6 +180,9 @@ char PgoPre::ID = 0;
 INITIALIZE_PASS_BEGIN(PgoPre, "pgo-pre", "Profile Guided PRE", false, false)
 INITIALIZE_AG_DEPENDENCY(ProfileInfo)
 INITIALIZE_PASS_END(PgoPre, "pgo-pre", "Profile Guided PRE", false, false)
+
+FunctionPass *llvm::createPgoPrePass() { return new PgoPre(); }
+
 
 bool PgoPre::runOnFunction(Function &F) {
   //VN  = &getAnalysis<ValueNumbering>();
@@ -184,45 +201,59 @@ bool PgoPre::runOnFunction(Function &F) {
   Function::iterator startItr = F.begin();
   const BasicBlock* startNode = &(*(F.begin()));
 
+  // Build reverse post-order traversal of the graph and build the block mapping
+  vector<const BasicBlock*> rpoVisited;
+  BuildReversePostOrderBlockMap(rpoVisited, startNode);
+  reverse(rpoVisited.begin(), rpoVisited.end());
+  BlockMapping.reserve(F.size());
+  for (unsigned int i = 0; i < rpoVisited.size(); i++)
+  {
+    const BasicBlock *BB = rpoVisited.at(i);
+    BlockNumbering.insert(std::make_pair(BB, BlockMapping.size()));
+    BlockMapping.push_back(BB);
+  }
+
+
   // Number the basic blocks based on a reverse post-order traversal of the CFG
   // so that all predecessors of a block (ignoring back edges) are visited
   // before a block is visited.
-  BlockMapping.reserve(F.size());
-  {
-    vector<const BasicBlock*> postorder;
-    vector<const BasicBlock*> dfsStack;
-    set<const BasicBlock*> visited;
-    postorder.push_back(startNode);
-    const BasicBlock* previous = NULL;
-    while (dfsStack.empty() == false)
-    {
-      const BasicBlock* curr = dfsStack.at(dfsStack.size() - 1); // pop off the stack
+  // BlockMapping.reserve(F.size());
+  // {
+    // vector<const BasicBlock*> postorder;
+    // vector<const BasicBlock*> dfsStack;
+    // set<const BasicBlock*> visited;
+    // postorder.push_back(startNode);
+    // const BasicBlock* previous = NULL;
 
-      // case #1: going down the tree
-      bool foundMatch = prev == NULL;
-      if (previous != NULL)
-      {
-        for (llvm::succ_const_iterator itr = succ_begin(previous); itr != succ_end(previous); itr++)
-        {
-          if (*itr == curr) 
-          {
-            foundMatch = true;
-            break;
-          }
-        }
-      }
-      if (foundMatch)
-      {
-        for (llvm::succ_const_iterator itr2 = succ_begin(curr); itr2 != succ_end(curr); itr2++)
-        {
-          dfsStack.push_back(*itr2); // push all successors onto the stack
-        }
-      }
-      else // case #2: going up the tree
-      {
-        // TODO: finish me please
-      }
-    }
+    // while (dfsStack.empty() == false)
+    // {
+    //   const BasicBlock* curr = dfsStack.at(dfsStack.size() - 1); // pop off the stack
+
+    //   // case #1: going down the tree
+    //   bool foundMatch = prev != NULL;
+    //   if (previous != NULL)
+    //   {
+    //     for (llvm::succ_const_iterator itr = succ_begin(previous); itr != succ_end(previous); itr++)
+    //     {
+    //       if (*itr == curr) 
+    //       {
+    //         foundMatch = true;
+    //         break;
+    //       }
+    //     }
+    //   }
+    //   if (foundMatch)
+    //   {
+    //     for (llvm::succ_const_iterator itr2 = succ_begin(curr); itr2 != succ_end(curr); itr2++)
+    //     {
+    //       dfsStack.push_back(*itr2); // push all successors onto the stack
+    //     }
+    //   }
+    //   else // case #2: going up the tree
+    //   {
+    //     // TODO: finish me please
+    //   }
+    // }
 
     // this can be done using DSF...
 
@@ -237,7 +268,9 @@ bool PgoPre::runOnFunction(Function &F) {
   //     // cout << BB->getName() << " ";
   //   }
   //   // cout << endl;
-  }
+  // }
+
+
 
   /* need to initialize the subpath collections with their frequencies here
 
