@@ -46,17 +46,10 @@ bool PgoInlineAnalysis::runOnModule(Module &M) {
 }
 
 int PgoInlineAnalysis::pgoInlineCostBonus(const CallSite *CS) const {
-  const Function *callee = CS->getCalledFunction();
-  const Function *caller = CS->getCaller();
-  const BasicBlock *b = CS->getInstruction()->getParent();
-  double e = PI->getExecutionCount(b);
-  DEBUG(dbgs() << "pgoInlineCostBonus called at call site of " << caller->getName()
-	<< " calling " << callee->getName() << " which has execution count of: " << e);
   return 0;
 }
 
 int PgoInlineAnalysis::pgoInlineThresholdBonus(const CallSite *CS) const {
-  DEBUG(dbgs() << "pgoInlineThresholdBonus\n");
   return 0;
 }
 
