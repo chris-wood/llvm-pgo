@@ -3,6 +3,7 @@
 #include "llvm/IR/Module.h"
 #include "llvm/Analysis/ProfileInfo.h"
 #include "llvm/Pass.h"
+#include "llvm/Support/CommandLine.h"
 
 #undef DEBUG_TYPE
 #define DEBUG_TYPE "pgo"
@@ -10,7 +11,27 @@
 using namespace llvm;
 
 static RegisterPass<PgoInlineAnalysis> P("pgo-inline-analysis", "Profile guided weighting to inlining information",
-					 false, false);
+					   false, false);
+
+static cl::opt<int> pgiMultiplier("pgi-mul", cl::Hidden, cl::init(20000),
+				  cl::Optional, cl::desc("multiplyer for computing profile guided inlining"));
+
+static cl::opt<int> pgiOffset("pgi-off",  cl::Hidden, cl::init(-10000),
+			      cl::Optional, cl::desc("offset for computing profile guided inlining"));
+
+// exc: execution count for call site
+// tex: total execution count of all basic blocks
+// mex: maximum execution count of all basic blocks
+static int computeThresholdBonus(double exc, double tex, double mex) {
+  return -((exc / mex * pgiMultiplier) + pgiOffset);
+}
+
+// exc: execution count for call site
+// tex: total execution count of all basic blocks
+// mex: maximum execution count of all basic blocks
+static int computeCostBonus(double exc, double tex, double mex) {
+  return 0;
+}
 
 char PgoInlineAnalysis::ID = 0;
 
@@ -46,11 +67,19 @@ bool PgoInlineAnalysis::runOnModule(Module &M) {
 }
 
 int PgoInlineAnalysis::pgoInlineCostBonus(const CallSite *CS) const {
-  return 0;
+  BasicBlock *b = CS->getInstruction()->getParent();
+  double e = PI->getExecutionCount(b);
+  if (e == ProfileInfo::MissingValue)
+    return 0;
+  return computeCostBonus(e, totalBBExecutions, maxBBExecutions);
 }
 
 int PgoInlineAnalysis::pgoInlineThresholdBonus(const CallSite *CS) const {
-  return 0;
+  BasicBlock *b = CS->getInstruction()->getParent();
+  double e = PI->getExecutionCount(b);
+  if (e == ProfileInfo::MissingValue)
+    return 0;
+  return computeThresholdBonus(e, totalBBExecutions, maxBBExecutions);
 }
 
 #undef DEBUG_TYPE
