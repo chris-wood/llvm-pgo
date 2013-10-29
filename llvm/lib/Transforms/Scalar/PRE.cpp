@@ -34,7 +34,7 @@
 #include "llvm/Transforms/Scalar.h"
 //#include "Support/Debug.h"
 //#include "Support/DepthFirstIterator.h"
-//#include "Support/PostOrderIterator.h"
+#include "llvm/ADT/PostOrderIterator.h"
 //#include "Support/Statistic.h"
 //#include "Support/hash_set"
 #include <vector>
@@ -136,7 +136,7 @@ namespace {
     map<const BasicBlock*, GraphPath*> AnticipableSubPaths;
     map<const BasicBlock*, GraphPath*> UnAnticipableSubPaths;
 
-    // bool ProcessBlock(BasicBlock *BB);
+    bool ProcessBlock(const BasicBlock *BB);
     
     // // Anticipatibility calculation...
     // void MarkPostDominatingBlocksAnticipatible(PostDominatorTree::Node *N,
@@ -153,7 +153,7 @@ namespace {
     //                                                  BasicBlock *StartBlock);
     // void ReplaceDominatedAvailableOccurrencesWith(Instruction *NewOcc,
     //                                               DominatorTree::Node *N);
-    // bool ProcessExpression(Instruction *I);
+    bool ProcessExpression(const Instruction *I);
 
     // // PgoPre for an expression
     // bool PgoPre::EnabSpec(Instruction *I);
@@ -202,78 +202,16 @@ bool PgoPre::runOnFunction(Function &F) {
   const BasicBlock* startNode = &(*(F.begin()));
 
   // Build reverse post-order traversal of the graph and build the block mapping
-  vector<const BasicBlock*> rpoVisited;
-  BuildReversePostOrderBlockMap(rpoVisited, startNode);
-  reverse(rpoVisited.begin(), rpoVisited.end());
   BlockMapping.reserve(F.size());
-  for (unsigned int i = 0; i < rpoVisited.size(); i++)
-  {
-    const BasicBlock *BB = rpoVisited.at(i);
+  ReversePostOrderTraversal<Function*> RPOT(&F);
+  for (ReversePostOrderTraversal<Function*>::rpo_iterator I = RPOT.begin(),
+         E = RPOT.end(); I != E; ++I) {
+    BasicBlock *BB = *I;
     BlockNumbering.insert(std::make_pair(BB, BlockMapping.size()));
     BlockMapping.push_back(BB);
   }
 
-
-  // Number the basic blocks based on a reverse post-order traversal of the CFG
-  // so that all predecessors of a block (ignoring back edges) are visited
-  // before a block is visited.
-  // BlockMapping.reserve(F.size());
-  // {
-    // vector<const BasicBlock*> postorder;
-    // vector<const BasicBlock*> dfsStack;
-    // set<const BasicBlock*> visited;
-    // postorder.push_back(startNode);
-    // const BasicBlock* previous = NULL;
-
-    // while (dfsStack.empty() == false)
-    // {
-    //   const BasicBlock* curr = dfsStack.at(dfsStack.size() - 1); // pop off the stack
-
-    //   // case #1: going down the tree
-    //   bool foundMatch = prev != NULL;
-    //   if (previous != NULL)
-    //   {
-    //     for (llvm::succ_const_iterator itr = succ_begin(previous); itr != succ_end(previous); itr++)
-    //     {
-    //       if (*itr == curr) 
-    //       {
-    //         foundMatch = true;
-    //         break;
-    //       }
-    //     }
-    //   }
-    //   if (foundMatch)
-    //   {
-    //     for (llvm::succ_const_iterator itr2 = succ_begin(curr); itr2 != succ_end(curr); itr2++)
-    //     {
-    //       dfsStack.push_back(*itr2); // push all successors onto the stack
-    //     }
-    //   }
-    //   else // case #2: going up the tree
-    //   {
-    //     // TODO: finish me please
-    //   }
-    // }
-
-    // this can be done using DSF...
-
-  //   ReversePostOrderTraversal<Function*> RPOT(&F);
-  //   // cout << "Block order: ";
-  //   for (ReversePostOrderTraversal<Function*>::rpo_iterator I = RPOT.begin(),
-  //          E = RPOT.end(); I != E; ++I) {
-  //     // Keep track of mapping...
-  //     BasicBlock *BB = *I;
-  //     BlockNumbering.insert(std::make_pair(BB, BlockMapping.size()));
-  //     BlockMapping.push_back(BB);
-  //     // cout << BB->getName() << " ";
-  //   }
-  //   // cout << endl;
-  // }
-
-
-
   /* need to initialize the subpath collections with their frequencies here
-
   hash_map<const BasicBlock*, GraphPath*> AvailableSubPaths;
   hash_map<const BasicBlock*, GraphPath*> UnAvailableSubPaths;
   hash_map<const BasicBlock*, GraphPath*> AnticipableSubPaths;
@@ -375,9 +313,9 @@ bool PgoPre::runOnFunction(Function &F) {
   // // Traverse the current function depth-first in dominator-tree order.  This
   // // ensures that we see all definitions before their uses (except for PHI
   // // nodes), allowing us to hoist dependent expressions correctly.
-  // bool Changed = false;
-  // for (unsigned i = 0, e = BlockMapping.size(); i != e; ++i)
-  //   Changed |= ProcessBlock(BlockMapping[i]);
+  bool Changed = false;
+  for (unsigned i = 0, e = BlockMapping.size(); i != e; ++i)
+    Changed |= ProcessBlock(BlockMapping[i]);
 
   // // Free memory
   // BlockMapping.clear();
@@ -389,28 +327,31 @@ bool PgoPre::runOnFunction(Function &F) {
 }
 
 
-// // ProcessBlock - Process any expressions first seen in this block...
-// //
-// bool PgoPre::ProcessBlock(BasicBlock *BB) {
-//   bool Changed = false;
+// ProcessBlock - Process any expressions first seen in this block...
+//
+bool PgoPre::ProcessBlock(const BasicBlock *BB) 
+{
+  bool Changed = false;
 
-//   // PgoPre expressions first defined in this block...
-//   Instruction *PrevInst = 0;
-//   for (BasicBlock::iterator I = BB->begin(); I != BB->end(); )
-//     if (ProcessExpression(I)) {
-//       // The current instruction may have been deleted, make sure to back up to
-//       // PrevInst instead.
-//       if (PrevInst)
-//         I = PrevInst;
-//       else
-//         I = BB->begin();
-//       Changed = true;
-//     } else {
-//       PrevInst = I++;
-//     }
+  // PgoPre expressions first defined in this block...
+  const Instruction *PrevInst = 0;
+  for (BasicBlock::const_iterator I = BB->begin(); I != BB->end(); )
+  {
+    if (ProcessExpression(I)) {
+      // The current instruction may have been deleted, make sure to back up to
+      // PrevInst instead.
+      if (PrevInst)
+        I = PrevInst;
+      else
+        I = BB->begin();
+      Changed = true;
+    } else {
+      PrevInst = I++;
+    }
+  }
 
-//   return Changed;
-// }
+  return Changed;
+}
 
 // void PgoPre::MarkPostDominatingBlocksAnticipatible(PostDominatorTree::Node *N,
 //                                                 std::vector<char> &AntBlocks,
@@ -547,15 +488,15 @@ bool PgoPre::runOnFunction(Function &F) {
 // }
 
 
-// /// ProcessExpression - Given an expression (instruction) process the
-// /// instruction to remove any partial redundancies induced by equivalent
-// /// computations.  Note that we only need to PgoPre each expression once, so we
-// /// keep track of whether an expression has been PgoPre'd already, and don't PgoPre an
-// /// expression again.  Expressions may be seen multiple times because process
-// /// the entire equivalence class at once, which may leave expressions later in
-// /// the control path.
-// ///
-// bool PgoPre::ProcessExpression(Instruction *Expr) {
+/// ProcessExpression - Given an expression (instruction) process the
+/// instruction to remove any partial redundancies induced by equivalent
+/// computations.  Note that we only need to PgoPre each expression once, so we
+/// keep track of whether an expression has been PgoPre'd already, and don't PgoPre an
+/// expression again.  Expressions may be seen multiple times because process
+/// the entire equivalence class at once, which may leave expressions later in
+/// the control path.
+///
+bool PgoPre::ProcessExpression(const Instruction *Expr) {
 //   if (Expr->mayWriteToMemory() || Expr->getType() == Type::VoidTy ||
 //       isa<PHINode>(Expr))
 //     return false;         // Cannot move expression
@@ -884,5 +825,7 @@ bool PgoPre::runOnFunction(Function &F) {
 
 //   AvailableBlocks.clear();
 
-//   return Changed;
-// }
+  // return Changed;
+
+  return false;
+}
