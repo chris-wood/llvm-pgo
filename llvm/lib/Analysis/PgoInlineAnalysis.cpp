@@ -1,5 +1,6 @@
 #include "llvm/Analysis/PgoInlineAnalysis.h"
 #include "llvm/Support/CallSite.h"
+#include "llvm/IR/Module.h"
 #include "llvm/Analysis/ProfileInfo.h"
 #include "llvm/Pass.h"
 
@@ -13,19 +14,49 @@ static RegisterPass<PgoInlineAnalysis> P("pgo-inline-analysis", "Profile guided 
 
 char PgoInlineAnalysis::ID = 0;
 
+PgoInlineAnalysis::PgoInlineAnalysis()
+  : ModulePass(ID)
+  , totalBBExecutions(0)
+  , maxBBExecutions(0)
+{}
+
 void PgoInlineAnalysis::getAnalysisUsage(AnalysisUsage &AU) const {
-  AU.addRequired<ProfileInfo>();
-  AU.addPreserved<ProfileInfo>();
   AU.setPreservesAll();
+  AU.addRequired<ProfileInfo>();
 }
 
 bool PgoInlineAnalysis::runOnModule(Module &M) {
-  DEBUG(dbgs() << "in analysis pass");
+  PI = &getAnalysis<ProfileInfo>();
+  for (Module::iterator FI = M.begin(), FE = M.end(); FI != FE; ++FI) {
+    if (FI->isDeclaration())
+      continue;
+    for (Function::iterator BB = FI->begin(), BBE = FI->end();
+         BB != BBE; ++BB) {
+      double e = PI->getExecutionCount(BB);
+      if (e == ProfileInfo::MissingValue)
+	continue;
+      if(e > maxBBExecutions)
+	maxBBExecutions = e;
+      totalBBExecutions += e;
+    }
+  }
+  DEBUG(dbgs() << "total bb excecution count is: " << totalBBExecutions
+	<< "\nmax bb execution count is: " << maxBBExecutions << "\n");
   return false;
 }
 
-int PgoInlineAnalysis::pgoInlineBonus(CallSite *CS) {
-  DEBUG(dbgs() << "pgoInlineBonus");
+int PgoInlineAnalysis::pgoInlineCostBonus(const CallSite *CS) const {
+  const Function *callee = CS->getCalledFunction();
+  const Function *caller = CS->getCaller();
+  const BasicBlock *b = CS->getInstruction()->getParent();
+  double e = PI->getExecutionCount(b);
+  DEBUG(dbgs() << "pgoInlineCostBonus called at call site of " << caller->getName()
+	<< " calling " << callee->getName() << " which has execution count of: " << e);
+  return 0;
+}
+
+int PgoInlineAnalysis::pgoInlineThresholdBonus(const CallSite *CS) const {
+  DEBUG(dbgs() << "pgoInlineThresholdBonus\n");
   return 0;
 }
 
