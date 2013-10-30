@@ -68,21 +68,47 @@ namespace {
     }
 
   private:
-    unsigned getExecutionCount(Loop *L);
+    unsigned getExecutionCount(Loop* loop);
+    unsigned computeUnrollCount(unsigned executionCount);
+    unsigned getNextHighestPowerOf2(unsigned number);
+    unsigned isPowerOf2(unsigned number);
   };
 }
 
 // Compute the maximum execution count of all basic blocks within the loop.
-unsigned PgoLoopUnroll::getExecutionCount(Loop *L) {
+unsigned PgoLoopUnroll::getExecutionCount(Loop* loop) {
   ProfileInfo *PI = &getAnalysis<ProfileInfo>();
   unsigned count = 0;
 
-  for (Loop::block_iterator I = L->block_begin(), E = L->block_end();
+  for (Loop::block_iterator I = loop->block_begin(), E = loop->block_end();
        I !=E; ++I) {
     count = std::max(count, (unsigned) (PI->getExecutionCount(*I) + 0.5));
   }
 
   return count;
+}
+
+unsigned PgoLoopUnroll::isPowerOf2(unsigned number) {
+  return (number & (number - 1)) == 0;
+}
+
+unsigned PgoLoopUnroll::getNextHighestPowerOf2(unsigned number) {
+  // Return if number is already a power of 2.
+  if (isPowerOf2(number))
+    return number;
+
+  int pow;
+  for (pow = 0; number != 0; pow++)
+    number >>= 1;
+
+  return 1 << pow;
+}
+
+unsigned PgoLoopUnroll::computeUnrollCount(unsigned executionCount) {
+  const unsigned maxUnrollCount = 128;
+  unsigned count = getNextHighestPowerOf2(executionCount);
+
+  return std::min(count, maxUnrollCount);
 }
 
 char PgoLoopUnroll::ID = 0;
@@ -93,14 +119,17 @@ bool PgoLoopUnroll::runOnLoop(Loop *L, LPPassManager &LPM) {
 
   LoopInfo *LI = &getAnalysis<LoopInfo>();
 
-  unsigned Count = getExecutionCount(L);
-  DEBUG(dbgs() << "Execution count: " << Count << "\n");
+  unsigned executionCount = getExecutionCount(L);
+  DEBUG(dbgs() << "Execution count: " << executionCount << "\n");
+
+  unsigned unrollCount = computeUnrollCount(executionCount);
+  DEBUG(dbgs() << "Unroll count: " << unrollCount << "\n");
 
   unsigned TripCount = 0;
   unsigned TripMultiple = 1;
   bool AllowRuntime = false;
 
-  if (UnrollLoop(L, Count, TripCount, AllowRuntime, TripMultiple, LI, &LPM)) {
+  if (UnrollLoop(L, unrollCount, TripCount, AllowRuntime, TripMultiple, LI, &LPM)) {
     DEBUG(dbgs() << "Loop unrolled!\n");
     return true;
   }
