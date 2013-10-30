@@ -9,7 +9,7 @@ first="$4"
 last=0
 
 # Run the normal experiment, where each input size is used to compare the unoptimized/optimized versions
-for i in ${@:4}
+for i in "${@:4}"
 do
 	echo ----------------------------------------
 	echo ----------------------------------------

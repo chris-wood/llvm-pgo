@@ -9,24 +9,24 @@ void ivp_euler(deriv_f f, double y, int step, int end_t)
 {
   int t = 0;
 
-  printf(" Step %2d: ", (int)step);
+  //printf(" Step %2d: ", (int)step);
   do {
-    if (t % 10 == 0) printf(FMT, y);
+    //if (t % 10 == 0) printf(FMT, y);
     y += step * f(t, y);
   } while ((t += step) <= end_t);
-  printf("\n");
+  //printf("\n");
 }
 
 void analytic()
 {
   double t;
-  printf("    Time: ");
+//  printf("    Time: ");
   for (t = 0; t <= 100; t += 10) printf(" %7g", t);
-  printf("\nAnalytic: ");
+//  printf("\nAnalytic: ");
 
-  for (t = 0; t <= 100; t += 10)
-    printf(FMT, 20 + 80 * exp(-0.07 * t));
-  printf("\n");
+//  for (t = 0; t <= 100; t += 10)
+//    printf(FMT, 20 + 80 * exp(-0.07 * t));
+//  printf("\n");
 }
 
 double cooling(double t, double temp)
