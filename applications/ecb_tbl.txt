@@ -1,0 +1,17 @@
+/* Description of what tables are tested:
+   The provided implementations each use a different set of tables
+    - Java implementation: uses no tables
+    - reference C implementation: uses Logtable, Alogtable, S, Si, rcon
+    - fast C implementation: uses rcon and additionally
+        Te0, Te1, Te2, Te3, Te4, Td0, Td1, Td2, Td3, Td4.
+   All these tables are tested.
+
+=========================
+
+FILENAME:  "ecb_tbl.txt"
+
+Electronic Codebook (ECB) Mode
+Tables Known Answer Tests
+
+Algorithm Name: Rijndael
+Principal Submitter: Joan Daemen

@@ -1,46 +1,47 @@
 #!/bin/bash
 echo Running script: "$0"
 program="$1"
-compilerArgs="$2"
-count="$3"
+execName="$2"
+compilerArgs="$3"
+count="$4"
 
 # Storage for the last size param
-first="$4"
+first="$5"
 last=0
 
 # Run the normal experiment, where each input size is used to compare the unoptimized/optimized versions
-for i in "${@:4}"
+for i in "${@:5}"
 do
 	echo ----------------------------------------
 	echo ----------------------------------------
 	echo ----------------------------------------
 	echo Size: $i
-	echo $program $compilerArgs $count
+	echo $execName $compilerArgs $count
 	echo ----------------------------------------
 	echo ----------------------------------------
 	echo ----------------------------------------
-	./clang -O3 -emit-llvm $program.c -c -o $program.bc $compilerArgs >> $program.$i.build 2>&1
-	./opt -insert-edge-profiling $program.bc -o $program.profile.bc >> $program.$i.build 2>&1
-	./llc $program.profile.bc -o $program.profile.s >> $program.$i.build 2>&1
-	./clang -o $program.profile $program.profile.s ../lib/libprofile_rt.so $compilerArgs >> $program.$i.build 2>&1
+	./clang -O3 -emit-llvm $program.c -c -o $execName.bc $compilerArgs >> $execName.$i.build 2>&1
+	./opt -insert-edge-profiling $execName.bc -o $execName.profile.bc >> $execName.$i.build 2>&1
+	./llc $execName.profile.bc -o $execName.profile.s >> $execName.$i.build 2>&1
+	./clang -o $execName.profile $execName.profile.s ../lib/libprofile_rt.so $compilerArgs >> $execName.$i.build 2>&1
 
 	# Gather the profile data and output, for peace of mind
-	./$program.profile $i > $program.profile.out >> $program.$i.dump 2>&1
-	./llvm-prof $program.profile.bc >> $program.$i.dump 2>&1
+	./$execName.profile $i > $execName.profile.out >> $execName.$i.dump 2>&1
+	./llvm-prof $execName.profile.bc >> $execName.$i.dump 2>&1
 
 	# Now do the block placement and gather the results...
-	./opt -profile-loader -block-placement $program.bc >> $program.$i.optbuild 2>&1
-	./llc $program.bc -o $program.mod.s >> $program.$i.optbuild 2>&1
-	./clang -o $program.mod $program.mod.s ../lib/libprofile_rt.so $compilerArgs >> $program.$i.optbuild 2>&1
-	./$program.mod $i > $program.mod.out >> $program.$i.dump 2>&1
-	./clang -O3 -o $program $program.c $compilerArgs >> $program.$i.optbuild 2>&1
+	./opt -profile-loader -block-placement $execName.bc >> $execName.$i.optbuild 2>&1
+	./llc $execName.bc -o $execName.mod.s >> $execName.$i.optbuild 2>&1
+	./clang -o $execName.mod $execName.mod.s ../lib/libprofile_rt.so $compilerArgs >> $execName.$i.optbuild 2>&1
+	./$execName.mod $i > $execName.mod.out >> $execName.$i.dump 2>&1
+	./clang -O3 -o $execName $program.c $compilerArgs >> $execName.$i.optbuild 2>&1
 
 	# Now run the program with the time script and save the output
 	COUNTER=0
 	while [  $COUNTER -lt $count ]; do
 		echo Running iteration $COUNTER with size $i and storing the time...
-		perl time.pl $program      $i > $program.out.$i.$COUNTER
-		perl time.pl $program.mod  $i > $program.mod.out.$i.$COUNTER
+		perl time.pl $execName      $i > $execName.out.$i.$COUNTER
+		perl time.pl $execName.mod  $i > $execName.mod.out.$i.$COUNTER
 		let COUNTER=COUNTER+1
 	done
 	# Store the last size used for the subsequent part of the experiment
@@ -52,35 +53,35 @@ echo ----------------------------------------
 echo ----------------------------------------
 echo ----------------------------------------
 echo Optimizing for size $first and running all sizes
-echo $program $compilerArgs $count
+echo $execName $compilerArgs $count
 echo ----------------------------------------
 echo ----------------------------------------
 echo ----------------------------------------
-./clang -O3 -emit-llvm $program.c -c -o $program.bc $compilerArgs >> $program.first.build 2>&1
-./opt -insert-edge-profiling $program.bc -o $program.profile.bc >> $program.first.build 2>&1
-./llc $program.profile.bc -o $program.profile.s >> $program.first.build 2>&1
-./clang -o $program.profile $program.profile.s ../lib/libprofile_rt.so $compilerArgs >> $program.first.build 2>&1
+./clang -O3 -emit-llvm $program.c -c -o $execName.bc $compilerArgs >> $execName.first.build 2>&1
+./opt -insert-edge-profiling $execName.bc -o $execName.profile.bc >> $execName.first.build 2>&1
+./llc $execName.profile.bc -o $execName.profile.s >> $execName.first.build 2>&1
+./clang -o $execName.profile $execName.profile.s ../lib/libprofile_rt.so $compilerArgs >> $execName.first.build 2>&1
 
 # Gather the profile data and output, for peace of mind
 #### THIS IS WHERE PROFILE DATA IS GATHERED FOR THE SIZE
-./$program.profile $first > $program.profile.out >> $program.first.dump 2>&1
-./llvm-prof $program.profile.bc >> $program.first.dump 2>&1
+./$execName.profile $first > $execName.profile.out >> $execName.first.dump 2>&1
+./llvm-prof $execName.profile.bc >> $execName.first.dump 2>&1
 
 # Now do the block placement and gather the results...
-./opt -profile-loader -block-placement $program.bc >> $program.first.optbuild 2>&1
-./llc $program.bc -o $program.mod.s >> $program.first.optbuild 2>&1
-./clang -o $program.mod $program.mod.s ../lib/libprofile_rt.so $compilerArgs >> $program.first.optbuild 2>&1
-./$program.mod $first > $program.mod.out >> $program.first.dump 2>&1
-./clang -O3 -o $program $program.c $compilerArgs >> $program.first.optbuild 2>&1
+./opt -profile-loader -block-placement $execName.bc >> $execName.first.optbuild 2>&1
+./llc $execName.bc -o $execName.mod.s >> $execName.first.optbuild 2>&1
+./clang -o $execName.mod $execName.mod.s ../lib/libprofile_rt.so $compilerArgs >> $execName.first.optbuild 2>&1
+./$execName.mod $first > $execName.mod.out >> $execName.first.dump 2>&1
+./clang -O3 -o $execName $program.c $compilerArgs >> $execName.first.optbuild 2>&1
 
 # Now run the program with the time script and save the output
-for i in ${@:4}
+for i in ${@:5}
 do
 	COUNTER=0
 	while [  $COUNTER -lt $count ]; do
 		echo Running iteration $COUNTER with size $i and storing the time...
-		perl time.pl $program      $i > $program.first.out.$i.$COUNTER
-		perl time.pl $program.mod  $i > $program.first.mod.out.$i.$COUNTER
+		perl time.pl $execName      $i > $execName.first.out.$i.$COUNTER
+		perl time.pl $execName.mod  $i > $execName.first.mod.out.$i.$COUNTER
 		let COUNTER=COUNTER+1
 	done
 done
@@ -90,35 +91,35 @@ echo ----------------------------------------
 echo ----------------------------------------
 echo ----------------------------------------
 echo Optimizing for size $last and running all sizes
-echo $program $compilerArgs $count
+echo $execName $compilerArgs $count
 echo ----------------------------------------
 echo ----------------------------------------
 echo ----------------------------------------
-./clang -O3 -emit-llvm $program.c -c -o $program.bc $compilerArgs >> $program.last.build 2>&1
-./opt -insert-edge-profiling $program.bc -o $program.profile.bc >> $program.last.build 2>&1
-./llc $program.profile.bc -o $program.profile.s >> $program.last.build 2>&1
-./clang -o $program.profile $program.profile.s ../lib/libprofile_rt.so $compilerArgs >> $program.last.build 2>&1
+./clang -O3 -emit-llvm $program.c -c -o $execName.bc $compilerArgs >> $execName.last.build 2>&1
+./opt -insert-edge-profiling $execName.bc -o $execName.profile.bc >> $execName.last.build 2>&1
+./llc $execName.profile.bc -o $execName.profile.s >> $execName.last.build 2>&1
+./clang -o $execName.profile $execName.profile.s ../lib/libprofile_rt.so $compilerArgs >> $execName.last.build 2>&1
 
 # Gather the profile data and output, for peace of mind
 #### THIS IS WHERE PROFILE DATA IS GATHERED FOR THE SIZE
-./$program.profile $last > $program.profile.out >> $program.last.dump 2>&1
-./llvm-prof $program.profile.bc >> $program.last.dump 2>&1
+./$execName.profile $last > $execName.profile.out >> $execName.last.dump 2>&1
+./llvm-prof $execName.profile.bc >> $execName.last.dump 2>&1
 
 # Now do the block placement and gather the results...
-./opt -profile-loader -block-placement $program.bc >> $program.last.optbuild 2>&1
-./llc $program.bc -o $program.mod.s >> $program.last.optbuild 2>&1
-./clang -o $program.mod $program.mod.s ../lib/libprofile_rt.so $compilerArgs >> $program.last.optbuild 2>&1
-./$program.mod $last > $program.mod.out >> $program.last.dump 2>&1
-./clang -O3 -o $program $program.c $compilerArgs >> $program.last.optbuild 2>&1
+./opt -profile-loader -block-placement $execName.bc >> $execName.last.optbuild 2>&1
+./llc $execName.bc -o $execName.mod.s >> $execName.last.optbuild 2>&1
+./clang -o $execName.mod $execName.mod.s ../lib/libprofile_rt.so $compilerArgs >> $execName.last.optbuild 2>&1
+./$execName.mod $last > $execName.mod.out >> $execName.last.dump 2>&1
+./clang -O3 -o $execName $program.c $compilerArgs >> $execName.last.optbuild 2>&1
 
 # Now run the program with the time script and save the output
-for i in ${@:4}
+for i in ${@:5}
 do
 	COUNTER=0
 	while [  $COUNTER -lt $count ]; do
 		echo Running iteration $COUNTER with size $i and storing the time...
-		perl time.pl $program      $i > $program.last.out.$i.$COUNTER
-		perl time.pl $program.mod  $i > $program.last.mod.out.$i.$COUNTER
+		perl time.pl $execName      $i > $execName.last.out.$i.$COUNTER
+		perl time.pl $execName.mod  $i > $execName.last.mod.out.$i.$COUNTER
 		let COUNTER=COUNTER+1
 	done
 done
