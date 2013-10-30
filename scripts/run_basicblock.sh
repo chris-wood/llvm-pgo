@@ -14,8 +14,8 @@ do
 	echo ----------------------------------------
 	echo ----------------------------------------
 	echo ----------------------------------------
-	echo *** Size: $i
-	echo *** $program $compilerArgs $count
+	echo Size: $i
+	echo $program $compilerArgs $count
 	echo ----------------------------------------
 	echo ----------------------------------------
 	echo ----------------------------------------
@@ -38,7 +38,7 @@ do
 	# Now run the program with the time script and save the output
 	COUNTER=0
 	while [  $COUNTER -lt $count ]; do
-		echo *** Running iteration $COUNTER with size $i and storing the time...
+		echo Running iteration $COUNTER with size $i and storing the time...
 		perl time.pl $program      $i > $program.out.$i.$COUNTER
 		perl time.pl $program.mod  $i > $program.mod.out.$i.$COUNTER
 		let COUNTER=COUNTER+1
@@ -51,7 +51,7 @@ done
 echo ----------------------------------------
 echo ----------------------------------------
 echo ----------------------------------------
-echo *** Optimizing for size $first and running all sizes
+echo Optimizing for size $first and running all sizes
 echo $program $compilerArgs $count
 echo ----------------------------------------
 echo ----------------------------------------
@@ -78,7 +78,7 @@ for i in ${@:4}
 do
 	COUNTER=0
 	while [  $COUNTER -lt $count ]; do
-		echo *** Running iteration $COUNTER with size $i and storing the time...
+		echo Running iteration $COUNTER with size $i and storing the time...
 		perl time.pl $program      $i > $program.first.out.$i.$COUNTER
 		perl time.pl $program.mod  $i > $program.first.mod.out.$i.$COUNTER
 		let COUNTER=COUNTER+1
@@ -89,7 +89,7 @@ done
 echo ----------------------------------------
 echo ----------------------------------------
 echo ----------------------------------------
-echo *** Optimizing for size $last and running all sizes
+echo Optimizing for size $last and running all sizes
 echo $program $compilerArgs $count
 echo ----------------------------------------
 echo ----------------------------------------
@@ -116,7 +116,7 @@ for i in ${@:4}
 do
 	COUNTER=0
 	while [  $COUNTER -lt $count ]; do
-		echo *** Running iteration $COUNTER with size $i and storing the time...
+		echo Running iteration $COUNTER with size $i and storing the time...
 		perl time.pl $program      $i > $program.last.out.$i.$COUNTER
 		perl time.pl $program.mod  $i > $program.last.mod.out.$i.$COUNTER
 		let COUNTER=COUNTER+1
