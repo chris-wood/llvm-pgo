@@ -142,10 +142,10 @@ namespace {
     void MarkPostDominatingBlocksAnticipatible(DomTreeNode *N,
                                                std::vector<char> &AntBlocks,
                                                Instruction *Occurrence);
-    void CalculateAnticipatiblityForOccurrence(unsigned BlockNo,
-                                              std::vector<char> &AntBlocks,
-                                              Instruction *Occurrence
-                                              );
+    // void CalculateAnticipatiblityForOccurrence(unsigned BlockNo,
+    //                                           std::vector<char> &AntBlocks,
+    //                                           Instruction *Occurrence
+    //                                           );
     // void CalculateAnticipatibleBlocks(const std::map<unsigned, Instruction*> &D,
     //                                   std::vector<char> &AnticipatibleBlocks);
 
@@ -391,35 +391,36 @@ void PgoPre::MarkPostDominatingBlocksAnticipatible(DomTreeNode *N,
 //   return false;
 // }
 
-void PgoPre::CalculateAnticipatiblityForOccurrence(unsigned BlockNo, std::vector<char> &AntBlocks, Instruction *Occurrence) {
-  if (AntBlocks[BlockNo]) return;  // Block already anticipatible!
+// void PgoPre::CalculateAnticipatiblityForOccurrence(unsigned BlockNo, std::vector<char> &AntBlocks, Instruction *Occurrence) {
+//   if (AntBlocks[BlockNo]) return;  // Block already anticipatible!
 
-  const BasicBlock *BB = BlockMapping[BlockNo];
+//   const BasicBlock *BB = BlockMapping[BlockNo];
 
-  // For each occurrence, mark all post-dominated blocks as anticipatible...
-  MarkPostDominatingBlocksAnticipatible(PDT->getNode(const_cast<BasicBlock*>(BB)), AntBlocks, Occurrence);
+//   // For each occurrence, mark all post-dominated blocks as anticipatible...
+//   MarkPostDominatingBlocksAnticipatible(PDT->getNode(const_cast<BasicBlock*>(BB)), AntBlocks, Occurrence);
 
-  // Next, mark any blocks in the post-dominance frontier as anticipatible iff
-  // all successors are anticipatible.
-  //
-  PostDominanceFrontier::iterator PDFI = PDF->find(BB);
-  if (PDFI != DF->end())
-    for (std::set<BasicBlock*>::iterator DI = PDFI->second.begin();
-         DI != PDFI->second.end(); ++DI) {
-      BasicBlock *PDFBlock = *DI;
-      bool AllSuccessorsAnticipatible = true;
-      for (succ_iterator SI = succ_begin(PDFBlock), SE = succ_end(PDFBlock);
-           SI != SE; ++SI)
-        if (!AntBlocks[BlockNumbering[*SI]]) {
-          AllSuccessorsAnticipatible = false;
-          break;
-        }
+//   // Next, mark any blocks in the post-dominance frontier as anticipatible iff
+//   // all successors are anticipatible.
+//   //
+//   PostDominanceFrontier::iterator PDFI = PDF->find(BB);
+//   if (PDFI != DF->end())
+//     for (std::set<BasicBlock*>::iterator DI = PDFI->second.begin();
+//          DI != PDFI->second.end(); ++DI) {
+//       BasicBlock *PDFBlock = *DI;
+//       bool AllSuccessorsAnticipatible = true;
+//       for (succ_iterator SI = succ_begin(PDFBlock), SE = succ_end(PDFBlock);
+//            SI != SE; ++SI)
+//         if (!AntBlocks[BlockNumbering[*SI]]) {
+//           AllSuccessorsAnticipatible = false;
+//           break;
+//         }
 
-      if (AllSuccessorsAnticipatible)
-        CalculateAnticipatiblityForOccurrence(BlockNumbering[PDFBlock],
-                                              AntBlocks, Occurrence);
-    }
-}
+//       if (AllSuccessorsAnticipatible)
+//       {
+//         CalculateAnticipatiblityForOccurrence(BlockNumbering[PDFBlock], AntBlocks, Occurrence);
+//       }
+//     }
+// }
 
 
 // void PgoPre::CalculateAnticipatibleBlocks(const std::map<unsigned, Instruction*> &Defs,
