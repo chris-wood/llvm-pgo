@@ -126,6 +126,7 @@ void initializeFunctionAttrsPass(PassRegistry&);
 void initializeGCMachineCodeAnalysisPass(PassRegistry&);
 void initializeGCModuleInfoPass(PassRegistry&);
 void initializeGVNPass(PassRegistry&);
+void initializePgoPrePass(PassRegistry&);
 void initializeGlobalDCEPass(PassRegistry&);
 void initializeGlobalOptPass(PassRegistry&);
 void initializeGlobalsModRefPass(PassRegistry&);

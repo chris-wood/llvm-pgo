@@ -1,12 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
+
+unsigned long perms = 0;
  
 /* print a list of ints */
 int show(int *x, int len)
 {
 	int i;
 	for (i = 0; i < len; i++)
-		printf("%d%c", x[i], i == len - 1 ? '\n' : ' ');
+		perms++;
 	return 1;
 }
  
