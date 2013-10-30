@@ -17,17 +17,6 @@ void ivp_euler(deriv_f f, double y, int step, int end_t)
   //printf("\n");
 }
 
-void analytic()
-{
-  double t;
-//  printf("    Time: ");
-  for (t = 0; t <= 100; t += 10) printf(" %7g", t);
-//  printf("\nAnalytic: ");
-
-//  for (t = 0; t <= 100; t += 10)
-//    printf(FMT, 20 + 80 * exp(-0.07 * t));
-//  printf("\n");
-}
 
 double cooling(double t, double temp)
 {
@@ -36,7 +25,6 @@ double cooling(double t, double temp)
 
 int run_benchmark()
 {
-  analytic();
   ivp_euler(cooling, 100, 2, 100);
   ivp_euler(cooling, 100, 5, 100);
   ivp_euler(cooling, 100, 10, 100);
