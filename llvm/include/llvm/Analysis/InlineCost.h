@@ -24,7 +24,8 @@ class CallSite;
 class DataLayout;
 class Function;
 class TargetTransformInfo;
-
+class PgoInlineAnalysis;
+  
 namespace InlineConstants {
   // Various magic constants used to adjust heuristics.
   const int InstrCost = 5;
@@ -102,6 +103,7 @@ public:
 class InlineCostAnalysis : public CallGraphSCCPass {
   const DataLayout *TD;
   const TargetTransformInfo *TTI;
+  const PgoInlineAnalysis *PIA;
 
 public:
   static char ID;
