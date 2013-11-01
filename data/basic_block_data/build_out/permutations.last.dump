@@ -1,0 +1,264 @@
+===-------------------------------------------------------------------------===
+LLVM profiling output for executions:
+  1. ./is_prime.profile 65536 
+  2. ./is_prime.profile 131072 
+  3. ./is_prime.profile 262144 
+  4. ./is_prime.profile 524288 
+  5. ./is_prime.profile 1048576 
+  6. ./is_prime.profile 65536 
+  7. ./is_prime.profile 1048576 
+  8. ./is_prime.profile 131072 
+  9. ./block_test.profile 5000 
+  10. ./block_test.profile 7500 
+  11. ./block_test.profile 10000 
+  12. ./block_test.profile 12500 
+  13. ./block_test.profile 15000 
+  14. ./block_test.profile 5000 
+  15. ./block_test.profile 15000 
+  16. ./blocked.profile 900 
+  17. ./blocked.profile 1000 
+  18. ./blocked.profile 1100 
+  19. ./blocked.profile 1200 
+  20. ./blocked.profile 1300 
+  21. ./blocked.profile 1400 
+  22. ./blocked.profile 900 
+  23. ./blocked.profile 1400 
+  24. ./factor.profile 2000000 
+  25. ./factor.profile 3000000 
+  26. ./factor.profile 4000000 
+  27. ./factor.profile 5000000 
+  28. ./factor.profile 6000000 
+  29. ./factor.profile 2000000 
+  30. ./factor.profile 6000000 
+  31. ./bubble.profile 50000 
+  32. ./bubble.profile 100000 
+  33. ./bubble.profile 150000 
+  34. ./bubble.profile 200000 
+  35. ./is_prime.profile 2097152 
+  36. ./bubble.profile 250000 
+  37. ./bubble.profile 50000 
+  38. ./bubble.profile 250000 
+  39. ./quicksort.profile 50000 
+  40. ./quicksort.profile 100000 
+  41. ./quicksort.profile 150000 
+  42. ./quicksort.profile 50000 
+  43. ./kmeans.profile 10000 10 
+  44. ./kmeans.profile 100000 10 
+  45. ./kmeans.profile 1000000 10 
+  46. ./kmeans.profile 1000000 20 
+  47. ./kmeans.profile 1000000 50 
+  48. ./kmeans.profile 10000 10 
+  49. ./kmeans.profile 1000000 50 
+  50. ./permutations.profile 8 
+  51. ./permutations.profile 9 
+  52. ./permutations.profile 10 
+  53. ./permutations.profile 11 
+  54. ./permutations.profile 12 
+  55. ./permutations.profile 8 
+  56. ./permutations.profile 12 
+
+===-------------------------------------------------------------------------===
+Function execution frequencies:
+
+ ##   Frequency
+  1. 3.6e+09/5.2472e+09 perm1
+  2. 1e+09/5.2472e+09 show
+  3. 3.6e+08/5.2472e+09 perm3
+  4. 3e+08/5.2472e+09 boothroyd
+  5. 9.2e+03/5.2472e+09 next_lex_perm
+  6.    14/5.2472e+09 perm2
+  7.     7/5.2472e+09 main
+
+===-------------------------------------------------------------------------===
+Top 20 most frequently executed basic blocks:
+
+ ##      %% 	Frequency
+  1. 12.7422% 7066358900/5.54564e+10	next_lex_perm() - for.body21
+  2. 6.4614% 3583262465/5.54564e+10	perm1() - entry
+  3. 6.09391% 3379464630/5.54564e+10	next_lex_perm() - return
+  4. 5.01662% 2782036722/5.54564e+10	perm1() - for.end13.i.us.for.cond.i.us_crit_edge
+  5. 4.91973% 2728309087/5.54564e+10	boothroyd() - if.end.us
+  6. 4.44337% 2464136160/5.54564e+10	next_lex_perm() - for.body21.for.body21_crit_edge
+  7. 3.61458% 2004518987/5.54564e+10	next_lex_perm() - for.cond6
+  8. 3.10461% 1721705341/5.54564e+10	perm2() - entry.if.end_crit_edge
+  9. 3.10461% 1721705188/5.54564e+10	perm2() - if.end
+ 10. 2.78805% 1546154911/5.54564e+10	perm3() - while.cond
+ 11. 2.27739% 1262959336/5.54564e+10	next_lex_perm() - for.cond6.for.cond6_crit_edge
+ 12. 2.27585% 1262106422/5.54564e+10	next_lex_perm() - for.cond
+ 13. 1.80744% 1002342321/5.54564e+10	show() - for.end
+ 14. 1.80681% 1001992466/5.54564e+10	perm1() - for.cond.i
+ 15. 1.80681% 1001992327/5.54564e+10	boothroyd() - if.end.if.then3_crit_edge
+ 16. 1.80681% 1001992325/5.54564e+10	show() - entry
+ 17. 1.80681% 1001992320/5.54564e+10	boothroyd() - if.end
+ 18. 1.80681% 1001992320/5.54564e+10	main() - entry.for.end_crit_edge
+ 19. 1.80681% 1001992320/5.54564e+10	perm3() - done
+ 20. 1.80681% 1001992317/5.54564e+10	show() - for.body.lr.ph
+===-------------------------------------------------------------------------===
+LLVM profiling output for executions:
+  1. ./is_prime.profile 65536 
+  2. ./is_prime.profile 131072 
+  3. ./is_prime.profile 262144 
+  4. ./is_prime.profile 524288 
+  5. ./is_prime.profile 1048576 
+  6. ./is_prime.profile 65536 
+  7. ./is_prime.profile 1048576 
+  8. ./is_prime.profile 131072 
+  9. ./block_test.profile 5000 
+  10. ./block_test.profile 7500 
+  11. ./block_test.profile 10000 
+  12. ./block_test.profile 12500 
+  13. ./block_test.profile 15000 
+  14. ./block_test.profile 5000 
+  15. ./block_test.profile 15000 
+  16. ./blocked.profile 900 
+  17. ./blocked.profile 1000 
+  18. ./blocked.profile 1100 
+  19. ./blocked.profile 1200 
+  20. ./blocked.profile 1300 
+  21. ./blocked.profile 1400 
+  22. ./blocked.profile 900 
+  23. ./blocked.profile 1400 
+  24. ./factor.profile 2000000 
+  25. ./factor.profile 3000000 
+  26. ./factor.profile 4000000 
+  27. ./factor.profile 5000000 
+  28. ./factor.profile 6000000 
+  29. ./factor.profile 2000000 
+  30. ./factor.profile 6000000 
+  31. ./bubble.profile 50000 
+  32. ./bubble.profile 100000 
+  33. ./bubble.profile 150000 
+  34. ./bubble.profile 200000 
+  35. ./is_prime.profile 2097152 
+  36. ./bubble.profile 250000 
+  37. ./bubble.profile 50000 
+  38. ./bubble.profile 250000 
+  39. ./quicksort.profile 50000 
+  40. ./quicksort.profile 100000 
+  41. ./quicksort.profile 150000 
+  42. ./quicksort.profile 50000 
+  43. ./kmeans.profile 10000 10 
+  44. ./kmeans.profile 100000 10 
+  45. ./kmeans.profile 1000000 10 
+  46. ./kmeans.profile 1000000 20 
+  47. ./kmeans.profile 1000000 50 
+  48. ./kmeans.profile 10000 10 
+  49. ./kmeans.profile 1000000 50 
+  50. ./permutations.profile 8 
+  51. ./permutations.profile 9 
+  52. ./permutations.profile 10 
+  53. ./permutations.profile 11 
+  54. ./permutations.profile 12 
+  55. ./permutations.profile 8 
+  56. ./permutations.profile 12 
+  57. ./mandlebrot_seq.profile 1000 
+  58. ./mandlebrot_seq.profile 1250 
+  59. ./mandlebrot_seq.profile 1500 
+  60. ./mandlebrot_seq.profile 1750 
+  61. ./mandlebrot_seq.profile 2000 
+  62. ./mandlebrot_seq.profile 2250 
+  63. ./mandlebrot_seq.profile 1000 
+  64. ./block_test.profile 5000 
+  65. ./block_test.profile 7500 
+  66. ./block_test.profile 10000 
+  67. ./block_test.profile 12500 
+  68. ./block_test.profile 15000 
+  69. ./block_test.profile 5000 
+  70. ./block_test.profile 15000 
+  71. ./blocked.profile 900 
+  72. ./blocked.profile 1000 
+  73. ./blocked.profile 1100 
+  74. ./mandlebrot_seq.profile 2250 
+  75. ./blocked.profile 1200 
+  76. ./blocked.profile 1300 
+  77. ./fft.profile 128 
+  78. ./blocked.profile 1400 
+  79. ./fft.profile 256 
+  80. ./fft.profile 1024 
+  81. ./blocked.profile 900 
+  82. ./fft.profile 4096 
+  83. ./blocked.profile 1400 
+  84. ./factor.profile 2000000 
+  85. ./factor.profile 3000000 
+  86. ./fft.profile 8192 
+  87. ./factor.profile 4000000 
+  88. ./factor.profile 5000000 
+  89. ./factor.profile 6000000 
+  90. ./factor.profile 2000000 
+  91. ./factor.profile 6000000 
+  92. ./fft.profile 128 
+  93. ./bubble.profile 50000 
+  94. ./bubble.profile 100000 
+  95. ./bubble.profile 150000 
+  96. ./bubble.profile 200000 
+  97. ./bubble.profile 250000 
+  98. ./bubble.profile 50000 
+  99. ./fft.profile 8192 
+  100. ./bubble.profile 250000 
+  101. ./quicksort.profile 50000 
+  102. ./quicksort.profile 100000 
+  103. ./quicksort.profile 150000 
+  104. ./quicksort.profile 50000 
+  105. ./huffman_priority_queue.profile 100 
+  106. ./huffman_priority_queue.profile 1000 
+  107. ./huffman_priority_queue.profile 10000 
+  108. ./huffman_priority_queue.profile 100000 
+  109. ./huffman_priority_queue.profile 1000000 
+  110. ./huffman_priority_queue.profile 100 
+  111. ./huffman_priority_queue.profile 1000000 
+  112. ./huffman.profile 100 
+  113. ./huffman.profile 1000 
+  114. ./huffman.profile 10000 
+  115. ./huffman.profile 100000 
+  116. ./kmeans.profile 10000 10 
+  117. ./kmeans.profile 100000 10 
+  118. ./kmeans.profile 1000000 10 
+  119. ./kmeans.profile 1000000 20 
+  120. ./kmeans.profile 1000000 50 
+  121. ./huffman.profile 1000000 
+  122. ./kmeans.profile 10000 10 
+  123. ./kmeans.profile 1000000 50 
+  124. ./permutations.profile 8 
+  125. ./permutations.profile 9 
+  126. ./permutations.profile 10 
+  127. ./permutations.profile 11 
+  128. ./permutations.profile 12 
+  129. ./permutations.profile 8 
+  130. ./permutations.profile 12 
+
+===-------------------------------------------------------------------------===
+Function execution frequencies:
+
+ ##   Frequency
+  1. 2.9e+09/6.72903e+09 perm1
+  2. 2.4e+09/6.72903e+09 show
+  3. 7.2e+08/6.72903e+09 perm3
+  4. 6.1e+08/6.72903e+09 boothroyd
+  5. 1.8e+08/6.72903e+09 next_lex_perm
+  6.    28/6.72903e+09 perm2
+  7.    14/6.72903e+09 main
+
+===-------------------------------------------------------------------------===
+Top 20 most frequently executed basic blocks:
+
+ ##      %% 	Frequency
+  1. 6.3232% 5542878208/8.76593e+10	next_lex_perm() - for.body21
+  2. 4.57386% 4009418709/8.76593e+10	next_lex_perm() - for.cond6
+  3. 3.9908% 3498306680/8.76593e+10	boothroyd() - if.end
+  4. 3.92817% 3443410689/8.76593e+10	perm2() - entry.if.end_crit_edge
+  5. 3.92817% 3443410376/8.76593e+10	perm2() - if.end
+  6. 3.52765% 3092309990/8.76593e+10	perm3() - while.cond
+  7. 3.27582% 2871558754/8.76593e+10	perm1() - entry
+  8. 3.19837% 2803673544/8.76593e+10	perm3() - while.end9
+  9. 3.03144% 2657339868/8.76593e+10	next_lex_perm() - for.cond
+ 10. 2.81099% 2464091971/8.76593e+10	next_lex_perm() - return
+ 11. 2.68795% 2356238658/8.76593e+10	show() - entry
+ 12. 2.48928% 2182085658/8.76593e+10	show() - for.end
+ 13. 2.48702% 2180105642/8.76593e+10	show() - for.body.lr.ph
+ 14. 2.28622% 2004086948/8.76593e+10	perm1() - for.cond.i
+ 15. 2.28611% 2003984675/8.76593e+10	perm3() - if.then17
+ 16. 2.28611% 2003984661/8.76593e+10	boothroyd() - if.end.if.then3_crit_edge
+ 17. 2.28611% 2003984640/8.76593e+10	main() - entry.for.end_crit_edge
+ 18. 2.28611% 2003984640/8.76593e+10	perm3() - done
+ 19. 2.28611% 2003984633/8.76593e+10	perm2() - if.then
+ 20. 2.28611% 2003984626/8.76593e+10	main() - for.body.lr.ph

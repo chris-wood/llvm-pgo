@@ -1,0 +1,1795 @@
+ENTER RUN ON FUNCTION
+0xa9b98c8
+Visited block @0xa9c9910
+Chain creation done.
+Walking arcs now.
+Done with chain merging.
+Total # chains = 1
+-----
+Chain (0) size = 1
+-----
+Doing block placement now.
+Blocks placed: 0
+ENTER RUN ON FUNCTION
+0xa9b98c8
+Visited block @0xa9c9fb8
+Visited block @0xa9c9fe8
+Visited block @0xa9ca048
+Visited block @0xa9ca018
+Skipping block @0xa9ca018
+Skipping block @0xa9ca048
+Chain creation done.
+Walking arcs now.
+Visiting arc @0xbfadfe98
+Weight = 349996
+Appending...
+Visiting arc @0xbfadfe98
+Weight = 9204
+Visiting arc @0xbfadfe98
+Weight = 12
+Appending...
+Visiting arc @0xbfadfe98
+Weight = 8
+Visiting arc @0xbfadfe98
+Weight = 0
+Done with chain merging.
+Total # chains = 4
+-----
+Chain (0) size = 2
+Chain (1) size = 2
+Chain (2) size = 0
+Chain (3) size = 0
+-----
+Doing block placement now.
+Appending chain 1 to chain 0
+Blocks placed: 2
+ENTER RUN ON FUNCTION
+0xa9b98c8
+Visited block @0xa9cb5d8
+Chain creation done.
+Walking arcs now.
+Done with chain merging.
+Total # chains = 1
+-----
+Chain (0) size = 1
+-----
+Doing block placement now.
+Blocks placed: 0
+ENTER RUN ON FUNCTION
+0xa9b98c8
+Visited block @0xa9ccaf8
+Visited block @0xa9ccb28
+Visited block @0xa9ccbe8
+Visited block @0xa9ccbb8
+Visited block @0xa9ccc48
+Visited block @0xa9ccc18
+Skipping block @0xa9ccc48
+Visited block @0xa9ccb88
+Skipping block @0xa9ccb88
+Visited block @0xa9ccb58
+Skipping block @0xa9ccbb8
+Skipping block @0xa9ccbe8
+Chain creation done.
+Walking arcs now.
+Visiting arc @0xbfadfe98
+Weight = 1.78759e+09
+Appending...
+Visiting arc @0xbfadfe98
+Weight = 1.26296e+09
+Visiting arc @0xbfadfe98
+Weight = 1.26211e+09
+Appending...
+Visiting arc @0xbfadfe98
+Weight = 7.38576e+08
+Appending...
+Visiting arc @0xbfadfe98
+Weight = 2.16927e+08
+Appending...
+Visiting arc @0xbfadfe98
+Weight = 3.37239e+07
+Visiting arc @0xbfadfe98
+Weight = 2.835e+07
+Appending...
+Visiting arc @0xbfadfe98
+Weight = 1.62541e+07
+Appending...
+Visiting arc @0xbfadfe98
+Weight = 1.23462e+07
+Appending...
+Visiting arc @0xbfadfe98
+Weight = 1.12907e+07
+Visiting arc @0xbfadfe98
+Weight = 9192
+Appending...
+Done with chain merging.
+Total # chains = 8
+-----
+Chain (0) size = 2
+Chain (1) size = 1
+Chain (2) size = 0
+Chain (3) size = 0
+Chain (4) size = 5
+Chain (5) size = 0
+Chain (6) size = 0
+Chain (7) size = 0
+-----
+Doing block placement now.
+Appending chain 4 to chain 0
+Appending chain 1 to chain 4
+Blocks placed: 6
+ENTER RUN ON FUNCTION
+0xa9b98c8
+Visited block @0xa9c8d90
+Visited block @0xa9c8dc0
+Visited block @0xa9c8e50
+Visited block @0xa9c8df0
+Visited block @0xa9c8e80
+Visited block @0xa9cecf0
+Visited block @0xa9c8fa0
+Visited block @0xa9c8e20
+Visited block @0xa9c8eb0
+Visited block @0xa9cecc0
+Skipping block @0xa9cecf0
+Skipping block @0xa9cecc0
+Visited block @0xa9c8fd0
+Skipping block @0xa9c8fd0
+Visited block @0xa9cec90
+Skipping block @0xa9c8e50
+Skipping block @0xa9c8df0
+Visited block @0xa9c8f40
+Skipping block @0xa9c8f40
+Visited block @0xa9c8f70
+Visited block @0xa9c9000
+Visited block @0xa9c8ee0
+Skipping block @0xa9c8ee0
+Visited block @0xa9c9060
+Skipping block @0xa9c8fa0
+Visited block @0xa9c9030
+Skipping block @0xa9c9060
+Visited block @0xa9c8f10
+Skipping block @0xa9cecf0
+Skipping block @0xa9c8eb0
+Visited block @0xa9c9090
+Skipping block @0xa9cec90
+Visited block @0xa9c90c0
+Visited block @0xa9cec30
+Visited block @0xa9c90f0
+Skipping block @0xa9cec30
+Skipping block @0xa9cec90
+Visited block @0xa9cec60
+Skipping block @0xa9cec90
+Chain creation done.
+Walking arcs now.
+Visiting arc @0xbfadfe98
+Weight = 3.58326e+09
+Appending...
+Visiting arc @0xbfadfe98
+Weight = 3.39199e+09
+Visiting arc @0xbfadfe98
+Weight = 3.36711e+09
+Appending...
+Visiting arc @0xbfadfe98
+Weight = 2.46414e+09
+Appending...
+Visiting arc @0xbfadfe98
+Weight = 1.38732e+09
+Visiting arc @0xbfadfe98
+Weight = 9.22475e+08
+Appending...
+Visiting arc @0xbfadfe98
+Weight = 1.0608e+08
+Appending...
+Visiting arc @0xbfadfe98
+Weight = 1.0608e+08
+Appending...
+Visiting arc @0xbfadfe98
+Weight = 1.0608e+08
+Visiting arc @0xbfadfe98
+Weight = 7.808e+07
+Appending...
+Visiting arc @0xbfadfe98
+Weight = 7.808e+07
+Appending...
+Visiting arc @0xbfadfe98
+Weight = 7.80799e+07
+Appending...
+Visiting arc @0xbfadfe98
+Weight = 3.32826e+07
+Appending...
+Visiting arc @0xbfadfe98
+Weight = 3.32826e+07
+Visiting arc @0xbfadfe98
+Weight = 3.11198e+07
+Appending...
+Visiting arc @0xbfadfe98
+Weight = 2.80001e+07
+Visiting arc @0xbfadfe98
+Weight = 2.8e+07
+Appending...
+Visiting arc @0xbfadfe98
+Weight = 2.8e+07
+Visiting arc @0xbfadfe98
+Weight = 2.8e+07
+Appending...
+Visiting arc @0xbfadfe98
+Weight = 2.79863e+07
+Visiting arc @0xbfadfe98
+Weight = 3.12017e+06
+Appending...
+Visiting arc @0xbfadfe98
+Weight = 3.12e+06
+Appending...
+Visiting arc @0xbfadfe98
+Weight = 3.12e+06
+Appending...
+Visiting arc @0xbfadfe98
+Weight = 1.04621e+06
+Visiting arc @0xbfadfe98
+Weight = 13686
+Appending...
+Visiting arc @0xbfadfe98
+Weight = 13686
+Visiting arc @0xbfadfe98
+Weight = 179
+Appending...
+Visiting arc @0xbfadfe98
+Weight = 104
+Visiting arc @0xbfadfe98
+Weight = 104
+Appending...
+Visiting arc @0xbfadfe98
+Weight = 104
+Visiting arc @0xbfadfe98
+Weight = 104
+Appending...
+Visiting arc @0xbfadfe98
+Weight = 98
+Appending...
+Visiting arc @0xbfadfe98
+Weight = 7
+Visiting arc @0xbfadfe98
+Weight = 6
+Visiting arc @0xbfadfe98
+Weight = 0
+Visiting arc @0xbfadfe98
+Weight = 0
+Visiting arc @0xbfadfe98
+Weight = 0
+Visiting arc @0xbfadfe98
+Weight = 0
+Done with chain merging.
+Total # chains = 24
+-----
+Chain (0) size = 2
+Chain (1) size = 0
+Chain (2) size = 3
+Chain (3) size = 0
+Chain (4) size = 3
+Chain (5) size = 0
+Chain (6) size = 0
+Chain (7) size = 3
+Chain (8) size = 1
+Chain (9) size = 0
+Chain (10) size = 2
+Chain (11) size = 1
+Chain (12) size = 2
+Chain (13) size = 0
+Chain (14) size = 2
+Chain (15) size = 0
+Chain (16) size = 2
+Chain (17) size = 0
+Chain (18) size = 3
+Chain (19) size = 0
+Chain (20) size = 0
+Chain (21) size = 0
+Chain (22) size = 0
+Chain (23) size = 0
+-----
+Doing block placement now.
+Appending chain 2 to chain 0
+Appending chain 18 to chain 2
+Appending chain 16 to chain 18
+Appending chain 4 to chain 16
+Appending chain 10 to chain 4
+Appending chain 7 to chain 10
+Appending chain 8 to chain 7
+Appending chain 11 to chain 8
+Appending chain 12 to chain 11
+Appending chain 14 to chain 12
+Blocks placed: 22
+ENTER RUN ON FUNCTION
+0xa9b98c8
+Visited block @0xa9d30d0
+Visited block @0xa9d3100
+Visited block @0xa9d3160
+Skipping block @0xa9d3100
+Visited block @0xa9d3130
+Visited block @0xa9d3190
+Skipping block @0xa9d3190
+Visited block @0xa9d31c0
+Visited block @0xa9d31c0
+Visited block @0xa9d31f0
+Skipping block @0xa9d31f0
+Visited block @0xa9d3220
+Visited block @0xa9d31f0
+Skipping block @0xa9d3220
+Skipping block @0xa9d31f0
+Visited block @0xa9d3220
+Visited block @0xa9d3220
+Visited block @0xa9d3250
+Visited block @0xa9d2948
+Skipping block @0xa9d3100
+Visited block @0xa9d3250
+Visited block @0xa9d2948
+Skipping block @0xa9d3100
+Visited block @0xa9d3250
+Visited block @0xa9d2948
+Skipping block @0xa9d3100
+Visited block @0xa9d3280
+Visited block @0xa9d2918
+Skipping block @0xa9d2948
+Skipping block @0xa9d3250
+Visited block @0xa9d2978
+Visited block @0xa9d3280
+Visited block @0xa9d2918
+Skipping block @0xa9d2948
+Skipping block @0xa9d3250
+Visited block @0xa9d2978
+Visited block @0xa9d3280
+Visited block @0xa9d2918
+Skipping block @0xa9d2948
+Skipping block @0xa9d3250
+Visited block @0xa9d2978
+Visited block @0xa9d2888
+Skipping block @0xa9d2888
+Visited block @0xa9d29a8
+Skipping block @0xa9d29a8
+Visited block @0xa9d29d8
+Visited block @0xa9d2888
+Skipping block @0xa9d2888
+Visited block @0xa9d29a8
+Skipping block @0xa9d29d8
+Skipping block @0xa9d29a8
+Visited block @0xa9d29d8
+Visited block @0xa9d2888
+Skipping block @0xa9d2888
+Visited block @0xa9d29a8
+Skipping block @0xa9d29d8
+Skipping block @0xa9d29a8
+Visited block @0xa9d29d8
+Visited block @0xa9d32b0
+Skipping block @0xa9d2888
+Visited block @0xa9d29d8
+Visited block @0xa9d32b0
+Skipping block @0xa9d2888
+Visited block @0xa9d32b0
+Skipping block @0xa9d2888
+Visited block @0xa9d28b8
+Skipping block @0xa9d2918
+Visited block @0xa9d28b8
+Skipping block @0xa9d2918
+Visited block @0xa9d28b8
+Skipping block @0xa9d2918
+Visited block @0xa9d28e8
+Skipping block @0xa9d2918
+Visited block @0xa9d28e8
+Skipping block @0xa9d2918
+Visited block @0xa9d28e8
+Skipping block @0xa9d2918
+Chain creation done.
+Walking arcs now.
+Visiting arc @0xbfadfe98
+Weight = 1.97075e+09
+Visiting arc @0xbfadfe98
+Weight = 1.97075e+09
+Visiting arc @0xbfadfe98
+Weight = 1.97075e+09
+Visiting arc @0xbfadfe98
+Weight = 2.0508e+08
+Appending...
+Visiting arc @0xbfadfe98
+Weight = 2.0508e+08
+Visiting arc @0xbfadfe98
+Weight = 2.0508e+08
+Visiting arc @0xbfadfe98
+Weight = 2.0508e+08
+Appending...
+Visiting arc @0xbfadfe98
+Weight = 2.0508e+08
+Visiting arc @0xbfadfe98
+Weight = 2.0508e+08
+Visiting arc @0xbfadfe98
+Weight = 2.0508e+08
+Appending...
+Visiting arc @0xbfadfe98
+Weight = 2.0508e+08
+Visiting arc @0xbfadfe98
+Weight = 2.0508e+08
+Visiting arc @0xbfadfe98
+Weight = 2.0508e+08
+Appending...
+Visiting arc @0xbfadfe98
+Weight = 2.0508e+08
+Visiting arc @0xbfadfe98
+Weight = 2.0508e+08
+Visiting arc @0xbfadfe98
+Weight = 2.0508e+08
+Appending...
+Visiting arc @0xbfadfe98
+Weight = 2.0508e+08
+Visiting arc @0xbfadfe98
+Weight = 2.0508e+08
+Visiting arc @0xbfadfe98
+Weight = 2.0508e+08
+Visiting arc @0xbfadfe98
+Weight = 2.03299e+08
+Appending...
+Visiting arc @0xbfadfe98
+Weight = 2.03299e+08
+Visiting arc @0xbfadfe98
+Weight = 2.03299e+08
+Visiting arc @0xbfadfe98
+Weight = 1.78056e+06
+Visiting arc @0xbfadfe98
+Weight = 1.78056e+06
+Visiting arc @0xbfadfe98
+Weight = 1.78056e+06
+Visiting arc @0xbfadfe98
+Weight = 1.78056e+06
+Visiting arc @0xbfadfe98
+Weight = 1.78056e+06
+Visiting arc @0xbfadfe98
+Weight = 1.78056e+06
+Visiting arc @0xbfadfe98
+Weight = 7720
+Appending...
+Visiting arc @0xbfadfe98
+Weight = 7720
+Visiting arc @0xbfadfe98
+Weight = 7390
+Visiting arc @0xbfadfe98
+Weight = 7390
+Visiting arc @0xbfadfe98
+Weight = 330
+Appending...
+Visiting arc @0xbfadfe98
+Weight = 330
+Visiting arc @0xbfadfe98
+Weight = 330
+Visiting arc @0xbfadfe98
+Weight = 330
+Appending...
+Visiting arc @0xbfadfe98
+Weight = 330
+Visiting arc @0xbfadfe98
+Weight = 330
+Appending...
+Visiting arc @0xbfadfe98
+Weight = 330
+Appending...
+Visiting arc @0xbfadfe98
+Weight = 330
+Visiting arc @0xbfadfe98
+Weight = 330
+Appending...
+Visiting arc @0xbfadfe98
+Weight = 330
+Visiting arc @0xbfadfe98
+Weight = 330
+Appending...
+Visiting arc @0xbfadfe98
+Weight = 330
+Appending...
+Visiting arc @0xbfadfe98
+Weight = 330
+Appending...
+Visiting arc @0xbfadfe98
+Weight = 324
+Visiting arc @0xbfadfe98
+Weight = 324
+Visiting arc @0xbfadfe98
+Weight = 324
+Visiting arc @0xbfadfe98
+Weight = 104
+Visiting arc @0xbfadfe98
+Weight = 104
+Visiting arc @0xbfadfe98
+Weight = 104
+Visiting arc @0xbfadfe98
+Weight = 6
+Appending...
+Visiting arc @0xbfadfe98
+Weight = 6
+Visiting arc @0xbfadfe98
+Weight = 6
+Visiting arc @0xbfadfe98
+Weight = 6
+Appending...
+Visiting arc @0xbfadfe98
+Weight = 6
+Visiting arc @0xbfadfe98
+Weight = 6
+Visiting arc @0xbfadfe98
+Weight = 6
+Appending...
+Visiting arc @0xbfadfe98
+Weight = 6
+Visiting arc @0xbfadfe98
+Weight = 6
+Visiting arc @0xbfadfe98
+Weight = 6
+Visiting arc @0xbfadfe98
+Weight = 0
+Appending...
+Visiting arc @0xbfadfe98
+Weight = 0
+Visiting arc @0xbfadfe98
+Weight = 0
+Visiting arc @0xbfadfe98
+Weight = 0
+Appending...
+Visiting arc @0xbfadfe98
+Weight = 0
+Visiting arc @0xbfadfe98
+Weight = 0
+Visiting arc @0xbfadfe98
+Weight = 0
+Visiting arc @0xbfadfe98
+Weight = 0
+Visiting arc @0xbfadfe98
+Weight = 0
+Visiting arc @0xbfadfe98
+Weight = 0
+Visiting arc @0xbfadfe98
+Weight = 0
+Visiting arc @0xbfadfe98
+Weight = 0
+Visiting arc @0xbfadfe98
+Weight = 0
+Appending...
+Visiting arc @0xbfadfe98
+Weight = 0
+Visiting arc @0xbfadfe98
+Weight = 0
+Done with chain merging.
+Total # chains = 19
+-----
+Chain (0) size = 1
+Chain (1) size = 0
+Chain (2) size = 2
+Chain (3) size = 4
+Chain (4) size = 1
+Chain (5) size = 0
+Chain (6) size = 1
+Chain (7) size = 0
+Chain (8) size = 1
+Chain (9) size = 0
+Chain (10) size = 5
+Chain (11) size = 2
+Chain (12) size = 0
+Chain (13) size = 1
+Chain (14) size = 0
+Chain (15) size = 0
+Chain (16) size = 1
+Chain (17) size = 0
+Chain (18) size = 0
+-----
+Doing block placement now.
+Appending chain 10 to chain 0
+Appending chain 16 to chain 10
+Appending chain 2 to chain 16
+Appending chain 3 to chain 2
+Appending chain 4 to chain 3
+Appending chain 6 to chain 4
+Appending chain 13 to chain 6
+Appending chain 8 to chain 13
+Appending chain 11 to chain 8
+Blocks placed: 18
+ENTER RUN ON FUNCTION
+0xa9b98c8
+Visited block @0xa9cb980
+Visited block @0xa9cb9e0
+Skipping block @0xa9cb9e0
+Visited block @0xa9cb9b0
+Visited block @0xa9cb9b0
+Visited block @0xa9cba10
+Skipping block @0xa9cba10
+Visited block @0xa9cba40
+Visited block @0xa9cba10
+Skipping block @0xa9cba40
+Skipping block @0xa9cba10
+Visited block @0xa9cba40
+Visited block @0xa9cba40
+Visited block @0xa9cba70
+Visited block @0xa9cbb60
+Visited block @0xa9cba70
+Visited block @0xa9cbb60
+Visited block @0xa9cba70
+Visited block @0xa9cbb60
+Visited block @0xa9cbaa0
+Visited block @0xa9cbb30
+Skipping block @0xa9cbb60
+Skipping block @0xa9cba70
+Visited block @0xa9cbaa0
+Visited block @0xa9cbb30
+Skipping block @0xa9cbb60
+Skipping block @0xa9cba70
+Visited block @0xa9cbaa0
+Visited block @0xa9cbb30
+Skipping block @0xa9cbb60
+Skipping block @0xa9cba70
+Visited block @0xa9cbad0
+Visited block @0xa9cbb00
+Skipping block @0xa9cbb30
+Skipping block @0xa9cbaa0
+Visited block @0xa9cbad0
+Skipping block @0xa9cbb00
+Visited block @0xa9cbb00
+Skipping block @0xa9cbb30
+Skipping block @0xa9cbaa0
+Visited block @0xa9cbad0
+Skipping block @0xa9cbb00
+Visited block @0xa9cbb00
+Skipping block @0xa9cbb30
+Skipping block @0xa9cbaa0
+Visited block @0xa9cbb00
+Skipping block @0xa9cbb30
+Skipping block @0xa9cbaa0
+Chain creation done.
+Walking arcs now.
+Visiting arc @0xbfadfe98
+Weight = 0
+Appending...
+Visiting arc @0xbfadfe98
+Weight = 0
+Visiting arc @0xbfadfe98
+Weight = 0
+Visiting arc @0xbfadfe98
+Weight = 0
+Visiting arc @0xbfadfe98
+Weight = 0
+Appending...
+Visiting arc @0xbfadfe98
+Weight = 0
+Appending...
+Visiting arc @0xbfadfe98
+Weight = 0
+Visiting arc @0xbfadfe98
+Weight = 0
+Visiting arc @0xbfadfe98
+Weight = 0
+Visiting arc @0xbfadfe98
+Weight = 0
+Visiting arc @0xbfadfe98
+Weight = 0
+Visiting arc @0xbfadfe98
+Weight = 0
+Appending...
+Visiting arc @0xbfadfe98
+Weight = 0
+Visiting arc @0xbfadfe98
+Weight = 0
+Visiting arc @0xbfadfe98
+Weight = 0
+Visiting arc @0xbfadfe98
+Weight = 0
+Visiting arc @0xbfadfe98
+Weight = 0
+Visiting arc @0xbfadfe98
+Weight = 0
+Visiting arc @0xbfadfe98
+Weight = 0
+Visiting arc @0xbfadfe98
+Weight = 0
+Visiting arc @0xbfadfe98
+Weight = 0
+Visiting arc @0xbfadfe98
+Weight = 0
+Visiting arc @0xbfadfe98
+Weight = 0
+Visiting arc @0xbfadfe98
+Weight = 0
+Visiting arc @0xbfadfe98
+Weight = 0
+Visiting arc @0xbfadfe98
+Weight = 0
+Visiting arc @0xbfadfe98
+Weight = 0
+Visiting arc @0xbfadfe98
+Weight = 0
+Visiting arc @0xbfadfe98
+Weight = 0
+Visiting arc @0xbfadfe98
+Weight = 0
+Appending...
+Visiting arc @0xbfadfe98
+Weight = 0
+Visiting arc @0xbfadfe98
+Weight = 0
+Visiting arc @0xbfadfe98
+Weight = 0
+Visiting arc @0xbfadfe98
+Weight = 0
+Visiting arc @0xbfadfe98
+Weight = 0
+Appending...
+Visiting arc @0xbfadfe98
+Weight = 0
+Appending...
+Visiting arc @0xbfadfe98
+Weight = 0
+Visiting arc @0xbfadfe98
+Weight = 0
+Visiting arc @0xbfadfe98
+Weight = 0
+Visiting arc @0xbfadfe98
+Weight = 0
+Visiting arc @0xbfadfe98
+Weight = 0
+Appending...
+Visiting arc @0xbfadfe98
+Weight = 0
+Visiting arc @0xbfadfe98
+Weight = 0
+Visiting arc @0xbfadfe98
+Weight = 0
+Visiting arc @0xbfadfe98
+Weight = 0
+Appending...
+Visiting arc @0xbfadfe98
+Weight = 0
+Visiting arc @0xbfadfe98
+Weight = 0
+Appending...
+Done with chain merging.
+Total # chains = 11
+-----
+Chain (0) size = 3
+Chain (1) size = 1
+Chain (2) size = 1
+Chain (3) size = 1
+Chain (4) size = 0
+Chain (5) size = 0
+Chain (6) size = 0
+Chain (7) size = 3
+Chain (8) size = 0
+Chain (9) size = 2
+Chain (10) size = 0
+-----
+Doing block placement now.
+Appending chain 2 to chain 0
+Appending chain 3 to chain 2
+Appending chain 1 to chain 3
+Appending chain 9 to chain 1
+Appending chain 7 to chain 9
+Blocks placed: 8
+ENTER RUN ON FUNCTION
+0xa9b98c8
+Visited block @0xa9cb950
+Visited block @0xa9dbb78
+Visited block @0xa9dbba8
+Visited block @0xa9dbcc8
+Visited block @0xa9dbbd8
+Visited block @0xa9dbc08
+Visited block @0xa9dbc08
+Visited block @0xa9dbc38
+Visited block @0xa9dbc98
+Skipping block @0xa9dbcc8
+Visited block @0xa9dbc38
+Visited block @0xa9dbc98
+Skipping block @0xa9dbcc8
+Visited block @0xa9dbc68
+Skipping block @0xa9dbc68
+Skipping block @0xa9dbc98
+Visited block @0xa9dbc68
+Skipping block @0xa9dbc68
+Skipping block @0xa9dbc98
+Chain creation done.
+Walking arcs now.
+Visiting arc @0xbfadfe98
+Weight = 3.11999e+06
+Visiting arc @0xbfadfe98
+Weight = 3.11999e+06
+Visiting arc @0xbfadfe98
+Weight = 6
+Appending...
+Visiting arc @0xbfadfe98
+Weight = 6
+Visiting arc @0xbfadfe98
+Weight = 6
+Appending...
+Visiting arc @0xbfadfe98
+Weight = 6
+Appending...
+Visiting arc @0xbfadfe98
+Weight = 6
+Appending...
+Visiting arc @0xbfadfe98
+Weight = 6
+Visiting arc @0xbfadfe98
+Weight = 6
+Appending...
+Visiting arc @0xbfadfe98
+Weight = 6
+Visiting arc @0xbfadfe98
+Weight = 6
+Appending...
+Visiting arc @0xbfadfe98
+Weight = 6
+Appending...
+Visiting arc @0xbfadfe98
+Weight = 6
+Appending...
+Visiting arc @0xbfadfe98
+Weight = 0
+Appending...
+Visiting arc @0xbfadfe98
+Weight = 0
+Visiting arc @0xbfadfe98
+Weight = 0
+Visiting arc @0xbfadfe98
+Weight = 0
+Appending...
+Visiting arc @0xbfadfe98
+Weight = 0
+Done with chain merging.
+Total # chains = 9
+-----
+Chain (0) size = 3
+Chain (1) size = 2
+Chain (2) size = 2
+Chain (3) size = 1
+Chain (4) size = 1
+Chain (5) size = 0
+Chain (6) size = 0
+Chain (7) size = 0
+Chain (8) size = 0
+-----
+Doing block placement now.
+Appending chain 1 to chain 0
+Appending chain 2 to chain 1
+Appending chain 4 to chain 2
+Appending chain 3 to chain 4
+Blocks placed: 6
+BCÀŞ!  H	  ‚        #‘AÈI29’„%‹b€EB’BÄ28I
+2D$H
+!#ÄR€!r$Èˆb¨ ¨@Æğ   Q     ö"øÿÿÿÿv(‡y˜‡6€y(‡qH‡y(‡60xh‡p ÀÂæ¡ ÂŞ¡ÌAÂ¡Ê¡àáÒÁè¡ä¡ÊÒ¡ sv˜‡r wx‡60y‡v(‡6€‡wHw ‡r‡6(vH‡vhwxwhv(‡p0ÀÂæ¡ ÂŞ¡ÒÁÌaÚÀà¡Ú!è sv˜‡r wx‡6p‡pp‡yhs€‡6h‡p t Ì!ØaÊ êÁæ!Ì¡ÚÀà¡Ú!è sv˜‡r ˆz˜‡rhƒyxs ‡60vx‡p ÀÂæ¡€„  Éb€eAÀ²¡/Šÿÿÿÿ 	¨v(‡y˜‡6€y(‡qH‡y(‡60xh‡p ÀÂæ¡ ÂŞ¡ÌAÂ¡Ê¡àáÒÁè¡ä¡ÊÒ¡ sv˜‡r wx‡60y‡v(‡6€‡wHw ‡r‡6(vH‡vhwxwhv(‡p0ÀÂæ¡ ÂŞ¡ÒÁÌaÚÀà¡Ú!è sv˜‡r wx‡6p‡pp‡yhs€‡6h‡p t Ì!ØaÊ êÁæ!Ì¡ÚÀà¡Ú!è sv˜‡r ˆz˜‡rhƒyxs ‡60vx‡p ÀÂæ¡€„1 Ëâøÿÿÿÿ    I     ‚`‚ †(&L#˜0Ä1A‚	ƒ0"˜ Ç„à˜  ‰   ,   2"ˆ	 d…#¤„#ã„¡LŒŒ„ÄLèÁ’. iĞ IĞ‘	 %Ğ’ï 5C Ex‚æÀ MçHSD	“ÿ8H3ıG¢ª–ôĞE@2‰´2<–E=¥,Kòè(EhI–DâAPŒ0Ë$‰¤²aFg!,K’(­‚”ÑJY$©%·RÖJAÊH# …b„@K$ÕS $¢t˜<°ƒ6€‡qhvHw¨|hƒsp‡zØ0åĞğ s z0r s mq x xĞé€z€z€mq`zv q`ms z0r s mv@z0r v@m`s z0r s m`v@z0r v@m`v@z`t v@m`q x q x q xĞá z z`tĞæ€p s z0rĞî€zv s m0q x ó@ˆ2B$Ø¡$  °C!‚1H  `‡bb  À	Â 	  €ŠxI  @ ìP˜àK  `‡â`   À%      †(    0DÁ     €!Ê€    Q"     `ˆ    C” €   ¢€     0D  
+   `ˆb@    À€ 8   €!Š  €    C”1       †(l À   QŞ  €   ¢Ä 	   0D™     `ˆb@ (   @]   2˜LŒ	&GÆC¢¡@F 
+‚E¥R©T|iQ0¨ÏÃç²TšƒÜ_ø;í¦ÏA[÷wÌ®Ïéeù¼« FİãÅíåì´»L÷Aä²ôjƒöòöÛ^¦¿û rÙ¬xA{KVÍëbP?Fƒ\²h^ƒÊø1äª` ™
+ËÇ sšÍõAä²Yñšƒö öÛ^¦¿A-jƒd ˆ’Z2Ô’Z24f¿çex˜%Îó°½ŠæeúYÎƒÌi6t–—çô·¼:ÏÃö2hš—éì´»|O“éhP4/ÓÏòp4§Ëßë2è,/ÏéoyÍËô³<œÍéò÷ºê“Ëf:tRÀ@ó2ı,çA¥3¨tÍT(SrÍÌ ’kf4hU:ƒJgPéš—éò³xüf¿å
+
+´J¥tÚ
+’ßârkæ‚)J¥RIø®»Éi÷YøÆë@­¨U•È Y y  #   C<ğ@X`Ã;Ôƒ8°C9!ğ`ÀbÁóíàé ï@åàô ã€á C<(D³í ìP`0
+o0
+k°`@¢
+¡0„Àƒ„C:¸=‘è`£ :àè€Ã€4:ÈğÀBà‚Â‚%Ü!À Ş!ÜÊA y     3€Äáf=ˆC8„ÃŒB€yxs˜qæ íô€3BÂÁÎ¡f0=ˆC8„ƒÌ=ÈC=Œ=ÌxŒtp{yH‡ppzpvx‡p    q   ,   AA˜D±,6µ,ã3#“ÿĞï#:nÅ€H“m „/M‘=ÊóØñP“d…/M‘m…/MÑm…/Mn…/MQn…/M‘nƒ4E†@D@3ØÂ 8’YÒMÎb	†A4ÿ…Ã !Ğ…AdËR1>C0ÂƒùğşC#¼Ü¶U€4æp4ÒdÆ!ÍTØDòDH3ıÄ#™‚Á Ëâ  a      A,      ôŒ€ âÿÿÿÿ=   #Ãx<V!”A8   PÍa–2He'„à4•™°,F0†20Ô       a   h   D,   	   $•@¡ÔÀ =c8º¢¤Úşaj‚Ä‚ şÿÿÿß#   …2b@0ÁX;,Ã ³BäPMã	D0K0TX‚Ã@…¥Â0b0,A\ğXTĞĞˆÁ°qpÁcXRAD#ÄÈAQB ãŒeFÂ ŒK@HŒ7870 mÃ‘%³C„   5   ÆsHå#õn7C->b$…àPÍdC
+Ò!øÏ]ÀQ8‘O4ƒíµøH­[ÌƒÿL‘/QŒÕ°,>b2Ò!øÏÕ¼å °,>RãF4Ìc>C-ø …ù3`D0Ô¢[‰BISÌS÷ör Ãà?Sd,C-ÖSÀ²ÜFS<>mÓTÀ²äPÍa¦ƒNSùHŸ€S8‘8æ/‘ÿfcNSùˆı—	˜áRùˆÍ0H#„à?Sd×ÖBÀ²   1     [†+ ¶[         a   &   A,      $ ”    ã„ P0Æ
+‚ `ÔÄxCrŒñ%A(5Q†!%RB „      CHTI XI@A4S„ÙÁP‹n(ÂUË Q©—m-vÛ‹€á&30Ôb40 1     [†  ¶C lŒ Ø2         a   ’   H,   	   $Í ”ÿÿÿÿÃ@	=3 c ‚ ‚ Èÿy#     ÃŠa³Œ74GAÁox’d¼R’Y‚c âqO¨°ã*,28>a BbKo‡‚QÁûÿÿÿ1ŞPH£‚øÿÿÿ¢BJ¤„ †š@˜nh–`ºax{4Œ'<Ûpƒ`0Ë0Ápƒ|`0ËpÁ@Åƒ€2TH¤ 8Ãpp`0Ë`Á`D0K`¤@Ù lÌá@   Q   fÔ 0‚ÿL‘OI6C\¶‘Â Í?ø¶OIG€NäÍÀ_‚ştMo8ƒ4?â×öíS’Õ0Òüƒ_ÛºOIpNäÎ€ùKä?‡/=2ù”dB‡À<¸OIfƒ ~mç>%L!0İ[	!Íd1…9Ôc@	C-ºø”tRøD3Ô´ƒm;ˆD>âS’!óø”tKáD>Ò¹OIöƒ0Ôâ#>%ÙÂ Íø¶OIF"<“Ñî#–Ô0Hó>í/‚$'ÀNäÎ€İ>%™O"QAî#>%™RÃ Íø´¿’˜IÒüÂBIY‘4‚OIPÍa¶dLNà8‹!À0øˆOI–s\µø”d<vûˆOIvƒ>mã>%İT8‘8vûKä?‡OIv„2	N3    1     [†!0¶L l Ø2„A lÈ  ¶e      a     X,      D Tåÿÿÿÿ0P…Re@Ï‚ şÿÿÿß#1F ‚ ‚ ‚ü7@Ï  õ7b@0Áx;b0,ÁT0ÙxB•í	Ù @ÀBğ8ÔpC™Á,C Ã˜d³ÄˆÁ°v0K0ŒPøÿÿÿÿ M€0Üd`0Ë Á@…¤1Ì2\B1‘ÿÿÿÿƒÔ¡Á,ƒ1$M1PñlÉQŒ'<£† †‚J0£Á,Cqã	dŒ'œrB¶'d;b€ A€Ì#Ã˜Â,C2H<6aúÿÿÿÃ„Í+ ¶07¸˜Á,ÃâÃB˜ÁpÃ°`0Ëğ0Â@…40¶°X° næ f&¬Øÿÿÿÿ!Îÿÿÿ€
+şÿÿÿ¤6 „ñÿÿÿÿ,7nì fœ'1 –`Î *,¢‡e BBrXÆ„9¨ƒñ†è`¼¨: a0f$È¡bÌD9@_4P!ÑôEH@_4P!!Ğ7}ĞŒ
+’o(@á(,Q!%RB ÃM L74K0İ0<‚=¨ ‚ñ„'†2 ƒY†&
+f	¤Š‡%®m¨tâÚ¦
+Ë,®mo^á( ÿÿÿÿã„,Ä£õÿÿÿ¢BJ¤„ †˜@˜nšÀš\ ÁxB£Ã‚)€Á,5Ã÷ÿÿÿ?x¶ ³VVàÿÿÿÿà0K`EàÿÿÿÿàÀ„şÿÿÿO ŒPğÿÿÿÿ ı Œ7øÿÿÿÿ`Ãpƒ€`0Ë€\Á@…EX´ATHˆ…Ä@ÅÃXzAŒ'ì‚0Ş@œÃ9Œ7èp$Æ,Á >  ö·HTûˆOI>bPC->bˆÈä³øˆ1(H#„à?St\áD~àØí/‘ÿ>%ùHOû”äS’Q%óØ½è¹õ%Øí#>%ùÈ	8…ùD3øÓÀpRøD3˜d€qÙ>â#fU$¾İë–… `ó>%ÙÃ Í?øµ­û”ä#ö`$>]Û¸	óÔ´!óÔ÷(…ù3`umE
+E †Wm›’D€!ÃUã¶¤ Q`ÈpÕ¹ÍQÒüƒoû”ä#|îSR]ßödNSùˆİ°,µÑµ˜O" Ëâ#õİß@R8‘4‚M@A4S„`€ÂP‹ø”ä#Æ§HTà#>%ùˆU)óø”ä#;}ªP8‘8æ/‘ÿ¾ô,ÈäS’è½_8‘8æ/‘ÿ¾ô,ÈäS’è½/=2ıB„L?1„OI¶0 pUáD~àØíS’ğ½OI}o`†ûˆè¼OI–T Pï7áNäÎ€İ>%ùˆ©IøˆOI>²ï>%ÕtnˆD1>]Û·i=H#„à?Sd÷>%™^rÕ>âS’ØÔ!0÷¹å$@2\¶<H#„à?SäS’òøv¿û”d_Ëeûˆè»OIöS `×6Ìƒû”ä#†3DcWÒ6oC-ºø”ä#ÖsÌƒ×¶}SáD¾à4Ãí?qÀ@DFf1Hó~më>%ùÈnû”TÓ´™I‚OÛ¸OI>²ã>%Õ´mgƒ4?â×öíS’ì¹OI5}[İ…4Â@ş3E>%ù¿û”T×¹ÅEóà>%ùû”T×µ5,Ä…L‚ÓõĞB\È$8ÍPß»ERùˆm-Ä…L‚ÓõÍŸU8‘/8Í`ßşDtQC !M>q!Sû”d5„ ,Ë]ŒBáD~à˜¿DşsøÒ³ “OI>âNäÎ€ùKä?‡/=2ù”ä#¾ô,Èô2ıÄ`6d$~]Û½ H#ø”ä#&  Ãà#>%ùÈ9$…ùD3Ü´0Òüƒoû”ä#–§>mã>%ùÈY0D„4ùÄ…LW¡ …?DÓûÈ=x…ù3`şùÏáKÏ‚L>%ùˆŞû”dm“D¹ø”ä#{ïSRMï†]µø”ä#»îSRMãÇà4Òä2õ¸XdÀƒÿL‘!ÅøumóÖ…$¾İë>%™D\È$8Íà#<ïSR]ë6``¸øˆy1FäPèºOIfBD3ÂQ8‘O4ƒÉQÒüˆoû”ä#<îSR]Û&5¿°PÒDD>í/‚$WNäN3ôædÀ²øˆñóÔ7m‡
+q!“à4ƒØ‰ÑüÑLF2<“tJáD>Ñ¼ÜT8‘8fçşùÏax
+â×vîS’XÉ°ÁIÀ0øˆOI>ÂÛ>%Õ5moC-ºø”ä#|íSRM÷F!àS’ğºOIu[ÓüÂBIùt}×æ`<>]Û¹¹IµøˆOI>ÂÓ>%Õ4oŠ0¶a·ø”ä#;ïSRMëV&!~mç>%ùÈ~û”TÓõ%@…ù3`uí/‘ÿNäN3ÜşDä/‘ÿ†…2	N3   1     [¤@¶Y lÄ @¶t[P€-C(À–acË 
+°eh… Ø2øB lÂ! ¶î [x€-?À–¡     a   ˆ  S,   
+   Œ ]($ ”@JQ”ÿÿÿÿC!9@Ï‚ ‚ òÿ Å2b@0AX;bp DPğ7@Œ7@”¤äpƒ¤€Á,21÷ÿÿÿƒtúÿÿÿÌ2O0Ğ!ÍÃ³Á:8#«ÿÿÿ?H Œ7¸şÿÿÿ`IÃ³ƒTHj€ ÂpC€˜Á,ƒB³F¡$3Pa%FTH…Äxƒ]ƒ0 &d O ´ááƒY†Âfšep†h„¢ÿÿÿÿ‰„ñ†şÿÿÿ¬nÂÿÿÿÿ+[F ˆƒ@Â@Ëf	”	 #…a ÃbÀHØ`nÊ f’%˜e`k Â*–
+)TXÆ„2
+Æx”Ã4 Á`ÄÀxÃ¡j@Áoƒ(5010ŞÀ¼P0ÆÌ`
+FFÁ 4 Oè`¸AĞ0˜e8˜` ÂÊ\8*¤ª‡c¼AÈƒ; `\ğØxCÁ|@Á¨` Áˆ!€ñäü€‚QAƒC0 ¦„ÆQnNf&¨°ÈA 	d BR%
+I—@ÆT0
+Æ,$ô© ‚ÁˆÁıÿÿÿ‡˜%ÆŒUX…ñ†ƒV„AÂ˜%f¤ :Or‰È% é“À"h Ãú$–ˆXè.IŠ$h¼A˜…Y `T€ÄxCaµ@Á¨@‰")Anhaº¡Y‚é†áìñŒ'<¿0Ü Ì2DR   Ë   fƒÌSï5ÍßÁT8‘/8ÍPëşâ8q!“,ä>âS’Ø\4Â½ÛO!0~b ‚4‚OI>bG
+Ò!øÏ™Ï#@cƒOû‹ I€İÒa€ƒø”ä#æÅ 0‚ÿLQÛ_‚İ>âS’ƒ4Â@ş3E¹}JáD~àÎ›"ø´û”ä#vÀ0Hó¾íS’˜ØaDõÔ½Ñ—í#>beÃeÓ†ç0Hó~më>%ùÈAd…ù3`şùÏáKÏ‚L>%ùÈ0D„4ùÄ…L¶S €Ó¶4ÌcN†9Ôƒ”aDõäf ~]Ó½¹_×5~Çàø‚ÓÆd<>]Óû!L…ù‚Óvï/ó2WC]_ƒR8‘8Vó†ƒÌãS’˜ÌÀP‹ù)øˆOI>bSÂµ›4‚~ ÑLflÒ!øÏÙ»	(µøˆOI>b_q!“à4C]çÖ³2	N3Ôõn@†àÛ5[ÛB\È$8ÍP×ºH#˜Ö€Õ´Õî#>boŒp A>]×·uH#Ô·U	oCÒymJƒàÓ'áNäÎ€İ>%ùÈP…ù‚Óxî?qÀ@D–4 >mjÅ€T6n:‰p A~}RøÓA4Æ—\µø”ä#†%`ı$…ùD3ä·)(Ä…L‚Ó>bd„à4•%<H#„à?SäS’ÉğLÒ	$…ùH#Ü½å)ˆ_Û¹OI>bpFâ×umÚ€Ù·•ÑØÃ Íøµ}û”ä#VÌƒû”ä#¶V `ëv6Heq‡9Ôã#Öd$>]Óú% …ù3`ç NäÎ€İ¶,µè>âS’ØÕ ƒåóÜ¹ÕóØ5ƒ4Â@ş3Exm&Ió%MDtMáD>Ò¹OI>rSáD¾à4Cí?qÀ@Df~]×ô1$…ù3`÷) …ù‚ÓfÀ0Hó#¾íS’˜ĞaDõà½Í°,d ¾]Ó·!Ä…L‚Ó    1     [,0¶l[7Œ-Æ–A`Ë@°e°ƒ Ø2àA lô  ¶| [RŒ-Ã)À–!`Ë°
+°eh… Ø2ØB`lr!0¶½ [_€-ƒ9À–!       a   £  K,   #   $•D9LÑ”EŒ ”@Ğ3F ‚ ‚ ‚ø?Œ€ ‚ ‚¨c ‚ ‚ œ‚Ä‚ ‚ ˆê 1F ‚ ‚ ‚üŒ€ ‚ ‚ ÿ?”e(„ä’e€ä’e8†ä’e ƒä’eä’e‚ä’   eM2b@0x;ÜIf0Ë Áp7™Á,ƒ@RhTXe øA0PñlT< Á@Å³`T<@ÁxC¡iŒá" ¦„"n(aº0‚ñ†>
+ÆpÓB74ƒ0İ@8Ie ‚ñÉ†„8 ƒYBFˆ%01 –à4¨xH!p„ŠF¨xP!ğ„Š‡N(!ˆZƒ€Ê(¢Ú  á†!¦"¨
+ä@ja :c	dÁö`F €7˜e04ˆÿÿÿÿÁÒ= `TpD)T€0aÿÿÿÿƒõ~@Á¨@‰z© `ÄÀX_À#¡èÿÿÿÿA"@oèÿÿÿÿÁ*…áÁÀ`–a0‚
+É(`‚¨°ŒB,PAã	zP0l`Œ'ôA@Á0#@0 
+cÄàX‚v0…ƒf’"Æ#âÿÿÿ°h(„AR,Àx„ıÿÿÿV.à£2ˆJƒ@*¸10– `Áf	Šşÿÿÿ$_ „ñ†şÿÿÿ¬_nÔfŠ$¨„4Œ
+Ë@tÃoÈ¡(Ã³THƒâ€ç ÎA°ƒ]ğXç@f¬ƒÆz!Œ†0„DP<ØUĞd†<€`<a‚Áˆ` söAàƒ]ğXó@ÆèÆÒ!Œ†n˜Df%   Õ   Æ`À²ôµ¡W¯d€‘øu­÷ÖUH…ïöUH…÷æUHT€óæÀ 0‚ÿLQ›‘Â ×ùt½ç‡Nä#ĞÛVP0ÔÂçV·2	N3Ô|nq05}›ÕB\È$8ÍPóº)µğ½yÁè–°2	N3Ôün›C-·]µØÖ@0Ô’[ÁPK}JáD>Ñ5Í›h€D€!ÃU×v0`ün¨
+E †WÍÛX1 U¾Ûh@ÁPKm@A4S„™XC®YCÎ[Y1 UŞ[ÓÁ Íùµ-pı—_ÛVÃ Íù´¿’XVÃ Íù´¿’ØZÁPKÏœÁPKMÛöfHTPÓµUˆO×<nJ…À<ömÒı}JáD~à˜mS!0½Ûg@!8MµÛ‘Â Íùt½ã–@NSÙ^ƒŞ_AR8‘O4CŸ[i€!8MUã¦0He˜CD0UÌsÛ&UÌsóæW Ã°ÛVÅ 0‚ÿLRp™S€ÙÔÁ Íùµù°,u0Àõc~}RøD3ğ¶óÔümvâ×õn[Ø!	ÀBø´5I6d<>]ï¼ğ¸À0ğº%ğüP…ù‚Óuï?qÀ@DFU €ãffÀ²è´q @2\VÌ“ÓF× 0‚ÿLQMïfPHUçP ÃPÓÆ5HT`mVÓ´À0Ô»-À0ôô$…ùD3àº©ô»)pı˜O×ûnl0}oAˆÀ<6]ï·İ‚_×{mZ\ÿåÓş"H`X\?æÓş"H`† ,Ë›‘øt½÷fBD3™d@aDõœR8‘8¦ç`<~]ë¼å)@2\únr‡ ,KMã6g PÓº]°,5İÉğL’áµèº•ÑœR8‘8f‚ÃÅßFPDSßf0 Ã`|
+E †×NÛŸD€!Ãµßv’4¿°PÒDDFPÌ³÷— NäÎ€í¼)Òü˜O×»n Ä€T¼= Ä…L‚Ó    1     [' ¶T lä  ¶w [R€-Ã)À–A`Ëà
+°e˜… Ø2€C`lÖ! ¶ò [†|       a   ¯   I,      $JYÁ@”@QTAĞ3F ‚ ‚ ‚)HŒàèŠ’jû‡©	c ‚øÿÿÿeCL!¥”Ô     0Ü(b0Ë0ÁxB´P0F%ƒ `†ªf„"O¨$
+Æˆ¡f$Ğ,AAØ1(–@˜`–€¨Ô``#ƒ
+	ä ¨d“‚	ğ ¸ÀÚñ„€n1˜e@Œ`ÄÀ :c–€¨°Î 	ƒc ÂBá1– .x¬‚M*ØhÄ`X‚R¸à±
+À@*øhÄ€XS(Jd¼Q5Œ„1 – *opØ`#a Æ 6nˆ*1˜e8Œ Âà`<á
+f	p   Z   '€ …?D“[Ñ!0Oİûˆ%À0øÏùˆµøˆÑ @d¾Svä 0‚ÿL‘]ûˆ!OÛ´Õ! Ë’ûˆ)!‚ÓT>â#æ¤NSùHûÈHáOÑ\Á>Ñ¼ı 1UÀâÓuÀ²Ü>bLÇ€T>â#‡ NäÎ€ùKä?‡! Ëâ#` …O4ƒåóàf“ Q`ÈpÙg°Dó_˜O\Èd<ˆ ,‹Ô¹é$@2\º	!°,>Rë¶t0Ôâ#>b$‚M—T2 •Ô»5vÅ 0‚ÿL‘ØSÂP‹Ôº˜Õ€ùˆe5À0øÏùÅøˆ¤O›–ƒ4Â@ş3E5ï#–„À²øˆX“" Ëâ#5î#VB ‘Q@A4S„V!0˜”ÁPî#w NäÎ€ùˆUµè>b>„ ,‹°,5 1     ["H¶Il˜ Ù2œA lÖ            ENTER RUN ON FUNCTION
+0xad3b8c8
+Visited block @0xad4b910
+Chain creation done.
+Walking arcs now.
+Done with chain merging.
+Total # chains = 1
+-----
+Chain (0) size = 1
+-----
+Doing block placement now.
+Blocks placed: 0
+ENTER RUN ON FUNCTION
+0xad3b8c8
+Visited block @0xad4bfb8
+Visited block @0xad4bfe8
+Visited block @0xad4c048
+Visited block @0xad4c018
+Skipping block @0xad4c018
+Skipping block @0xad4c048
+Chain creation done.
+Walking arcs now.
+Visiting arc @0xbfdff128
+Weight = 1.21597e+09
+Appending...
+Visiting arc @0xbfdff128
+Weight = 1.17821e+09
+Visiting arc @0xbfdff128
+Weight = 1.76252e+08
+Visiting arc @0xbfdff128
+Weight = 1.76133e+08
+Appending...
+Visiting arc @0xbfdff128
+Weight = 1.88e+06
+Appending...
+Done with chain merging.
+Total # chains = 4
+-----
+Chain (0) size = 3
+Chain (1) size = 0
+Chain (2) size = 1
+Chain (3) size = 0
+-----
+Doing block placement now.
+Appending chain 2 to chain 0
+Blocks placed: 1
+ENTER RUN ON FUNCTION
+0xad3b8c8
+Visited block @0xad4d5d8
+Chain creation done.
+Walking arcs now.
+Done with chain merging.
+Total # chains = 1
+-----
+Chain (0) size = 1
+-----
+Doing block placement now.
+Blocks placed: 0
+ENTER RUN ON FUNCTION
+0xad3b8c8
+Visited block @0xad4eaf8
+Visited block @0xad4eb28
+Visited block @0xad4ebe8
+Visited block @0xad4ebb8
+Visited block @0xad4ec48
+Visited block @0xad4ec18
+Skipping block @0xad4ec48
+Visited block @0xad4eb88
+Skipping block @0xad4eb88
+Visited block @0xad4eb58
+Skipping block @0xad4ebb8
+Skipping block @0xad4ebe8
+Chain creation done.
+Walking arcs now.
+Visiting arc @0xbfdff128
+Weight = 3.57503e+09
+Appending...
+Visiting arc @0xbfdff128
+Weight = 1.47332e+09
+Appending...
+Visiting arc @0xbfdff128
+Weight = 1.44137e+09
+Visiting arc @0xbfdff128
+Weight = 1.26348e+09
+Visiting arc @0xbfdff128
+Weight = 5.61866e+08
+Appending...
+Visiting arc @0xbfdff128
+Weight = 4.34393e+08
+Appending...
+Visiting arc @0xbfdff128
+Weight = 8.51559e+07
+Visiting arc @0xbfdff128
+Weight = 2.84093e+07
+Appending...
+Visiting arc @0xbfdff128
+Weight = 2.47924e+07
+Appending...
+Visiting arc @0xbfdff128
+Weight = 2.25865e+07
+Visiting arc @0xbfdff128
+Weight = 43384
+Appending...
+Done with chain merging.
+Total # chains = 8
+-----
+Chain (0) size = 3
+Chain (1) size = 1
+Chain (2) size = 0
+Chain (3) size = 0
+Chain (4) size = 4
+Chain (5) size = 0
+Chain (6) size = 0
+Chain (7) size = 0
+-----
+Doing block placement now.
+Appending chain 4 to chain 0
+Appending chain 1 to chain 4
+Blocks placed: 5
+ENTER RUN ON FUNCTION
+0xad3b8c8
+Visited block @0xad50898
+Visited block @0xad508c8
+Visited block @0xad50958
+Visited block @0xad508f8
+Visited block @0xad50988
+Visited block @0xad50ce8
+Visited block @0xad50aa8
+Visited block @0xad50928
+Visited block @0xad509b8
+Visited block @0xad50cb8
+Skipping block @0xad50ce8
+Skipping block @0xad50cb8
+Visited block @0xad50ad8
+Skipping block @0xad50ad8
+Visited block @0xad50c88
+Skipping block @0xad50958
+Skipping block @0xad508f8
+Visited block @0xad50a48
+Skipping block @0xad50a48
+Visited block @0xad50a78
+Visited block @0xad50b08
+Visited block @0xad509e8
+Skipping block @0xad509e8
+Visited block @0xad50b68
+Skipping block @0xad50aa8
+Visited block @0xad50b38
+Skipping block @0xad50b68
+Visited block @0xad50a18
+Skipping block @0xad50ce8
+Skipping block @0xad509b8
+Visited block @0xad50b98
+Skipping block @0xad50c88
+Visited block @0xad50bc8
+Visited block @0xad50c28
+Visited block @0xad50bf8
+Skipping block @0xad50c28
+Skipping block @0xad50c88
+Visited block @0xad50c58
+Skipping block @0xad50c88
+Chain creation done.
+Walking arcs now.
+Visiting arc @0xbfdff128
+Weight = 4.17054e+09
+Visiting arc @0xbfdff128
+Weight = 2.87156e+09
+Appending...
+Visiting arc @0xbfdff128
+Weight = 2.4891e+09
+Visiting arc @0xbfdff128
+Weight = 2.43926e+09
+Appending...
+Visiting arc @0xbfdff128
+Weight = 1.84505e+09
+Appending...
+Visiting arc @0xbfdff128
+Weight = 9.80878e+08
+Appending...
+Visiting arc @0xbfdff128
+Weight = 9.37576e+08
+Visiting arc @0xbfdff128
+Weight = 7.06256e+08
+Appending...
+Visiting arc @0xbfdff128
+Weight = 6.33405e+08
+Appending...
+Visiting arc @0xbfdff128
+Weight = 5.58177e+08
+Appending...
+Visiting arc @0xbfdff128
+Weight = 5.01097e+08
+Visiting arc @0xbfdff128
+Weight = 5.01097e+08
+Visiting arc @0xbfdff128
+Weight = 5.01001e+08
+Appending...
+Visiting arc @0xbfdff128
+Weight = 5.00998e+08
+Appending...
+Visiting arc @0xbfdff128
+Weight = 5.00997e+08
+Visiting arc @0xbfdff128
+Weight = 5.00996e+08
+Appending...
+Visiting arc @0xbfdff128
+Weight = 4.23977e+08
+Visiting arc @0xbfdff128
+Weight = 2.61256e+08
+Appending...
+Visiting arc @0xbfdff128
+Weight = 2.05161e+08
+Appending...
+Visiting arc @0xbfdff128
+Weight = 8.98943e+07
+Visiting arc @0xbfdff128
+Weight = 8.86193e+07
+Visiting arc @0xbfdff128
+Weight = 6.44446e+07
+Appending...
+Visiting arc @0xbfdff128
+Weight = 5.6096e+07
+Visiting arc @0xbfdff128
+Weight = 5.60956e+07
+Appending...
+Visiting arc @0xbfdff128
+Weight = 5.6005e+07
+Appending...
+Visiting arc @0xbfdff128
+Weight = 5.59731e+07
+Visiting arc @0xbfdff128
+Weight = 7.71112e+06
+Appending...
+Visiting arc @0xbfdff128
+Weight = 7.71041e+06
+Appending...
+Visiting arc @0xbfdff128
+Weight = 7.35206e+06
+Visiting arc @0xbfdff128
+Weight = 2.18742e+06
+Visiting arc @0xbfdff128
+Weight = 825422
+Visiting arc @0xbfdff128
+Weight = 357369
+Appending...
+Visiting arc @0xbfdff128
+Weight = 117428
+Appending...
+Visiting arc @0xbfdff128
+Weight = 27932
+Visiting arc @0xbfdff128
+Weight = 1308
+Visiting arc @0xbfdff128
+Weight = 952
+Appending...
+Visiting arc @0xbfdff128
+Weight = 168
+Visiting arc @0xbfdff128
+Weight = 112
+Done with chain merging.
+Total # chains = 24
+-----
+Chain (0) size = 2
+Chain (1) size = 1
+Chain (2) size = 6
+Chain (3) size = 0
+Chain (4) size = 0
+Chain (5) size = 0
+Chain (6) size = 0
+Chain (7) size = 0
+Chain (8) size = 1
+Chain (9) size = 0
+Chain (10) size = 4
+Chain (11) size = 2
+Chain (12) size = 3
+Chain (13) size = 0
+Chain (14) size = 3
+Chain (15) size = 0
+Chain (16) size = 0
+Chain (17) size = 1
+Chain (18) size = 1
+Chain (19) size = 0
+Chain (20) size = 0
+Chain (21) size = 0
+Chain (22) size = 0
+Chain (23) size = 0
+-----
+Doing block placement now.
+Appending chain 2 to chain 0
+Appending chain 18 to chain 2
+Appending chain 17 to chain 18
+Appending chain 14 to chain 17
+Appending chain 1 to chain 14
+Appending chain 12 to chain 1
+Appending chain 8 to chain 12
+Appending chain 10 to chain 8
+Appending chain 11 to chain 10
+Blocks placed: 22
+ENTER RUN ON FUNCTION
+0xad3b8c8
+Visited block @0xad550c8
+Visited block @0xad550f8
+Visited block @0xad55158
+Skipping block @0xad550f8
+Visited block @0xad55128
+Visited block @0xad55188
+Skipping block @0xad55188
+Visited block @0xad551b8
+Visited block @0xad551b8
+Visited block @0xad551e8
+Skipping block @0xad551e8
+Visited block @0xad55218
+Visited block @0xad551e8
+Skipping block @0xad55218
+Skipping block @0xad551e8
+Visited block @0xad55218
+Visited block @0xad55218
+Visited block @0xad55248
+Visited block @0xad54940
+Skipping block @0xad550f8
+Visited block @0xad55248
+Visited block @0xad54940
+Skipping block @0xad550f8
+Visited block @0xad55248
+Visited block @0xad54940
+Skipping block @0xad550f8
+Visited block @0xad55278
+Visited block @0xad54910
+Skipping block @0xad54940
+Skipping block @0xad55248
+Visited block @0xad54970
+Visited block @0xad55278
+Visited block @0xad54910
+Skipping block @0xad54940
+Skipping block @0xad55248
+Visited block @0xad54970
+Visited block @0xad55278
+Visited block @0xad54910
+Skipping block @0xad54940
+Skipping block @0xad55248
+Visited block @0xad54970
+Visited block @0xad54880
+Skipping block @0xad54880
+Visited block @0xad549a0
+Skipping block @0xad549a0
+Visited block @0xad549d0
+Visited block @0xad54880
+Skipping block @0xad54880
+Visited block @0xad549a0
+Skipping block @0xad549d0
+Skipping block @0xad549a0
+Visited block @0xad549d0
+Visited block @0xad54880
+Skipping block @0xad54880
+Visited block @0xad549a0
+Skipping block @0xad549d0
+Skipping block @0xad549a0
+Visited block @0xad549d0
+Visited block @0xad552a8
+Skipping block @0xad54880
+Visited block @0xad549d0
+Visited block @0xad552a8
+Skipping block @0xad54880
+Visited block @0xad552a8
+Skipping block @0xad54880
+Visited block @0xad548b0
+Skipping block @0xad54910
+Visited block @0xad548b0
+Skipping block @0xad54910
+Visited block @0xad548b0
+Skipping block @0xad54910
+Visited block @0xad548e0
+Skipping block @0xad54910
+Visited block @0xad548e0
+Skipping block @0xad54910
+Visited block @0xad548e0
+Skipping block @0xad54910
+Chain creation done.
+Walking arcs now.
+Visiting arc @0xbfdff128
+Weight = 1.72171e+09
+Visiting arc @0xbfdff128
+Weight = 1.72171e+09
+Visiting arc @0xbfdff128
+Weight = 1.72171e+09
+Visiting arc @0xbfdff128
+Weight = 1.49432e+09
+Appending...
+Visiting arc @0xbfdff128
+Weight = 1.49432e+09
+Visiting arc @0xbfdff128
+Weight = 1.49432e+09
+Visiting arc @0xbfdff128
+Weight = 1.00199e+09
+Appending...
+Visiting arc @0xbfdff128
+Weight = 1.00199e+09
+Visiting arc @0xbfdff128
+Weight = 1.00199e+09
+Visiting arc @0xbfdff128
+Weight = 1.00199e+09
+Appending...
+Visiting arc @0xbfdff128
+Weight = 1.00199e+09
+Visiting arc @0xbfdff128
+Weight = 1.00199e+09
+Visiting arc @0xbfdff128
+Weight = 5.08435e+08
+Appending...
+Visiting arc @0xbfdff128
+Weight = 5.08435e+08
+Visiting arc @0xbfdff128
+Weight = 5.08435e+08
+Visiting arc @0xbfdff128
+Weight = 5.08271e+08
+Visiting arc @0xbfdff128
+Weight = 5.07165e+08
+Appending...
+Visiting arc @0xbfdff128
+Weight = 5.07165e+08
+Visiting arc @0xbfdff128
+Weight = 5.07165e+08
+Visiting arc @0xbfdff128
+Weight = 5.07165e+08
+Appending...
+Visiting arc @0xbfdff128
+Weight = 5.07165e+08
+Visiting arc @0xbfdff128
+Weight = 5.07165e+08
+Visiting arc @0xbfdff128
+Weight = 5.0716e+08
+Appending...
+Visiting arc @0xbfdff128
+Weight = 5.0716e+08
+Visiting arc @0xbfdff128
+Weight = 5.0716e+08
+Visiting arc @0xbfdff128
+Weight = 5.07159e+08
+Appending...
+Visiting arc @0xbfdff128
+Weight = 5.07159e+08
+Visiting arc @0xbfdff128
+Weight = 5.07159e+08
+Visiting arc @0xbfdff128
+Weight = 5.02823e+08
+Appending...
+Visiting arc @0xbfdff128
+Weight = 5.02823e+08
+Visiting arc @0xbfdff128
+Weight = 5.02823e+08
+Visiting arc @0xbfdff128
+Weight = 1.04571e+08
+Visiting arc @0xbfdff128
+Weight = 1.04571e+08
+Visiting arc @0xbfdff128
+Weight = 1.04571e+08
+Visiting arc @0xbfdff128
+Weight = 4.33732e+06
+Visiting arc @0xbfdff128
+Weight = 4.33732e+06
+Visiting arc @0xbfdff128
+Weight = 4.33732e+06
+Visiting arc @0xbfdff128
+Weight = 4.33732e+06
+Visiting arc @0xbfdff128
+Weight = 4.33732e+06
+Visiting arc @0xbfdff128
+Weight = 4.33732e+06
+Visiting arc @0xbfdff128
+Weight = 25541
+Visiting arc @0xbfdff128
+Weight = 25541
+Visiting arc @0xbfdff128
+Weight = 22479
+Appending...
+Visiting arc @0xbfdff128
+Weight = 21298
+Visiting arc @0xbfdff128
+Weight = 5813
+Visiting arc @0xbfdff128
+Weight = 5813
+Visiting arc @0xbfdff128
+Weight = 5813
+Visiting arc @0xbfdff128
+Weight = 5007
+Visiting arc @0xbfdff128
+Weight = 5007
+Visiting arc @0xbfdff128
+Weight = 5007
+Visiting arc @0xbfdff128
+Weight = 2325
+Visiting arc @0xbfdff128
+Weight = 1770
+Appending...
+Visiting arc @0xbfdff128
+Weight = 1770
+Visiting arc @0xbfdff128
+Weight = 1709
+Appending...
+Visiting arc @0xbfdff128
+Weight = 1069
+Visiting arc @0xbfdff128
+Weight = 818
+Appending...
+Visiting arc @0xbfdff128
+Weight = 762
+Visiting arc @0xbfdff128
+Weight = 762
+Visiting arc @0xbfdff128
+Weight = 762
+Visiting arc @0xbfdff128
+Weight = 758
+Visiting arc @0xbfdff128
+Weight = 758
+Visiting arc @0xbfdff128
+Weight = 758
+Visiting arc @0xbfdff128
+Weight = 757
+Appending...
+Visiting arc @0xbfdff128
+Weight = 757
+Visiting arc @0xbfdff128
+Weight = 354
+Appending...
+Visiting arc @0xbfdff128
+Weight = 229
+Visiting arc @0xbfdff128
+Weight = 229
+Visiting arc @0xbfdff128
+Weight = 20
+Visiting arc @0xbfdff128
+Weight = 20
+Visiting arc @0xbfdff128
+Weight = 20
+Visiting arc @0xbfdff128
+Weight = 13
+Visiting arc @0xbfdff128
+Weight = 13
+Visiting arc @0xbfdff128
+Weight = 13
+Visiting arc @0xbfdff128
+Weight = 5
+Visiting arc @0xbfdff128
+Weight = 5
+Visiting arc @0xbfdff128
+Weight = 5
+Done with chain merging.
+Total # chains = 19
+-----
+Chain (0) size = 2
+Chain (1) size = 1
+Chain (2) size = 3
+Chain (3) size = 0
+Chain (4) size = 0
+Chain (5) size = 3
+Chain (6) size = 0
+Chain (7) size = 2
+Chain (8) size = 1
+Chain (9) size = 2
+Chain (10) size = 2
+Chain (11) size = 0
+Chain (12) size = 0
+Chain (13) size = 1
+Chain (14) size = 1
+Chain (15) size = 0
+Chain (16) size = 0
+Chain (17) size = 1
+Chain (18) size = 0
+-----
+Doing block placement now.
+Appending chain 5 to chain 0
+Appending chain 10 to chain 5
+Appending chain 14 to chain 10
+Appending chain 13 to chain 14
+Appending chain 1 to chain 13
+Appending chain 2 to chain 1
+Appending chain 7 to chain 2
+Appending chain 17 to chain 7
+Appending chain 8 to chain 17
+Appending chain 9 to chain 8
+Blocks placed: 17
+ENTER RUN ON FUNCTION
+0xad3b8c8
+Visited block @0xad4d980
+Visited block @0xad4d9e0
+Skipping block @0xad4d9e0
+Visited block @0xad4d9b0
+Visited block @0xad4d9b0
+Visited block @0xad4da10
+Skipping block @0xad4da10
+Visited block @0xad4da40
+Visited block @0xad4da10
+Skipping block @0xad4da40
+Skipping block @0xad4da10
+Visited block @0xad4da40
+Visited block @0xad4da40
+Visited block @0xad4da70
+Visited block @0xad4db60
+Visited block @0xad4da70
+Visited block @0xad4db60
+Visited block @0xad4da70
+Visited block @0xad4db60
+Visited block @0xad4daa0
+Visited block @0xad4db30
+Skipping block @0xad4db60
+Skipping block @0xad4da70
+Visited block @0xad4daa0
+Visited block @0xad4db30
+Skipping block @0xad4db60
+Skipping block @0xad4da70
+Visited block @0xad4daa0
+Visited block @0xad4db30
+Skipping block @0xad4db60
+Skipping block @0xad4da70
+Visited block @0xad4dad0
+Visited block @0xad4db00
+Skipping block @0xad4db30
+Skipping block @0xad4daa0
+Visited block @0xad4dad0
+Skipping block @0xad4db00
+Visited block @0xad4db00
+Skipping block @0xad4db30
+Skipping block @0xad4daa0
+Visited block @0xad4dad0
+Skipping block @0xad4db00
+Visited block @0xad4db00
+Skipping block @0xad4db30
+Skipping block @0xad4daa0
+Visited block @0xad4db00
+Skipping block @0xad4db30
+Skipping block @0xad4daa0
+Chain creation done.
+Walking arcs now.
+Visiting arc @0xbfdff128
+Weight = 2.80367e+09
+Appending...
+Visiting arc @0xbfdff128
+Weight = 2.80367e+09
+Visiting arc @0xbfdff128
+Weight = 2.80367e+09
+Visiting arc @0xbfdff128
+Weight = 1.00199e+09
+Appending...
+Visiting arc @0xbfdff128
+Weight = 1.00199e+09
+Visiting arc @0xbfdff128
+Weight = 1.00199e+09
+Visiting arc @0xbfdff128
+Weight = 1.00199e+09
+Visiting arc @0xbfdff128
+Weight = 1.00199e+09
+Appending...
+Visiting arc @0xbfdff128
+Weight = 1.00199e+09
+Visiting arc @0xbfdff128
+Weight = 1.00199e+09
+Visiting arc @0xbfdff128
+Weight = 1.00199e+09
+Appending...
+Visiting arc @0xbfdff128
+Weight = 7.19713e+08
+Appending...
+Visiting arc @0xbfdff128
+Weight = 7.19713e+08
+Visiting arc @0xbfdff128
+Weight = 7.19713e+08
+Visiting arc @0xbfdff128
+Weight = 7.19713e+08
+Visiting arc @0xbfdff128
+Weight = 7.19713e+08
+Visiting arc @0xbfdff128
+Weight = 7.19713e+08
+Visiting arc @0xbfdff128
+Weight = 7.19713e+08
+Visiting arc @0xbfdff128
+Weight = 7.19713e+08
+Visiting arc @0xbfdff128
+Weight = 7.19713e+08
+Visiting arc @0xbfdff128
+Weight = 7.19713e+08
+Visiting arc @0xbfdff128
+Weight = 7.19713e+08
+Visiting arc @0xbfdff128
+Weight = 7.19713e+08
+Visiting arc @0xbfdff128
+Weight = 7.19713e+08
+Visiting arc @0xbfdff128
+Weight = 7.19713e+08
+Visiting arc @0xbfdff128
+Weight = 6.75584e+08
+Visiting arc @0xbfdff128
+Weight = 6.75584e+08
+Visiting arc @0xbfdff128
+Weight = 5.03107e+08
+Appending...
+Visiting arc @0xbfdff128
+Weight = 5.03107e+08
+Visiting arc @0xbfdff128
+Weight = 5.00996e+08
+Visiting arc @0xbfdff128
+Weight = 5.00996e+08
+Visiting arc @0xbfdff128
+Weight = 5.00996e+08
+Visiting arc @0xbfdff128
+Weight = 3.59856e+08
+Visiting arc @0xbfdff128
+Weight = 3.59856e+08
+Visiting arc @0xbfdff128
+Weight = 4.31665e+07
+Visiting arc @0xbfdff128
+Weight = 63
+Appending...
+Visiting arc @0xbfdff128
+Weight = 63
+Visiting arc @0xbfdff128
+Weight = 63
+Visiting arc @0xbfdff128
+Weight = 63
+Visiting arc @0xbfdff128
+Weight = 63
+Visiting arc @0xbfdff128
+Weight = 63
+Visiting arc @0xbfdff128
+Weight = 63
+Visiting arc @0xbfdff128
+Weight = 63
+Visiting arc @0xbfdff128
+Weight = 63
+Visiting arc @0xbfdff128
+Weight = 0
+Appending...
+Visiting arc @0xbfdff128
+Weight = 0
+Visiting arc @0xbfdff128
+Weight = 0
+Done with chain merging.
+Total # chains = 11
+-----
+Chain (0) size = 5
+Chain (1) size = 0
+Chain (2) size = 1
+Chain (3) size = 1
+Chain (4) size = 0
+Chain (5) size = 1
+Chain (6) size = 0
+Chain (7) size = 1
+Chain (8) size = 2
+Chain (9) size = 0
+Chain (10) size = 0
+-----
+Doing block placement now.
+Appending chain 7 to chain 0
+Appending chain 3 to chain 7
+Appending chain 2 to chain 3
+Appending chain 8 to chain 2
+Appending chain 5 to chain 8
+Blocks placed: 6
+ENTER RUN ON FUNCTION
+0xad3b8c8
+Visited block @0xad4d950
+Visited block @0xad5db88
+Visited block @0xad5dbb8
+Visited block @0xad5dcd8
+Visited block @0xad5dbe8
+Visited block @0xad5dc18
+Visited block @0xad5dc18
+Visited block @0xad5dc48
+Visited block @0xad5dca8
+Skipping block @0xad5dcd8
+Visited block @0xad5dc48
+Visited block @0xad5dca8
+Skipping block @0xad5dcd8
+Visited block @0xad5dc78
+Skipping block @0xad5dc78
+Skipping block @0xad5dca8
+Visited block @0xad5dc78
+Skipping block @0xad5dc78
+Skipping block @0xad5dca8
+Chain creation done.
+Walking arcs now.
+Visiting arc @0xbfdff128
+Weight = 1.00199e+09
+Appending...
+Visiting arc @0xbfdff128
+Weight = 1.00199e+09
+Appending...
+Visiting arc @0xbfdff128
+Weight = 1.00199e+09
+Appending...
+Visiting arc @0xbfdff128
+Weight = 7.23999e+06
+Visiting arc @0xbfdff128
+Weight = 7.23999e+06
+Visiting arc @0xbfdff128
+Weight = 13
+Appending...
+Visiting arc @0xbfdff128
+Weight = 13
+Visiting arc @0xbfdff128
+Weight = 13
+Appending...
+Visiting arc @0xbfdff128
+Weight = 13
+Appending...
+Visiting arc @0xbfdff128
+Weight = 13
+Appending...
+Visiting arc @0xbfdff128
+Weight = 13
+Visiting arc @0xbfdff128
+Weight = 13
+Appending...
+Visiting arc @0xbfdff128
+Weight = 13
+Visiting arc @0xbfdff128
+Weight = 13
+Appending...
+Visiting arc @0xbfdff128
+Weight = 13
+Visiting arc @0xbfdff128
+Weight = 0
+Visiting arc @0xbfdff128
+Weight = 0
+Visiting arc @0xbfdff128
+Weight = 0
+Done with chain merging.
+Total # chains = 9
+-----
+Chain (0) size = 2
+Chain (1) size = 0
+Chain (2) size = 4
+Chain (3) size = 0
+Chain (4) size = 1
+Chain (5) size = 2
+Chain (6) size = 0
+Chain (7) size = 0
+Chain (8) size = 0
+-----
+Doing block placement now.
+Appending chain 5 to chain 0
+Appending chain 4 to chain 5
+Appending chain 2 to chain 4
+Blocks placed: 7
+BCÀŞ!  C	  ‚        #‘AÈI29’„%‹b€EB’BÄ28I
+2D$H
+!#ÄR€!r$Èˆb¨ ¨@Æğ   Q     ö"øÿÿÿÿv(‡y˜‡6€y(‡qH‡y(‡60xh‡p ÀÂæ¡ ÂŞ¡ÌAÂ¡Ê¡àáÒÁè¡ä¡ÊÒ¡ sv˜‡r wx‡60y‡v(‡6€‡wHw ‡r‡6(vH‡vhwxwhv(‡p0ÀÂæ¡ ÂŞ¡ÒÁÌaÚÀà¡Ú!è sv˜‡r wx‡6p‡pp‡yhs€‡6h‡p t Ì!ØaÊ êÁæ!Ì¡ÚÀà¡Ú!è sv˜‡r ˆz˜‡rhƒyxs ‡60vx‡p ÀÂæ¡€„  Éb€eAÀ²¡/Šÿÿÿÿ 	¨v(‡y˜‡6€y(‡qH‡y(‡60xh‡p ÀÂæ¡ ÂŞ¡ÌAÂ¡Ê¡àáÒÁè¡ä¡ÊÒ¡ sv˜‡r wx‡60y‡v(‡6€‡wHw ‡r‡6(vH‡vhwxwhv(‡p0ÀÂæ¡ ÂŞ¡ÒÁÌaÚÀà¡Ú!è sv˜‡r wx‡6p‡pp‡yhs€‡6h‡p t Ì!ØaÊ êÁæ!Ì¡ÚÀà¡Ú!è sv˜‡r ˆz˜‡rhƒyxs ‡60vx‡p ÀÂæ¡€„1 Ëâøÿÿÿÿ    I     ‚`‚ †(&L#˜0Ä1A‚	ƒ0"˜ Ç„à˜  ‰   ,   2"ˆ	 d…#¤„#ã„¡LŒŒ„ÄLèÁ’. iĞ IĞ‘	 %Ğ’ï 5C Ex‚æÀ MçHSD	“ÿ8H3ıG¢ª–ôĞE@2‰´2<–E=¥,Kòè(EhI–DâAPŒ0Ë$‰¤²aFg!,K’(­‚”ÑJY$©%·RÖJAÊH# …b„@K$ÕS $¢t˜<°ƒ6€‡qhvHw¨|hƒsp‡zØ0åĞğ s z0r s mq x xĞé€z€z€mq`zv q`ms z0r s mv@z0r v@m`s z0r s m`v@z0r v@m`v@z`t v@m`q x q x q xĞá z z`tĞæ€p s z0rĞî€zv s m0q x ó@ˆ2B$Ø¡$  °C!‚1H  `‡bb  À	Â 	  €ŠxI  @ ìP˜àK  `‡â`   À%      †(    0DÁ     €!Ê€    Q"     `ˆ    C” €   ¢€     0D  
+   `ˆb@    À€ 8   €!Š  €    C”1       †(l À   QŞ  €   ¢Ä 	   0D™     `ˆb@ (   @]   2˜LŒ	&GÆC¢¡@F 
+‚E¥R©T|iQ0¨ÏÃç²TšƒÜ_ø;í¦ÏA[÷wÌ®Ïéeù¼« FİãÅíåì´»L÷Aä²ôjƒöòöÛ^¦¿û rÙ¬xA{KVÍëbP?Fƒ\²h^ƒÊø1äª` ™
+ËÇ sšÍõAä²Yñšƒö öÛ^¦¿A-jƒd ˆ’Z2Ô’Z24f¿çex˜%Îó°½ŠæeúYÎƒÌi6t–—çô·¼:ÏÃö2hš—éì´»|O“éhP4/ÓÏòp4§Ëßë2è,/ÏéoyÍËô³<œÍéò÷ºê“Ëf:tRÀ@ó2ı,çA¥3¨tÍT(SrÍÌ ’kf4hU:ƒJgPéš—éò³xüf¿å
+
+´J¥tÚ
+’ßârkæ‚)J¥RIø®»Éi÷YøÆë@­¨U•È Y y  #   C<ğ@X`Ã;Ôƒ8°C9!ğ`ÀbÁóíàé ï@åàô ã€á C<(D³í ìP`0
+o0
+k°`@¢
+¡0„Àƒ„C:¸=‘è`£ :àè€Ã€4:ÈğÀBà‚Â‚%Ü!À Ş!ÜÊA y     3€Äáf=ˆC8„ÃŒB€yxs˜qæ íô€3BÂÁÎ¡f0=ˆC8„ƒÌ=ÈC=Œ=ÌxŒtp{yH‡ppzpvx‡p    q   ,   AA˜D±,6µ,ã3#“ÿĞï#:nÅ€H“m „/M‘=ÊóØñP“d…/M‘m…/MÑm…/Mn…/MQn…/M‘nƒ4E†@D@3ØÂ 8’YÒMÎb	†A4ÿ…Ã !Ğ…AdËR1>C0ÂƒùğşC#¼Ü¶U€4æp4ÒdÆ!ÍTØDòDH3ıÄ#™‚Á Ëâ  a      A,      ôŒ€ âÿÿÿÿ=   #Ãx<V!”A8   PÍa–2He'„à4•™°,F0†20Ô       a   h   D,   	   $•@¡ÔÀ =c8º¢¤Úşaj‚Ä‚ şÿÿÿß#   …2b@0ÁX;,Ã ³ÁT“ÀxÌ–„0Pa) ŒKĞ<VA#44b0,A\ğX–TÑˆ±rP”ÈxcYƒ0 #ÄĞRE ãÆFÂ Œ'@ÛpCd‰Á,ƒ0y…   5   ÆsHå#õn7C->b$…àPÍdC
+Ò!øÏİÀQ8‘O4ƒíµøH­[ÌƒÿL‘/QŒÕ°,>b2Ò!øÏÕ¼å °,>RãF4Ìc>C-ø	 …ù3`D0Ô¢[‰BISÌS÷ör Ãà?Sd,C-ÖSÀ²ÜFS<>mÓTÀ²äPÍa¦ƒNSùH_€S8‘8æ/‘ÿfcNSùˆı—	˜áRùˆÍ0H#„à?Sd×ÖBÀ²   1     [+ ¶Z         a   &   A,      $ ”    ã„ P0Æ
+‚ `ÔÄxCrŒñ%A(5Q†!%RB „      CHTI XI@A4S„ÙÁP‹n(ÂUË Q©—m-vÛ‹€á&30Ôb40 1     [†  ¶C lŒ Ø2         a      H,   	   $Í ”ÿÿÿÿÃ@	=c ‚ ‚ ÈÿÇ y#     ÃŠa³Œ74GAÁox’d¼R’Y„AÂ˜%8†"f"¨x( †
+I€0†¦fŒ"Œ †˜%0R¨x8á;*$2¾c Â‚á;*$L¸ñ¡ª(01ŞP`£'Š ¤AJ`¸¡	„é†f	¦†G°@0ğ„Ápƒp`0Ë0A8   Q   ÆÔ 0‚ÿL‘OI6C\¶˜’Â Í?ø¶OIG€NäÍÀ_‚ştMo>ƒ4?â×öíS’í0Òüƒ_ÛºOIpNäÎ€ùKä?‡/=2ù”dH‡À<¸OIÆƒ ~mç>%L!0İ[	!Íd1…9ÔcF	C-ºø”tRøD3Ô´ƒmAˆD>âS’İóø”tKáD>Ò¹OIV„0Ôâ#>%Y’Â Íø¶OIF"<“Ñî#†Ó0Hó>í/‚$wÀNäÎ€İ>%Q"QAî#>%YNÃ Íø´¿’˜IÒüÂBIÙ’4‚OIPÍa¦cLNà8‹!À0øˆOIös\µø”dBvûˆOIÖƒ>mã>%€T8‘8vûKä?‡OIÖ„2	N3    1     [†!0¶G l Ø2@°eÀ`Ë°        a   
+  X,      D Tåÿÿÿÿ0P…Re@Ï‚ şÿÿÿß#1F ‚ ‚ ‚ü7@Ï  õ7b@0Áx;b0,ÁT0ÙxB•í	Ù @ÀBğ8ÔpC™Á,C@Ã˜d³ÍˆÁ°v0K0ŒPœÿÿÿÿ M€0Üd`0Ë@4Á@…¤ Ãİe³Å7˜7Ì2T†0P!h nÄ f#1 –à&ˆÿÿÿÿA4˜e`†`¼aâÿÿÿÆÌ ÿÿÿÿé„lOÈvÄ ‚>0øÊ`–`1– f–!ºà±úÿÿÿ@¨ h–€¨XaiŠ‡Xd<¡(51ÜŒ`Æ€`–I„
+	9f,ÈıÿÿÿÁ;0˜e€`°B÷ÿÿÿõÿÿÿ‡˜%€†"tÿÿÿğ`‚÷ÿÿÿ‡' F(|ÿÿÿà ÆÀÿÿÿ°â`¸AÈ0˜eP¬`– Š8ÿÿÿÿ!`–`¨x|Aú¦
+‰¤o¨°ğAú¦
+	‘®i¼AÈƒ< `T°şÿÿÿCŒ7|°Œ
+Úÿÿÿˆ")Anhaº¡Y‚é†áì!Œ'<¥0Ü ÄÌ2PS0X±ÿÿÿÿC0BÁÿÿÿÿƒt
+€0Şàÿÿÿÿƒ…
+Ã,€Á,ÃQA‘E1P!!NãB+¼ÂxÃà
+®0Ş@¼‚+0H³‘”(@rÑTH¤ ™E3Pñ „Íx‚*ã„-ØÂxCq¶@Â aÌ\ZXÛ5P!Ù…µ]–hXÛ5ŞôB/P0*8b¼ ‡_ `TD„” H	700İ 45ç ‚ñ„†„> ƒYç
+Â  >  Ö°HTûˆOI>bOC->bYÈä³øˆu)H#„à?St\áD~àØí/‘ÿ>%ùHOû”äS’%óØ½è¹-$Øí#>%ùÈ	8…ùD3øÓÀp	RøD3X`€qÙ>â#VT$¾İë6‡ `ó>%Ya€Ã Í?øµ­û”ä#æg$>]Û¸!óÔ´YóÔ÷1(…ù3`umS
+E †Wm[’D€!ÃUã¦¤ Q`ÈpÕ¹½QÒüƒoû”ä#|îSR]ßædNSùˆİ°,µÑµ˜O" Ëâ#õİß@R8‘4‚M@A4S„™c€ÂP‹ø”ä#¦ HTà#>%ùˆ)óø”ä#;}ªP8‘8æ/‘ÿ¾ô,ÈäS’è½_8‘8æ/‘ÿ¾ô,ÈäS’è½/=2ıB„L?1„OIÆ5 pUáD~àØíS’ğ½OI}oz†ûˆè¼OIvU PïwáNäÎ€İ>%ùˆ™IøˆOI>²ï>%ÕtnˆD1>]Û·Ñ=H#„à?Sd÷>%b@rÕ>âS’˜Ğ!0÷¹å$@2\¶Q<H#„à?SäS’˜òøv¿û”dyËeûˆè»OIöS `×Ìƒû”ä#†3DcFÒ6oC-ºø”ä#ÖsÌƒ×¶}SáD¾à4Ãí?qÀ@Df1Hó~më>%ùÈnû”TÓ´‰I‚OÛ¸OI>²ã>%Õ´mcƒ4?â×öíS’ì¹OI5}[Ü…4Â@ş3E>%ù¿û”T×¹µEóà>%ùû”T×µy-Ä…L‚ÓõĞB\È$8ÍPß»ARùˆÕ-Ä…L‚ÓõÍU8‘/8Í`ßşDtQC !M>q!Sû”d5„ ,ËYŒBáD~à˜¿DşsøÒ³ “OI>âNäÎ€ùKä?‡/=2ù”ä#¾ô,Èô2ıÄ`e$~]Û½M H#ø”ä#  Ãà#>%ùÈ$…ùD3Ü´I0Òüƒoû”ä#v >mã>%ùÈA0D„4ùÄ…L÷  …?DÓûÈUx…ù3`şùÏáKÏ‚L>%ùˆŞû”di“D¹ø”ä#{ïSRMïF]µø”ä#»îSRMãgà4Òä2õ¸U`ÀƒÿL‘I!Åøumóv‡$¾İë>%™œD\È$8Íà#<ïSR]ë&``¸øˆá1FäPèºOIfBD3ÂQ8‘O4ƒ¹QÒüˆoû”ä#<îSR]Û5¿°PÒDD>í/‚$‡NäN3ôÖdÀ²øˆñóÔ7m•
+q!“à4ƒØ‰ÑüÑLF2<“tJáD>Ñ¼\T8‘8fçşùÏa†
+â×vîS’XÉ°±IÀ0øˆOI>ÂÛ>%Õ5mkC-ºø”ä#|íSRM÷!àS’ğºOIu–ÓüÂBIùt}×Ög<>]Û¹©IµøˆOI>ÂÓ>%Õ4o[0va·ø”ä#;ïSRMë&!~mç>%ùÈ~û”TÓõ-@…ù3`uí/‘ÿNäN3ÜşDä/‘ÿv„2	N3    1     [¤@¶dP [†7€-À–A`Ë
+±e@… Ø2¬B ln!0¶á [q€-ƒ:À–a`Ë°e ‡         a   ƒ  S,   
+   Œ ]($ ”@JQ”ÿÿÿÿC!9@Ï‚ ‚ òÿ Å2b@0AX;bp DPğ7@Œ7@”¤äpƒ¤€Á,A0Ğ!Ğ	ôAÂÃB…³‰TX™ 1R% 3Ş Tã‚ÇÆ
+£`T0Ğ`ÄÀx²iŒ
+Œ‚0¥Áxã7c ³ƒÌ2D5P!‰ÂpÃe³AG˜şÿÿÿ İÿÿÿÿ ³tH²Ë1B±ÿÿÿÿƒD€0ŞàÿÿÿÿƒUÃÂ€Á,qaèÂ0P!)†,’bĞÂ0Ş0¬AP0f Œ`F±ÿÿÿ?À,a^€`<Ásƒû²1@ @‚9ƒ5PƒY‚`–aaÊ` Â*ƒ…”
+)rPÆ„9ˆ
+Æxƒs@Á°À@010ŞpàP0ÆŞÀĞ
+FFÁ Œ70}ÀŒñ:Xü€‚QC ƒC0 …Æ$QnPf˜%˜e<˜ex<H=¨°’‡š
+©xX¢oN¡#a L8Œ'¨0Ü ´Ì28O0Ş0«°
+ãdÀ
+«@Â aÌDÏ¹„äĞ@‡ôE`!4Ğa}KH,tHWÄ
++@ãÂ,Ì£$Æ
+[¨
+FJAH	‚”ÀpCÓÍL7`/€`<áù…áÀ`–AŠ‚Y†¨˜…p   Ë   fƒÌSï5ÍÃT8‘/8ÍPëşâ8q!“,ä>âS’˜U4Â½ÛR!0~b ‚4‚OI>bX
+Ò!øÏ™Ò#@cƒOû‹ I€İÒa€ƒø”ä#ÆÆ 0‚ÿLQÛ_‚İ>âS’˜ƒ4Â@ş3E¹}JáD~àÎ›"ø´û”ä#vÀ0Hó¾íS’˜ÏaDõÔ½Ñ—í#>bAÃeÓ†ç0Hó~më>%ùÈAd…ù3`şùÏáKÏ‚L>%ùÈ0D„4ùÄ…LæT €Ó¶3Ìc\†9Ôƒ›—aDõäÖc ~]Ó½E_×5~Çàø‚Ó¦e<>]ÓûL…ù‚Óvï/ó2™ZC]Ÿ€R8‘8Vó†ƒÌãS’˜ÌÀP‹ù)øˆOI>baÂµ4‚~ ÑLfHÒ!øÏÙ»	(µøˆOI>bmq!“à4C]çµ2	N3Ôõnn†àÛ5[ÒB\È$8ÍP×º]H#Ú€Õ´Õî#>bRŒp A>]×·­H#Ô·	oqÒym:ƒàÓáNäÎ€İ>%ùÈ5P…ù‚Óxî?qÀ@D–3 >mFÅ€T6nM‰p A~}RøÓA4Æ—\µø”ä#f&`ı9$…ùD3ä·)(Ä…L‚Ó>b@„à4•%<H#„à?SäS’ÉğLÒ$…ùH#Ü½å)ˆ_Û¹OI>bSFâ×umÑ€Ù·•ÑØÃ Íøµ}û”ä#VÌƒû”ä#vT `ë64HeT‡9Ôã#¶e$>]Óú% …ù3`w NäÎ€İ¶,µè>âS’XÙ ƒ1óÜ¹ÕóØ5Ûƒ4Â@ş3Exm&Ió%MDtMáD>Ò¹OI>r
+SáD¾à4Cí?qÀ@DÆc~]×ô-$…ù3`÷ …ù‚ÓfÀ0Hó#¾íS’ÜaDõà½Í°,öf ¾]Ó·Í!Ä…L‚Ó    1     [(0¶S lª Ø2\°eÈ`ËĞ±e€ƒÀØ2ìA`lú 0¶[†P€-Ã(À–¡`Ëp
+°eH… Ø2¬B ll!0¶½ [_€-C9À–      a   š  K,   #   $•D9LÑ”EŒ ”@Ğ3F ‚ ‚ ‚ø?Œ€ ‚ ‚¨c ‚ ‚ œ‚Ä‚ ‚ ˆê 1F ‚ ‚ ‚üŒ€ ‚ ‚ ÿ?”e€ä’e8†ä’eä’e ƒä’e‚ä’e(„ä’   eM2b@0x;ÜIf0ËpÁp7™Á,ƒ!äƒ1PñpÁ>¤ƒ1Pñ€A°F	ATPEÔĞpÃÓÔ@œÔÂ@ŒKÀY”ÁˆzÍ2Š4P!½
+Â@…õ„.&Æ¬€‚a€`<!(f´Æ¸€‚1bp,A*ÁA³Ñ7,p Œ
+¦(+
+Ü Æ : 
+FVÔHs #ÆĞ‚]z ‚ñ„k†R ƒYeF(fÿÿÿú Æfÿÿÿ°ü`¸AH0˜e ` B*C$‚
+«œ*Í°‡` âé}*ÅĞ‡` âiÆŠS8
+ÆpÓB7ƒ0İ@ÁxÃÒ
+¬@Án`bºAh‚á†f¦'0I@0 ÍÂpƒà`0Ë Á@…4lX` °ÀDPÁ.ØU`d†.ˆ`<‚Áˆ` CÆA„ƒ]ğX¼@f„Æd!Œ†0GDPÁ9ØU dL:€`<‚Áˆ`€á†)À`–!8‚
+I
+Û*,](ØcoÚÁ(ÃÁ*€Á,CRã<À£‚Yˆ²…@*poHê(ØBÔ.RÁ<Àˆ±4ÑF0KPŒKPí0b@,AN°†Õ   †`À²ôµyW¯[f€‘øu­÷vTH…ï–TH…÷†THT€óÖÆ 0‚ÿLQÛœÂ ×ùt½çWNä#ĞÛP0ÔÂç¶¶2	N3Ô|ng05}Û`ÀB\È$8ÍPóº™µğ½5Áè†°2	N3ÔünŠC-·µØÆ@0Ô’[ÁPK}
+JáD>Ñ5Í[d€D€!ÃU×60`ün—
+E †WÍ[S1 U¾›d@ÁPKm@A4S„SC®›SCÎÛS1 UŞ›ŞÁ Íùµápı—_[QÃ Íù´¿’ØPÃ Íù´¿’XXÁPKÏ›™ÁPKMÛVfHTPÓµˆO×<nw…À<ömlÒı}JáD~à˜m[^!0½›c@!8MµÂ Íùt½ã†@NSÙUƒŞAR8‘O4CŸe€!8MUã–0He‡CD0ÖWÌsÛöWÌsó¦U Ã°Û&À 0‚ÿL[]pÙ^€`ÀÁ Íùµù°,æw0Àõc~}	RøD3ğ¶óÔümRâ×õnÛÒ!	ÀBø´E5Ig<>]ï¼ğ¸‰À0ğº•ğüP…ù‚Óuï?qÀ@DP €ãeÀ²è´- @2\¦TÌ“Ó¦Ö 0‚ÿLQMïVPHUçP ÃPÓf4HT`cVÓ´YÀ0Ô»À0ôô	$…ùD3àºô»Å)pı˜O×ûnb0}oAˆÀ<6]ï·M‚_×{mD\ÿåÓş"H`B\?æÓş"H`]† ,ËÛ›‘øt½÷fBD3Ùf@aDõÜ€R8‘8¦ç¦`<~]ë¼U)@2\únh‡ ,KMã–f PÓº¥°,5İÉğL’Qµèº•ÑÜR8‘8fÃÅß6PDSßV0 Ã`X
+E †×NÛ–D€!Ãµßv’4¿°PÒDDÖPÌ³÷‡ NäÎ€í¼É)Òü˜O×»nÄ€T¼¹!Ä…L‚Ó   1     [. ¶_ lÄ  ¶f [†5€-ÃÀ–¡`Ë`°eè… Ø2C lÔ!0¶î [†y       a   ´   I,      $JYÁ@”@QTAĞ3F ‚ ‚ ‚)HŒàèŠ’jû‡©	c ‚øÿÿÿeCL!¥”Ô     0Ü(b0ËEcÄ X‚1(‚Y‚aÄÀ 3ÿÿÿÿAıÿÿÿ‡òÿÿÿf	†
+ÉÀ@È` Â
+$ˆ
++1–€.x¬G*phÄ`X<¸à±
+&©@¢b	ò (!ñ¦ë#a Fˆ%Ø¤Š@ÆœÏŒ„O€À`¸!ªÿÿÿÿAf!O8ƒ0 `ŒJ€Á&Ãk`0Ë`ÁxÂ cÄÀP>>3˜%8*$ÁÀ…¢7‚	V!¸ÀÚñ„ n1˜e@„ –7€ñ"˜% Â  Z   g€ …?D“Ö!0Oİûˆ]%À0øÏùˆQµøˆÑ @d¾S¦ã 0‚ÿL‘]ûˆíOÛ´ØÑ! Ë’ûˆõ ‚ÓT>â#¤NSùHûÈHáOÑÜÁ>Ñ¼å 1UÀâÓFtÀ²Ü>b?Ç€T>â#‡ NäÎ€ùKä?‡˜“! Ëâ#W` …O4ƒ=óàÆ” Q`ÈpÙ'°Dó_˜O\ÈdRˆ ,‹Ô¹A%@2\ºU!°,>Rëæs0Ôâ#>b$‚—ØP2 •Ô»Ü€5¦Ä 0‚ÿL‘˜PÂP‹ÔºXÒ€ùˆe5À0øÏùÅøˆM¤O›–ƒ4Â@ş3E5ï#ÆƒÀ²øˆ" Ëâ#5î#VB ‘Q@A4S„ÙR!0X‘ÁPî#G NäÎ€ùˆ!µè>b7„ ,‹á°,5 1     [†!H¶W l¶ Ø2€AlÊ H          

@@ -1,0 +1,189 @@
+===-------------------------------------------------------------------------===
+LLVM profiling output for executions:
+  1. ./is_prime.profile 65536 
+  2. ./is_prime.profile 131072 
+  3. ./is_prime.profile 262144 
+  4. ./is_prime.profile 524288 
+  5. ./is_prime.profile 1048576 
+  6. ./is_prime.profile 65536 
+  7. ./is_prime.profile 1048576 
+  8. ./is_prime.profile 131072 
+  9. ./block_test.profile 5000 
+  10. ./block_test.profile 7500 
+  11. ./block_test.profile 10000 
+  12. ./block_test.profile 12500 
+  13. ./block_test.profile 15000 
+  14. ./block_test.profile 5000 
+  15. ./block_test.profile 15000 
+  16. ./blocked.profile 900 
+  17. ./blocked.profile 1000 
+  18. ./blocked.profile 1100 
+  19. ./blocked.profile 1200 
+  20. ./blocked.profile 1300 
+  21. ./blocked.profile 1400 
+  22. ./blocked.profile 900 
+  23. ./blocked.profile 1400 
+  24. ./factor.profile 2000000 
+  25. ./factor.profile 3000000 
+  26. ./factor.profile 4000000 
+  27. ./factor.profile 5000000 
+  28. ./factor.profile 6000000 
+
+===-------------------------------------------------------------------------===
+Function execution frequencies:
+
+ ##   Frequency
+  1. 1.5e+08/1.54475e+08 factor
+  2.     8/1.54475e+08 xferFactors
+
+  NOTE: 1 function was never executed!
+
+===-------------------------------------------------------------------------===
+Top 20 most frequently executed basic blocks:
+
+ ##      %% 	Frequency
+  1. 28.9658% 3550484108/1.22575e+10	xferFactors() - for.end
+  2. 28.8799% 3539960551/1.22575e+10	factor() - entry.for.end_crit_edge
+  3. 17.5791% 2154757758/1.22575e+10	factor() - if.end.i
+  4. 16.3456% 2003559488/1.22575e+10	factor() - entry.for.body_crit_edge
+  5. 2.49821% 306218336/1.22575e+10	factor() - for.inc
+  6. 1.42349% 174484170/1.22575e+10	factor() - for.end
+  7. 1.26025% 154475140/1.22575e+10	factor() - entry
+  8. 1.25806% 154207107/1.22575e+10	factor() - if.else.i
+  9. 0.252422% 30940727/1.22575e+10	factor() - for.body
+ 10. 0.189898% 23276774/1.22575e+10	xferFactors() - for.body.for.body_crit_edge
+ 11. 0.163245% 20009815/1.22575e+10	factor() - xferFactors.exit
+ 12. 0.16324% 20009221/1.22575e+10	xferFactors() - for.body
+ 13. 0.163165% 19999995/1.22575e+10	factor() - if.end14
+ 14. 0.163165% 19999990/1.22575e+10	factor() - for.end.if.end14_crit_edge
+ 15. 0.163165% 19999985/1.22575e+10	factor() - if.then.i49
+ 16. 0.163164% 19999878/1.22575e+10	factor() - for.inc.for.body_crit_edge
+ 17. 0.163085% 19990165/1.22575e+10	factor() - if.end.i.xferFactors.exit_crit_edge
+ 18. 0.115496% 14156895/1.22575e+10	factor() - if.end
+ 19. 0.0893329% 10949993/1.22575e+10	factor() - for.body.for.inc_crit_edge
+ 20. 8.01549e-05%  9825/1.22575e+10	factor() - for.body.lr.ph.i
+WARNING: profile information is inconsistent with the current program!
+===-------------------------------------------------------------------------===
+LLVM profiling output for executions:
+  1. ./is_prime.profile 65536 
+  2. ./is_prime.profile 131072 
+  3. ./is_prime.profile 262144 
+  4. ./is_prime.profile 524288 
+  5. ./is_prime.profile 1048576 
+  6. ./is_prime.profile 65536 
+  7. ./is_prime.profile 1048576 
+  8. ./is_prime.profile 131072 
+  9. ./block_test.profile 5000 
+  10. ./block_test.profile 7500 
+  11. ./block_test.profile 10000 
+  12. ./block_test.profile 12500 
+  13. ./block_test.profile 15000 
+  14. ./block_test.profile 5000 
+  15. ./block_test.profile 15000 
+  16. ./blocked.profile 900 
+  17. ./blocked.profile 1000 
+  18. ./blocked.profile 1100 
+  19. ./blocked.profile 1200 
+  20. ./blocked.profile 1300 
+  21. ./blocked.profile 1400 
+  22. ./blocked.profile 900 
+  23. ./blocked.profile 1400 
+  24. ./factor.profile 2000000 
+  25. ./factor.profile 3000000 
+  26. ./factor.profile 4000000 
+  27. ./factor.profile 5000000 
+  28. ./factor.profile 6000000 
+  29. ./factor.profile 2000000 
+  30. ./factor.profile 6000000 
+  31. ./bubble.profile 50000 
+  32. ./bubble.profile 100000 
+  33. ./bubble.profile 150000 
+  34. ./bubble.profile 200000 
+  35. ./is_prime.profile 2097152 
+  36. ./bubble.profile 250000 
+  37. ./bubble.profile 50000 
+  38. ./bubble.profile 250000 
+  39. ./quicksort.profile 50000 
+  40. ./quicksort.profile 100000 
+  41. ./quicksort.profile 150000 
+  42. ./quicksort.profile 50000 
+  43. ./kmeans.profile 10000 10 
+  44. ./kmeans.profile 100000 10 
+  45. ./kmeans.profile 1000000 10 
+  46. ./kmeans.profile 1000000 20 
+  47. ./kmeans.profile 1000000 50 
+  48. ./kmeans.profile 10000 10 
+  49. ./kmeans.profile 1000000 50 
+  50. ./permutations.profile 8 
+  51. ./permutations.profile 9 
+  52. ./permutations.profile 10 
+  53. ./permutations.profile 11 
+  54. ./permutations.profile 12 
+  55. ./permutations.profile 8 
+  56. ./permutations.profile 12 
+  57. ./mandlebrot_seq.profile 1000 
+  58. ./mandlebrot_seq.profile 1250 
+  59. ./mandlebrot_seq.profile 1500 
+  60. ./mandlebrot_seq.profile 1750 
+  61. ./mandlebrot_seq.profile 2000 
+  62. ./mandlebrot_seq.profile 2250 
+  63. ./mandlebrot_seq.profile 1000 
+  64. ./block_test.profile 5000 
+  65. ./block_test.profile 7500 
+  66. ./block_test.profile 10000 
+  67. ./block_test.profile 12500 
+  68. ./block_test.profile 15000 
+  69. ./block_test.profile 5000 
+  70. ./block_test.profile 15000 
+  71. ./blocked.profile 900 
+  72. ./blocked.profile 1000 
+  73. ./blocked.profile 1100 
+  74. ./mandlebrot_seq.profile 2250 
+  75. ./blocked.profile 1200 
+  76. ./blocked.profile 1300 
+  77. ./fft.profile 128 
+  78. ./blocked.profile 1400 
+  79. ./fft.profile 256 
+  80. ./fft.profile 1024 
+  81. ./blocked.profile 900 
+  82. ./fft.profile 4096 
+  83. ./blocked.profile 1400 
+  84. ./factor.profile 2000000 
+  85. ./factor.profile 3000000 
+  86. ./fft.profile 8192 
+  87. ./factor.profile 4000000 
+  88. ./factor.profile 5000000 
+  89. ./factor.profile 6000000 
+
+===-------------------------------------------------------------------------===
+Function execution frequencies:
+
+ ##   Frequency
+  1. 1.2e+09/2.09327e+09 xferFactors
+  2. 5e+08/2.09327e+09 main
+  3. 3.7e+08/2.09327e+09 factor
+
+===-------------------------------------------------------------------------===
+Top 20 most frequently executed basic blocks:
+
+ ##      %% 	Frequency
+  1. 9.37187% 3984712075/4.25178e+10	factor() - for.inc
+  2. 8.79037% 3737469572/4.25178e+10	factor() - if.else.i
+  3. 8.64775% 3676829578/4.25178e+10	factor() - if.end14
+  4. 7.9778% 3391985451/4.25178e+10	factor() - if.then.i
+  5. 7.92902% 3371243051/4.25178e+10	factor() - if.end5
+  6. 7.30338% 3105233243/4.25178e+10	factor() - if.end.i
+  7. 6.44231% 2739126974/4.25178e+10	factor() - entry.for.body_crit_edge
+  8. 5.79556% 2464145472/4.25178e+10	factor() - if.then4
+  9. 4.73275% 2012259084/4.25178e+10	xferFactors() - for.end
+ 10. 4.68963% 1993927896/4.25178e+10	factor() - for.end
+ 11. 2.97061% 1263038569/4.25178e+10	factor() - entry.for.end_crit_edge
+ 12. 2.87203% 1221123341/4.25178e+10	xferFactors() - entry
+ 13. 2.65553% 1129072485/4.25178e+10	factor() - if.end18
+ 14. 2.61515% 1111905345/4.25178e+10	xferFactors() - if.end
+ 15. 2.61433% 1111555325/4.25178e+10	xferFactors() - if.then
+ 16. 1.7713% 753117000/4.25178e+10	xferFactors() - if.end.for.end_crit_edge
+ 17. 1.35103% 574427160/4.25178e+10	xferFactors() - for.body
+ 18. 1.29122% 548996270/4.25178e+10	factor() - if.then.i49
+ 19. 1.17832% 500996313/4.25178e+10	main() - entry
+ 20. 1.17832% 500996306/4.25178e+10	factor() - for.body.lr.ph.i57

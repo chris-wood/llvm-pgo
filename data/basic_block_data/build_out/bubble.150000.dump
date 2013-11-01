@@ -1,0 +1,198 @@
+WARNING: profile information is inconsistent with the current program!
+===-------------------------------------------------------------------------===
+LLVM profiling output for executions:
+  1. ./is_prime.profile 65536 
+  2. ./is_prime.profile 131072 
+  3. ./is_prime.profile 262144 
+  4. ./is_prime.profile 524288 
+  5. ./is_prime.profile 1048576 
+  6. ./is_prime.profile 65536 
+  7. ./is_prime.profile 1048576 
+  8. ./is_prime.profile 131072 
+  9. ./block_test.profile 5000 
+  10. ./block_test.profile 7500 
+  11. ./block_test.profile 10000 
+  12. ./block_test.profile 12500 
+  13. ./block_test.profile 15000 
+  14. ./block_test.profile 5000 
+  15. ./block_test.profile 15000 
+  16. ./blocked.profile 900 
+  17. ./blocked.profile 1000 
+  18. ./blocked.profile 1100 
+  19. ./blocked.profile 1200 
+  20. ./blocked.profile 1300 
+  21. ./blocked.profile 1400 
+  22. ./blocked.profile 900 
+  23. ./blocked.profile 1400 
+  24. ./factor.profile 2000000 
+  25. ./factor.profile 3000000 
+  26. ./factor.profile 4000000 
+  27. ./factor.profile 5000000 
+  28. ./factor.profile 6000000 
+  29. ./factor.profile 2000000 
+  30. ./factor.profile 6000000 
+  31. ./bubble.profile 50000 
+  32. ./bubble.profile 100000 
+  33. ./bubble.profile 150000 
+
+===-------------------------------------------------------------------------===
+Function execution frequencies:
+
+ ##   Frequency
+  1. 1.1e+07/1.09407e+07 main
+  2.     8/1.09407e+07 bubbleSort
+
+===-------------------------------------------------------------------------===
+Top 20 most frequently executed basic blocks:
+
+ ##      %% 	Frequency
+  1. 32.2363% 3539960623/1.09813e+10	bubbleSort() - for.end16
+  2. 32.2332% 3539622503/1.09813e+10	bubbleSort() - for.cond1.outer
+  3. 8.39361% 921727989/1.09813e+10	main() - for.end.bubbleSort.exit_crit_edge
+  4. 6.70489% 736284705/1.09813e+10	bubbleSort() - for.end.for.end16_crit_edge
+  5. 5.70199% 626152965/1.09813e+10	main() - for.body
+  6. 3.42077% 375645144/1.09813e+10	main() - bubbleSort.exit
+  7. 3.41528% 375042115/1.09813e+10	main() - for.end.for.cond1.preheader.i_crit_edge
+  8. 1.97363% 216730523/1.09813e+10	bubbleSort() - for.cond1.preheader
+  9. 1.97082% 216421435/1.09813e+10	bubbleSort() - for.end.for.cond1.preheader_crit_edge
+ 10. 1.4469% 158888886/1.09813e+10	main() - for.body.for.body_crit_edge
+ 11. 0.509831% 55986113/1.09813e+10	main() - for.cond1.outer.i
+ 12. 0.284818% 31276770/1.09813e+10	bubbleSort() - for.body3.for.cond1_crit_edge
+ 13. 0.255103% 28013672/1.09813e+10	main() - for.cond1.preheader.i
+ 14. 0.254979% 28000009/1.09813e+10	bubbleSort() - for.cond1
+ 15. 0.254979% 27999986/1.09813e+10	main() - for.body3.i
+ 16. 0.254979% 27999986/1.09813e+10	main() - for.end.i.for.cond1.preheader.i_crit_edge
+ 17. 0.254977% 27999813/1.09813e+10	main() - for.body3.i.for.cond1.i_crit_edge
+ 18. 0.128919% 14156956/1.09813e+10	main() - entry.bubbleSort.exit_crit_edge
+ 19. 0.102435% 11248704/1.09813e+10	main() - entry.for.body_crit_edge
+ 20. 0.0996306% 10940740/1.09813e+10	main() - entry
+WARNING: profile information is inconsistent with the current program!
+===-------------------------------------------------------------------------===
+LLVM profiling output for executions:
+  1. ./is_prime.profile 65536 
+  2. ./is_prime.profile 131072 
+  3. ./is_prime.profile 262144 
+  4. ./is_prime.profile 524288 
+  5. ./is_prime.profile 1048576 
+  6. ./is_prime.profile 65536 
+  7. ./is_prime.profile 1048576 
+  8. ./is_prime.profile 131072 
+  9. ./block_test.profile 5000 
+  10. ./block_test.profile 7500 
+  11. ./block_test.profile 10000 
+  12. ./block_test.profile 12500 
+  13. ./block_test.profile 15000 
+  14. ./block_test.profile 5000 
+  15. ./block_test.profile 15000 
+  16. ./blocked.profile 900 
+  17. ./blocked.profile 1000 
+  18. ./blocked.profile 1100 
+  19. ./blocked.profile 1200 
+  20. ./blocked.profile 1300 
+  21. ./blocked.profile 1400 
+  22. ./blocked.profile 900 
+  23. ./blocked.profile 1400 
+  24. ./factor.profile 2000000 
+  25. ./factor.profile 3000000 
+  26. ./factor.profile 4000000 
+  27. ./factor.profile 5000000 
+  28. ./factor.profile 6000000 
+  29. ./factor.profile 2000000 
+  30. ./factor.profile 6000000 
+  31. ./bubble.profile 50000 
+  32. ./bubble.profile 100000 
+  33. ./bubble.profile 150000 
+  34. ./bubble.profile 200000 
+  35. ./is_prime.profile 2097152 
+  36. ./bubble.profile 250000 
+  37. ./bubble.profile 50000 
+  38. ./bubble.profile 250000 
+  39. ./quicksort.profile 50000 
+  40. ./quicksort.profile 100000 
+  41. ./quicksort.profile 150000 
+  42. ./quicksort.profile 50000 
+  43. ./kmeans.profile 10000 10 
+  44. ./kmeans.profile 100000 10 
+  45. ./kmeans.profile 1000000 10 
+  46. ./kmeans.profile 1000000 20 
+  47. ./kmeans.profile 1000000 50 
+  48. ./kmeans.profile 10000 10 
+  49. ./kmeans.profile 1000000 50 
+  50. ./permutations.profile 8 
+  51. ./permutations.profile 9 
+  52. ./permutations.profile 10 
+  53. ./permutations.profile 11 
+  54. ./permutations.profile 12 
+  55. ./permutations.profile 8 
+  56. ./permutations.profile 12 
+  57. ./mandlebrot_seq.profile 1000 
+  58. ./mandlebrot_seq.profile 1250 
+  59. ./mandlebrot_seq.profile 1500 
+  60. ./mandlebrot_seq.profile 1750 
+  61. ./mandlebrot_seq.profile 2000 
+  62. ./mandlebrot_seq.profile 2250 
+  63. ./mandlebrot_seq.profile 1000 
+  64. ./block_test.profile 5000 
+  65. ./block_test.profile 7500 
+  66. ./block_test.profile 10000 
+  67. ./block_test.profile 12500 
+  68. ./block_test.profile 15000 
+  69. ./block_test.profile 5000 
+  70. ./block_test.profile 15000 
+  71. ./blocked.profile 900 
+  72. ./blocked.profile 1000 
+  73. ./blocked.profile 1100 
+  74. ./mandlebrot_seq.profile 2250 
+  75. ./blocked.profile 1200 
+  76. ./blocked.profile 1300 
+  77. ./fft.profile 128 
+  78. ./blocked.profile 1400 
+  79. ./fft.profile 256 
+  80. ./fft.profile 1024 
+  81. ./blocked.profile 900 
+  82. ./fft.profile 4096 
+  83. ./blocked.profile 1400 
+  84. ./factor.profile 2000000 
+  85. ./factor.profile 3000000 
+  86. ./fft.profile 8192 
+  87. ./factor.profile 4000000 
+  88. ./factor.profile 5000000 
+  89. ./factor.profile 6000000 
+  90. ./factor.profile 2000000 
+  91. ./factor.profile 6000000 
+  92. ./fft.profile 128 
+  93. ./bubble.profile 50000 
+  94. ./bubble.profile 100000 
+  95. ./bubble.profile 150000 
+
+===-------------------------------------------------------------------------===
+Function execution frequencies:
+
+ ##   Frequency
+  1. 1.2e+09/1.2454e+09 bubbleSort
+  2. 2.2e+07/1.2454e+09 main
+
+===-------------------------------------------------------------------------===
+Top 20 most frequently executed basic blocks:
+
+ ##      %% 	Frequency
+  1. 22.8094% 7692511865/3.37252e+10	main() - for.body
+  2. 11.7369% 3958304580/3.37252e+10	main() - for.end.for.cond1.preheader.i_crit_edge
+  3. 10.4551% 3525998135/3.37252e+10	main() - for.body.for.body_crit_edge
+  4. 8.96321% 3022861290/3.37252e+10	main() - bubbleSort.exit
+  5. 7.04404% 2375616974/3.37252e+10	bubbleSort() - for.end16
+  6. 5.94334% 2004404447/3.37252e+10	bubbleSort() - for.cond1.preheader
+  7. 5.46832% 1844203475/3.37252e+10	main() - for.end.bubbleSort.exit_crit_edge
+  8. 4.40473% 1485505256/3.37252e+10	bubbleSort() - for.cond1.outer
+  9. 4.36425% 1471852191/3.37252e+10	bubbleSort() - for.end.for.end16_crit_edge
+ 10. 3.90943% 1318464186/3.37252e+10	bubbleSort() - for.cond1
+ 11. 3.62687% 1223170341/3.37252e+10	bubbleSort() - entry
+ 12. 3.29895% 1112578325/3.37252e+10	bubbleSort() - entry.for.cond1.preheader_crit_edge
+ 13. 2.67699% 902820219/3.37252e+10	main() - for.cond1.preheader.i
+ 14. 1.89596% 639417227/3.37252e+10	bubbleSort() - for.body3
+ 15. 1.28418% 433093458/3.37252e+10	bubbleSort() - for.end.for.cond1.preheader_crit_edge
+ 16. 0.542875% 183085620/3.37252e+10	main() - for.body3.i.for.cond1.i_crit_edge
+ 17. 0.34423% 116092232/3.37252e+10	main() - for.cond1.outer.i
+ 18. 0.327921% 110592016/3.37252e+10	bubbleSort() - entry.for.end16_crit_edge
+ 19. 0.25118% 84710913/3.37252e+10	bubbleSort() - for.body3.for.cond1_crit_edge
+ 20. 0.166048% 55999978/3.37252e+10	main() - for.body3.i

@@ -1,0 +1,10 @@
+permutations.c:27:36: warning: for loop has empty body [-Wempty-body]
+        for (l = n - 1; a[l] <= a[k]; l--);
+                                          ^
+permutations.c:27:36: note: put the semicolon on a separate line to silence this warning
+1 warning generated.
+permutations.c:27:36: warning: for loop has empty body [-Wempty-body]
+        for (l = n - 1; a[l] <= a[k]; l--);
+                                          ^
+permutations.c:27:36: note: put the semicolon on a separate line to silence this warning
+1 warning generated.

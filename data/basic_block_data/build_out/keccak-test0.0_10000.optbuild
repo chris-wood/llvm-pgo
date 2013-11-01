@@ -1,0 +1,101 @@
+profile-loader: Error opening 'llvmprof.out': No such file or directory
+/tmp/keccak-test0-OQl2QQ.o: In function `measureKeccakAbsorb1024bits':
+keccak-test0.bc:(.text+0x77): undefined reference to `KeccakAbsorb1024bits'
+/tmp/keccak-test0-OQl2QQ.o: In function `measureKeccakAbsorb1088bits':
+keccak-test0.bc:(.text+0xd7): undefined reference to `KeccakAbsorb1088bits'
+/tmp/keccak-test0-OQl2QQ.o: In function `measureKeccakAbsorb1344bits':
+keccak-test0.bc:(.text+0x137): undefined reference to `KeccakAbsorb1344bits'
+/tmp/keccak-test0-OQl2QQ.o: In function `measureKeccakAbsorb':
+keccak-test0.bc:(.text+0x19b): undefined reference to `KeccakAbsorb'
+/tmp/keccak-test0-OQl2QQ.o: In function `measureKeccakPermutation':
+keccak-test0.bc:(.text+0x1ec): undefined reference to `KeccakPermutation'
+/tmp/keccak-test0-OQl2QQ.o: In function `measureKeccakHash1block':
+keccak-test0.bc:(.text+0x242): undefined reference to `Init'
+keccak-test0.bc:(.text+0x262): undefined reference to `Update'
+keccak-test0.bc:(.text+0x272): undefined reference to `Final'
+/tmp/keccak-test0-OQl2QQ.o: In function `measureKeccakHash2blocks':
+keccak-test0.bc:(.text+0x2d2): undefined reference to `Init'
+keccak-test0.bc:(.text+0x2f2): undefined reference to `Update'
+keccak-test0.bc:(.text+0x302): undefined reference to `Final'
+/tmp/keccak-test0-OQl2QQ.o: In function `measureKeccakHash3blocks':
+keccak-test0.bc:(.text+0x362): undefined reference to `Init'
+keccak-test0.bc:(.text+0x382): undefined reference to `Update'
+keccak-test0.bc:(.text+0x392): undefined reference to `Final'
+/tmp/keccak-test0-OQl2QQ.o: In function `measureKeccakHash10blocks':
+keccak-test0.bc:(.text+0x3f2): undefined reference to `Init'
+keccak-test0.bc:(.text+0x412): undefined reference to `Update'
+keccak-test0.bc:(.text+0x422): undefined reference to `Final'
+/tmp/keccak-test0-OQl2QQ.o: In function `measureKeccakHash30blocks':
+keccak-test0.bc:(.text+0x482): undefined reference to `Init'
+keccak-test0.bc:(.text+0x4a2): undefined reference to `Update'
+keccak-test0.bc:(.text+0x4b2): undefined reference to `Final'
+/tmp/keccak-test0-OQl2QQ.o: In function `measureKeccakHash100blocks':
+keccak-test0.bc:(.text+0x512): undefined reference to `Init'
+keccak-test0.bc:(.text+0x532): undefined reference to `Update'
+keccak-test0.bc:(.text+0x542): undefined reference to `Final'
+/tmp/keccak-test0-OQl2QQ.o: In function `measureKeccakHash1000blocks':
+keccak-test0.bc:(.text+0x5a2): undefined reference to `Init'
+keccak-test0.bc:(.text+0x5c2): undefined reference to `Update'
+keccak-test0.bc:(.text+0x5d2): undefined reference to `Final'
+/tmp/keccak-test0-OQl2QQ.o: In function `main':
+keccak-test0.bc:(.text+0x686): undefined reference to `KeccakPermutation'
+keccak-test0.bc:(.text+0x6e2): undefined reference to `KeccakAbsorb'
+keccak-test0.bc:(.text+0x73e): undefined reference to `Init'
+keccak-test0.bc:(.text+0x75a): undefined reference to `Update'
+keccak-test0.bc:(.text+0x76a): undefined reference to `Final'
+keccak-test0.bc:(.text+0x7be): undefined reference to `Init'
+keccak-test0.bc:(.text+0x7da): undefined reference to `Update'
+keccak-test0.bc:(.text+0x7ea): undefined reference to `Final'
+clang: error: linker command failed with exit code 1 (use -v to see invocation)
+keccak-test.c:376:16: warning: implicit declaration of function 'atoi' is invalid in C99 [-Wimplicit-function-declaration]
+    int test = atoi(argv[1]);
+               ^
+1 warning generated.
+/tmp/keccak-test-l9Ul4T.o: In function `measureKeccakAbsorb1024bits':
+keccak-test.c:(.text+0x77): undefined reference to `KeccakAbsorb1024bits'
+/tmp/keccak-test-l9Ul4T.o: In function `measureKeccakAbsorb1088bits':
+keccak-test.c:(.text+0xd7): undefined reference to `KeccakAbsorb1088bits'
+/tmp/keccak-test-l9Ul4T.o: In function `measureKeccakAbsorb1344bits':
+keccak-test.c:(.text+0x137): undefined reference to `KeccakAbsorb1344bits'
+/tmp/keccak-test-l9Ul4T.o: In function `measureKeccakAbsorb':
+keccak-test.c:(.text+0x19b): undefined reference to `KeccakAbsorb'
+/tmp/keccak-test-l9Ul4T.o: In function `measureKeccakPermutation':
+keccak-test.c:(.text+0x1ec): undefined reference to `KeccakPermutation'
+/tmp/keccak-test-l9Ul4T.o: In function `measureKeccakHash1block':
+keccak-test.c:(.text+0x252): undefined reference to `Init'
+keccak-test.c:(.text+0x272): undefined reference to `Update'
+keccak-test.c:(.text+0x282): undefined reference to `Final'
+/tmp/keccak-test-l9Ul4T.o: In function `measureKeccakHash2blocks':
+keccak-test.c:(.text+0x2f2): undefined reference to `Init'
+keccak-test.c:(.text+0x312): undefined reference to `Update'
+keccak-test.c:(.text+0x322): undefined reference to `Final'
+/tmp/keccak-test-l9Ul4T.o: In function `measureKeccakHash3blocks':
+keccak-test.c:(.text+0x392): undefined reference to `Init'
+keccak-test.c:(.text+0x3b2): undefined reference to `Update'
+keccak-test.c:(.text+0x3c2): undefined reference to `Final'
+/tmp/keccak-test-l9Ul4T.o: In function `measureKeccakHash10blocks':
+keccak-test.c:(.text+0x432): undefined reference to `Init'
+keccak-test.c:(.text+0x452): undefined reference to `Update'
+keccak-test.c:(.text+0x462): undefined reference to `Final'
+/tmp/keccak-test-l9Ul4T.o: In function `measureKeccakHash30blocks':
+keccak-test.c:(.text+0x4d2): undefined reference to `Init'
+keccak-test.c:(.text+0x4f2): undefined reference to `Update'
+keccak-test.c:(.text+0x502): undefined reference to `Final'
+/tmp/keccak-test-l9Ul4T.o: In function `measureKeccakHash100blocks':
+keccak-test.c:(.text+0x572): undefined reference to `Init'
+keccak-test.c:(.text+0x592): undefined reference to `Update'
+keccak-test.c:(.text+0x5a2): undefined reference to `Final'
+/tmp/keccak-test-l9Ul4T.o: In function `measureKeccakHash1000blocks':
+keccak-test.c:(.text+0x612): undefined reference to `Init'
+keccak-test.c:(.text+0x632): undefined reference to `Update'
+keccak-test.c:(.text+0x642): undefined reference to `Final'
+/tmp/keccak-test-l9Ul4T.o: In function `main':
+keccak-test.c:(.text+0x6f6): undefined reference to `KeccakPermutation'
+keccak-test.c:(.text+0x752): undefined reference to `KeccakAbsorb'
+keccak-test.c:(.text+0x7ae): undefined reference to `Init'
+keccak-test.c:(.text+0x7ca): undefined reference to `Update'
+keccak-test.c:(.text+0x7da): undefined reference to `Final'
+keccak-test.c:(.text+0x82e): undefined reference to `Init'
+keccak-test.c:(.text+0x84a): undefined reference to `Update'
+keccak-test.c:(.text+0x85a): undefined reference to `Final'
+clang: error: linker command failed with exit code 1 (use -v to see invocation)

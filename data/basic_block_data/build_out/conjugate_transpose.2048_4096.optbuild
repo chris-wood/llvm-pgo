@@ -1,0 +1,1254 @@
+WARNING: profile information is inconsistent with the current program!
+ENTER RUN ON FUNCTION
+0xb2e31c0
+Visited block @0xb2efdb0
+Visited block @0xb2efde0
+Visited block @0xb2f2708
+Visited block @0xb2f26a8
+Visited block @0xb2f26d8
+Skipping block @0xb2f2708
+Skipping block @0xb2f26d8
+Visited block @0xb2efe40
+Skipping block @0xb2efe40
+Visited block @0xb2efe10
+Skipping block @0xb2f2708
+Skipping block @0xb2f26a8
+Chain creation done.
+Walking arcs now.
+Visiting arc @0xbf9faee8
+Weight = 3.48019e+09
+Appending...
+Visiting arc @0xbf9faee8
+Weight = 2.54625e+09
+Appending...
+Visiting arc @0xbf9faee8
+Weight = 2.51199e+09
+Appending...
+Visiting arc @0xbf9faee8
+Weight = 2.43814e+09
+Appending...
+Visiting arc @0xbf9faee8
+Weight = 2.35695e+09
+Visiting arc @0xbf9faee8
+Weight = 2.29069e+09
+Appending...
+Visiting arc @0xbf9faee8
+Weight = 2.25623e+09
+Visiting arc @0xbf9faee8
+Weight = 1.97318e+09
+Visiting arc @0xbf9faee8
+Weight = 1.47625e+09
+Visiting arc @0xbf9faee8
+Weight = 1.45319e+09
+Visiting arc @0xbf9faee8
+Weight = 8.83211e+08
+Done with chain merging.
+Total # chains = 7
+-----
+Chain (0) size = 3
+Chain (1) size = 1
+Chain (2) size = 0
+Chain (3) size = 1
+Chain (4) size = 0
+Chain (5) size = 2
+Chain (6) size = 0
+-----
+Doing block placement now.
+Appending chain 5 to chain 0
+Appending chain 3 to chain 5
+Appending chain 1 to chain 3
+Blocks placed: 4
+ENTER RUN ON FUNCTION
+0xb2e31c0
+Visited block @0xb2f62f8
+Visited block @0xb2f6328
+Visited block @0xb2f64a8
+Visited block @0xb2f6358
+Skipping block @0xb2f64a8
+Visited block @0xb2f64a8
+Visited block @0xb2f6388
+Visited block @0xb2f6448
+Visited block @0xb2f6478
+Skipping block @0xb2f6478
+Skipping block @0xb2f64a8
+Visited block @0xb2f6418
+Skipping block @0xb2f64a8
+Visited block @0xb2f63b8
+Skipping block @0xb2f6418
+Visited block @0xb2f63e8
+Skipping block @0xb2f6448
+Skipping block @0xb2f64a8
+Chain creation done.
+Walking arcs now.
+Visiting arc @0xbf9faee8
+Weight = 3.57513e+09
+Appending...
+Visiting arc @0xbf9faee8
+Weight = 3.05378e+09
+Appending...
+Visiting arc @0xbf9faee8
+Weight = 2.87156e+09
+Visiting arc @0xbf9faee8
+Weight = 2.66313e+09
+Visiting arc @0xbf9faee8
+Weight = 2.48914e+09
+Visiting arc @0xbf9faee8
+Weight = 2.43926e+09
+Appending...
+Visiting arc @0xbf9faee8
+Weight = 1.84508e+09
+Appending...
+Visiting arc @0xbf9faee8
+Weight = 1.31564e+09
+Appending...
+Visiting arc @0xbf9faee8
+Weight = 1.26352e+09
+Appending...
+Visiting arc @0xbf9faee8
+Weight = 6.33445e+08
+Visiting arc @0xbf9faee8
+Weight = 5.61336e+07
+Appending...
+Visiting arc @0xbf9faee8
+Weight = 5.59731e+07
+Appending...
+Visiting arc @0xbf9faee8
+Weight = 2.89193e+07
+Visiting arc @0xbf9faee8
+Weight = 2.48324e+07
+Visiting arc @0xbf9faee8
+Weight = 2.25885e+07
+Appending...
+Visiting arc @0xbf9faee8
+Weight = 2.22542e+06
+Appending...
+Visiting arc @0xbf9faee8
+Weight = 27932
+Done with chain merging.
+Total # chains = 10
+-----
+Chain (0) size = 5
+Chain (1) size = 0
+Chain (2) size = 0
+Chain (3) size = 1
+Chain (4) size = 0
+Chain (5) size = 1
+Chain (6) size = 3
+Chain (7) size = 0
+Chain (8) size = 0
+Chain (9) size = 0
+-----
+Doing block placement now.
+Appending chain 6 to chain 0
+Appending chain 5 to chain 6
+Appending chain 3 to chain 5
+Blocks placed: 5
+ENTER RUN ON FUNCTION
+0xb2e31c0
+Visited block @0xb2f3a18
+Visited block @0xb2f3a48
+Visited block @0xb2f3b98
+Visited block @0xb2f3a78
+Visited block @0xb2f3b98
+Visited block @0xb2f3b38
+Visited block @0xb2f3b68
+Skipping block @0xb2f3b98
+Skipping block @0xb2f3b68
+Visited block @0xb2f3ad8
+Visited block @0xb2f3aa8
+Skipping block @0xb2f3b98
+Skipping block @0xb2f3b38
+Visited block @0xb2f3b08
+Skipping block @0xb2f3ad8
+Chain creation done.
+Walking arcs now.
+Visiting arc @0xbf9faee8
+Weight = 1.74959e+09
+Appending...
+Visiting arc @0xbf9faee8
+Weight = 1.27076e+09
+Visiting arc @0xbf9faee8
+Weight = 1.25629e+09
+Visiting arc @0xbf9faee8
+Weight = 1.00213e+09
+Appending...
+Visiting arc @0xbf9faee8
+Weight = 9.86912e+08
+Appending...
+Visiting arc @0xbf9faee8
+Weight = 3.10294e+08
+Appending...
+Visiting arc @0xbf9faee8
+Weight = 2.54161e+08
+Visiting arc @0xbf9faee8
+Weight = 6.59266e+07
+Appending...
+Visiting arc @0xbf9faee8
+Weight = 5.6132e+07
+Visiting arc @0xbf9faee8
+Weight = 5.6007e+07
+Appending...
+Visiting arc @0xbf9faee8
+Weight = 8.89912e+06
+Visiting arc @0xbf9faee8
+Weight = 8.89842e+06
+Appending...
+Visiting arc @0xbf9faee8
+Weight = 8.40188e+06
+Visiting arc @0xbf9faee8
+Weight = 1.15543e+06
+Appending...
+Done with chain merging.
+Total # chains = 9
+-----
+Chain (0) size = 5
+Chain (1) size = 1
+Chain (2) size = 1
+Chain (3) size = 0
+Chain (4) size = 1
+Chain (5) size = 0
+Chain (6) size = 1
+Chain (7) size = 0
+Chain (8) size = 0
+-----
+Doing block placement now.
+Appending chain 6 to chain 0
+Appending chain 2 to chain 6
+Appending chain 1 to chain 2
+Appending chain 4 to chain 1
+Blocks placed: 4
+ENTER RUN ON FUNCTION
+0xb2e31c0
+Visited block @0xb2f62c8
+Visited block @0xb2fa7f8
+Visited block @0xb2fa8e8
+Visited block @0xb2fa8b8
+Visited block @0xb2fa8e8
+Visited block @0xb2fa888
+Skipping block @0xb2fa8e8
+Visited block @0xb2fa828
+Skipping block @0xb2fa888
+Visited block @0xb2fa858
+Skipping block @0xb2fa8b8
+Skipping block @0xb2fa8e8
+Chain creation done.
+Walking arcs now.
+Visiting arc @0xbf9faee8
+Weight = 1.00213e+09
+Appending...
+Visiting arc @0xbf9faee8
+Weight = 1.002e+09
+Visiting arc @0xbf9faee8
+Weight = 1.00199e+09
+Appending...
+Visiting arc @0xbf9faee8
+Weight = 1.00199e+09
+Visiting arc @0xbf9faee8
+Weight = 1.00199e+09
+Appending...
+Visiting arc @0xbf9faee8
+Weight = 6.91733e+08
+Appending...
+Visiting arc @0xbf9faee8
+Weight = 1.12456e+08
+Visiting arc @0xbf9faee8
+Weight = 1.10671e+08
+Visiting arc @0xbf9faee8
+Weight = 497418
+Visiting arc @0xbf9faee8
+Weight = 1356
+Appending...
+Visiting arc @0xbf9faee8
+Weight = 168
+Appending...
+Done with chain merging.
+Total # chains = 7
+-----
+Chain (0) size = 2
+Chain (1) size = 2
+Chain (2) size = 0
+Chain (3) size = 1
+Chain (4) size = 2
+Chain (5) size = 0
+Chain (6) size = 0
+-----
+Doing block placement now.
+Appending chain 4 to chain 0
+Appending chain 3 to chain 4
+Appending chain 1 to chain 3
+Blocks placed: 5
+ENTER RUN ON FUNCTION
+0xb2e31c0
+Visited block @0xb2fc210
+Visited block @0xb2fc240
+Visited block @0xb2fc3f0
+Visited block @0xb2fc270
+Visited block @0xb2fc3f0
+Visited block @0xb2fc2a0
+Visited block @0xb2fc2d0
+Visited block @0xb2fc3c0
+Skipping block @0xb2fc2a0
+Skipping block @0xb2fc3f0
+Visited block @0xb2fc300
+Visited block @0xb2fc330
+Skipping block @0xb2fc3f0
+Visited block @0xb2fc360
+Skipping block @0xb2fc3f0
+Visited block @0xb2fc390
+Skipping block @0xb2fc300
+Skipping block @0xb2fc3c0
+Visited block @0xb2fc390
+Skipping block @0xb2fc300
+Skipping block @0xb2fc3c0
+Chain creation done.
+Walking arcs now.
+Visiting arc @0xbf9faee8
+Weight = 2.84361e+09
+Appending...
+Visiting arc @0xbf9faee8
+Weight = 2.84361e+09
+Visiting arc @0xbf9faee8
+Weight = 6.06271e+08
+Appending...
+Visiting arc @0xbf9faee8
+Weight = 6.04167e+08
+Appending...
+Visiting arc @0xbf9faee8
+Weight = 32294
+Appending...
+Visiting arc @0xbf9faee8
+Weight = 27331
+Appending...
+Visiting arc @0xbf9faee8
+Weight = 26148
+Appending...
+Visiting arc @0xbf9faee8
+Weight = 7910
+Visiting arc @0xbf9faee8
+Weight = 7910
+Visiting arc @0xbf9faee8
+Weight = 7014
+Visiting arc @0xbf9faee8
+Weight = 2422
+Appending...
+Visiting arc @0xbf9faee8
+Weight = 2198
+Visiting arc @0xbf9faee8
+Weight = 1869
+Visiting arc @0xbf9faee8
+Weight = 1806
+Appending...
+Visiting arc @0xbf9faee8
+Weight = 1071
+Visiting arc @0xbf9faee8
+Weight = 917
+Appending...
+Visiting arc @0xbf9faee8
+Weight = 854
+Visiting arc @0xbf9faee8
+Weight = 357
+Visiting arc @0xbf9faee8
+Weight = 231
+Appending...
+Visiting arc @0xbf9faee8
+Weight = 112
+Appending...
+Done with chain merging.
+Total # chains = 11
+-----
+Chain (0) size = 2
+Chain (1) size = 1
+Chain (2) size = 6
+Chain (3) size = 0
+Chain (4) size = 1
+Chain (5) size = 1
+Chain (6) size = 0
+Chain (7) size = 0
+Chain (8) size = 0
+Chain (9) size = 0
+Chain (10) size = 0
+-----
+Doing block placement now.
+Appending chain 5 to chain 0
+Appending chain 4 to chain 5
+Appending chain 1 to chain 4
+Appending chain 2 to chain 1
+Blocks placed: 9
+ENTER RUN ON FUNCTION
+0xb2e31c0
+Visited block @0xb2fc1e0
+Visited block @0xb2fe188
+Visited block @0xb2fe248
+Visited block @0xb2fe1b8
+Visited block @0xb2fe278
+Visited block @0xb2fe338
+Visited block @0xb2fe1e8
+Skipping block @0xb2fe1e8
+Visited block @0xb2fe218
+Skipping block @0xb2fe248
+Skipping block @0xb2fe1b8
+Visited block @0xb2fe2a8
+Visited block @0xb2fe368
+Visited block @0xb2fe488
+Visited block @0xb2fe218
+Skipping block @0xb2fe248
+Skipping block @0xb2fe1b8
+Visited block @0xb2fe2d8
+Skipping block @0xb2fe2d8
+Visited block @0xb2fe308
+Skipping block @0xb2fe338
+Skipping block @0xb2fe2a8
+Visited block @0xb2fe488
+Visited block @0xb2fe398
+Skipping block @0xb2fe488
+Visited block @0xb2fe308
+Skipping block @0xb2fe338
+Skipping block @0xb2fe2a8
+Visited block @0xb2fe458
+Visited block @0xb2fe428
+Skipping block @0xb2fe488
+Visited block @0xb2fe3c8
+Skipping block @0xb2fe428
+Visited block @0xb2fe3f8
+Skipping block @0xb2fe458
+Skipping block @0xb2fe488
+Chain creation done.
+Walking arcs now.
+Visiting arc @0xbf9faee8
+Weight = 3.44341e+09
+Appending...
+Visiting arc @0xbf9faee8
+Weight = 2.80367e+09
+Appending...
+Visiting arc @0xbf9faee8
+Weight = 2.00398e+09
+Appending...
+Visiting arc @0xbf9faee8
+Weight = 2.00398e+09
+Appending...
+Visiting arc @0xbf9faee8
+Weight = 2.00398e+09
+Appending...
+Visiting arc @0xbf9faee8
+Weight = 2.00398e+09
+Visiting arc @0xbf9faee8
+Weight = 2.00398e+09
+Appending...
+Visiting arc @0xbf9faee8
+Weight = 2.00398e+09
+Visiting arc @0xbf9faee8
+Weight = 1.43943e+09
+Visiting arc @0xbf9faee8
+Weight = 1.43943e+09
+Visiting arc @0xbf9faee8
+Weight = 1.43943e+09
+Appending...
+Visiting arc @0xbf9faee8
+Weight = 1.0041e+09
+Visiting arc @0xbf9faee8
+Weight = 1.00199e+09
+Appending...
+Visiting arc @0xbf9faee8
+Weight = 1.00199e+09
+Visiting arc @0xbf9faee8
+Weight = 7.19713e+08
+Appending...
+Visiting arc @0xbf9faee8
+Weight = 6.75584e+08
+Visiting arc @0xbf9faee8
+Weight = 6.04167e+08
+Appending...
+Visiting arc @0xbf9faee8
+Weight = 6.0416e+08
+Appending...
+Visiting arc @0xbf9faee8
+Weight = 6.04159e+08
+Visiting arc @0xbf9faee8
+Weight = 6.04159e+08
+Visiting arc @0xbf9faee8
+Weight = 5.99046e+08
+Appending...
+Visiting arc @0xbf9faee8
+Weight = 5.62604e+08
+Visiting arc @0xbf9faee8
+Weight = 8.63329e+07
+Appending...
+Visiting arc @0xbf9faee8
+Weight = 5.11352e+06
+Visiting arc @0xbf9faee8
+Weight = 5.11351e+06
+Visiting arc @0xbf9faee8
+Weight = 864
+Visiting arc @0xbf9faee8
+Weight = 864
+Visiting arc @0xbf9faee8
+Weight = 861
+Visiting arc @0xbf9faee8
+Weight = 70
+Visiting arc @0xbf9faee8
+Weight = 70
+Appending...
+Visiting arc @0xbf9faee8
+Weight = 70
+Appending...
+Visiting arc @0xbf9faee8
+Weight = 28
+Visiting arc @0xbf9faee8
+Weight = 14
+Visiting arc @0xbf9faee8
+Weight = 7
+Visiting arc @0xbf9faee8
+Weight = 0
+Done with chain merging.
+Total # chains = 18
+-----
+Chain (0) size = 3
+Chain (1) size = 3
+Chain (2) size = 0
+Chain (3) size = 1
+Chain (4) size = 0
+Chain (5) size = 3
+Chain (6) size = 1
+Chain (7) size = 1
+Chain (8) size = 2
+Chain (9) size = 0
+Chain (10) size = 0
+Chain (11) size = 0
+Chain (12) size = 2
+Chain (13) size = 0
+Chain (14) size = 0
+Chain (15) size = 0
+Chain (16) size = 2
+Chain (17) size = 0
+-----
+Doing block placement now.
+Appending chain 16 to chain 0
+Appending chain 12 to chain 16
+Appending chain 5 to chain 12
+Appending chain 1 to chain 5
+Appending chain 3 to chain 1
+Appending chain 6 to chain 3
+Appending chain 7 to chain 6
+Appending chain 8 to chain 7
+Blocks placed: 15
+BCÀŞ!  à  ‚        #‘AÈI29’„%‹b€EB’BÄ28I
+2D$H
+!#ÄR€!r$Èˆb¨ ¨@Æğ   Q  R     `º„@ Ë†½şÿÿÿ $‚Êaæ¡àAÊaÒaÊ¡ÌÚ!È0‡p`‡y(€p‡whs‡ph‡rhxx‡tpz(yhƒr`‡thÀÂæ¡ ÂŞ¡ÌAÂ¡Ê¡àáÒÁè¡ä¡ÊÒ¡ÚÀŞÁÚ€Ê!Ì0‡p`‡y(€p‡whƒtps˜‡60xhƒvz@ÀÂæ¡ ÂŞ¡Ü!ÜaÚÀà¡Ú!è sv˜‡r ˆzp‡ys(‡60xhƒvz@ÀÂæ¡ ¢æ¡Ú`ŞÁè¡ÌŞ!è0‡p`‡y(`A @²( Ûp0±8`Ù@ °l X6J ,ˆåÿÿÿÿ@I     †@&Ä0a(Œa‚pˆ@@†	B2L†	‚2L–	‚²L’e‚@,†ÂX&Å¡X    ‰   -   2"ˆ	 d…#¤„#ã„¡LŒŒ„ÄLôÁ’* © Ğ& 	Ğ‘ %y Ğ’ 5ÙĞ30G C F˜&¢¨ºFš"J˜|˜"äBƒ$Yt•"Â$É¢Œ€"lqeˆªŠ¼BH’dX“$K’,i+ƒ$‘T!’è¬‚´QZ‰ÖBH)Q[I¢w æ‚bDK2Íeˆâê) šH"k    ¢t˜<°ƒ6€‡qhvHw¨|hƒsp‡zØ0åĞğ s z0r s mq x xĞé€z€z€mq`zv q`ms z0r s mv@z0r v@m`s z0r s m`v@z0r v@m`v@z`t v@m`q x q x q xĞá z z`tĞæ€p s z0rĞî€zv s m0q x ó@Š2B$Ø¡A–  À…´$    v(F°%  °CA.	  €ŠtI  @ ìP˜ÀK  `‡â_   ;( ƒ$    †(     0Dé€    €!ÊÀ    QÂ      ¢Œ     0D	     `ˆ     ÀÅ  0   €!
+ p    C5     †(l À   QÜ     ¢À 	   0D¡     `ˆb@ ,   ÀÅ€ X   €,   2   2˜LŒ	&GÆC
+4¤a7ùİfçAÇ²»,ÓËdĞğİ†³ËxP3L—§ñ  (=é@4h’(™A+PÉœ¦BË@¡ ÊÃî9ü=/ƒŞfĞğİ†³ËxP3L—§ñ  (=é@tè§Pßm8»Œ5Ãty
+‚Jsº,o§éé°›’‰5ÒsûM§F;…bønÃÙe<¨¦ËÓxPTšƒêî4=,ÏÓ£œB1|·áì2ÔÓåi<(*ÍAî·¼f   y     Cˆ<ò@X°„ƒ;äÀÃ;¤ƒ;ĞC9ÈÃ"†< <ïĞîğğôPî@`0èò0DÈƒbA4éĞğÀå £ğ£°k ´ 
+¡
+Cˆ<8ò@X0¤ƒ;Ğ    y     3€Äáf=ˆC8„ÃŒB€yxs˜qæ íô€3BÂÁÎ¡f0=ˆC8„ƒÌ=ÈC=Œ=ÌxŒtp{yH‡ppzpvx‡p    q   0   Æ€0Ô2!Ï‚Y‚Á Ëâv-KÅøRÂ>ÑVA-KÅøÁHÄä?4Âûˆ[‚H§1Àb ¾4E&AD@3˜C‚HnƒL@„™!8Mb†4E“³ØÂ‚H!1È„ !$S4ÒãH„EO„4SaÓ²TŒ¿ 1!áKMFq<Ô$@d…Í`…/M‘m…/MÑm…/Mn…/MQn…/M‘n…/MÑn…/M a   »   G,      $ ”@    3•TÄLD%•Qq#ˆApµÃKb³TsÜpƒ³˜ÁxÃÁ0ãHÃŒ7(3Ş°<Î,ƒ0ÒV€A0b@0 T;°ƒ0 ³Æ@…”hŒ ËÕ'<Ã`D €†‚fˆ!oğ4m0"è`¼áÛ´Áˆà€ñ0à´Áˆ  ´†ÁpC `0Ë@Á@…äBfŒ'„A@Áo$1 `Œ7ÔP0#´ #²€ FŠ 1Âa„ª1Ş(i0Ş ,i0!0`Œ€`¸!x0˜e(Œ   l   &2 ~m#àÛ2 >m@PàK‘ø¶ÏûÈpİ¶Ñ ˆOã¶OIÖRÌƒ×†2LÌc0DD ‹5%,öíS’­°,gĞNäÎ€Õ¹OI'0NäÎ€Õ¹¿Dşsø”d5‰ ,KMû”d2ÉÄ<~D ËcGE †WÍû,>%Y‚4‚­û”dJËÄ<~D ‹OIv³ Q`Èpù”d 
+`~DHÔ2Y0€aCHâÓ8íS’5@2\õîS’í @2\f4Q`ÈpÕ¼Àòø”dP
+q!“à4›ÁPKo<Ò¶nB
+q!“à4_S8‘4‚û”d3ÉÄ<>Â Æc*C-–$Q`ÈpÕ¼0€áS’=H#ø”d/‡À<5~÷PÍa¶´LÌã#`ø”d>NàK‘ø´OûÈp]€S8‘8æ/‘ÿ7Nä#`ç†S >ÛGNäÍ`ïæ” `Ø¸OI–RLÌS÷ö¾9€_û¸×M[! ËRÓÖƒ2	N3ÒD€!ÃUó>Â ÆãS  1     [) ¶X lĞ  ¶r       a   °   J,      $ ”@  3˜DÃˆÁá _pÅxC@Œá† ƒY† 	ÆˆÃ `7Ì2I0ÜĞ(f0Ë0$ÁpC³˜ÁxCÂ(ŒY†ƒ*¤à7Ì2I0Áşÿÿÿƒ4¡Á,b#şÿÿÿ?H 7Ì2I0P!ã	H@ÁOÀ
+Æ,2P!ÉÁ‘ãD Q0ÆŒa£`Œ7…GÁo@‚1ÜpÎpƒ!8%k€`–!)„‰V XQCU2l   ö2dun"àÛ2 >m:E †WÍû”d<HâÓwîS’M@2\uïG°<>%Ù‚øôÍû”d!à×–„DÄT‹O›"0ø”tMáD¾à4C]û”d1âÓ7o>E †W­û,>%Y‚4‚mû”dBE †Wİû,>%€T8‘/8Íà?qÀ@DÆBÌÃ"0O}û”d8E †—OI&S `Û‡ĞNäÎ€Õ¸OI–2Ìc3…À<5m&A`=E †W­û,OIĞ,@3øË!ùSD64Q`ÈpÕ½0€ñø”d*…à,’~LáD>ÒvíS’!NäGˆOIÖrÌSÓ÷n.‡À<õ}ã$Q`ÈpÕº0€áSÒh…ù‚Óuí?qÀ@DşùÏq	FDLTÔ’4‚OIw0NäÎ€Õ¸¿Dşsø”t ÑLvIáD>ÒvmEˆÀ<~äS’Ù óÔ´OIF$Q`ÈpÕ½0€áS’ıL@2\µî#`<>%ÙI9–„1     [†!0¶G`lœ Ø2l°eè        a     I,      Œ 4P…P$ P\ dÍ     ÃÍ³ÔSÜˆÁh\`ípƒ´˜Á,ƒ`õ(7Ü 5f0Ë€Á@EUÈ+’‡ÄÁ1Aûÿÿÿƒ5 ãQ0ÆB¢`Œ'\c<"ÿÿÿÿAº(ãÃøÿÿÿFÁ¨dB)!ˆR©¦o˜¤0 `Œ7T”P0j@ #a #ˆ` 37k ³ÄŒPÌÿÿÿÿ ¡ 7q ³THIaÂˆÁ« T;@Ã`D Àˆ ¢0À´Áá nî fŒ"(±lpÂ
+WÆô@ä`0"ĞƒoØƒ9ƒÁˆà`¼è #b p(‚ÿÿÿÿk f	†
+I#ØA1 ˜ÀÖà‚jÇŞ`Œ„oú@.ØvÄ €Wúàô ÆBÁ˜%Â    ¡   F2>m%Cà×f2¾mT† ,K­ÛU4Â½YD€!Ãeë>%YÎD€!Ãeï~D ËãS’!µø‘OIGÀNä#pë>%D€!Ãeï>Â †OIVsÌcß¹~eP8‘8fã>%ù…ù3`6îSÒ/DÈôƒAœ>Ñ6U >÷†„0Ôâ#>%ÙÎD€!Ãeï>Â ÆãS’mA‚/Eà×>î#Ã•×ö2ÌcM0~äS’Y!@2\ÖÓ Q`ÈpÙ½OI¥2	N3è¶%µøÈâS’qA‚/EàÛ>ï#Ã•ã&$Q`Èpİ´0€áS’I)Ä…L‚Óúm^âÓyïS’1I@2\÷í#`ø”d0C-6”0ÔâG‹OI6sÌSß9 ÑLfOÒ>%MÁPK›D€!Ãeï~D ‹OI'àNäÎ€ùKä?‡9!À0øˆOI… pï>%YÈ ø´‰€_ÛÈ ø¶%M@2\÷íG°<>%]ÀştI@2\7íG°ø”dJE †×}û,>%™–#øRä >íÓ>2\WNä#pëö•À²ÔºOI¶ Q`Èpù”d 
+`~DHÔ2ÙÒD€!Ãuß>Â ÆãSÒ4…ù3`6îS’ıL@2\7íG°<>%Y–"øRä ¾íÓvƒ$~ï>%ÙQÂP‹D>%ÂT8‘8fãşùÏáS’uşF”0ÔâG‘OI4Q`Èpİ´0€ñø”dbGD ‹OICÀ²B\È$8Í    1     [& ¶R lŞ  ¶| [Q      a   Æ   G,      $ ”@  3˜DÃL&‘Á0Id0ÌD`ÃJ³Œ0Å²$ã‚P0Æ%¡`Œ7$ŒBÁ1P ”(zŠ!oP†‚1bp8À,Ó7,DÁoh¤ˆ‚1ŞğPcÄ@q€6€Š!È²k¼²(
+ÆpÃ†™Á,CAÃëÿÿÿ?HÌ2C0BÑÿÿÿÿƒ”ÂpCà¡Á,CA% x`ØÁ`A’1èA0ğŒñ„d `Ì)™0Ş@c@Áo02 `Œ7ÅP0Æ(ÃÇà7‚SB°Æ´fA   t   2 >m!à×¦4Q`Èpİ·Àòø”d7CV÷¶RD%õ&2 ¾mEHâÓúíS’!ˆOëºOIöƒDÄT‹OÛ"0ø”tLáD>Ò·îS’I@2\7íG°ø”dKE †×}û,>%Y‹!8‹TÓ` …O4Ã	4…ù‚ÓvîS’5@2\·íS’-@2\>%Y!8‹TóÆ4Q`Èpİ·0€ñø”d<ˆÀ<öîSÒ1QQc*ƒÀ<f4Q`Èpİ´Àòø”tMáD~à˜Íû”dPˆùâS’åLÀñ¾9€_û¼N[’D€!ÃuÓ>Â †OI3?pøRä ~íó>2\¸mME †×}û>%™É†?1EH#ø”d(	`şÄ<µ} ÑLf3FäXR½ÛÉ01ÏL…ù3`6ï/‘ÿ>%™"0ù”d;‡À<6®ç–RLÌSë†4Q`Èpİ´0€ñø”d:pü€/Eà×>ïÎƒ-0˜ŒüÀáK‘øµÏû‚ó`‹ö2dum=Ò÷îS’ù óØ¸OI  1  	   [$0¶J`l˜ Ø2H±e cË`À–¡`Ëp      a   ½   K,      $ ”@Ğ40F ‚ ‚ ‚ü?   3˜DÃL&‘Á0b` @§$ÈpCp€Á,C@#‡Á,Êx‘$ŒñcQ(ãH³P0F0ƒDŠ bÆ’ç¡`Œ7,DÁoh¦ˆ‚1ÜPTf0ËPÁEşÿÿÿRÃÁ³GÔÿÿÿÿ0UÎpıÿÿÿ“å”ì,¡-’ v0ØAB7(œÌ’0ËpÂx‚P0f	
+	In 0o1 `Œ7ÄP0f’¡nÄÀnÈÀ)!ØYB	,A7Ì2 B n   –TÌãG2 ~m àÓvQ`ÈpÙµ0€ñ˜È ø¶)óøÈ<ĞşrHşQ„}›S,>}RøÓA4V3¾9€_û¸/8¶8Àp
+GáD>Ò6T$>ç'Nä#p×T >óÖs8‘!vo.†à,R]›ÑD€!Ãe×~D ËP…ù‚Óuî?qÀ@DG`DÄDEÑ@/Eà×>î#Ã…ã—Ğ,@3øË!ùSD¶2Ìc<‡À<>bó¦SÌSãf¾9€oû¼[S!0O½[D€!Ãe×~D ËcD…À<uo3SàK‘ø´Oû‚ó`‹‡ NäÎ€Õ¼±‘cI5m(`şÄ<W NäN3Ô¹ÿDÄA ùKä?‡-NäGˆıóÔ{@A4S„ÒD€!Ãe×>Â †É8/EàÓ>í#Ãe7SàK‘ø¶Ïû‚ó`‹†sÌSãùn;‡À<~dï„ Q`ÈpÓ€4‚¥ó˜
+! Ëb0CVÛw NäÎ€Õ¼¿DşsXN4Âm  1     [†#0¶I`l– Ø2ŒA        a     R,      $ ”@QA!”÷~É5@qaĞ6”A’Hb0”! ’Hb0”a’Hb0”’Hb0”á’Hb0”’Hb@ä mC
+!‰$CL!‰$Ä  3˜4ÃL&Á0b@$€<ã	ÕDÁ10 „OÀ(
+Æˆ¡ h,W×@ÁÖ	àÔpâ™Á,ƒ#‡ä“Ãxó}Œñ'À€‚1Ş P0Fˆ°ƒm¸Á03˜ep„àªmGŠ ƒ0FKz˜ñĞ€‚1ÜP`0ËpÁpDüÿÿÿ’„³ŒPøşÿÿÿ ­ 7Ì2$F0P!ñB’ã¿ÿÿÿ?TÁP0Æ#Âÿÿÿ¨8 `ŒG„ÿÿÿÿPs@Áÿÿÿÿ¡:è€‚1ÜpÎpƒ!8%kL€`–Á„–í;lAÀÄ
+\ FŠ8…:¨FŠh…8F ˆ…3 ƒ0nú ¦àà‚ƒ"b‚ laĞ †‚P ƒé:˜ƒ`Ä H€Z¸ƒ Ka¼aJ(Ã„A©(p	ÁN7èÁ³"7ÈÁ*˜Áxƒ°B*P0fc¨Hà	d<A(ã	u0P0f	ŠÒƒW¸á†= 3˜%X*$µPfÄ€H r …‚à¸ Úñ„> #a fÆ°"@0Ü”Ì2K0P!u^,#C´C¼`ğ6b0$ <TğvoÈ‚TÀ1áxÃ³œÃxÄœÃ`„@À`D0Àˆ‘ úÄ`N:€`¸!0˜e`š Tn¸aÚÁf	¢
+)ŞˆF†ø‡
+ÜÁ.àmÄ`H ‘¨ ìŞ* ©"€&<bÂ¡ˆ÷ÿÿÿ¬o}o}ŒŠŒˆŠÿÿÿÿÁ€ñ†àé
+ÆxÃùcÄÀH ™È‡!0*$@0Ü„Ì2@O0Báÿÿÿÿƒ4€0Ü”Ì2Q0P!±ˆC@#DÔDIŒÜÕ'˜10Ëğ@^8  5  f`NSé¸µ%óÔ÷ûˆA‰_×úmCĞúRä ~íã>2\õÛŸ! ËRó&`À²Ô½ÁØ´İˆO×zIáD>Ò<oTE †W­û>%ùˆy°,ınYŠÀ<~äS’g€À²ë–`NSíµi‚ÓT»}PáD~à¾ûKä?‡í)@2\õm¤Ò¼nRE †W­û,>%ùÈ5(…ù3`õnN
+Ò¶íS’Xg€0€±ïÆ30ÔbuC-5m=… ,nqE †—OI>b?… ,‹~ ÑLvOáD~àXû”ä#§àNäÎ€ùKä?Ç<…ù‚ÓuíS’Ø–âD~„ø”ä#F3>bQE †W­û,OI>b…C-~´ÜÁ³ Íà/‡äOEøˆ1H#!0O­ófP À÷¶`À²Ü¹MU@2\µî#`<>%ùˆå$@2\µ‚ÓT–p<Ô$@tIáD>Ñ=}IáD>Ò·nsE †WÍû”ä#VUQ`ÈpÕ½Àòø”ä#B ‘!Ø‘! Ë‚ÛÖ¥DÄT‹OûˆÁØc "0O®×ºmvˆÀ<µ^ëºi)óøˆOI>b‰FD ‹½j€øu­çB ‘QÙN" Ëâ#uŞ˜!0OMÛ†§<Ô$@Tç¼]U@2\uï#`<>%ùˆ‚ÓTvm‡†à4•mb€!8Meßğ Q`Èpñ´Àbg‡à,’î#¶vCDaª† ,K^W8‘/8ÍP×şDä/‘ÿ>b|Ò÷~NáD>ÒvíS’œ„H!1È„ O\Èd\Ò>%ùˆ)6o†0~d‘† ,KŞ›d@ŒN[e@Œ~_„R8‘8†ï—PNäÎ€Õ¸¿Dşsø”ä# Q`Èpñ´0€ñ™!0O]Óô ­/EàÓ>í#ÃuIáD>Ñ7oa‡à4CMã§ >}ó>%ùˆ!!óày­ãF`À²è¶Ù @2\æg$>]ë»Q@ëK‘ø¶Ïû‚ó`‹ÆFøuY‘´¾9€oû¼W}ëÆ  Q`Èpå·}@@2\<íG°<÷ NäÎ€å¼5)óÔ·OI>bC-9me‡à4C]ÛFD­/Eà×>îÎƒ-0D€!ÃU÷>Â †OI>b_‡ ,KM×ö¤ÌSÓ>%ùˆ¥)óğ>â7Îdb‡ ,KMç†cÀ²øˆ)‘cI¸ØØ! ËRÓ½¹Yûˆ	Q@ëK‘ø´Oû‚ó`‹¦¦ÌSë¼ß8“A)‰Oß¹OI>rHáD~à˜] µøÑ¢ç6`À²ğ¸YQ@2\uïG°ø”ä#V3LÌcf‡ ,K]ßv°2	N3Ô;mq!“à4C½×Ö·2	N3Ô»m˜0~¤÷ÆTÌã#&ğ Q`Èpñ·0€a“†à4•^[i B\È$8Í`y† ,K]1     [" ¶G lºÀØ2€B`lP! ¶¬ [W€-.À–Á`Ë0°e ‰          /tmp/conjugate_transpose-mJnlLW.o: In function `transpose':
+conjugate_transpose.bc:(.text+0x97): undefined reference to `conj'
+clang: error: linker command failed with exit code 1 (use -v to see invocation)
+conjugate_transpose.c:13:3: warning: plain '_Complex' requires a type specifier; assuming '_Complex double'
+  complex **z;
+  ^
+          double
+/usr/include/complex.h:39:18: note: expanded from macro 'complex'
+#define complex         _Complex
+                        ^
+conjugate_transpose.c:25:34: warning: plain '_Complex' requires a type specifier; assuming '_Complex double'
+  b.z = malloc (b.rows * sizeof (complex *));
+                                 ^
+                                         double
+/usr/include/complex.h:39:18: note: expanded from macro 'complex'
+#define complex         _Complex
+                        ^
+conjugate_transpose.c:29:41: warning: plain '_Complex' requires a type specifier; assuming '_Complex double'
+      b.z[i] = malloc (b.cols * sizeof (complex));
+                                        ^
+                                                double
+/usr/include/complex.h:39:18: note: expanded from macro 'complex'
+#define complex         _Complex
+                        ^
+conjugate_transpose.c:74:39: warning: plain '_Complex' requires a type specifier; assuming '_Complex double'
+      c.z = malloc (c.rows * (sizeof (complex *)));
+                                      ^
+                                              double
+/usr/include/complex.h:39:18: note: expanded from macro 'complex'
+#define complex         _Complex
+                        ^
+conjugate_transpose.c:78:45: warning: plain '_Complex' requires a type specifier; assuming '_Complex double'
+          c.z[i] = malloc (c.cols * sizeof (complex));
+                                            ^
+                                                    double
+/usr/include/complex.h:39:18: note: expanded from macro 'complex'
+#define complex         _Complex
+                        ^
+conjugate_transpose.c:140:3: warning: plain '_Complex' requires a type specifier; assuming '_Complex double'
+  complex z = 3 + 4 * I;
+  ^
+          double
+/usr/include/complex.h:39:18: note: expanded from macro 'complex'
+#define complex         _Complex
+                        ^
+conjugate_transpose.c:146:34: warning: plain '_Complex' requires a type specifier; assuming '_Complex double'
+  a.z = malloc (a.rows * sizeof (complex *));
+                                 ^
+                                         double
+/usr/include/complex.h:39:18: note: expanded from macro 'complex'
+#define complex         _Complex
+                        ^
+conjugate_transpose.c:151:41: warning: plain '_Complex' requires a type specifier; assuming '_Complex double'
+      a.z[i] = malloc (a.cols * sizeof (complex));
+                                        ^
+                                                double
+/usr/include/complex.h:39:18: note: expanded from macro 'complex'
+#define complex         _Complex
+                        ^
+conjugate_transpose.c:165:43: warning: plain '_Complex' requires a type specifier; assuming '_Complex double'
+      aT.z[i] = malloc (aT.cols * sizeof (complex));
+                                          ^
+                                                  double
+/usr/include/complex.h:39:18: note: expanded from macro 'complex'
+#define complex         _Complex
+                        ^
+9 warnings generated.
+/tmp/conjugate_transpose-rfNi3Z.o: In function `transpose':
+conjugate_transpose.c:(.text+0xa3): undefined reference to `conj'
+clang: error: linker command failed with exit code 1 (use -v to see invocation)
+WARNING: profile information is inconsistent with the current program!
+ENTER RUN ON FUNCTION
+0xa36a1c0
+Visited block @0xa376db0
+Visited block @0xa376de0
+Visited block @0xa379708
+Visited block @0xa3796a8
+Visited block @0xa3796d8
+Skipping block @0xa379708
+Skipping block @0xa3796d8
+Visited block @0xa376e40
+Skipping block @0xa376e40
+Visited block @0xa376e10
+Skipping block @0xa379708
+Skipping block @0xa3796a8
+Chain creation done.
+Walking arcs now.
+Visiting arc @0xbfecfc38
+Weight = 3.79716e+09
+Appending...
+Visiting arc @0xbfecfc38
+Weight = 3.48489e+09
+Visiting arc @0xbfecfc38
+Weight = 2.90297e+09
+Visiting arc @0xbfecfc38
+Weight = 2.73994e+09
+Appending...
+Visiting arc @0xbfecfc38
+Weight = 2.45356e+09
+Visiting arc @0xbfecfc38
+Weight = 2.35623e+09
+Appending...
+Visiting arc @0xbfecfc38
+Weight = 1.76572e+09
+Appending...
+Visiting arc @0xbfecfc38
+Weight = 7.28417e+08
+Visiting arc @0xbfecfc38
+Weight = 6.11525e+08
+Appending...
+Visiting arc @0xbfecfc38
+Weight = 4.48912e+08
+Visiting arc @0xbfecfc38
+Weight = 2.06392e+08
+Done with chain merging.
+Total # chains = 7
+-----
+Chain (0) size = 3
+Chain (1) size = 0
+Chain (2) size = 0
+Chain (3) size = 1
+Chain (4) size = 3
+Chain (5) size = 0
+Chain (6) size = 0
+-----
+Doing block placement now.
+Appending chain 4 to chain 0
+Appending chain 3 to chain 4
+Blocks placed: 4
+ENTER RUN ON FUNCTION
+0xa36a1c0
+Visited block @0xa37d2f8
+Visited block @0xa37d328
+Visited block @0xa37d4a8
+Visited block @0xa37d358
+Skipping block @0xa37d4a8
+Visited block @0xa37d4a8
+Visited block @0xa37d388
+Visited block @0xa37d448
+Visited block @0xa37d478
+Skipping block @0xa37d478
+Skipping block @0xa37d4a8
+Visited block @0xa37d418
+Skipping block @0xa37d4a8
+Visited block @0xa37d3b8
+Skipping block @0xa37d418
+Visited block @0xa37d3e8
+Skipping block @0xa37d448
+Skipping block @0xa37d4a8
+Chain creation done.
+Walking arcs now.
+Visiting arc @0xbfecfc38
+Weight = 3.89299e+09
+Appending...
+Visiting arc @0xbfecfc38
+Weight = 3.61443e+09
+Visiting arc @0xbfecfc38
+Weight = 3.05378e+09
+Appending...
+Visiting arc @0xbfecfc38
+Weight = 2.87156e+09
+Visiting arc @0xbfecfc38
+Weight = 2.48927e+09
+Visiting arc @0xbfecfc38
+Weight = 2.43927e+09
+Appending...
+Visiting arc @0xbfecfc38
+Weight = 2.22811e+09
+Visiting arc @0xbfecfc38
+Weight = 1.84522e+09
+Appending...
+Visiting arc @0xbfecfc38
+Weight = 1.29393e+09
+Appending...
+Visiting arc @0xbfecfc38
+Weight = 6.33585e+08
+Visiting arc @0xbfecfc38
+Weight = 6.15239e+07
+Appending...
+Visiting arc @0xbfecfc38
+Weight = 6.09819e+07
+Visiting arc @0xbfecfc38
+Weight = 6.05926e+07
+Appending...
+Visiting arc @0xbfecfc38
+Weight = 5.59736e+07
+Visiting arc @0xbfecfc38
+Weight = 2.49724e+07
+Visiting arc @0xbfecfc38
+Weight = 2.35843e+06
+Appending...
+Visiting arc @0xbfecfc38
+Weight = 28499
+Done with chain merging.
+Total # chains = 10
+-----
+Chain (0) size = 2
+Chain (1) size = 3
+Chain (2) size = 0
+Chain (3) size = 1
+Chain (4) size = 0
+Chain (5) size = 1
+Chain (6) size = 3
+Chain (7) size = 0
+Chain (8) size = 0
+Chain (9) size = 0
+-----
+Doing block placement now.
+Appending chain 6 to chain 0
+Appending chain 5 to chain 6
+Appending chain 1 to chain 5
+Appending chain 3 to chain 1
+Blocks placed: 8
+ENTER RUN ON FUNCTION
+0xa36a1c0
+Visited block @0xa37d2c8
+Visited block @0xa37ebb8
+Visited block @0xa37ed08
+Visited block @0xa37ebe8
+Visited block @0xa37ed08
+Visited block @0xa37eca8
+Visited block @0xa37ecd8
+Skipping block @0xa37ed08
+Skipping block @0xa37ecd8
+Visited block @0xa37ec48
+Visited block @0xa37ec18
+Skipping block @0xa37ed08
+Skipping block @0xa37eca8
+Visited block @0xa37ec78
+Skipping block @0xa37ec48
+Chain creation done.
+Walking arcs now.
+Visiting arc @0xbfecfc38
+Weight = 1.7496e+09
+Appending...
+Visiting arc @0xbfecfc38
+Weight = 1.66365e+09
+Appending...
+Visiting arc @0xbfecfc38
+Weight = 1.27241e+09
+Visiting arc @0xbfecfc38
+Weight = 1.25643e+09
+Visiting arc @0xbfecfc38
+Weight = 1.00227e+09
+Appending...
+Visiting arc @0xbfecfc38
+Weight = 3.10428e+08
+Appending...
+Visiting arc @0xbfecfc38
+Weight = 2.54161e+08
+Visiting arc @0xbfecfc38
+Weight = 6.76136e+07
+Appending...
+Visiting arc @0xbfecfc38
+Weight = 5.62641e+07
+Visiting arc @0xbfecfc38
+Weight = 5.6014e+07
+Appending...
+Visiting arc @0xbfecfc38
+Weight = 1.28615e+07
+Visiting arc @0xbfecfc38
+Weight = 9.55824e+06
+Visiting arc @0xbfecfc38
+Weight = 9.55647e+06
+Appending...
+Visiting arc @0xbfecfc38
+Weight = 2.31049e+06
+Appending...
+Done with chain merging.
+Total # chains = 9
+-----
+Chain (0) size = 5
+Chain (1) size = 1
+Chain (2) size = 1
+Chain (3) size = 0
+Chain (4) size = 1
+Chain (5) size = 0
+Chain (6) size = 1
+Chain (7) size = 0
+Chain (8) size = 0
+-----
+Doing block placement now.
+Appending chain 6 to chain 0
+Appending chain 2 to chain 6
+Appending chain 1 to chain 2
+Appending chain 4 to chain 1
+Blocks placed: 4
+ENTER RUN ON FUNCTION
+0xa36a1c0
+Visited block @0xa3817e8
+Visited block @0xa381818
+Visited block @0xa381908
+Visited block @0xa3818d8
+Visited block @0xa381908
+Visited block @0xa3818a8
+Skipping block @0xa381908
+Visited block @0xa381848
+Skipping block @0xa3818a8
+Visited block @0xa381878
+Skipping block @0xa3818d8
+Skipping block @0xa381908
+Chain creation done.
+Walking arcs now.
+Visiting arc @0xbfecfc38
+Weight = 1.00227e+09
+Appending...
+Visiting arc @0xbfecfc38
+Weight = 1.00201e+09
+Visiting arc @0xbfecfc38
+Weight = 1.002e+09
+Appending...
+Visiting arc @0xbfecfc38
+Weight = 1.00199e+09
+Visiting arc @0xbfecfc38
+Weight = 1.00199e+09
+Appending...
+Visiting arc @0xbfecfc38
+Weight = 6.91873e+08
+Appending...
+Visiting arc @0xbfecfc38
+Weight = 1.14243e+08
+Visiting arc @0xbfecfc38
+Weight = 1.10673e+08
+Visiting arc @0xbfecfc38
+Weight = 994530
+Visiting arc @0xbfecfc38
+Weight = 2420
+Appending...
+Visiting arc @0xbfecfc38
+Weight = 336
+Appending...
+Done with chain merging.
+Total # chains = 7
+-----
+Chain (0) size = 2
+Chain (1) size = 2
+Chain (2) size = 0
+Chain (3) size = 1
+Chain (4) size = 2
+Chain (5) size = 0
+Chain (6) size = 0
+-----
+Doing block placement now.
+Appending chain 4 to chain 0
+Appending chain 3 to chain 4
+Appending chain 1 to chain 3
+Blocks placed: 5
+ENTER RUN ON FUNCTION
+0xa36a1c0
+Visited block @0xa383240
+Visited block @0xa383270
+Visited block @0xa383420
+Visited block @0xa3832a0
+Visited block @0xa383420
+Visited block @0xa3832d0
+Visited block @0xa383300
+Visited block @0xa3833f0
+Skipping block @0xa3832d0
+Skipping block @0xa383420
+Visited block @0xa383330
+Visited block @0xa383360
+Skipping block @0xa383420
+Visited block @0xa383390
+Skipping block @0xa383420
+Visited block @0xa3833c0
+Skipping block @0xa383330
+Skipping block @0xa3833f0
+Visited block @0xa3833c0
+Skipping block @0xa383330
+Skipping block @0xa3833f0
+Chain creation done.
+Walking arcs now.
+Visiting arc @0xbfecfc38
+Weight = 1.39226e+09
+Appending...
+Visiting arc @0xbfecfc38
+Weight = 1.39226e+09
+Visiting arc @0xbfecfc38
+Weight = 6.08382e+08
+Appending...
+Visiting arc @0xbfecfc38
+Weight = 6.04174e+08
+Appending...
+Visiting arc @0xbfecfc38
+Weight = 40302
+Appending...
+Visiting arc @0xbfecfc38
+Weight = 29522
+Appending...
+Visiting arc @0xbfecfc38
+Weight = 27156
+Appending...
+Visiting arc @0xbfecfc38
+Weight = 14966
+Visiting arc @0xbfecfc38
+Weight = 14966
+Visiting arc @0xbfecfc38
+Weight = 14014
+Visiting arc @0xbfecfc38
+Weight = 4382
+Visiting arc @0xbfecfc38
+Weight = 3990
+Appending...
+Visiting arc @0xbfecfc38
+Weight = 2884
+Visiting arc @0xbfecfc38
+Weight = 2758
+Appending...
+Visiting arc @0xbfecfc38
+Weight = 2142
+Visiting arc @0xbfecfc38
+Weight = 980
+Appending...
+Visiting arc @0xbfecfc38
+Weight = 854
+Visiting arc @0xbfecfc38
+Weight = 700
+Visiting arc @0xbfecfc38
+Weight = 462
+Appending...
+Visiting arc @0xbfecfc38
+Weight = 224
+Appending...
+Done with chain merging.
+Total # chains = 11
+-----
+Chain (0) size = 2
+Chain (1) size = 1
+Chain (2) size = 6
+Chain (3) size = 0
+Chain (4) size = 1
+Chain (5) size = 1
+Chain (6) size = 0
+Chain (7) size = 0
+Chain (8) size = 0
+Chain (9) size = 0
+Chain (10) size = 0
+-----
+Doing block placement now.
+Appending chain 5 to chain 0
+Appending chain 4 to chain 5
+Appending chain 1 to chain 4
+Appending chain 2 to chain 1
+Blocks placed: 9
+ENTER RUN ON FUNCTION
+0xa36a1c0
+Visited block @0xa383210
+Visited block @0xa3851a0
+Visited block @0xa385260
+Visited block @0xa3851d0
+Visited block @0xa385290
+Visited block @0xa385350
+Visited block @0xa385200
+Skipping block @0xa385200
+Visited block @0xa385230
+Skipping block @0xa385260
+Skipping block @0xa3851d0
+Visited block @0xa3852c0
+Visited block @0xa385380
+Visited block @0xa3854a0
+Visited block @0xa385230
+Skipping block @0xa385260
+Skipping block @0xa3851d0
+Visited block @0xa3852f0
+Skipping block @0xa3852f0
+Visited block @0xa385320
+Skipping block @0xa385350
+Skipping block @0xa3852c0
+Visited block @0xa3854a0
+Visited block @0xa3853b0
+Skipping block @0xa3854a0
+Visited block @0xa385320
+Skipping block @0xa385350
+Skipping block @0xa3852c0
+Visited block @0xa385470
+Visited block @0xa385440
+Skipping block @0xa3854a0
+Visited block @0xa3853e0
+Skipping block @0xa385440
+Visited block @0xa385410
+Skipping block @0xa385470
+Skipping block @0xa3854a0
+Chain creation done.
+Walking arcs now.
+Visiting arc @0xbfecfc38
+Weight = 3.44341e+09
+Appending...
+Visiting arc @0xbfecfc38
+Weight = 2.00398e+09
+Appending...
+Visiting arc @0xbfecfc38
+Weight = 2.00398e+09
+Appending...
+Visiting arc @0xbfecfc38
+Weight = 2.00398e+09
+Visiting arc @0xbfecfc38
+Weight = 2.00398e+09
+Appending...
+Visiting arc @0xbfecfc38
+Weight = 2.00398e+09
+Appending...
+Visiting arc @0xbfecfc38
+Weight = 2.00398e+09
+Visiting arc @0xbfecfc38
+Weight = 1.43943e+09
+Visiting arc @0xbfecfc38
+Weight = 1.43943e+09
+Visiting arc @0xbfecfc38
+Weight = 1.43943e+09
+Appending...
+Visiting arc @0xbfecfc38
+Weight = 1.35117e+09
+Appending...
+Visiting arc @0xbfecfc38
+Weight = 1.31238e+09
+Visiting arc @0xbfecfc38
+Weight = 1.00621e+09
+Visiting arc @0xbfecfc38
+Weight = 1.00199e+09
+Visiting arc @0xbfecfc38
+Weight = 1.00199e+09
+Visiting arc @0xbfecfc38
+Weight = 7.19713e+08
+Appending...
+Visiting arc @0xbfecfc38
+Weight = 6.04174e+08
+Appending...
+Visiting arc @0xbfecfc38
+Weight = 6.0416e+08
+Appending...
+Visiting arc @0xbfecfc38
+Weight = 6.04159e+08
+Visiting arc @0xbfecfc38
+Weight = 6.04159e+08
+Visiting arc @0xbfecfc38
+Weight = 5.99046e+08
+Appending...
+Visiting arc @0xbfecfc38
+Weight = 5.62604e+08
+Visiting arc @0xbfecfc38
+Weight = 8.6333e+07
+Appending...
+Visiting arc @0xbfecfc38
+Weight = 5.11352e+06
+Visiting arc @0xbfecfc38
+Weight = 5.11351e+06
+Visiting arc @0xbfecfc38
+Weight = 868
+Visiting arc @0xbfecfc38
+Weight = 864
+Visiting arc @0xbfecfc38
+Weight = 864
+Visiting arc @0xbfecfc38
+Weight = 126
+Appending...
+Visiting arc @0xbfecfc38
+Weight = 126
+Appending...
+Visiting arc @0xbfecfc38
+Weight = 126
+Appending...
+Visiting arc @0xbfecfc38
+Weight = 28
+Visiting arc @0xbfecfc38
+Weight = 14
+Visiting arc @0xbfecfc38
+Weight = 14
+Visiting arc @0xbfecfc38
+Weight = 0
+Done with chain merging.
+Total # chains = 18
+-----
+Chain (0) size = 3
+Chain (1) size = 3
+Chain (2) size = 0
+Chain (3) size = 1
+Chain (4) size = 0
+Chain (5) size = 2
+Chain (6) size = 1
+Chain (7) size = 1
+Chain (8) size = 2
+Chain (9) size = 0
+Chain (10) size = 0
+Chain (11) size = 0
+Chain (12) size = 0
+Chain (13) size = 0
+Chain (14) size = 2
+Chain (15) size = 0
+Chain (16) size = 3
+Chain (17) size = 0
+-----
+Doing block placement now.
+Appending chain 16 to chain 0
+Appending chain 14 to chain 16
+Appending chain 5 to chain 14
+Appending chain 1 to chain 5
+Appending chain 3 to chain 1
+Appending chain 6 to chain 3
+Appending chain 7 to chain 6
+Appending chain 8 to chain 7
+Blocks placed: 15
+BCÀŞ!  ß  ‚        #‘AÈI29’„%‹b€EB’BÄ28I
+2D$H
+!#ÄR€!r$Èˆb¨ ¨@Æğ   Q  R     `º„@ Ë†½şÿÿÿ $‚Êaæ¡àAÊaÒaÊ¡ÌÚ!È0‡p`‡y(€p‡whs‡ph‡rhxx‡tpz(yhƒr`‡thÀÂæ¡ ÂŞ¡ÌAÂ¡Ê¡àáÒÁè¡ä¡ÊÒ¡ÚÀŞÁÚ€Ê!Ì0‡p`‡y(€p‡whƒtps˜‡60xhƒvz@ÀÂæ¡ ÂŞ¡Ü!ÜaÚÀà¡Ú!è sv˜‡r ˆzp‡ys(‡60xhƒvz@ÀÂæ¡ ¢æ¡Ú`ŞÁè¡ÌŞ!è0‡p`‡y(`A @²( Ûp0±8`Ù@ °l X6J ,ˆåÿÿÿÿ@I     †@&Ä0a(Œa‚pˆ@@†	B2L†	‚2L–	‚²L’e‚@,†ÂX&Å¡X    ‰   -   2"ˆ	 d…#¤„#ã„¡LŒŒ„ÄLôÁ’* © Ğ& 	Ğ‘ %y Ğ’ 5ÙĞ30G C F˜&¢¨ºFš"J˜|˜"äBƒ$Yt•"Â$É¢Œ€"lqeˆªŠ¼BH’dX“$K’,i+ƒ$‘T!’è¬‚´QZ‰ÖBH)Q[I¢w æ‚bDK2Íeˆâê) šH"k    ¢t˜<°ƒ6€‡qhvHw¨|hƒsp‡zØ0åĞğ s z0r s mq x xĞé€z€z€mq`zv q`ms z0r s mv@z0r v@m`s z0r s m`v@z0r v@m`v@z`t v@m`q x q x q xĞá z z`tĞæ€p s z0rĞî€zv s m0q x ó@Š2B$Ø¡A–  À…´$    v(F°%  °CA.	  €ŠtI  @ ìP˜ÀK  `‡â_   ;( ƒ$    †(     0Dé€    €!ÊÀ    QÂ      ¢Œ     0D	     `ˆ     ÀÅ  0   €!
+ p    C5     †(l À   QÜ     ¢À 	   0D¡     `ˆb@ ,   ÀÅ€ X   €,   2   2˜LŒ	&GÆC
+4¤a7ùİfçAÇ²»,ÓËdĞğİ†³ËxP3L—§ñ  (=é@4h’(™A+PÉœ¦BË@¡ ÊÃî9ü=/ƒŞfĞğİ†³ËxP3L—§ñ  (=é@tè§Pßm8»Œ5Ãty
+‚Jsº,o§éé°›’‰5ÒsûM§F;…bønÃÙe<¨¦ËÓxPTšƒêî4=,ÏÓ£œB1|·áì2ÔÓåi<(*ÍAî·¼f   y     Cˆ<ò@X°„ƒ;äÀÃ;¤ƒ;ĞC9ÈÃ"†< <ïĞîğğôPî@`0èò0DÈƒbA4éĞğÀå £ğ£°k ´ 
+¡
+Cˆ<8ò@X0¤ƒ;Ğ    y     3€Äáf=ˆC8„ÃŒB€yxs˜qæ íô€3BÂÁÎ¡f0=ˆC8„ƒÌ=ÈC=Œ=ÌxŒtp{yH‡ppzpvx‡p    q   0   Æ€0Ô2!Ï‚Y‚Á Ëâv-KÅøRÂ>ÑVA-KÅøÁHÄä?4Âûˆ[‚H§1Àb ¾4E&AD@3˜C‚HnƒL@„™!8Mb†4E“³ØÂ‚H!1È„ !$S4ÒãH„EO„4SaÓ²TŒ¿ 1!áKMFq<Ô$@d…Í`…/M‘m…/MÑm…/Mn…/MQn…/M‘n…/MÑn…/M a   ¼   G,      $ ”@    3•TÄLD%•Qq#ˆApµÃKb³TsÜpƒ³˜ÁxÃÁ0ãHÃŒ7(3Ş°<Î,Ã R"€A0b@0 T;°ƒ0 FL n.0˜e0„` B*ƒ‚‚‚ä ¹ Úñ„hŒ„˜% *$:2b<(ãÁÑQ0Æ†Ä£`FTFPŒ°G¡‰2Æ…Æ„…#„b #b Œ)7j ³˜t nÖ fŒ!op5PƒÁˆ `¼áÖ@#‚7€ñ8`5ŒÊ` 0l   &2 ~m#àÛ2 >mPPàK‘ø¶ÏûÈpİ¶é ˆOã¶OIÖRÌƒ×†2LÌc0DD ‹!%,öíS’­°,GĞNäÎ€Õ¹OI70NäÎ€Õ¹¿Dşsø”d;‰ ,KMû”d2ÉÄ<~D ËcBE †WÍû,>%‚4‚­û”dEËÄ<~D ‹OIÖ³ Q`Èpù”d 
+`~DHÔ2Y0€a>HâÓ8íS’ı4@2\õîS’İ @2\4Q`ÈpÕ¼Àòø”dK
+q!“à4›ÁPKo8Ò¶nM
+q!“à4_S8‘4‚û”d3ÉÄ<>Â Æc*C-F$Q`ÈpÕ¼0€áS’)H#ø”d/‡À<5~÷PÍaf´LÌã#`ø”dNNàK‘ø´OûÈp]€S8‘8æ/‘ÿ'Nä#`çFS >ÛgNäÍ`ï–” `Ø¸OI–RLÌS÷ö¾9€_û¸×M[! ËRÓ–ƒ2	N3ØĞD€!ÃUó>Â ÆãS  1     [) ¶Z l¼ Ø2 A        a   ²   J,      $ ”@  3˜DÃˆÁá _pÅxC@Œá† ƒY#j$Çp §`&a†#Øÿÿÿ4˜e(†`„Âÿÿÿÿ	„á† AƒY"*$b°ñ†ôÿÿÿ¬€‚1ğŒY‚b B"Æˆ ¢`Œ7ƒDÁo0ŠŠ‚1Ş€c¸áœáCpJÖ˜³ Œ7hGÁnÂ f n00ƒY$†Æ Ì`¼á0 `Ì2É0P!	* †‚4@ƒY†$Â  l   V4dun"àÛ2 >m1E †WÍû”d3HâÓwîS’áL@2\uïG°<>%™‚øôÍû”d!à×¦‚DÄT‹O["0ø”tMáD¾à4C]û”dGâÓ7o5E †W­û,>%‚4‚mû”d9E †Wİû,>%İT8‘/8Íà?qÀ@D&DÌÃÛ
+"0O}û”d/E †—OI†T `ÛWĞNäÎ€Õ¸OI–2ÌcI…À<5m&A`4E †W­û,OIgĞ,@3øË!ùSD¦3Q`ÈpÕ½0€ñø”d@…à,’~LáD>ÒvíS’ù NäGˆOI6tÌSÓ÷nD‡À<õ}ãv#Q`ÈpÕº0€áSÒ!h…ù‚Óuí?qÀ@DşùÏqFDLTÔØ4‚OIG0NäÎ€Õ¸¿Dşsø”t ÑLv	IáD>Òvm<ˆÀ<~äS’µ óÔ´OI¶#Q`ÈpÕ½0€áS’ÙL@2\µî#`<>%ÙI9–„1     [†!0¶O l¢ Ø2ˆA`lÒ        a     I,      Œ 4P…P$ P\ dÍ     ÃÍ³ÔSÜˆÁh\`ípƒ´˜Á,ƒ`õ(7Ü 5f0Ë€Á@EUÈ+’‡ÄÁ1Aûÿÿÿƒ5 ãQ0ÆB¢`Œ'\c<"ÿÿÿÿAº(ãÃøÿÿÿFÁ¨dB)!ˆR©¦o˜¤0 `Œ7T”P0j@ #a #ˆ` 37k ³ÄŒPÌÿÿÿÿ ¡ 7q ³THIaÂˆÁ« T;@Ã`D Àˆ ¢0À´Áá nî fŒ"(±lpÂ
+WÆô@ä`0"ĞƒoØƒ9ƒÁˆà`¼è #b p(‚ÿÿÿÿk f	†
+I#ØA1 ˜ÀÖà‚jÇŞ`Œ„oú@.ØvÄ €Wúàô ÆBÁ˜%Â    ¡   F2>m%Cà×f2¾mT† ,K­ÛU4Â½YD€!Ãeë>%YÎD€!Ãeï~D ËãS’!µø‘OIGÀNä#pë>%D€!Ãeï>Â †OIVsÌcß¹~eP8‘8fã>%ù…ù3`6îSÒ/DÈôƒAœ>Ñ6U >÷†„0Ôâ#>%ÙÎD€!Ãeï>Â ÆãS’mA‚/Eà×>î#Ã•×ö2ÌcM0~äS’Y!@2\ÖÓ Q`ÈpÙ½OI¥2	N3è¶%µøÈâS’qA‚/EàÛ>ï#Ã•ã&$Q`Èpİ´0€áS’I)Ä…L‚Óúm^âÓyïS’1I@2\÷í#`ø”d0C-6”0ÔâG‹OI6sÌSß9 ÑLfOÒ>%MÁPK›D€!Ãeï~D ‹OI'àNäÎ€ùKä?‡9!À0øˆOI… pï>%YÈ ø´‰€_ÛÈ ø¶%M@2\÷íG°<>%]ÀştI@2\7íG°ø”dJE †×}û,>%™–#øRä >íÓ>2\WNä#pëö•À²ÔºOI¶ Q`Èpù”d 
+`~DHÔ2ÙÒD€!Ãuß>Â ÆãSÒ4…ù3`6îS’ıL@2\7íG°<>%Y–"øRä ¾íÓvƒ$~ï>%ÙQÂP‹D>%ÂT8‘8fãşùÏáS’uşF”0ÔâG‘OI4Q`Èpİ´0€ñø”dbGD ‹OICÀ²B\È$8Í    1     [& ¶R lŞ  ¶| [Q      a   Æ   G,      $ ”@  3˜DÃL&‘Á0Id0ÌD`ÃJ³Œ0Å²$ã‚P0Æ%¡`Œ7$ŒBÁ1P ”(zŠ!oP†‚1bp8À,Ó7,DÁoh¤ˆ‚1ŞğPcÄ@q€6€Š!È²k¼²(
+ÆpÃ†™Á,CAÃëÿÿÿ?HÌ2C0BÑÿÿÿÿƒ”ÂpCà¡Á,CA% x`ØÁ`A’1èA0ğŒñ„d `Ì)™0Ş@c@Áo02 `Œ7ÅP0Æ(ÃÇà7‚SB°Æ´fA   t   2 >m!à×¦4Q`Èpİ·Àòø”d7CV÷¶RD%õ&2 ¾mEHâÓúíS’!ˆOëºOIöƒDÄT‹OÛ"0ø”tLáD>Ò·îS’I@2\7íG°ø”dKE †×}û,>%Y‹!8‹TÓ` …O4Ã	4…ù‚ÓvîS’5@2\·íS’-@2\>%Y!8‹TóÆ4Q`Èpİ·0€ñø”d<ˆÀ<öîSÒ1QQc*ƒÀ<f4Q`Èpİ´Àòø”tMáD~à˜Íû”dPˆùâS’åLÀñ¾9€_û¼N[’D€!ÃuÓ>Â †OI3?pøRä ~íó>2\¸mME †×}û>%™É†?1EH#ø”d(	`şÄ<µ} ÑLf3FäXR½ÛÉ01ÏL…ù3`6ï/‘ÿ>%™"0ù”d;‡À<6®ç–RLÌSë†4Q`Èpİ´0€ñø”d:pü€/Eà×>ïÎƒ-0˜ŒüÀáK‘øµÏû‚ó`‹ö2dum=Ò÷îS’ù óØ¸OI  1  	   [$0¶J`l˜ Ø2H±e cË`À–¡`Ëp      a   ½   K,      $ ”@Ğ40F ‚ ‚ ‚ü?   3˜DÃL&‘Á0b` @§$ÈpCp€Á,C@#‡Á,Êx‘$ŒñcQ(ãH³P0F0ƒDŠ bÆ’ç¡`Œ7,DÁoh¦ˆ‚1ÜPTf0ËPÁEşÿÿÿRÃÁ³GÔÿÿÿÿ0UÎpıÿÿÿ“å”ì,¡-’ v0ØAB7(œÌ’0ËpÂx‚P0f	
+	In 0o1 `Œ7ÄP0f’¡nÄÀnÈÀ)!ØYB	,A7Ì2 B n   –TÌãG2 ~m àÓvQ`ÈpÙµ0€ñ˜È ø¶)óøÈ<ĞşrHşQ„}›S,>}RøÓA4V3¾9€_û¸/8¶8Àp
+GáD>Ò6T$>ç'Nä#p×T >óÖs8‘!vo.†à,R]›ÑD€!Ãe×~D ËP…ù‚Óuî?qÀ@DG`DÄDEÑ@/Eà×>î#Ã…ã—Ğ,@3øË!ùSD¶2Ìc<‡À<>bó¦SÌSãf¾9€oû¼[S!0O½[D€!Ãe×~D ËcD…À<uo3SàK‘ø´Oû‚ó`‹‡ NäÎ€Õ¼±‘cI5m(`şÄ<W NäN3Ô¹ÿDÄA ùKä?‡-NäGˆıóÔ{@A4S„ÒD€!Ãe×>Â †É8/EàÓ>í#Ãe7SàK‘ø¶Ïû‚ó`‹†sÌSãùn;‡À<~dï„ Q`ÈpÓ€4‚¥ó˜
+! Ëb0CVÛw NäÎ€Õ¼¿DşsXN4Âm  1     [†#0¶I`l– Ø2ŒA        a     R,      $ ”@QA!”÷~É5@qaĞ6”A’Hb0”! ’Hb0”a’Hb0”’Hb0”á’Hb0”’Hb@ä mC
+!‰$CL!‰$Ä  3˜4ÃL&Á0b@$€<ã	ÕDÁ10 „OÀ(
+Æˆ¡ h,W×@ÁÖ	àÔpâ™Á,ƒ#‡ä“Ãxó}Œñ'À€‚1Ş P0Fˆ°ƒm¸Á03˜ep„àªmGŠ ƒ0FKz˜ñĞ€‚1ÜP`0Ë€Ápûÿÿÿ’„³ŒPøÿÿÿÿ ­ 7Ì2G0P!/$ã½ÿÿÿ?Xc<¡(³Æ@…dE6Œ7P0ÆŒ¡(ãFŒñäÈ
+ÆpÃ18Ã†à”¬1~ ‚Y†cZ¶Ap0Ä1(€ô@1(@ì 10 ÀØ Ì`¸!0˜n¨:FŠ°…<F Ø8h5nL¦ò ‚ƒ"t‚T…ñ<P…T `7sõ§À%;İğ 0Ì2‰0Üp°`ã®@Á˜e(¡ôàn¸ahÁf	–
+I-”…1 €haÄ€` x .¨v<¡ˆÁˆ@€Y††1¬È7¥ ³ÁTH]ƒËˆÁ íP/Ø¼	 ü‚]À[² UpÁ„GL8Şğ,ç0Ş 1ç0!00b`$€>„1˜“ ndf˜&(U@‡nX…v0ƒY‚h BJƒ‡7¢ƒ!ş¡w°x1@$*ˆ»€·
+ÈAªà‚	˜p(âıÿÿÿk ÆFÆ„F#„b #b †"äÿÿÿ°`¼!xú‚1Ş0Dş@Á10@&òaŒ
+	7á ³ĞŒPøÿÿÿÿ  7å ³BTH,âĞˆ‘ 5Q#„wAµã	æ@FÂ Ì2<   5  f`NSé¸É%óÔ÷ûˆA‰_×úmCĞúRä ~íã>2\õÛŸ! ËRó&`À²Ô½ÁØ´İˆO×zIáD>Ò<oYE †W­û>%ùˆ°,ın^ŠÀ<~äS’g€À²ë–`NSíµi‚ÓT»}PáD~à¾ûKä?‡í)@2\õm¤Ò¼nWE †W­û,>%ùÈ5(…ù3`õnN
+Ò¶íS’Xg€0€±ïÆ30ÔbuC-5m=… ,nQE †—OI>b?… ,‹~ ÑLvOáD~àXû”ä#§àNäÎ€ùKä?Ç<…ù‚ÓuíS’˜âD~„ø”ä#F3>bVE †W­û,OI>b…C-~´Â³ Íà/‡äOEøˆ1H#!0O­ófP À÷¶`À²Ü¹aU@2\µî#`<>%ùˆå$@2\µ‚ÓT–p<Ô$@tIáD>Ñ=}IáD>Ò·nSE †WÍû”ä#¦UQ`ÈpÕ½Àòø”ä#B ‘!Ø‘! Ë‚Û&¦DÄT‹OûˆÁØc "0O®×ºmvˆÀ<µ^ëº})óøˆOI>b‰FD ‹½j€øu­çB ‘QÙN" Ëâ#uŞ[™!0OMÛ†§<Ô$@Tç¼qU@2\uï#`<>%ùˆ‚ÓTvm‡†à4•mb€!8Meßğ Q`Èpñ´Àbl‡à,’î#wCDaª† ,K^_W8‘/8ÍP×şDä/‘ÿ>b|Ò÷~NáD>ÒvíS’Ü„H!1È„ O\ÈdaÒ>%ùˆ)6o†0~d‘† ,KŞ›d@ŒN[e@Œ~_„R8‘8†ïWPNäÎ€Õ¸¿Dşsø”ä# Q`Èpñ´0€ñXš!0O]Óô ­/EàÓ>í#ÃuIáD>Ñ7of‡à4CMã¥ >}ó>%ùˆ!!óày­ãF`À²è¶Ù @2\æg$>]ë»Q@ëK‘ø¶Ïû‚ó`‹GøuY‘´¾9€oû¼W}ëÆ  Q`Èpå·}@@2\<íG°<÷ NäÎ€å¼5)óÔ·OI>bC-9mj‡à4C]ÛFD­/Eà×>îÎƒ-0XD€!ÃU÷>Â †OI>bd‡ ,KM×ö¤ÌSÓ>%ùˆ¹)óğ>â7Îdg‡ ,KMç†cÀ²øˆ)‘cI¸Ú! ËRÓ½ÍYûˆ	Q@ëK‘ø´Oû‚ó`‹ö¦ÌSë¼ß8“U)‰Oß¹OI>rHáD~à˜] µøÑ¢ç6`À²ğ¸mQ@2\uïG°ø”ä#V3LÌck‡ ,K]ßv°2	N3Ô;mq!“à4C½×Ö·2	N3Ô»m˜0~¤÷ÆTÌã#&ğ Q`Èpñ·0€a“†à4•^[i B\È$8Í`y† ,K]1     [" ¶G lºÀØ2œA lÒ  ¶¦[W€-.À–Á`Ë0°e ‰          /tmp/conjugate_transpose-LDsjeJ.o: In function `transpose':
+conjugate_transpose.bc:(.text+0x97): undefined reference to `conj'
+clang: error: linker command failed with exit code 1 (use -v to see invocation)
+conjugate_transpose.c:13:3: warning: plain '_Complex' requires a type specifier; assuming '_Complex double'
+  complex **z;
+  ^
+          double
+/usr/include/complex.h:39:18: note: expanded from macro 'complex'
+#define complex         _Complex
+                        ^
+conjugate_transpose.c:25:34: warning: plain '_Complex' requires a type specifier; assuming '_Complex double'
+  b.z = malloc (b.rows * sizeof (complex *));
+                                 ^
+                                         double
+/usr/include/complex.h:39:18: note: expanded from macro 'complex'
+#define complex         _Complex
+                        ^
+conjugate_transpose.c:29:41: warning: plain '_Complex' requires a type specifier; assuming '_Complex double'
+      b.z[i] = malloc (b.cols * sizeof (complex));
+                                        ^
+                                                double
+/usr/include/complex.h:39:18: note: expanded from macro 'complex'
+#define complex         _Complex
+                        ^
+conjugate_transpose.c:74:39: warning: plain '_Complex' requires a type specifier; assuming '_Complex double'
+      c.z = malloc (c.rows * (sizeof (complex *)));
+                                      ^
+                                              double
+/usr/include/complex.h:39:18: note: expanded from macro 'complex'
+#define complex         _Complex
+                        ^
+conjugate_transpose.c:78:45: warning: plain '_Complex' requires a type specifier; assuming '_Complex double'
+          c.z[i] = malloc (c.cols * sizeof (complex));
+                                            ^
+                                                    double
+/usr/include/complex.h:39:18: note: expanded from macro 'complex'
+#define complex         _Complex
+                        ^
+conjugate_transpose.c:140:3: warning: plain '_Complex' requires a type specifier; assuming '_Complex double'
+  complex z = 3 + 4 * I;
+  ^
+          double
+/usr/include/complex.h:39:18: note: expanded from macro 'complex'
+#define complex         _Complex
+                        ^
+conjugate_transpose.c:146:34: warning: plain '_Complex' requires a type specifier; assuming '_Complex double'
+  a.z = malloc (a.rows * sizeof (complex *));
+                                 ^
+                                         double
+/usr/include/complex.h:39:18: note: expanded from macro 'complex'
+#define complex         _Complex
+                        ^
+conjugate_transpose.c:151:41: warning: plain '_Complex' requires a type specifier; assuming '_Complex double'
+      a.z[i] = malloc (a.cols * sizeof (complex));
+                                        ^
+                                                double
+/usr/include/complex.h:39:18: note: expanded from macro 'complex'
+#define complex         _Complex
+                        ^
+conjugate_transpose.c:165:43: warning: plain '_Complex' requires a type specifier; assuming '_Complex double'
+      aT.z[i] = malloc (aT.cols * sizeof (complex));
+                                          ^
+                                                  double
+/usr/include/complex.h:39:18: note: expanded from macro 'complex'
+#define complex         _Complex
+                        ^
+9 warnings generated.
+/tmp/conjugate_transpose-RARcbz.o: In function `transpose':
+conjugate_transpose.c:(.text+0xa3): undefined reference to `conj'
+clang: error: linker command failed with exit code 1 (use -v to see invocation)

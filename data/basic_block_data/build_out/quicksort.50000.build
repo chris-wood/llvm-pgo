@@ -1,0 +1,16 @@
+quicksort.c:10:1: warning: return type of 'main' is not 'int' [-Wmain-return-type]
+void main(int argc, char** argv) 
+^
+quicksort.c:10:1: note: change return type to 'int'
+void main(int argc, char** argv) 
+^~~~
+int
+1 warning generated.
+quicksort.c:10:1: warning: return type of 'main' is not 'int' [-Wmain-return-type]
+void main(int argc, char** argv) 
+^
+quicksort.c:10:1: note: change return type to 'int'
+void main(int argc, char** argv) 
+^~~~
+int
+1 warning generated.

@@ -1,0 +1,18 @@
+clang: error: cannot specify -o when generating multiple output files
+clang: error: cannot specify -o when generating multiple output files
+clang: error: cannot specify -o when generating multiple output files
+clang: error: cannot specify -o when generating multiple output files
+clang: error: cannot specify -o when generating multiple output files
+clang: error: cannot specify -o when generating multiple output files
+clang: error: cannot specify -o when generating multiple output files
+clang: error: cannot specify -o when generating multiple output files
+clang: error: cannot specify -o when generating multiple output files
+clang: error: cannot specify -o when generating multiple output files
+keccak-test.c:376:16: warning: implicit declaration of function 'atoi' is invalid in C99 [-Wimplicit-function-declaration]
+    int test = atoi(argv[1]);
+               ^
+1 warning generated.
+keccak-test.c:376:16: warning: implicit declaration of function 'atoi' is invalid in C99 [-Wimplicit-function-declaration]
+    int test = atoi(argv[1]);
+               ^
+1 warning generated.

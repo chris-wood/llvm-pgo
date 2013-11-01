@@ -1,0 +1,169 @@
+Multiying...
+Result...
+===-------------------------------------------------------------------------===
+LLVM profiling output for executions:
+  1. ./is_prime.profile 65536 
+  2. ./is_prime.profile 131072 
+  3. ./is_prime.profile 262144 
+  4. ./is_prime.profile 524288 
+  5. ./is_prime.profile 1048576 
+  6. ./is_prime.profile 65536 
+  7. ./is_prime.profile 1048576 
+  8. ./is_prime.profile 131072 
+  9. ./block_test.profile 5000 
+  10. ./block_test.profile 7500 
+  11. ./block_test.profile 10000 
+  12. ./block_test.profile 12500 
+  13. ./block_test.profile 15000 
+  14. ./block_test.profile 5000 
+  15. ./block_test.profile 15000 
+  16. ./blocked.profile 900 
+  17. ./blocked.profile 1000 
+  18. ./blocked.profile 1100 
+  19. ./blocked.profile 1200 
+
+===-------------------------------------------------------------------------===
+Function execution frequencies:
+
+ ##   Frequency
+  1.     4/4 main
+
+  NOTE: 2 functions were never executed!
+
+===-------------------------------------------------------------------------===
+Top 20 most frequently executed basic blocks:
+
+ ##      %% 	Frequency
+  1. 46.6015% 3539955443/7.59623e+09	main() - for.inc26.for.cond14.preheader_crit_edge
+  2. 46.597% 3539613300/7.59623e+09	main() - for.body16.for.inc26_crit_edge
+  3. 6.43178% 488572704/7.59623e+09	main() - for.end28.mmult.exit_crit_edge
+  4. 0.10185% 7736783/7.59623e+09	main() - for.cond14.preheader
+  5. 0.0827465% 6285613/7.59623e+09	main() - for.body16
+  6. 0.0596347% 4529993/7.59623e+09	main() - for.cond1.preheader.lr.ph.split.us.i
+  7. 0.059634% 4529937/7.59623e+09	main() - for.end28
+  8. 0.0586581% 4455808/7.59623e+09	main() - for.cond14.preheader.for.body16_crit_edge
+  9. 0.00358463% 272297/7.59623e+09	main() - for.inc26.for.end28_crit_edge
+ 10. 0.00358368% 272225/7.59623e+09	main() - for.inc26
+ 11. 5.53959e-05%  4208/7.59623e+09	main() - for.cond14.preheader.for.inc26_crit_edge
+ 12. 5.52906e-05%  4200/7.59623e+09	main() - mmult.exit
+ 13. 2.50124e-07%    19/7.59623e+09	main() - for.body16.for.body16_crit_edge
+ 14. 5.26577e-08%     4/7.59623e+09	main() - for.cond.preheader.for.cond14.preheader_crit_edge
+ 15. 5.26577e-08%     4/7.59623e+09	main() - entry
+ 16. 5.26577e-08%     4/7.59623e+09	main() - for.cond.preheader
+Multiying...
+Result...
+Multiying...
+Result...
+WARNING: profile information is inconsistent with the current program!
+===-------------------------------------------------------------------------===
+LLVM profiling output for executions:
+  1. ./is_prime.profile 65536 
+  2. ./is_prime.profile 131072 
+  3. ./is_prime.profile 262144 
+  4. ./is_prime.profile 524288 
+  5. ./is_prime.profile 1048576 
+  6. ./is_prime.profile 65536 
+  7. ./is_prime.profile 1048576 
+  8. ./is_prime.profile 131072 
+  9. ./block_test.profile 5000 
+  10. ./block_test.profile 7500 
+  11. ./block_test.profile 10000 
+  12. ./block_test.profile 12500 
+  13. ./block_test.profile 15000 
+  14. ./block_test.profile 5000 
+  15. ./block_test.profile 15000 
+  16. ./blocked.profile 900 
+  17. ./blocked.profile 1000 
+  18. ./blocked.profile 1100 
+  19. ./blocked.profile 1200 
+  20. ./blocked.profile 1300 
+  21. ./blocked.profile 1400 
+  22. ./blocked.profile 900 
+  23. ./blocked.profile 1400 
+  24. ./factor.profile 2000000 
+  25. ./factor.profile 3000000 
+  26. ./factor.profile 4000000 
+  27. ./factor.profile 5000000 
+  28. ./factor.profile 6000000 
+  29. ./factor.profile 2000000 
+  30. ./factor.profile 6000000 
+  31. ./bubble.profile 50000 
+  32. ./bubble.profile 100000 
+  33. ./bubble.profile 150000 
+  34. ./bubble.profile 200000 
+  35. ./is_prime.profile 2097152 
+  36. ./bubble.profile 250000 
+  37. ./bubble.profile 50000 
+  38. ./bubble.profile 250000 
+  39. ./quicksort.profile 50000 
+  40. ./quicksort.profile 100000 
+  41. ./quicksort.profile 150000 
+  42. ./quicksort.profile 50000 
+  43. ./kmeans.profile 10000 10 
+  44. ./kmeans.profile 100000 10 
+  45. ./kmeans.profile 1000000 10 
+  46. ./kmeans.profile 1000000 20 
+  47. ./kmeans.profile 1000000 50 
+  48. ./kmeans.profile 10000 10 
+  49. ./kmeans.profile 1000000 50 
+  50. ./permutations.profile 8 
+  51. ./permutations.profile 9 
+  52. ./permutations.profile 10 
+  53. ./permutations.profile 11 
+  54. ./permutations.profile 12 
+  55. ./permutations.profile 8 
+  56. ./permutations.profile 12 
+  57. ./mandlebrot_seq.profile 1000 
+  58. ./mandlebrot_seq.profile 1250 
+  59. ./mandlebrot_seq.profile 1500 
+  60. ./mandlebrot_seq.profile 1750 
+  61. ./mandlebrot_seq.profile 2000 
+  62. ./mandlebrot_seq.profile 2250 
+  63. ./mandlebrot_seq.profile 1000 
+  64. ./block_test.profile 5000 
+  65. ./block_test.profile 7500 
+  66. ./block_test.profile 10000 
+  67. ./block_test.profile 12500 
+  68. ./block_test.profile 15000 
+  69. ./block_test.profile 5000 
+  70. ./block_test.profile 15000 
+  71. ./blocked.profile 900 
+  72. ./blocked.profile 1000 
+  73. ./blocked.profile 1100 
+  74. ./mandlebrot_seq.profile 2250 
+  75. ./blocked.profile 1200 
+
+===-------------------------------------------------------------------------===
+Function execution frequencies:
+
+ ##   Frequency
+  1. 1e+09/1.05733e+09 main
+  2. 5.5e+07/1.05733e+09 printmat
+  3. 1.8e+02/1.05733e+09 mmult
+
+===-------------------------------------------------------------------------===
+Top 20 most frequently executed basic blocks:
+
+ ##      %% 	Frequency
+  1. 11.484% 4162946265/3.62498e+10	main() - for.end28.mmult.exit_crit_edge
+  2. 9.88779% 3584308671/3.62498e+10	main() - for.body3.lr.ph.split.us.us.i
+  3. 9.35724% 3391985339/3.62498e+10	main() - for.inc21.us.i.for.body3.lr.ph.split.us.us.i_crit_edge
+  4. 9.34243% 3386615840/3.62498e+10	main() - mmult.exit
+  5. 9.28862% 3367109243/3.62498e+10	main() - for.inc21.us.i.mmult.exit_crit_edge
+  6. 7.67462% 2782036722/3.62498e+10	mmult() - for.inc21.us.for.body3.lr.ph.split.us.us_crit_edge
+  7. 4.93132% 1787596217/3.62498e+10	main() - for.inc26.for.end28_crit_edge
+  8. 3.48775% 1264301857/3.62498e+10	main() - for.body16.for.inc26_crit_edge
+  9. 3.48425% 1263033461/3.62498e+10	main() - for.inc26.for.cond14.preheader_crit_edge
+ 10. 2.76413% 1001992337/3.62498e+10	main() - entry
+ 11. 2.76413% 1001992337/3.62498e+10	main() - for.cond.preheader.for.cond14.preheader_crit_edge
+ 12. 2.76413% 1001992325/3.62498e+10	main() - if.then
+ 13. 2.41323% 874792861/3.62498e+10	mmult() - for.inc21.us.for.end23_crit_edge
+ 14. 2.19391% 795287242/3.62498e+10	main() - for.body16
+ 15. 1.80987% 656076153/3.62498e+10	mmult() - for.body3.lr.ph.split.us.us
+ 16. 1.73263% 628076167/3.62498e+10	mmult() - for.inc21.us
+ 17. 1.47103% 533244196/3.62498e+10	main() - for.body16.for.body16_crit_edge
+ 18. 1.45931% 528996285/3.62498e+10	mmult() - for.inc18.us.us.for.body6.lr.ph.us.us_crit_edge
+ 19. 1.44115% 522416227/3.62498e+10	main() - for.cond14.preheader.for.body16_crit_edge
+ 20. 1.38207% 500996313/3.62498e+10	printmat() - entry.for.body3.lr.ph_crit_edge
+Multiying...
+Result...
