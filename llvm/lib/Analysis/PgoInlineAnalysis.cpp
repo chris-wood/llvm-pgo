@@ -10,8 +10,11 @@
 
 using namespace llvm;
 
-static RegisterPass<PgoInlineAnalysis> P("pgo-inline-analysis", "Profile guided weighting to inlining information",
-					   false, false);
+INITIALIZE_PASS_BEGIN(PgoInlineAnalysis, "pgo-inline-analysis", "Profile guided weighting to inlining information",
+		      false, false)
+INITIALIZE_AG_DEPENDENCY(ProfileInfo)
+INITIALIZE_PASS_END(PgoInlineAnalysis, "pgo-inline-analysis", "Profile guided weighting to inlining information",
+		    false, false)
 
 static cl::opt<int> pgiMultiplier("pgi-mul", cl::Hidden, cl::init(20000),
 				  cl::Optional, cl::desc("multiplyer for computing profile guided inlining"));
