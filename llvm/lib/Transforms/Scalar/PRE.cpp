@@ -58,9 +58,44 @@ public:
   vector<GraphEdge> edges;
   vector<int> weights;
   vector<const BasicBlock*> nodes;
+  map<Instruction*, bool> instructionContainsMap;
+
+  // void addBlock(const BasicBlock* blk)
+  // {
+    // for (BasicBlock::iterator i = blk->begin(), e = blk->end(); i != e; ++i)
+    // {
+    //   Instruction* inst = *i;
+
+    // }
+  // }
 
   // methods
   // TODO: buildSubgraph() = returns new instance of this class, or emtpy
+
+  bool containsInstruction(Instruction* inst)
+  {
+    return instructionContainsMap[inst]; // we shouldn't need to do any error checking since the map is assumed to be initialized correctly
+  }
+
+  void checkForInstruction(Instruction inst)
+  {
+    for (int i = 0; i < nodes.size(); i++)
+    {
+      for (BasicBlock::iterator itr = blk->begin(), e = blk->end(); itr != e; ++itr)
+      {
+        Instruction& bbinst = *itr;
+        if (inst == bbinst)
+        {
+          instructionContainsMap[inst] = true;
+          return;
+        }
+      }
+    }
+
+    // wasn't in any of the basic blocks above... so set to false and return
+    instructionContainsMap[inst] = false;
+    return;
+  }
 
   int totalWeight() {
     int acc = 0;
@@ -291,11 +326,32 @@ bool PgoPre::runOnFunction(Function &F) {
     }
   }
 
+  // Initialize the instructionContainsMap for each instruction for each graph path
+  // instructionContainsMap
+  for (inst_iterator instItr = inst_begin(&F), E = inst_end(&F); instItr != E; ++instItr)
+  {
+    Instruction& inst = *instItr;
+    for (int i = 0; i < paths.size(); i++)
+    {
+      paths.get(i)->checkForInstruction(inst);
+    }
+  }
+
   // Walk the instructions in the function to build up the available, unavailable, anticipable, unanticipable sets
+  startItr = F.begin();
   for (inst_iterator instItr = inst_begin(&F), E = inst_end(&F); instItr != E; ++instItr)
   {
     Instruction& inst = *instItr;
     cout << "Calculating sets for instruction: " << &inst << endl;
+
+    // Extract operands for this instruction
+    vector<Value*> operands;
+    vector<StringReg> operandNames;
+    for (int opi = 0; opi < inst.getNumOperands(); opi++)
+    {
+      operands.push_back(inst.getOperand(opi));
+      operandNames.push_back(inst.getOperand(opi)->getName());
+    }
 
     // 1. Build AvailableSubPaths for all blocks that are not the start, using BFS of basic blocks to build paths
     for (Function::iterator itr = F.begin(); itr != F.end(); itr++)
@@ -304,6 +360,10 @@ bool PgoPre::runOnFunction(Function &F) {
       {
         // 1. extract all subpaths from start to this block
         // 2. check to see if evaluation of expression is encountered...
+
+        // https://groups.google.com/forum/#!topic/llvm-dev/SJXFz0-Ck6A
+        // cast instruction to value, and compare against operands... if any are equal, then we assume they were KILLED, and yeah.... so on and so forth
+
       }
     }
   }
