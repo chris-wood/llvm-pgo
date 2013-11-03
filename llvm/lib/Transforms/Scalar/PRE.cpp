@@ -59,6 +59,7 @@ public:
   vector<int> weights;
   vector<const BasicBlock*> nodes;
   map<Instruction*, bool> instructionContainsMap;
+  map<Instruction*, int> instructionBlockMap;
 
   // void addBlock(const BasicBlock* blk)
   // {
@@ -87,6 +88,7 @@ public:
         if (inst == bbinst)
         {
           instructionContainsMap[inst] = true;
+          instructionBlockMap[inst] = i;
           return;
         }
       }
@@ -106,6 +108,8 @@ public:
     return acc;
   }
 };
+
+typedef pair<Value*, const BasicBlock*> ExpressionNodePair;
 
 namespace {
   //Statistic<> NumExprsEliminated("pgo-pre", "Number of expressions constantified");
@@ -166,10 +170,10 @@ namespace {
 
     // Containers of CFG paths (and subpaths)
     // TODO: this should really be a map from pairs of (expressions/instructions exp, block n) to a path
-    map<const BasicBlock*, GraphPath*> AvailableSubPaths;
-    map<const BasicBlock*, GraphPath*> UnAvailableSubPaths;
-    map<const BasicBlock*, GraphPath*> AnticipableSubPaths;
-    map<const BasicBlock*, GraphPath*> UnAnticipableSubPaths;
+    map<ExpressionNodePair, GraphPath*> AvailableSubPaths;
+    map<ExpressionNodePair, GraphPath*> UnAvailableSubPaths;
+    map<ExpressionNodePair, GraphPath*> AnticipableSubPaths;
+    map<ExpressionNodePair, GraphPath*> UnAnticipableSubPaths;
 
     bool ProcessBlock(const BasicBlock *BB);
     
@@ -341,7 +345,7 @@ bool PgoPre::runOnFunction(Function &F) {
   startItr = F.begin();
   for (inst_iterator instItr = inst_begin(&F), E = inst_end(&F); instItr != E; ++instItr)
   {
-    Instruction& inst = *instItr;
+    Instruction& inst = *instItr; // this is the expression
     cout << "Calculating sets for instruction: " << &inst << endl;
 
     // Extract operands for this instruction
@@ -354,18 +358,46 @@ bool PgoPre::runOnFunction(Function &F) {
     }
 
     // 1. Build AvailableSubPaths for all blocks that are not the start, using BFS of basic blocks to build paths
-    for (Function::iterator itr = F.begin(); itr != F.end(); itr++)
+    for (int pId = 0; pId < paths.size(); pId++) // check every path...
     {
-      if (itr != startItr)
+      bool killed = false;
+      if (paths.get(pId)->containsInstruction(&inst)) // only check this path if it contains the instruction somewhere
       {
-        // 1. extract all subpaths from start to this block
-        // 2. check to see if evaluation of expression is encountered...
+        int bId = paths.get(pId)->instructionBlockMap[&inst]; // the block ID in this path that contains the instruction
 
-        // https://groups.google.com/forum/#!topic/llvm-dev/SJXFz0-Ck6A
-        // cast instruction to value, and compare against operands... if any are equal, then we assume they were KILLED, and yeah.... so on and so forth
+        for (int prevBlockId = 0; prevBlockId < bId; prevBlockId++) // check each instruction UP to the previous block to see if the expression is contained...
+        {
+          // check each instruction in this block
+          for (BasicBlock::iterator prevBlockInstItr = blk->begin(), prevBlockInstItrEnd = blk->end(); prevBlockInstItr != prevBlockInstItrEnd; ++prevBlockInstItr)
+          {
+            Value* instValue = dyn_cast<Value*>(*prevBlockInstItr); // cast instruction to value
+            for (int vId = 0; vId < operands.size(); vId++)
+            {
+              if (instValue == operands.get(vId)) // match
+              {
+                killed = true;
+              }
+            }
+          }
+        }
 
-      }
+        // Now check the instructions current block 
+        // TODO: is it even necessary to even check the current block?
+        // for (BasicBlock::iterator prevBlockInstItr = blk->begin(), prevBlockInstItrEnd = blk->end(); prevBlockInstItr != prevBlockInstItrEnd; ++prevBlockInstItr)
+        // {
+        // }
+
+        // was not killed along some path from start to this node n
+        if (killed == false)
+        {
+          ExpressionNodePair enpair = make_pair(dyn_cast<Value*>(&instItr), paths.get(pId)->nodes.get(bId));
+          AvailableSubPaths[enpair] = paths.get(pId); // save this (exp, node/block, path) pair in the available subpaths
+        }
+      }  
     }
+
+    // https://groups.google.com/forum/#!topic/llvm-dev/SJXFz0-Ck6A
+    // cast instruction to value, and compare against operands... if any are equal, then we assume they were KILLED, and yeah.... so on and so forth
   }
 
   //// OLD PRE CODE BELOW
