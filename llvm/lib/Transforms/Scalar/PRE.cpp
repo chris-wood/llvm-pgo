@@ -82,10 +82,10 @@ public:
   {
     for (int i = 0; i < nodes.size(); i++)
     {
-      const BasicBlock* blk = nodes.get(i);
+      const BasicBlock* blk = nodes.a(i);
       for (BasicBlock::const_iterator itr = blk->begin(), e = blk->end(); itr != e; ++itr)
       {
-        Instruction* bbinst = &(*itr);
+        Instruction* bbinst = const_cast<Instruction*>(&(*itr));
         if (inst == bbinst)
         {
           instructionContainsMap[inst] = true;
@@ -338,7 +338,7 @@ bool PgoPre::runOnFunction(Function &F) {
     Instruction& inst = *instItr;
     for (int i = 0; i < paths.size(); i++)
     {
-      paths.get(i)->checkForInstruction(&inst);
+      paths.at(i).checkForInstruction(&inst);
     }
   }
 
@@ -362,9 +362,9 @@ bool PgoPre::runOnFunction(Function &F) {
     for (int pId = 0; pId < paths.size(); pId++) // check every path...
     {
       bool killed = false;
-      if (paths.get(pId)->containsInstruction(&inst)) // only check this path if it contains the instruction somewhere
+      if (paths.at(pId)->containsInstruction(&inst)) // only check this path if it contains the instruction somewhere
       {
-        int bId = paths.get(pId)->instructionBlockMap[&inst]; // the block ID in this path that contains the instruction
+        int bId = paths.at(pId)->instructionBlockMap[&inst]; // the block ID in this path that contains the instruction
 
         for (int prevBlockId = 0; prevBlockId < bId; prevBlockId++) // check each instruction UP to the previous block to see if the expression is contained...
         {
@@ -374,7 +374,7 @@ bool PgoPre::runOnFunction(Function &F) {
             Value* instValue = dyn_cast<Value*>(*prevBlockInstItr); // cast instruction to value
             for (int vId = 0; vId < operands.size(); vId++)
             {
-              if (instValue == operands.get(vId)) // match
+              if (instValue == operands.at(vId)) // match
               {
                 killed = true;
               }
@@ -391,8 +391,8 @@ bool PgoPre::runOnFunction(Function &F) {
         // was not killed along some path from start to this node n
         if (killed == false)
         {
-          ExpressionNodePair enpair = make_pair(dyn_cast<Value*>(&instItr), paths.get(pId)->nodes.get(bId));
-          AvailableSubPaths[enpair] = paths.get(pId); // save this (exp, node/block, path) pair in the available subpaths
+          ExpressionNodePair enpair = make_pair(dyn_cast<Value*>(&instItr), paths.at(pId)->nodes.at(bId));
+          AvailableSubPaths[enpair] = paths.at(pId); // save this (exp, node/block, path) pair in the available subpaths
         }
       }  
     }
