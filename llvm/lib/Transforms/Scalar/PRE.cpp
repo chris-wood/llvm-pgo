@@ -372,7 +372,7 @@ bool PgoPre::runOnFunction(Function &F) {
           BasicBlock* blk = const_cast<BasicBlock*>(paths.at(pId)->nodes.at(bId));
           for (BasicBlock::iterator prevBlockInstItr = blk->begin(), prevBlockInstItrEnd = blk->end(); prevBlockInstItr != prevBlockInstItrEnd; ++prevBlockInstItr)
           {
-            Value* instValue = dyn_cast<Value*>(*prevBlockInstItr); // cast instruction to value
+            Value* instValue = dyn_cast<Value>(*prevBlockInstItr); // cast instruction to value
             for (int vId = 0; vId < operands.size(); vId++)
             {
               if (instValue == operands.at(vId)) // match
