@@ -82,7 +82,8 @@ public:
   {
     for (int i = 0; i < nodes.size(); i++)
     {
-      for (BasicBlock::iterator itr = blk->begin(), e = blk->end(); itr != e; ++itr)
+      const BasicBlock* blk = nodes.get(i);
+      for (BasicBlock::const_iterator itr = blk->begin(), e = blk->end(); itr != e; ++itr)
       {
         Instruction* bbinst = &(*itr);
         if (inst == bbinst)
