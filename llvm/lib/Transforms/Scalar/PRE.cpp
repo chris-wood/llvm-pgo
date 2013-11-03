@@ -78,13 +78,13 @@ public:
     return instructionContainsMap[inst]; // we shouldn't need to do any error checking since the map is assumed to be initialized correctly
   }
 
-  void checkForInstruction(Instruction inst)
+  void checkForInstruction(Instruction* inst)
   {
     for (int i = 0; i < nodes.size(); i++)
     {
       for (BasicBlock::iterator itr = blk->begin(), e = blk->end(); itr != e; ++itr)
       {
-        Instruction& bbinst = *itr;
+        Instruction* bbinst = &(*itr);
         if (inst == bbinst)
         {
           instructionContainsMap[inst] = true;
@@ -337,7 +337,7 @@ bool PgoPre::runOnFunction(Function &F) {
     Instruction& inst = *instItr;
     for (int i = 0; i < paths.size(); i++)
     {
-      paths.get(i)->checkForInstruction(inst);
+      paths.get(i)->checkForInstruction(&inst);
     }
   }
 
