@@ -392,8 +392,8 @@ bool PgoPre::runOnFunction(Function &F) {
         // was not killed along some path from start to this node n
         if (killed == false)
         {
-          // ExpressionNodePair enpair = make_pair(dyn_cast<Value*>(&instItr), paths.at(pId)->nodes.at(bId));
-          // AvailableSubPaths[enpair] = paths.at(pId); // save this (exp, node/block, path) pair in the available subpaths
+          ExpressionNodePair enpair = make_pair(dyn_cast<Value>(&instItr), paths.at(pId)->nodes.at(bId));
+          AvailableSubPaths[enpair] = paths.at(pId); // save this (exp, node/block, path) pair in the available subpaths
         }
       }  
     }
