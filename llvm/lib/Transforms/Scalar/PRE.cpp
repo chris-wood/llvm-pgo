@@ -369,6 +369,7 @@ bool PgoPre::runOnFunction(Function &F) {
         for (int prevBlockId = 0; prevBlockId < bId; prevBlockId++) // check each instruction UP to the previous block to see if the expression is contained...
         {
           // check each instruction in this block
+          BasicBlock* blk = const_cast<BasicBlock*>(paths.at(pId)->nodes.at(bId));
           for (BasicBlock::iterator prevBlockInstItr = blk->begin(), prevBlockInstItrEnd = blk->end(); prevBlockInstItr != prevBlockInstItrEnd; ++prevBlockInstItr)
           {
             Value* instValue = dyn_cast<Value*>(*prevBlockInstItr); // cast instruction to value
