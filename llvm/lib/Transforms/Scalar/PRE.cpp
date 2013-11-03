@@ -82,7 +82,7 @@ public:
   {
     for (int i = 0; i < nodes.size(); i++)
     {
-      const BasicBlock* blk = nodes.a(i);
+      const BasicBlock* blk = nodes.at(i);
       for (BasicBlock::const_iterator itr = blk->begin(), e = blk->end(); itr != e; ++itr)
       {
         Instruction* bbinst = const_cast<Instruction*>(&(*itr));
@@ -338,7 +338,7 @@ bool PgoPre::runOnFunction(Function &F) {
     Instruction& inst = *instItr;
     for (int i = 0; i < paths.size(); i++)
     {
-      paths.at(i).checkForInstruction(&inst);
+      paths.at(i)->checkForInstruction(&inst);
     }
   }
 
@@ -351,7 +351,7 @@ bool PgoPre::runOnFunction(Function &F) {
 
     // Extract operands for this instruction
     vector<Value*> operands;
-    vector<StringReg> operandNames;
+    vector<StringRef> operandNames;
     for (int opi = 0; opi < inst.getNumOperands(); opi++)
     {
       operands.push_back(inst.getOperand(opi));
