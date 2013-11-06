@@ -26,7 +26,7 @@ static cl::opt<int> pgiOffset("pgi-off",  cl::Hidden, cl::init(-10000),
 // tex: total execution count of all basic blocks
 // mex: maximum execution count of all basic blocks
 static int computeThresholdBonus(double exc, double tex, double mex) {
-  return -((exc / mex * pgiMultiplier) + pgiOffset);
+  return ((exc / mex * pgiMultiplier) + pgiOffset);
 }
 
 // exc: execution count for call site
