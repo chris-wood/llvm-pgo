@@ -21,7 +21,7 @@
 //
 //===----------------------------------------------------------------------===//
 
-#define DEBUG_TYPE "loop-unroll"
+#define DEBUG_TYPE "pgo-loop-unroll"
 #include "llvm/Transforms/Utils/UnrollLoop.h"
 #include "llvm/ADT/Statistic.h"
 #include "llvm/Analysis/LoopIterator.h"
