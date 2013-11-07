@@ -1,4 +1,5 @@
 add_llvm_library(LLVMAnalysis
+  PgoInlineAnalysis.cpp
   AliasAnalysis.cpp
   AliasAnalysisCounter.cpp
   AliasAnalysisEvaluator.cpp

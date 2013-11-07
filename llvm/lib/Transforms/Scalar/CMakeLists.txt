@@ -1,4 +1,5 @@
 add_llvm_library(LLVMScalarOpts
+  PRE.cpp
   ADCE.cpp
   BasicBlockPlacement.cpp
   CodeGenPrepare.cpp
