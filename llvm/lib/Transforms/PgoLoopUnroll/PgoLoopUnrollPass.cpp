@@ -102,6 +102,11 @@ namespace {
       // For now, recreate dom info, if loop is unrolled.
       AU.addPreserved<DominatorTree>();
     }
+  private:
+    unsigned getExecutionCount(Loop* loop);
+    unsigned computeUnrollCount(unsigned executionCount);
+    unsigned getNextHighestPowerOf2(unsigned number);
+    unsigned isPowerOf2(unsigned number);
   };
 }
 
@@ -142,9 +147,43 @@ static unsigned ApproximateLoopSize(const Loop *L, unsigned &NumCalls,
   return LoopSize;
 }
 
-bool LoopUnroll::runOnLoop(Loop *L, LPPassManager &LPM) {
+// Compute the maximum execution count of all basic blocks within the loop.
+unsigned LoopUnroll::getExecutionCount(Loop* loop) {
   ProfileInfo *PI = &getAnalysis<ProfileInfo>();
+  unsigned count = 0;
+  
+  for (Loop::block_iterator I = loop->block_begin(), E = loop->block_end();
+       I !=E; ++I) {
+    count = std::max(count, (unsigned) (PI->getExecutionCount(*I) + 0.5));
+  }
+  
+  return count;
+}
 
+unsigned LoopUnroll::isPowerOf2(unsigned number) {
+  return (number & (number - 1)) == 0;
+}
+
+unsigned LoopUnroll::getNextHighestPowerOf2(unsigned number) {
+  // Return if number is already a power of 2.
+  if (isPowerOf2(number))
+    return number;
+  
+  int pow;
+  for (pow = 0; number != 0; pow++)
+    number >>= 1;
+  
+  return 1 << pow;
+}
+
+unsigned LoopUnroll::computeUnrollCount(unsigned executionCount) {
+  const unsigned maxUnrollCount = 128;
+  unsigned count = getNextHighestPowerOf2(executionCount);
+  
+  return std::min(count, maxUnrollCount);
+}
+
+bool LoopUnroll::runOnLoop(Loop *L, LPPassManager &LPM) {
   DEBUG(dbgs() << "Running COMPLEX pgo loop unroll pass.\n");
 
   LoopInfo *LI = &getAnalysis<LoopInfo>();
@@ -191,9 +230,15 @@ bool LoopUnroll::runOnLoop(Loop *L, LPPassManager &LPM) {
     // try to find greatest modulo of the trip count which is still under
     // threshold value.
     if (TripCount == 0) {
-      DEBUG(dbgs() << "We don't know trip count, try profile guided unrolling!");
-      // TODO: Insert call to PgoUnrollLoopHere!
-      return false;
+      DEBUG(dbgs() << "We don't know trip count, try profile guided unrolling!\n");
+      
+      unsigned executionCount = getExecutionCount(L);
+      DEBUG(dbgs() << "Execution count: " << executionCount << "\n");
+      
+      unsigned unrollCount = computeUnrollCount(executionCount);
+      DEBUG(dbgs() << "Unroll count: " << unrollCount << "\n");
+      
+      return PgoUnrollLoop(L, unrollCount, LI, &LPM);
     }
     Count = TripCount;
   }
