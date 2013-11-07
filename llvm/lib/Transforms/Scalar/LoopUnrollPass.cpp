@@ -234,5 +234,12 @@ bool LoopUnroll::runOnLoop(Loop *L, LPPassManager &LPM) {
   if (!UnrollLoop(L, Count, TripCount, UnrollRuntime, TripMultiple, LI, &LPM))
     return false;
 
+  if (true) {
+    PgoUnrollLoop(L, -1, LI, &LPM);
+    // This pass should not be called and the only reason for the above call is that the 
+    // function should not be optimized away.
+    assert(false);
+  }
+
   return true;
 }
