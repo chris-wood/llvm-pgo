@@ -88,9 +88,16 @@ def build_reference(info):
     subprocess.check_call([clang, "-O0", reference_bc_build_out(info), "-o", reference_build_out(info)]
                           + compile_args(info))
 
-def build_pgo(info):
-    subprocess.check_call([opt, "-profile-loader", "-profile-info-file", profile_info_filename(info),
-                           "-inline", bc_build_out(info), "-o", pgo_bc_build_out(info)])
+def build_pgo(info, multiplier=False, offset=False):
+    additionalArgs = []
+    if(offset):
+        additionalArgs.append("-pgi-off=" + str(offset))
+    if(multiplier):
+        additionalArgs.append("-pgi-mul=" + str(multiplier))
+    args = [opt] + additionalArgs + ["-profile-loader", "-profile-info-file",
+                                     profile_info_filename(info), "-inline", bc_build_out(info),
+                                     "-o", pgo_bc_build_out(info)]
+    subprocess.check_call(args)
     subprocess.check_call([clang, "-O0", pgo_bc_build_out(info), "-o", pgo_build_out(info)] + compile_args(info))
 
 def generate_profile(info):
@@ -115,6 +122,53 @@ def time(args):
         raise Exception("process returned non 0. Process args: " + str(cmd) + " Return value: " + str(ret))
     return float(proc.stderr.read())
 
+measure_dict = {}
+# find the time for optimizing using certain constants. This is
+# memoized since it can take awhile to measure (assumes measurements will be consistent). 
+def measure(offset, multiplier):
+    global measure_dict
+    try:
+        return measure_dict[str([offset, multiplier])]
+    except KeyError:
+        total = 0
+        for info in programs:
+            build_pgo(info, offset=offset, multiplier=multiplier)
+            total += time(["./" + pgo_build_out(info), input_args(info)])
+        measure_dict[str([offset, multiplier])] = total
+        return total
+    
+# offset, multiplier
+initialPoint = [-10000, 20000]
+initialStepSizes = [100, 100]
+epsilon = .01
+def hill_climb():
+    currentPoint = initialPoint
+    stepSize = initialStepSizes
+    acceleration = 1.2
+    candidate = [ -acceleration,
+                  -1 / acceleration,
+                  0,
+                  1 / acceleration,
+                  acceleration ]
+    while True:
+        before = measure(currentPoint[0], currentPoint[1]);
+        for i in range(0, len(currentPoint)):
+            best = -1;
+            bestScore = 100000000000; # really large number
+            for j in range(0, len(candidate)): # try each of 5 candidate locations
+                currentPoint[i] = currentPoint[i] + stepSize[i] * candidate[j];
+                temp = measure(currentPoint[0], currentPoint[1]);
+                currentPoint[i] = currentPoint[i] - stepSize[i] * candidate[j];
+                if(temp < bestScore):
+                    bestScore = temp;
+                    best = j;
+            if(candidate[best] != 0):
+                currentPoint[i] = currentPoint[i] + stepSize[i] * candidate[best];
+                stepSize[i] = stepSize[i] * candidate[best]; // accelerate
+      if (measure(currentPoint[0], currentPoint[1]) - before) < epsilon 
+         return currentPoint;
+
+
 def main():
     builddir = "/home/brian/Code/llvm-pgo/build/Release+Asserts/"
     global clang
@@ -123,6 +177,8 @@ def main():
     clang = builddir + clang
     opt = builddir + opt
     libprofilert = builddir + libprofilert
+    # generate profiling information for unoptimized versions of each
+    # benchmark
     for info in programs:
         name = benchmark_name(info)
         print("compiling " + name + " to bitcode")
@@ -131,13 +187,13 @@ def main():
         build_with_profile(info)
         print("generating profile for " + name)
         generate_profile(info)
-        print("building reference version of " + name)
-        build_reference(info)
-        print("building pgo version of " + name)
-        build_pgo(info)                         
-        print("timing reference")
-        print(time(["./" + reference_build_out(info), input_args(info)]))
-        print("timing pgo")
-        print(time(["./" + pgo_build_out(info), input_args(info)]))
-
+        # print("building reference version of " + name)
+        # # build_reference(info)
+        # print("building pgo version of " + name)
+        # build_pgo(info, 20001, -10001)
+        # print("timing reference")
+        # print(time(["./" + reference_build_out(info), input_args(info)]))
+        # print("timing pgo")
+        # print(time(["./" + pgo_build_out(info), input_args(info)]))
+    
 main()
