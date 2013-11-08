@@ -66,10 +66,10 @@ def reference_bc_build_out(info):
     return add_suffix(info, ".opt.bc")
 
 def pgo_build_out(info):
-    return add_suffix(info, ".pgo_opt." + input_arg(info))
+    return add_suffix(info, ".pgo_opt." + input_args(info))
 
 def pgo_bc_build_out(info):
-    return add_suffix(info, ".pgo_opt." + input_arg(info) + ".bc")
+    return add_suffix(info, ".pgo_opt." + input_args(info) + ".bc")
 
 def bc_build_out(info):
     return add_suffix(info, ".bc")
@@ -87,6 +87,11 @@ def build_reference(info):
     subprocess.check_call([opt, "-inline", bc_build_out(info), "-o", reference_bc_build_out(info)])
     subprocess.check_call([clang, "-O0", reference_bc_build_out(info), "-o", reference_build_out(info)]
                           + compile_args(info))
+
+def build_pgo(info):
+    subprocess.check_call([opt, "-profile-loader", "-profile-info-file", profile_info_filename(info),
+                           "-inline", bc_build_out(info), "-o", pgo_bc_build_out(info)])
+    subprocess.check_call([clang, "-O0", pgo_bc_build_out(info), "-o", pgo_build_out(info)] + compile_args(info))
 
 def generate_profile(info):
     try:
@@ -120,15 +125,19 @@ def main():
     libprofilert = builddir + libprofilert
     for info in programs:
         name = benchmark_name(info)
-        # print("compiling " + name + " to bitcode")
-        # compile_bc(info)
-        # print("adding profiling information to " + name)
-        # build_with_profile(info)
-        # print("generating profile for " + name)
-        # generate_profile(info)
+        print("compiling " + name + " to bitcode")
+        compile_bc(info)
+        print("adding profiling information to " + name)
+        build_with_profile(info)
+        print("generating profile for " + name)
+        generate_profile(info)
         print("building reference version of " + name)
         build_reference(info)
-        print("timing")
+        print("building pgo version of " + name)
+        build_pgo(info)                         
+        print("timing reference")
         print(time(["./" + reference_build_out(info), input_args(info)]))
+        print("timing pgo")
+        print(time(["./" + pgo_build_out(info), input_args(info)]))
 
 main()
