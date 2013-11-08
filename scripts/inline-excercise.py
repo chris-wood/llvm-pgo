@@ -9,13 +9,16 @@ from datetime import datetime, timedelta
 # first element should be the source file name, the second should be
 # the command line argument, the remaining args should be any
 # additional compiler args (if needed)
-# programs = [["nbody.c", "50000000", "-lm"],
-#             ["spectral_norm.c",  "5500", "-lm"],
-#             ["fft.c", "256", "-std=c99", "-lm"]]
+programs = [
+    ["prime_decomposition.c", ""],
+    ["nbody.c", "50000000", "-lm"],
+    ["spectral_norm.c",  "5500", "-lm"],
+    ["fft.c", "256", "-std=c99", "-lm"]
+]
 
-programs = [["nbody.c", "500000", "-lm"],
-            ["spectral_norm.c",  "550", "-lm"],
-            ["fft.c", "64", "-std=c99", "-lm"]]
+# programs = [["nbody.c", "500000", "-lm"],
+#             ["spectral_norm.c",  "550", "-lm"],
+#             ["fft.c", "64", "-std=c99", "-lm"]]
 
 
 clang = "bin/clang"
@@ -124,21 +127,24 @@ def time(args):
 
 measure_dict = {}
 # find the time for optimizing using certain constants. This is
-# memoized since it can take awhile to measure (assumes measurements will be consistent). 
+# memoized since it can take awhile to measure (assumes measurements will be consistent).
 def measure(offset, multiplier):
     global measure_dict
-    try:
-        return measure_dict[str([offset, multiplier])]
-    except KeyError:
-        total = 0
-        for info in programs:
-            build_pgo(info, offset=offset, multiplier=multiplier)
-            total += time(["./" + pgo_build_out(info), input_args(info)])
-        measure_dict[str([offset, multiplier])] = total
-        return total
-    
+    offset = int(offset)
+    multiplier = int(multiplier)
+    print("measuring offset = " + str(offset) + " multiplier = " + str(multiplier))
+    # try:
+    #     return measure_dict[str([offset, multiplier])]
+    # except KeyError:
+    total = 0
+    for info in programs:
+        build_pgo(info, offset=offset, multiplier=multiplier)
+        total += time(["./" + pgo_build_out(info), input_args(info)])
+    # measure_dict[str([offset, multiplier])] = total
+    return total
+
 # offset, multiplier
-initialPoint = [-10000, 20000]
+initialPoint = [0, 0]
 initialStepSizes = [100, 100]
 epsilon = .01
 def hill_climb():
@@ -152,6 +158,7 @@ def hill_climb():
                   acceleration ]
     while True:
         before = measure(currentPoint[0], currentPoint[1]);
+        print("baseline = " + str(before) + " at " + str(currentPoint))
         for i in range(0, len(currentPoint)):
             best = -1;
             bestScore = 100000000000; # really large number
@@ -162,11 +169,12 @@ def hill_climb():
                 if(temp < bestScore):
                     bestScore = temp;
                     best = j;
+                    print("new best = " + str(bestScore))
             if(candidate[best] != 0):
                 currentPoint[i] = currentPoint[i] + stepSize[i] * candidate[best];
-                stepSize[i] = stepSize[i] * candidate[best]; // accelerate
-      if (measure(currentPoint[0], currentPoint[1]) - before) < epsilon 
-         return currentPoint;
+                stepSize[i] = stepSize[i] * candidate[best] # accelerate
+        if ((measure(currentPoint[0], currentPoint[1]) - before) < epsilon):
+            return currentPoint;
 
 
 def main():
@@ -195,5 +203,6 @@ def main():
         # print(time(["./" + reference_build_out(info), input_args(info)]))
         # print("timing pgo")
         # print(time(["./" + pgo_build_out(info), input_args(info)]))
-    
+    print("starting hill climb")
+    hill_climb()
 main()
