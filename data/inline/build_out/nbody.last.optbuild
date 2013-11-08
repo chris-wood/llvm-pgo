@@ -1,0 +1,8 @@
+profile-loader: Error opening 'llvmprof.out': No such file or directory
+/tmp/nbody-8sYChD.o: In function `bodies_energy':
+nbody.bc:(.text+0x689): undefined reference to `sqrt'
+clang: error: linker command failed with exit code 1 (use -v to see invocation)
+clang: warning: argument unused during compilation: '-inline'
+/tmp/nbody-aPN58G.o: In function `bodies_energy':
+nbody.c:(.text+0x84b): undefined reference to `sqrt'
+clang: error: linker command failed with exit code 1 (use -v to see invocation)

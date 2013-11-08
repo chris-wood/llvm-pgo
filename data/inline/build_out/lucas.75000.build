@@ -1,0 +1,5 @@
+clang: warning: -lm: 'linker' input unused
+lucas.c:36:28: warning: implicit declaration of function 'atol' is invalid in C99 [-Wimplicit-function-declaration]
+  unsigned long long upb = atol(argv[1]); // log2l(ULLONG_MAX)/2; 
+                           ^
+1 warning generated.
