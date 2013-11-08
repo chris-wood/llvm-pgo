@@ -65,7 +65,8 @@ bool PgoInlineAnalysis::runOnModule(Module &M) {
     }
   }
   DEBUG(dbgs() << "total bb excecution count is: " << totalBBExecutions
-	<< "\nmax bb execution count is: " << maxBBExecutions << "\n");
+	<< "\nmax bb execution count is: " << maxBBExecutions << "\n"
+	<< "pgi-off = " << pgiOffset << "\npgi-mul = " << pgiMultiplier);
   return false;
 }
 
