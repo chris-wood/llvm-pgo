@@ -22,6 +22,7 @@
 //===----------------------------------------------------------------------===//
 
 #define DEBUG_TYPE "pgo-loop-unroll"
+#include "PgoLoop.h"
 #include "llvm/Transforms/Utils/UnrollLoop.h"
 #include "llvm/ADT/Statistic.h"
 #include "llvm/Analysis/InstructionSimplify.h"
@@ -42,8 +43,7 @@ using namespace llvm;
 
 /// RemapInstruction - Convert the instruction operands from referencing the
 /// current values into those specified by VMap.
-void RemapInstruction(Instruction *I,
-                                    ValueToValueMapTy &VMap) {
+void RemapInstruction(Instruction *I, ValueToValueMapTy &VMap) {
     for (unsigned op = 0, E = I->getNumOperands(); op != E; ++op) {
         Value *Op = I->getOperand(op);
         ValueToValueMapTy::iterator It = VMap.find(Op);
