@@ -61,6 +61,7 @@ public:
   map<Value*, bool> valueContainsMap;
   map<Value*, int> valueBlockMap;
   bool fromStart;
+  double freq;
 
   // void addBlock(const BasicBlock* blk)
   // {
@@ -94,6 +95,43 @@ public:
     {
       return NULL;
     }
+  }
+
+  GraphPath* concat(GraphPath* p2)
+  {
+    GraphPath* newPath = new GraphPath();
+    const BasicBlock* hinge;
+
+    // append info from path 1
+    for (unsigned int i = 0; i < nodes.size(); i++)
+    {
+      newPath->nodes.push_back(nodes.at(i));
+      if (i != 0)
+      {
+        newPath->edges.push_back(edges.at(i - 1));
+        newPath->edges.push_back(weights.at(i - 1));
+      }
+      hinge = p1->nodes.at(i);
+    }
+
+    // sanity check to make sure that the hinge matches the start of path2
+    if (hinge != p2->nodes.at(0))
+    {
+      return NULL;
+    }
+
+    // append info from path 2
+    for (unsigned int i = 0; i < p2->nodes.size(); i++)
+    {
+      newPath->nodes.push_back(p2->nodes.at(i));
+      if (i != 0)
+      {
+        newPath->edges.push_back(p2->edges.at(i - 1));
+        newPath->edges.push_back(p2->weights.at(i - 1));
+      }
+    }
+
+    return newPath;
   }
 
   bool containsValue(Value* inst)
@@ -136,6 +174,18 @@ public:
     // wasn't in any of the basic blocks above... so set to false and return
     valueContainsMap[inst] = false;
     return;
+  }
+
+  int freq() { // to me, using the minimum edge weight as the frequency of this whole path makes the most sense...
+    int f = weights.at(0);
+    for (unsigned int i = 1; i < weights.size(); i++)
+    {
+      if (weights.at(i) < f)
+      {
+        f = weights.at(i);
+      }
+    }
+    return f;
   }
 
   int totalWeight() {
@@ -209,12 +259,25 @@ namespace {
 
     // Containers of CFG paths (and subpaths)
     // TODO: this should really be a map from pairs of (expressions/instructions exp, block n) to a path
-    map<ExpressionNodePair, GraphPath*> AvailableSubPaths;
-    map<ExpressionNodePair, GraphPath*> UnAvailableSubPaths;
-    map<ExpressionNodePair, GraphPath*> AnticipableSubPaths;
-    map<ExpressionNodePair, GraphPath*> UnAnticipableSubPaths;
+    map<ExpressionNodePair, vector<GraphPath*> > AvailableSubPaths;
+    map<ExpressionNodePair, vector<GraphPath*> > UnAvailableSubPaths;
+    map<ExpressionNodePair, vector<GraphPath*> > AnticipableSubPaths;
+    map<ExpressionNodePair, vector<GraphPath*> > UnAnticipableSubPaths;
+    map<ExpressionNodePair, vector<GraphPath*> > BenefitPaths;
+    map<ExpressionNodePair, vector<GraphPath*> > CostPaths;
+    map<const BasicBlock*, int> BlockFreqMap;
 
     bool ProcessBlock(const BasicBlock *BB);
+
+    // Functions to compute the cost and benefit of a path
+    // it is assume profile information is in scope and can be used for these calculations
+    int Cost(Value* val, const BasicBlock* n);
+    int Benefit(Value* val, const BasicBlock* n)
+
+    // Functions for enabling/disabling speculation at certain spots in the function CFG
+    double ProbCost(Value* val, const BasicBlock* n);
+    double ProbBenefit(Value* val, const BasicBlock* n);
+    bool EnableSpec(Value* val, const BasicBlock* n);
     
     // // Anticipatibility calculation...
     void MarkPostDominatingBlocksAnticipatible(DomTreeNode *N,
@@ -350,6 +413,19 @@ bool PgoPre::runOnFunction(Function &F) {
           newPath->edges.push_back(newEdge);
           newPath->weights.push_back(newWeight);
 
+          ///////////////////////////////////
+          // Update the BlockFreqMap based on the in-degree to this block/node
+          ///////////////////////////////////
+          map<const BasicBlock*, int>::iterator findItr = BlockFreqMap.find(curr);
+          if (findItr == BlockFreqMap.end())
+          {
+            BlockFreqMap[curr] = newWeight; // initialize to the in-degree
+          }
+          else
+          {
+            BlockFreqMap[curr] += newWeight; // else, increment the value that's already tgere 
+          }
+
           // Finally, append this new path to our collection obtained so far...
           paths.push_back(newPath);
         }
@@ -447,18 +523,18 @@ bool PgoPre::runOnFunction(Function &F) {
         if (killed == false)
         {
           ExpressionNodePair enpair = std::make_pair(instValue, paths.at(pId)->nodes.at(bId));
-          AvailableSubPaths[enpair] = paths.at(pId); // save this (exp, node/block, path) pair in the available subpaths
+          AvailableSubPaths[enpair].push_back(paths.at(pId)); // save this (exp, node/block, path) pair in the available subpaths
         }
         else // it was killed, so it belongs in the unavailable subpaths thing
         {
           ExpressionNodePair enpair = std::make_pair(instValue, paths.at(pId)->nodes.at(bId));
-          UnAvailableSubPaths[enpair] = paths.at(pId); // save this (exp, node/block, path) pair in the available subpaths
+          UnAvailableSubPaths[enpair].push_back(paths.at(pId)); // save this (exp, node/block, path) pair in the available subpaths
         }
       } 
       else // this instruction isn't even available on this path... so it belongs in the unavailable subpaths group
       {
         ExpressionNodePair enpair = std::make_pair(instValue, NULL);
-        UnAvailableSubPaths[enpair] = paths.at(pId); // save this (exp, node/block, path) pair in the available subpaths
+        UnAvailableSubPaths[enpair].push_back(paths.at(pId)); // save this (exp, node/block, path) pair in the available subpaths
       }
     }
 
@@ -502,24 +578,92 @@ bool PgoPre::runOnFunction(Function &F) {
         if (includeInSet == false)
         {
           ExpressionNodePair enpair = std::make_pair(instValue, paths.at(pId)->nodes.at(bId));
-          AnticipableSubPaths[enpair] = paths.at(pId); // save this (exp, node/block, path) pair in the available subpaths
+          AnticipableSubPaths[enpair].push_back(paths.at(pId)); // save this (exp, node/block, path) pair in the available subpaths
         }
         else // it was killed, so it belongs in the unavailable subpaths thing
         {
           ExpressionNodePair enpair = std::make_pair(instValue, paths.at(pId)->nodes.at(bId));
-          UnAnticipableSubPaths[enpair] = paths.at(pId); // save this (exp, node/block, path) pair in the available subpaths
+          UnAnticipableSubPaths[enpair].push_back(paths.at(pId)); // save this (exp, node/block, path) pair in the available subpaths
         }
       } 
       else // this instruction isn't even available on this path... so it belongs in the unavailable subpaths group
       {
         ExpressionNodePair enpair = std::make_pair(instValue, NULL);
-        UnAnticipableSubPaths[enpair] = paths.at(pId); // save this (exp, node/block, path) pair in the available subpaths
+        UnAnticipableSubPaths[enpair].push_back(paths.at(pId)); // save this (exp, node/block, path) pair in the available subpaths
       }
     }
 
     // https://groups.google.com/forum/#!topic/llvm-dev/SJXFz0-Ck6A
     // cast instruction to value, and compare against operands... if any are equal, then we assume they were KILLED, and yeah.... so on and so forth
   }
+
+  ////////////////////////////////////////////////////////////
+  // Now build the benefit and cost paths
+  ////////////////////////////////////////////////////////////
+  // cost path: paths obtained by concatenating unavailable paths with unanticipable paths
+  ////////////////////////////////////////////////////////////
+  for(std::map<ExpressionNodePair, GraphPath*>::iterator iter1 = UnAvailableSubPaths.begin(); iter1 != UnAvailableSubPaths.end(); ++iter1)
+  {
+    ExpressionNodePair enpair1 = iter1->first;
+    for(std::map<ExpressionNodePair, GraphPath*>::iterator iter2 = UnAnticipableSubPaths.begin(); iter2 != UnAnticipableSubPaths.end(); ++iter2)
+    {
+      ExpressionNodePair enpair2 = iter2->first;
+
+      // If these ExpressionNode pairs correspond to the same thing, then the paths can obviously be joined
+      if (enpair1.first == enpair2.first && enpair1.second == enpair2.second)
+      {
+        // join each of the paths together now...
+        vector<GraphPath*> p1s = iter1->second;
+        vector<GraphPath*> p2s = iter2->second;
+        for (unsigned int p1i = 0; p1i < p1s.size(); p1i++)
+        {
+          for (unsigned int p2i = 0; p2i < p2s.size(); p2i++) 
+          {
+            GraphPath* join = p1s.at(p1i)->concat(p2s.at(p2i));
+            CostPaths[enpair1].push_back(join);
+          }
+        }
+      }
+
+      // // check to see if these guys can be joined...
+      // // if the last node on path1 == first node on path2
+      // unsigned int n1 = iter1->second->nodes.size();
+      // unsigned int n2 = iter2->second->nodes.size();
+      // if (iter1->second->nodes.at(n1 - 1) == iter2->second->nodes.at(n2 - 1))
+      // {
+        // GraphPath* join = iter1->second->concat(iter2->second);
+        // CostPaths.push_back(join);
+      // }
+    }
+  }
+
+  ////////////////////////////////////////////////////////////
+  // benefit path: paths obtained by concatenating available paths with anticipable paths
+  ////////////////////////////////////////////////////////////
+  for(std::map<ExpressionNodePair, GraphPath*>::iterator iter1 = AvailableSubPaths.begin(); iter1 != AvailableSubPaths.end(); ++iter1)
+  {
+    ExpressionNodePair enpair1 = iter1->first;
+    for(std::map<ExpressionNodePair, GraphPath*>::iterator iter2 = AnticipableSubPaths.begin(); iter2 != AnticipableSubPaths.end(); ++iter2)
+    {
+      ExpressionNodePair enpair2 = iter2->first;
+      // If these ExpressionNode pairs correspond to the same thing, then the paths can obviously be joined
+      if (enpair1.first == enpair2.first && enpair1.second == enpair2.second)
+      {
+        // join each of the paths together now...
+        vector<GraphPath*> p1s = iter1->second;
+        vector<GraphPath*> p2s = iter2->second;
+        for (unsigned int p1i = 0; p1i < p1s.size(); p1i++)
+        {
+          for (unsigned int p2i = 0; p2i < p2s.size(); p2i++) 
+          {
+            GraphPath* join = p1s.at(p1i)->concat(p2s.at(p2i));
+            BenefitPaths[enpair1].push_back(join);
+          }
+        }
+      }
+    }
+  }
+  ////////////////////////////////////////////////////////////
 
   //// OLD PRE CODE BELOW
 
@@ -539,6 +683,44 @@ bool PgoPre::runOnFunction(Function &F) {
   return false;
 }
 
+int PgoPre::Benefit(Value* val, const BasicBlock* n)
+{
+  int benefit = 0; 
+
+  for (unsigned int i = 0; i < BenefitPaths.size(); i++)
+  {
+    benefit += BenefitPaths.at(i)->freq();
+  }
+  
+  return benefit;
+}
+
+int PgoPre::Cost(Value* val, const BasicBlock* n)
+{
+  double cost = 0;
+  
+  for (unsigned int i = 0; i < CostPaths.size(); i++)
+  {
+    cost += CostPaths.at(i)->freq();
+  }
+
+  return cost;
+}
+
+double PgoPre::ProbCost(Value* val, const BasicBlock* n)
+{
+  return (double)Cost(val, n) / (double)BlockFreqMap[n];
+}
+
+double PgoPre::ProbBenefit(Value* val, const BasicBlock* n)
+{
+  return (double)Benefit(val, n) / (double)BlockFreqMap[n];
+}
+
+bool PgoPre::EnableSpec(Value* val, const BasicBlock* n)
+{
+  return (ProbCost(val, n) < ProbBenefit(val, n));
+}
 
 // ProcessBlock - Process any expressions first seen in this block...
 //
