@@ -58,8 +58,9 @@ public:
   vector<GraphEdge> edges;
   vector<int> weights;
   vector<const BasicBlock*> nodes;
-  map<Instruction*, bool> instructionContainsMap;
-  map<Instruction*, int> instructionBlockMap;
+  map<Value*, bool> valueContainsMap;
+  map<Value*, int> valueBlockMap;
+  bool fromStart;
 
   // void addBlock(const BasicBlock* blk)
   // {
@@ -73,12 +74,34 @@ public:
   // methods
   // TODO: buildSubgraph() = returns new instance of this class, or emtpy
 
-  bool containsInstruction(Instruction* inst)
+  GraphPath* buildSubPath(unsigned int i) // return subpath from index i to end of the path
   {
-    return instructionContainsMap[inst]; // we shouldn't need to do any error checking since the map is assumed to be initialized correctly
+    if (i < nodes.size())
+    {
+      GraphPath* subPath = new GraphPath();
+      if (i != 0) subPath->fromStart = false;
+      for (unsigned int index = i; i < nodes.size(); index++)
+      {
+        subPath->nodes.push_back(nodes.at(index));
+        if (index != i)
+        {
+          subPath->edges.push_back(edges.at(index - 1));
+          subPath->weights.push_back(weights.at(index - 1));
+        }
+      }
+    }
+    else
+    {
+      return NULL;
+    }
   }
 
-  void checkForInstruction(Instruction* inst)
+  bool containsValue(Value* inst)
+  {
+    return valueContainsMap[inst]; // we shouldn't need to do any error checking since the map is assumed to be initialized correctly
+  }
+
+  void checkForValue(Value* val)
   {
     for (int i = 0; i < nodes.size(); i++)
     {
@@ -86,17 +109,32 @@ public:
       for (BasicBlock::const_iterator itr = blk->begin(), e = blk->end(); itr != e; ++itr)
       {
         Instruction* bbinst = const_cast<Instruction*>(&(*itr));
-        if (inst == bbinst)
+        Value* bbinstValue = dyn_cast<Value>(bbinst);
+
+        // Check for exact match on the instruction result
+        if (val == bbinstValue)
         {
-          instructionContainsMap[inst] = true;
-          instructionBlockMap[inst] = i;
+          valueContainsMap[val] = true;
+          valueBlockMap[val] = i;
           return;
+        }
+
+        // Check the operands now...
+        for (int opi = 0; opi < bbinst->getNumOperands(); opi++)
+        {
+          Value* operandVal = bbinst->getOperand(opi);
+          if (val == operandVal)
+          {
+            valueContainsMap[val] = true;
+            valueBlockMap[val] = i;
+            return;
+          }
         }
       }
     }
 
     // wasn't in any of the basic blocks above... so set to false and return
-    instructionContainsMap[inst] = false;
+    valueContainsMap[inst] = false;
     return;
   }
 
@@ -288,6 +326,7 @@ bool PgoPre::runOnFunction(Function &F) {
           // We found a way to EXTEND this path, so create an entirely 
           //  new graph path and add it to the set of tails.
           GraphPath* newPath = new GraphPath();
+          newPath->fromStart = true;
           for (unsigned int j = 0; j < numNodes; j++) // save old paths
           {
             newPath->nodes.push_back(paths.at(i)->nodes.at(j));
@@ -331,14 +370,27 @@ bool PgoPre::runOnFunction(Function &F) {
     }
   }
 
+  // Need to now make subpaths from the set of paths above (needed for unanticipable sets)
+  for (unsigned int pId = 0; pId < paths.size(); pId++)
+  {
+    GraphPath* path = paths.at(pId);
+    for (unsigned int n = 1; n < path->nodes.size(); n++)
+    {
+      GraphPath* subPath = path->buildSubPath(n);
+      paths.push_back(subPath);
+    }
+  }
+
   // Initialize the instructionContainsMap for each instruction for each graph path
   // instructionContainsMap
   for (inst_iterator instItr = inst_begin(&F), E = inst_end(&F); instItr != E; ++instItr)
   {
     Instruction& inst = *instItr;
+    Value* instValue = dyn_cast<Value>(&inst); // cast instruction to value
     for (int i = 0; i < paths.size(); i++)
     {
-      paths.at(i)->checkForInstruction(&inst);
+      // paths.at(i)->checkForInstruction(&inst);
+      paths.at(i)->checkForValue(instValue);
     }
   }
 
@@ -346,8 +398,9 @@ bool PgoPre::runOnFunction(Function &F) {
   startItr = F.begin();
   for (inst_iterator instItr = inst_begin(&F), E = inst_end(&F); instItr != E; ++instItr)
   {
-    Instruction& inst = *instItr; // this is the expression
-    cout << "Calculating sets for instruction: " << &inst << endl;
+    Instruction& inst = *instItr; // this is the expression (exp) used in all of the sets
+    Value* instValue = dyn_cast<Value>(&inst); // cast instruction to value
+    cout << "Calculating sets for value: " << instValue->getName() << endl;
 
     // Extract operands for this instruction
     vector<Value*> operands;
@@ -359,12 +412,13 @@ bool PgoPre::runOnFunction(Function &F) {
     }
 
     // 1. Build AvailableSubPaths for all blocks that are not the start, using BFS of basic blocks to build paths
+    // 2. Build UnavailableSubPaths at the same time...
     for (int pId = 0; pId < paths.size(); pId++) // check every path...
     {
       bool killed = false;
-      if (paths.at(pId)->containsInstruction(&inst)) // only check this path if it contains the instruction somewhere
+      if (paths.at(pId)->fromStart == true && paths.at(pId)->containsValue(instValue)) // only check this path if it contains the instruction somewhere
       {
-        int bId = paths.at(pId)->instructionBlockMap[&inst]; // the block ID in this path that contains the instruction
+        int bId = paths.at(pId)->instructionBlockMap[instValue]; // the block ID in this path that contains the instruction
 
         for (int prevBlockId = 0; prevBlockId < bId; prevBlockId++) // check each instruction UP to the previous block to see if the expression is contained...
         {
@@ -375,7 +429,7 @@ bool PgoPre::runOnFunction(Function &F) {
             Value* instValue = dyn_cast<Value>(&(*prevBlockInstItr)); // cast instruction to value
             for (int vId = 0; vId < operands.size(); vId++)
             {
-              if (instValue == operands.at(vId)) // match
+              if (instValue == operands.at(vId)) // match in the operand list (one of the operands was re-evaluated by a previous instruction)
               {
                 killed = true;
               }
@@ -392,10 +446,75 @@ bool PgoPre::runOnFunction(Function &F) {
         // was not killed along some path from start to this node n
         if (killed == false)
         {
-          ExpressionNodePair enpair = std::make_pair(dyn_cast<Value>(&inst), paths.at(pId)->nodes.at(bId));
+          ExpressionNodePair enpair = std::make_pair(instValue, paths.at(pId)->nodes.at(bId));
           AvailableSubPaths[enpair] = paths.at(pId); // save this (exp, node/block, path) pair in the available subpaths
         }
-      }  
+        else // it was killed, so it belongs in the unavailable subpaths thing
+        {
+          ExpressionNodePair enpair = std::make_pair(instValue, paths.at(pId)->nodes.at(bId));
+          UnAvailableSubPaths[enpair] = paths.at(pId); // save this (exp, node/block, path) pair in the available subpaths
+        }
+      } 
+      else // this instruction isn't even available on this path... so it belongs in the unavailable subpaths group
+      {
+        ExpressionNodePair enpair = std::make_pair(instValue, NULL);
+        UnAvailableSubPaths[enpair] = paths.at(pId); // save this (exp, node/block, path) pair in the available subpaths
+      }
+    }
+
+    // 3/4. Build Unanticipable sets
+    // Need to walk paths STARTING at n and going to the end, and do something similar to the above
+    for (int pId = 0; pId < paths.size(); pId++) // check every path...
+    {
+      bool opEvaluated = false;
+      bool valEvaluated = false;
+      bool includeInSet = true;
+      if (paths.at(pId)->fromStart == false && paths.at(pId)->containsValue(instValue)) // only check this path if it contains the instruction somewhere
+      {
+        int bId = paths.at(pId)->instructionBlockMap[instValue]; // the block ID in this path that contains the instruction
+
+        for (int prevBlockId = 0; prevBlockId < bId; prevBlockId++) // check each instruction UP to the previous block to see if the expression is contained...
+        {
+          // check each instruction in this block
+          BasicBlock* blk = const_cast<BasicBlock*>(paths.at(pId)->nodes.at(bId));
+          for (BasicBlock::iterator prevBlockInstItr = blk->begin(), prevBlockInstItrEnd = blk->end(); prevBlockInstItr != prevBlockInstItrEnd; ++prevBlockInstItr)
+          {
+            Value* instValue = dyn_cast<Value>(&(*prevBlockInstItr)); // cast instruction to value
+            if (valEvaluated == instValue)
+            {
+              if (opEvaluated == true)
+              {
+                includeInSet = false;
+              }
+              valEvaluated = true;
+            }
+            for (int vId = 0; vId < operands.size(); vId++)
+            {
+              if (instValue == operands.at(vId)) // match in the operand list (one of the operands was re-evaluated by a previous instruction)
+              {
+                opEvaluated = true;
+              }
+            }
+          }
+        }
+
+        // was not killed along some path from start to this node n
+        if (includeInSet == false)
+        {
+          ExpressionNodePair enpair = std::make_pair(instValue, paths.at(pId)->nodes.at(bId));
+          AnticipableSubPaths[enpair] = paths.at(pId); // save this (exp, node/block, path) pair in the available subpaths
+        }
+        else // it was killed, so it belongs in the unavailable subpaths thing
+        {
+          ExpressionNodePair enpair = std::make_pair(instValue, paths.at(pId)->nodes.at(bId));
+          UnAnticipableSubPaths[enpair] = paths.at(pId); // save this (exp, node/block, path) pair in the available subpaths
+        }
+      } 
+      else // this instruction isn't even available on this path... so it belongs in the unavailable subpaths group
+      {
+        ExpressionNodePair enpair = std::make_pair(instValue, NULL);
+        UnAnticipableSubPaths[enpair] = paths.at(pId); // save this (exp, node/block, path) pair in the available subpaths
+      }
     }
 
     // https://groups.google.com/forum/#!topic/llvm-dev/SJXFz0-Ck6A
