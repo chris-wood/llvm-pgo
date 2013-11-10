@@ -1,3 +1,4 @@
+#include <cmath>
 #include "llvm/Analysis/PgoInlineAnalysis.h"
 #include "llvm/Support/CallSite.h"
 #include "llvm/IR/Module.h"
@@ -22,11 +23,16 @@ static cl::opt<int> pgiMultiplier("pgi-mul", cl::Hidden, cl::init(20000),
 static cl::opt<int> pgiOffset("pgi-off",  cl::Hidden, cl::init(-10000),
 			      cl::Optional, cl::desc("offset for computing profile guided inlining"));
 
+static cl::opt<bool> pgiLinear("pgi-linear", cl::Hidden, cl::init(true),
+				  cl::Optional, cl::desc("If true, use a linear heuristic for assigning the threshold bonus, if false use a logarithmic one instead"));
+
 // exc: execution count for call site
 // tex: total execution count of all basic blocks
 // mex: maximum execution count of all basic blocks
 static int computeThresholdBonus(double exc, double tex, double mex) {
-  return ((exc / mex * pgiMultiplier) + pgiOffset);
+  if(pgiLinear)
+    return ((exc / mex * pgiMultiplier) + pgiOffset);
+  return ((log(1 + exc) / log(1 + mex) * pgiMultiplier) + pgiOffset);
 }
 
 // exc: execution count for call site
