@@ -1,0 +1,54 @@
+Multiying...
+Result...
+===-------------------------------------------------------------------------===
+LLVM profiling output for executions:
+  1. ./is_prime.profile 65536 
+  2. ./is_prime.profile 131072 
+  3. ./is_prime.profile 262144 
+  4. ./is_prime.profile 524288 
+  5. ./is_prime.profile 1048576 
+  6. ./is_prime.profile 65536 
+  7. ./is_prime.profile 1048576 
+  8. ./block_test.profile 5000 
+  9. ./block_test.profile 7500 
+  10. ./block_test.profile 10000 
+  11. ./block_test.profile 12500 
+  12. ./block_test.profile 15000 
+  13. ./block_test.profile 5000 
+  14. ./block_test.profile 15000 
+  15. ./blocked.profile 900 
+  16. ./blocked.profile 1000 
+  17. ./blocked.profile 1100 
+  18. ./blocked.profile 1200 
+  19. ./blocked.profile 1300 
+
+===-------------------------------------------------------------------------===
+Function execution frequencies:
+
+ ##   Frequency
+  1.     5/5 main
+
+  NOTE: 2 functions were never executed!
+
+===-------------------------------------------------------------------------===
+Top 20 most frequently executed basic blocks:
+
+ ##      %% 	Frequency
+  1. 33.5725% 2777349983/8.2727e+09	main() - for.inc26.for.cond14.preheader_crit_edge
+  2. 33.5685% 2777018791/8.2727e+09	main() - for.body16.for.inc26_crit_edge
+  3. 32.4426% 2683882704/8.2727e+09	main() - for.end28.mmult.exit_crit_edge
+  4. 0.112366% 9295714/8.2727e+09	main() - for.cond14.preheader
+  5. 0.075187% 6219993/8.2727e+09	main() - for.cond1.preheader.lr.ph.split.us.i
+  6. 0.0751863% 6219936/8.2727e+09	main() - for.end28
+  7. 0.0742745% 6144507/8.2727e+09	main() - for.cond14.preheader.for.body16_crit_edge
+  8. 0.0729596% 6035727/8.2727e+09	main() - for.body16
+  9. 0.00315914% 261346/8.2727e+09	main() - for.inc26.for.end28_crit_edge
+ 10. 0.00315828% 261275/8.2727e+09	main() - for.inc26
+ 11. 6.65683e-05%  5507/8.2727e+09	main() - for.cond14.preheader.for.inc26_crit_edge
+ 12. 6.64837e-05%  5500/8.2727e+09	main() - mmult.exit
+ 13. 2.29671e-07%    19/8.2727e+09	main() - for.body16.for.body16_crit_edge
+ 14. 6.04398e-08%     5/8.2727e+09	main() - for.cond.preheader.for.cond14.preheader_crit_edge
+ 15. 6.04398e-08%     5/8.2727e+09	main() - entry
+ 16. 6.04398e-08%     5/8.2727e+09	main() - for.cond.preheader
+Multiying...
+Result...

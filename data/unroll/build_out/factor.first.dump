@@ -1,0 +1,64 @@
+===-------------------------------------------------------------------------===
+LLVM profiling output for executions:
+  1. ./is_prime.profile 65536 
+  2. ./is_prime.profile 131072 
+  3. ./is_prime.profile 262144 
+  4. ./is_prime.profile 524288 
+  5. ./is_prime.profile 1048576 
+  6. ./is_prime.profile 65536 
+  7. ./is_prime.profile 1048576 
+  8. ./block_test.profile 5000 
+  9. ./block_test.profile 7500 
+  10. ./block_test.profile 10000 
+  11. ./block_test.profile 12500 
+  12. ./block_test.profile 15000 
+  13. ./block_test.profile 5000 
+  14. ./block_test.profile 15000 
+  15. ./blocked.profile 900 
+  16. ./blocked.profile 1000 
+  17. ./blocked.profile 1100 
+  18. ./blocked.profile 1200 
+  19. ./blocked.profile 1300 
+  20. ./blocked.profile 1400 
+  21. ./blocked.profile 900 
+  22. ./blocked.profile 1400 
+  23. ./factor.profile 2000000 
+  24. ./factor.profile 3000000 
+  25. ./factor.profile 4000000 
+  26. ./factor.profile 5000000 
+  27. ./factor.profile 6000000 
+  28. ./factor.profile 2000000 
+
+===-------------------------------------------------------------------------===
+Function execution frequencies:
+
+ ##   Frequency
+  1. 1.7e+08/1.69125e+08 factor
+  2.     8/1.69125e+08 xferFactors
+
+  NOTE: 1 function was never executed!
+
+===-------------------------------------------------------------------------===
+Top 20 most frequently executed basic blocks:
+
+ ##      %% 	Frequency
+  1. 27.7611% 4039374429/1.45505e+10	factor() - if.end.i
+  2. 26.6204% 3873394927/1.45505e+10	factor() - entry.for.body_crit_edge
+  3. 19.1601% 2787889598/1.45505e+10	xferFactors() - for.end
+  4. 19.0877% 2777353792/1.45505e+10	factor() - entry.for.end_crit_edge
+  5. 2.10453% 306218336/1.45505e+10	factor() - for.inc
+  6. 1.3136% 191134330/1.45505e+10	factor() - for.end
+  7. 1.16234% 169125303/1.45505e+10	factor() - entry
+  8. 1.16058% 168869520/1.45505e+10	factor() - if.else.i
+  9. 0.226389% 32940724/1.45505e+10	factor() - for.body
+ 10. 0.172817% 25145703/1.45505e+10	xferFactors() - for.body.for.body_crit_edge
+ 11. 0.151275% 22011226/1.45505e+10	factor() - xferFactors.exit
+ 12. 0.151261% 22009217/1.45505e+10	xferFactors() - for.body
+ 13. 0.151198% 21999994/1.45505e+10	factor() - if.end14
+ 14. 0.151198% 21999988/1.45505e+10	factor() - for.end.if.end14_crit_edge
+ 15. 0.151198% 21999982/1.45505e+10	factor() - if.then.i49
+ 16. 0.151197% 21999876/1.45505e+10	factor() - for.inc.for.body_crit_edge
+ 17. 0.151121% 21988750/1.45505e+10	factor() - if.end.i.xferFactors.exit_crit_edge
+ 18. 0.0963943% 14025826/1.45505e+10	factor() - if.end
+ 19. 0.0752552% 10949993/1.45505e+10	factor() - for.body.for.inc_crit_edge
+ 20. 7.72346e-05% 11238/1.45505e+10	factor() - for.body.lr.ph.i

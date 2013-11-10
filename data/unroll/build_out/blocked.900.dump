@@ -1,0 +1,50 @@
+Multiying...
+Result...
+===-------------------------------------------------------------------------===
+LLVM profiling output for executions:
+  1. ./is_prime.profile 65536 
+  2. ./is_prime.profile 131072 
+  3. ./is_prime.profile 262144 
+  4. ./is_prime.profile 524288 
+  5. ./is_prime.profile 1048576 
+  6. ./is_prime.profile 65536 
+  7. ./is_prime.profile 1048576 
+  8. ./block_test.profile 5000 
+  9. ./block_test.profile 7500 
+  10. ./block_test.profile 10000 
+  11. ./block_test.profile 12500 
+  12. ./block_test.profile 15000 
+  13. ./block_test.profile 5000 
+  14. ./block_test.profile 15000 
+  15. ./blocked.profile 900 
+
+===-------------------------------------------------------------------------===
+Function execution frequencies:
+
+ ##   Frequency
+  1.     1/1 main
+
+  NOTE: 2 functions were never executed!
+
+===-------------------------------------------------------------------------===
+Top 20 most frequently executed basic blocks:
+
+ ##      %% 	Frequency
+  1. 44.1154% 2777345387/6.29563e+09	main() - for.inc26.for.cond14.preheader_crit_edge
+  2. 44.1103% 2777018791/6.29563e+09	main() - for.body16.for.inc26_crit_edge
+  3. 11.5666% 728190000/6.29563e+09	main() - for.end28.mmult.exit_crit_edge
+  4. 0.0958716% 6035719/6.29563e+09	main() - for.body16
+  5. 0.0628327% 3955714/6.29563e+09	main() - for.cond14.preheader
+  6. 0.0139778% 879993/6.29563e+09	main() - for.cond1.preheader.lr.ph.split.us.i
+  7. 0.0139769% 879936/6.29563e+09	main() - for.end28
+  8. 0.0128519% 809107/6.29563e+09	main() - for.cond14.preheader.for.body16_crit_edge
+  9. 0.00407816% 256746/6.29563e+09	main() - for.inc26.for.end28_crit_edge
+ 10. 0.00407703% 256675/6.29563e+09	main() - for.inc26
+ 11. 1.44068e-05%   907/6.29563e+09	main() - for.cond14.preheader.for.inc26_crit_edge
+ 12. 1.42956e-05%   900/6.29563e+09	main() - mmult.exit
+ 13. 2.38261e-07%    15/6.29563e+09	main() - for.body16.for.body16_crit_edge
+ 14. 1.5884e-08%     1/6.29563e+09	main() - for.cond.preheader.for.cond14.preheader_crit_edge
+ 15. 1.5884e-08%     1/6.29563e+09	main() - entry
+ 16. 1.5884e-08%     1/6.29563e+09	main() - for.cond.preheader
+Multiying...
+Result...

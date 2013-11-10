@@ -1,0 +1,14 @@
+WARNING: profile information is inconsistent with the current program!
+Stack dump:
+0.	Program arguments: ./opt -profile-loader -load ../lib/PgoLoopUnroll.so -simple-pgo-loop-unroll mandlebrot_seq.bc 
+1.	Running pass 'Function Pass Manager' on module 'mandlebrot_seq.bc'.
+2.	Running pass 'Loop Pass Manager' on function '@main'
+3.	Running pass 'Unroll loops' on basic block '%for.body14.lr.ph.us'
+mandlebrot_seq.c:4:14: warning: implicit declaration of function 'atoi' is invalid in C99 [-Wimplicit-function-declaration]
+        int iters = atoi(argv[1]);
+                    ^
+mandlebrot_seq.c:42:18: warning: implicitly declaring library function 'fabs' with type 'double (double)'
+             if (fabs(Cy)< PixelHeight/2) Cy=0.0; /* Main antenna */
+                 ^
+mandlebrot_seq.c:42:18: note: please include the header <math.h> or explicitly provide a declaration for 'fabs'
+2 warnings generated.

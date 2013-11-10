@@ -1,0 +1,116 @@
+WARNING: profile information is inconsistent with the current program!
+===-------------------------------------------------------------------------===
+LLVM profiling output for executions:
+  1. ./is_prime.profile 65536 
+  2. ./is_prime.profile 131072 
+  3. ./is_prime.profile 262144 
+  4. ./is_prime.profile 524288 
+  5. ./is_prime.profile 1048576 
+  6. ./is_prime.profile 65536 
+  7. ./is_prime.profile 1048576 
+  8. ./block_test.profile 5000 
+  9. ./block_test.profile 7500 
+  10. ./block_test.profile 10000 
+  11. ./block_test.profile 12500 
+  12. ./block_test.profile 15000 
+  13. ./block_test.profile 5000 
+  14. ./block_test.profile 15000 
+  15. ./blocked.profile 900 
+  16. ./blocked.profile 1000 
+  17. ./blocked.profile 1100 
+  18. ./blocked.profile 1200 
+  19. ./blocked.profile 1300 
+  20. ./blocked.profile 1400 
+  21. ./blocked.profile 900 
+  22. ./blocked.profile 1400 
+  23. ./factor.profile 2000000 
+  24. ./factor.profile 3000000 
+  25. ./factor.profile 4000000 
+  26. ./factor.profile 5000000 
+  27. ./factor.profile 6000000 
+  28. ./factor.profile 2000000 
+  29. ./factor.profile 6000000 
+  30. ./bubble.profile 50000 
+  31. ./bubble.profile 100000 
+  32. ./bubble.profile 150000 
+  33. ./bubble.profile 200000 
+  34. ./bubble.profile 250000 
+  35. ./bubble.profile 50000 
+  36. ./bubble.profile 250000 
+  37. ./quicksort.profile 50000 
+  38. ./quicksort.profile 100000 
+  39. ./quicksort.profile 150000 
+  40. ./quicksort.profile 50000 
+  41. ./kmeans.profile 10000 10 
+  42. ./kmeans.profile 100000 10 
+  43. ./kmeans.profile 1000000 10 
+  44. ./kmeans.profile 1000000 20 
+  45. ./kmeans.profile 1000000 50 
+  46. ./kmeans.profile 10000 10 
+  47. ./kmeans.profile 1000000 50 
+  48. ./permutations.profile 8 
+  49. ./permutations.profile 9 
+  50. ./permutations.profile 10 
+  51. ./permutations.profile 11 
+  52. ./permutations.profile 12 
+  53. ./permutations.profile 8 
+  54. ./permutations.profile 12 
+  55. ./mandlebrot_seq.profile 1000 
+  56. ./mandlebrot_seq.profile 1250 
+  57. ./mandlebrot_seq.profile 1500 
+  58. ./mandlebrot_seq.profile 1750 
+  59. ./mandlebrot_seq.profile 2000 
+  60. ./mandlebrot_seq.profile 2250 
+  61. ./mandlebrot_seq.profile 1000 
+  62. ./mandlebrot_seq.profile 2250 
+  63. ./fft.profile 128 
+  64. ./fft.profile 256 
+  65. ./fft.profile 1024 
+  66. ./fft.profile 4096 
+  67. ./fft.profile 8192 
+  68. ./fft.profile 128 
+  69. ./fft.profile 8192 
+  70. ./huffman_priority_queue.profile 100 
+  71. ./huffman_priority_queue.profile 1000 
+  72. ./huffman_priority_queue.profile 10000 
+  73. ./huffman_priority_queue.profile 100000 
+  74. ./huffman_priority_queue.profile 1000000 
+  75. ./huffman_priority_queue.profile 100 
+  76. ./huffman_priority_queue.profile 1000000 
+  77. ./huffman.profile 100 
+  78. ./huffman.profile 1000 
+  79. ./huffman.profile 10000 
+
+===-------------------------------------------------------------------------===
+Function execution frequencies:
+
+ ##   Frequency
+  1. 1.4e+09/1.35425e+09 create_huffman_codes
+  2. 3.5e+03/1.35425e+09 free_huffman_codes
+  3. 4.3e+02/1.35425e+09 main
+  4.     3/1.35425e+09 inttobits
+
+===-------------------------------------------------------------------------===
+Top 20 most frequently executed basic blocks:
+
+ ##      %% 	Frequency
+  1. 6.01474% 3895465471/6.47653e+10	create_huffman_codes() - for.inc
+  2. 5.67337% 3674373561/6.47653e+10	create_huffman_codes() - while.cond.backedge.i.i.for.inc_crit_edge
+  3. 5.64738% 3657541311/6.47653e+10	create_huffman_codes() - if.end.i109
+  4. 5.53269% 3583263585/6.47653e+10	create_huffman_codes() - for.inc.for.body_crit_edge
+  5. 5.23744% 3392042339/6.47653e+10	create_huffman_codes() - for.inc.while.cond_crit_edge
+  6. 5.22178% 3381903137/6.47653e+10	create_huffman_codes() - while.cond.backedge.i.i
+  7. 4.56402% 2955905237/6.47653e+10	create_huffman_codes() - while.body.lr.ph.i.i
+  8. 4.32897% 2803673544/6.47653e+10	main() - while.body.while.body_crit_edge
+  9. 4.29067% 2778864069/6.47653e+10	create_huffman_codes() - while.body.i.i
+ 10. 3.75013% 2428785847/6.47653e+10	inttobits() - while.end
+ 11. 3.24357% 2100706324/6.47653e+10	create_huffman_codes() - for.body
+ 12. 2.76009% 1787583084/6.47653e+10	create_huffman_codes() - do.body.i.i
+ 13. 2.65838% 1721705348/6.47653e+10	main() - if.end.for.end_crit_edge
+ 14. 2.65837% 1721705202/6.47653e+10	main() - for.body.i
+ 15. 2.32067% 1502988480/6.47653e+10	main() - for.end
+ 16. 2.091% 1354244333/6.47653e+10	create_huffman_codes() - entry
+ 17. 1.88808% 1222820221/6.47653e+10	main() - for.body
+ 18. 1.8775% 1215967000/6.47653e+10	create_huffman_codes() - for.body.for.inc_crit_edge
+ 19. 1.81905% 1178113325/6.47653e+10	create_huffman_codes() - entry.cleanup_crit_edge
+ 20. 1.61376% 1045158807/6.47653e+10	main() - for.body10

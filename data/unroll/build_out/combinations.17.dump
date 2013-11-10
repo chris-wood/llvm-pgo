@@ -1,0 +1,121 @@
+WARNING: profile information is inconsistent with the current program!
+===-------------------------------------------------------------------------===
+LLVM profiling output for executions:
+  1. ./is_prime.profile 65536 
+  2. ./is_prime.profile 131072 
+  3. ./is_prime.profile 262144 
+  4. ./is_prime.profile 524288 
+  5. ./is_prime.profile 1048576 
+  6. ./is_prime.profile 65536 
+  7. ./is_prime.profile 1048576 
+  8. ./block_test.profile 5000 
+  9. ./block_test.profile 7500 
+  10. ./block_test.profile 10000 
+  11. ./block_test.profile 12500 
+  12. ./block_test.profile 15000 
+  13. ./block_test.profile 5000 
+  14. ./block_test.profile 15000 
+  15. ./blocked.profile 900 
+  16. ./blocked.profile 1000 
+  17. ./blocked.profile 1100 
+  18. ./blocked.profile 1200 
+  19. ./blocked.profile 1300 
+  20. ./blocked.profile 1400 
+  21. ./blocked.profile 900 
+  22. ./blocked.profile 1400 
+  23. ./factor.profile 2000000 
+  24. ./factor.profile 3000000 
+  25. ./factor.profile 4000000 
+  26. ./factor.profile 5000000 
+  27. ./factor.profile 6000000 
+  28. ./factor.profile 2000000 
+  29. ./factor.profile 6000000 
+  30. ./bubble.profile 50000 
+  31. ./bubble.profile 100000 
+  32. ./bubble.profile 150000 
+  33. ./bubble.profile 200000 
+  34. ./bubble.profile 250000 
+  35. ./bubble.profile 50000 
+  36. ./bubble.profile 250000 
+  37. ./quicksort.profile 50000 
+  38. ./quicksort.profile 100000 
+  39. ./quicksort.profile 150000 
+  40. ./quicksort.profile 50000 
+  41. ./kmeans.profile 10000 10 
+  42. ./kmeans.profile 100000 10 
+  43. ./kmeans.profile 1000000 10 
+  44. ./kmeans.profile 1000000 20 
+  45. ./kmeans.profile 1000000 50 
+  46. ./kmeans.profile 10000 10 
+  47. ./kmeans.profile 1000000 50 
+  48. ./permutations.profile 8 
+  49. ./permutations.profile 9 
+  50. ./permutations.profile 10 
+  51. ./permutations.profile 11 
+  52. ./permutations.profile 12 
+  53. ./permutations.profile 8 
+  54. ./permutations.profile 12 
+  55. ./mandlebrot_seq.profile 1000 
+  56. ./mandlebrot_seq.profile 1250 
+  57. ./mandlebrot_seq.profile 1500 
+  58. ./mandlebrot_seq.profile 1750 
+  59. ./mandlebrot_seq.profile 2000 
+  60. ./mandlebrot_seq.profile 2250 
+  61. ./mandlebrot_seq.profile 1000 
+  62. ./mandlebrot_seq.profile 2250 
+  63. ./fft.profile 128 
+  64. ./fft.profile 256 
+  65. ./fft.profile 1024 
+  66. ./fft.profile 4096 
+  67. ./fft.profile 8192 
+  68. ./fft.profile 128 
+  69. ./fft.profile 8192 
+  70. ./huffman_priority_queue.profile 100 
+  71. ./huffman_priority_queue.profile 1000 
+  72. ./huffman_priority_queue.profile 10000 
+  73. ./huffman_priority_queue.profile 100000 
+  74. ./huffman_priority_queue.profile 1000000 
+  75. ./huffman_priority_queue.profile 100 
+  76. ./huffman_priority_queue.profile 1000000 
+  77. ./huffman.profile 100 
+  78. ./huffman.profile 1000 
+  79. ./huffman.profile 10000 
+  80. ./huffman.profile 100000 
+  81. ./huffman.profile 1000000 
+  82. ./huffman.profile 100 
+  83. ./huffman.profile 1000000 
+  84. ./combinations.profile 13 
+  85. ./combinations.profile 14 
+  86. ./combinations.profile 15 
+  87. ./combinations.profile 16 
+  88. ./combinations.profile 17 
+
+===-------------------------------------------------------------------------===
+Function execution frequencies:
+
+ ##   Frequency
+  1. 3.4e+09/6.52893e+09 main
+  2. 3.2e+09/6.52893e+09 comb
+
+===-------------------------------------------------------------------------===
+Top 20 most frequently executed basic blocks:
+
+ ##      %% 	Frequency
+  1. 13.3239% 7058714077/5.29778e+10	comb() - for.inc
+  2. 7.23776% 3834402755/5.29778e+10	comb() - for.body.lr.ph
+  3. 6.94677% 3680243160/5.29778e+10	comb() - if.end7
+  4. 6.93569% 3674373561/5.29778e+10	comb() - if.end7.if.end7_crit_edge
+  5. 6.93488% 3673943513/5.29778e+10	comb() - for.body.for.inc_crit_edge
+  6. 6.35572% 3367116250/5.29778e+10	main() - entry
+  7. 6.26037% 3316604526/5.29778e+10	comb() - if.end.lr.ph.if.end7_crit_edge
+  8. 6.1211% 3242822428/5.29778e+10	comb() - for.body
+  9. 6.07338% 3217542647/5.29778e+10	comb() - return
+ 10. 5.96818% 3161809052/5.29778e+10	comb() - entry
+ 11. 5.59519% 2964208689/5.29778e+10	comb() - for.cond.preheader.split
+ 12. 5.2434% 2777836861/5.29778e+10	comb() - for.inc.return_crit_edge
+ 13. 5.06729% 2684536932/5.29778e+10	comb() - for.cond.preheader.split.return_crit_edge
+ 14. 3.74439% 1983695727/5.29778e+10	comb() - if.end.lr.ph
+ 15. 3.37461% 1787795084/5.29778e+10	comb() - for.inc.for.body_crit_edge
+ 16. 2.56998% 1361518763/5.29778e+10	comb() - if.then4
+ 17. 2.22379% 1178113325/5.29778e+10	comb() - entry.return_crit_edge
+ 18. 0.0235687% 12486195/5.29778e+10	comb() - if.end7.return_crit_edge

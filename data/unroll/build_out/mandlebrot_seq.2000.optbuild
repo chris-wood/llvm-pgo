@@ -1,0 +1,44 @@
+WARNING: profile information is inconsistent with the current program!
+terminate called after throwing an instance of 'std::bad_alloc'
+  what():  std::bad_alloc
+0  opt              0x08fedc1f _ZN4llvm3sys15PrintStackTraceEP8_IO_FILE + 47
+1  opt              0x08fede7f
+2  opt              0x08fed85c
+3                   0xb7720400 __kernel_sigreturn + 0
+4                   0xb7720424 __kernel_vsyscall + 16
+5  libc.so.6        0xb7418b1f gsignal + 79
+6  libc.so.6        0xb741c0b3 abort + 323
+7  libstdc++.so.6   0xb764991d _ZN9__gnu_cxx27__verbose_terminate_handlerEv + 333
+8  libstdc++.so.6   0xb7647563
+9  libstdc++.so.6   0xb764759f
+10 libstdc++.so.6   0xb764782e
+11 libstdc++.so.6   0xb7647e76 _Znwj + 134
+12 opt              0x08f8ce02 _ZN4llvm4UsernwEjj + 50
+13 opt              0x08f55272 _ZN4llvm14BinaryOperator6CreateENS_11Instruction9BinaryOpsEPNS_5ValueES4_RKNS_5TwineEPS1_ + 66
+14 opt              0x08f55351 _ZNK4llvm14BinaryOperator10clone_implEv + 97
+15 opt              0x08f4acba _ZNK4llvm11Instruction5cloneEv + 42
+16 opt              0x08bfe010 _ZN4llvm15CloneBasicBlockEPKNS_10BasicBlockERNS_8ValueMapIPKNS_5ValueENS_6WeakVHENS_14ValueMapConfigIS6_EEEERKNS_5TwineEPNS_8FunctionEPNS_14ClonedCodeInfoE + 272
+17 opt              0x08c1f27f _ZN4llvm10UnrollLoopEPNS_4LoopEjjbjPNS_8LoopInfoEPNS_13LPPassManagerE + 1551
+18 PgoLoopUnroll.so 0xb7719718
+19 opt              0x08d129d6 _ZN4llvm13LPPassManager13runOnFunctionERNS_8FunctionE + 1670
+20 opt              0x08f762ac _ZN4llvm13FPPassManager13runOnFunctionERNS_8FunctionE + 796
+21 opt              0x08f762f8 _ZN4llvm13FPPassManager11runOnModuleERNS_6ModuleE + 56
+22 opt              0x08f75e54 _ZN4llvm13MPPassManager11runOnModuleERNS_6ModuleE + 676
+23 opt              0x08f77d83 _ZN4llvm15PassManagerImpl3runERNS_6ModuleE + 243
+24 opt              0x08f77e86 _ZN4llvm11PassManager3runERNS_6ModuleE + 38
+25 opt              0x081c838a main + 4106
+26 libc.so.6        0xb7403935 __libc_start_main + 245
+27 opt              0x081dbbd9
+Stack dump:
+0.	Program arguments: ./opt -profile-loader -load ../lib/PgoLoopUnroll.so -simple-pgo-loop-unroll mandlebrot_seq.bc 
+1.	Running pass 'Function Pass Manager' on module 'mandlebrot_seq.bc'.
+2.	Running pass 'Loop Pass Manager' on function '@main'
+3.	Running pass 'Unroll loops' on basic block '%for.body14.lr.ph.us'
+mandlebrot_seq.c:4:14: warning: implicit declaration of function 'atoi' is invalid in C99 [-Wimplicit-function-declaration]
+        int iters = atoi(argv[1]);
+                    ^
+mandlebrot_seq.c:42:18: warning: implicitly declaring library function 'fabs' with type 'double (double)'
+             if (fabs(Cy)< PixelHeight/2) Cy=0.0; /* Main antenna */
+                 ^
+mandlebrot_seq.c:42:18: note: please include the header <math.h> or explicitly provide a declaration for 'fabs'
+2 warnings generated.
