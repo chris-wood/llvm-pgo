@@ -9,16 +9,16 @@ from datetime import datetime, timedelta
 # first element should be the source file name, the second should be
 # the command line argument, the remaining args should be any
 # additional compiler args (if needed)
-programs = [
-    ["prime_decomposition.c", ""],
-    ["nbody.c", "50000000", "-lm"],
-    ["spectral_norm.c",  "5500", "-lm"],
-    ["fft.c", "256", "-std=c99", "-lm"]
-]
+# programs = [
+#     ["prime_decomposition.c", ""],
+#     ["nbody.c", "50000000", "-lm"],
+#     ["spectral_norm.c",  "5500", "-lm"],
+#     ["fft.c", "256", "-std=c99", "-lm"]
+# ]
 
-# programs = [["nbody.c", "500000", "-lm"],
-#             ["spectral_norm.c",  "550", "-lm"],
-#             ["fft.c", "64", "-std=c99", "-lm"]]
+programs = [["nbody.c", "500000", "-lm"],
+            ["spectral_norm.c",  "550", "-lm"],
+            ["fft.c", "64", "-std=c99", "-lm"]]
 
 
 clang = "bin/clang"
@@ -91,12 +91,16 @@ def build_reference(info):
     subprocess.check_call([clang, "-O0", reference_bc_build_out(info), "-o", reference_build_out(info)]
                           + compile_args(info))
 
-def build_pgo(info, multiplier=False, offset=False):
+def build_pgo(info, multiplier=False, offset=False, linear=False):
     additionalArgs = []
     if(offset):
         additionalArgs.append("-pgi-off=" + str(offset))
     if(multiplier):
         additionalArgs.append("-pgi-mul=" + str(multiplier))
+    if(linear):
+        additionalArgs.append("-pgi-linear=" + "true")
+    else:
+        additionalArgs.append("-pgi-linear=" + "false")
     args = [opt] + additionalArgs + ["-profile-loader", "-profile-info-file",
                                      profile_info_filename(info), "-inline", bc_build_out(info),
                                      "-o", pgo_bc_build_out(info)]
@@ -137,15 +141,16 @@ def measure(offset, multiplier):
     #     return measure_dict[str([offset, multiplier])]
     # except KeyError:
     total = 0
-    for info in programs:
-        build_pgo(info, offset=offset, multiplier=multiplier)
-        total += time(["./" + pgo_build_out(info), input_args(info)])
+    for i in range(0,5):
+        for info in programs:
+            build_pgo(info, offset=offset, multiplier=multiplier)
+            total += time(["./" + pgo_build_out(info), input_args(info)])
     # measure_dict[str([offset, multiplier])] = total
     return total
 
 # offset, multiplier
 initialPoint = [0, 0]
-initialStepSizes = [100, 100]
+initialStepSizes = [300, 300]
 epsilon = .01
 def hill_climb():
     currentPoint = initialPoint
@@ -159,9 +164,9 @@ def hill_climb():
     while True:
         before = measure(currentPoint[0], currentPoint[1]);
         print("baseline = " + str(before) + " at " + str(currentPoint))
+        best = -1;
+        bestScore = 100000000000; # really large number
         for i in range(0, len(currentPoint)):
-            best = -1;
-            bestScore = 100000000000; # really large number
             for j in range(0, len(candidate)): # try each of 5 candidate locations
                 currentPoint[i] = currentPoint[i] + stepSize[i] * candidate[j];
                 temp = measure(currentPoint[0], currentPoint[1]);
@@ -174,7 +179,24 @@ def hill_climb():
                 currentPoint[i] = currentPoint[i] + stepSize[i] * candidate[best];
                 stepSize[i] = stepSize[i] * candidate[best] # accelerate
         if ((measure(currentPoint[0], currentPoint[1]) - before) < epsilon):
+            print("best at offset: ", currentPoint[0], " multiplier: ", currentPoint[1])
             return currentPoint;
+
+# A simple search that will look along the line I think has a
+# possibility to give good results.
+def straight_search():
+    best = measure(0,0)
+    bestAt = [0, 0]
+    step = 500
+    for i in range(1, 10):
+        offset = -1 * step * i
+        multiplier = 2 * step * i
+        r = measure(offset=offset, multiplier=multiplier)
+        print('result: ', r)
+        if(r < best):
+            best = r
+            bestAt = [offset, multiplier]
+    print("best: ", best, " at offset: ", bestAt[0], " multiplier: ", bestAt[1])
 
 
 def main():
@@ -203,6 +225,7 @@ def main():
         # print(time(["./" + reference_build_out(info), input_args(info)]))
         # print("timing pgo")
         # print(time(["./" + pgo_build_out(info), input_args(info)]))
-    print("starting hill climb")
-    hill_climb()
+    straight_search()
+    # print("starting hill climb")
+    # hill_climb()
 main()
