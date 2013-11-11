@@ -2,6 +2,7 @@
 
 import os
 import subprocess
+from sys import argv
 from datetime import datetime, timedelta
 
 # Each element of this vector contains information about how to build
@@ -207,7 +208,10 @@ def straight_search():
     return bestAt
 
 def main():
-    builddir = "/home/brian/Code/llvm-pgo/build/Release+Asserts/"
+    if(len(argv) > 1):
+        builddir = argv[1]
+    else:
+        builddir = "/home/brian/Code/llvm-pgo/build/Release+Asserts/"
     global clang, opt, libprofilert, pgo_build_linear_default
     clang = builddir + clang
     opt = builddir + opt
