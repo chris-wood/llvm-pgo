@@ -90,8 +90,8 @@ def build_reference(info):
     subprocess.check_call([opt, "-inline", bc_build_out(info), "-o", reference_bc_build_out(info)])
     subprocess.check_call([clang, "-O0", reference_bc_build_out(info), "-o", reference_build_out(info)]
                           + compile_args(info))
-
-def build_pgo(info, multiplier=False, offset=False, linear=False):
+pgo_build_linear_default = False
+def build_pgo(info, multiplier=False, offset=False, linear=pgo_build_linear_default):
     additionalArgs = []
     if(offset):
         additionalArgs.append("-pgi-off=" + str(offset))
@@ -129,31 +129,27 @@ def time(args):
         raise Exception("process returned non 0. Process args: " + str(cmd) + " Return value: " + str(ret))
     return float(proc.stderr.read())
 
-measure_dict = {}
-# find the time for optimizing using certain constants. This is
-# memoized since it can take awhile to measure (assumes measurements will be consistent).
+
+# find the time for optimizing using certain constants.
 def measure(offset, multiplier):
     global measure_dict
     offset = int(offset)
     multiplier = int(multiplier)
     print("measuring offset = " + str(offset) + " multiplier = " + str(multiplier))
-    # try:
-    #     return measure_dict[str([offset, multiplier])]
-    # except KeyError:
     total = 0
-    for i in range(0,5):
-        for info in programs:
-            build_pgo(info, offset=offset, multiplier=multiplier)
+    for info in programs:
+        build_pgo(info, offset=offset, multiplier=multiplier)
+        # run 3 times to average out differences in measurments
+        for i in range(0,3):
             total += time(["./" + pgo_build_out(info), input_args(info)])
-    # measure_dict[str([offset, multiplier])] = total
+    print("result: ", total)
     return total
 
 # offset, multiplier
-initialPoint = [0, 0]
 initialStepSizes = [300, 300]
 epsilon = .01
-def hill_climb():
-    currentPoint = initialPoint
+def hill_climb(startingPoint):
+    currentPoint = startingPoint
     stepSize = initialStepSizes
     acceleration = 1.2
     candidate = [ -acceleration,
@@ -161,24 +157,26 @@ def hill_climb():
                   0,
                   1 / acceleration,
                   acceleration ]
+    
+    best = currentPoint
+    bestScore = measure(currentPoint[0], currentPoint[1]);
+    bestCandidate = 0
     while True:
-        before = measure(currentPoint[0], currentPoint[1]);
-        print("baseline = " + str(before) + " at " + str(currentPoint))
-        best = -1;
-        bestScore = 100000000000; # really large number
+        before = bestScore
         for i in range(0, len(currentPoint)):
             for j in range(0, len(candidate)): # try each of 5 candidate locations
-                currentPoint[i] = currentPoint[i] + stepSize[i] * candidate[j];
+                testPoint = list(currentPoint)
+                testPoint[i] = testPoint[i] + stepSize[i] * candidate[j];
                 temp = measure(currentPoint[0], currentPoint[1]);
-                currentPoint[i] = currentPoint[i] - stepSize[i] * candidate[j];
                 if(temp < bestScore):
                     bestScore = temp;
-                    best = j;
+                    bestCandidate = j;
                     print("new best = " + str(bestScore))
-            if(candidate[best] != 0):
-                currentPoint[i] = currentPoint[i] + stepSize[i] * candidate[best];
-                stepSize[i] = stepSize[i] * candidate[best] # accelerate
-        if ((measure(currentPoint[0], currentPoint[1]) - before) < epsilon):
+            if(candidate[bestCandidate] != 0):
+                print("move current point from: ", currentPoint)
+                currentPoint[i] = currentPoint[i] + stepSize[i] * candidate[bestCandidate];
+                print("to ", currentPoint)
+        if ((before - bestScore) < epsilon):
             print("best at offset: ", currentPoint[0], " multiplier: ", currentPoint[1])
             return currentPoint;
 
@@ -187,23 +185,30 @@ def hill_climb():
 def straight_search():
     best = measure(0,0)
     bestAt = [0, 0]
+    # search in steps of 500 out to -5000, 10000
     step = 500
-    for i in range(1, 10):
+    for i in range(1, 11):
         offset = -1 * step * i
         multiplier = 2 * step * i
         r = measure(offset=offset, multiplier=multiplier)
-        print('result: ', r)
+        if(r < best):
+            best = r
+            bestAt = [offset, multiplier]
+    # Search in steps of 1000 from -6000, 12000 to -10000, 20000
+    step = 1000
+    for i in range(6, 11):
+        offset = -1 * step * i
+        multiplier = 2 * step * i
+        r = measure(offset=offset, multiplier=multiplier)
         if(r < best):
             best = r
             bestAt = [offset, multiplier]
     print("best: ", best, " at offset: ", bestAt[0], " multiplier: ", bestAt[1])
-
+    return bestAt
 
 def main():
     builddir = "/home/brian/Code/llvm-pgo/build/Release+Asserts/"
-    global clang
-    global opt
-    global libprofilert
+    global clang, opt, libprofilert, pgo_build_linear_default
     clang = builddir + clang
     opt = builddir + opt
     libprofilert = builddir + libprofilert
@@ -217,15 +222,18 @@ def main():
         build_with_profile(info)
         print("generating profile for " + name)
         generate_profile(info)
-        # print("building reference version of " + name)
-        # # build_reference(info)
-        # print("building pgo version of " + name)
-        # build_pgo(info, 20001, -10001)
-        # print("timing reference")
-        # print(time(["./" + reference_build_out(info), input_args(info)]))
-        # print("timing pgo")
-        # print(time(["./" + pgo_build_out(info), input_args(info)]))
-    straight_search()
-    # print("starting hill climb")
-    # hill_climb()
+
+    print("Starting straight search of logarithmic heuristic")
+    pgo_build_linear_default = False
+    log_straight_best = straight_search()
+    print("starting hill climb")
+    log_hill_best = hill_climb(log_straight_best)
+    print("---------- end search over log heuristic ----------\n")
+
+    print("Starting straight search of linear heuristic")
+    pgo_build_linear_default = True
+    linear_straight_best = straight_search()
+    print("starting hill climb")
+    log_hill_best = hill_climb(linear_straight_best)
+    print("---------- end search over linear heuristic ----------\n")
 main()
