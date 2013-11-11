@@ -10,17 +10,19 @@ from datetime import datetime, timedelta
 # first element should be the source file name, the second should be
 # the command line argument, the remaining args should be any
 # additional compiler args (if needed)
+programs = [
+    ["spectral_norm.c",  "5500", "-lm"],
+    ["kmeans.c", "1000000 20", "-lm"],
+    ["huffman.c", "100000"],
+    ["aes.c", "1000000"]
+]
+
 # programs = [
-#     ["prime_decomposition.c", ""],
-#     ["nbody.c", "50000000", "-lm"],
-#     ["spectral_norm.c",  "5500", "-lm"],
-#     ["fft.c", "256", "-std=c99", "-lm"]
+#     ["spectral_norm.c",  "550", "-lm"],
+#     ["kmeans.c", "100000 10", "-lm"],
+#     ["huffman.c", "10000"],
+#     ["aes.c", "100000"]
 # ]
-
-programs = [["nbody.c", "500000", "-lm"],
-            ["spectral_norm.c",  "550", "-lm"],
-            ["fft.c", "64", "-std=c99", "-lm"]]
-
 
 clang = "bin/clang"
 opt = "bin/opt"
@@ -111,7 +113,7 @@ def build_pgo(info, multiplier=False, offset=False, linear=pgo_build_linear_defa
 def generate_profile(info):
     try:
         os.remove(default_profileout)
-    except FileNotFoundError:
+    except:
         pass
     run_no_output(["./" + profiling_build_out(info), input_args(info)])
     os.rename(default_profileout, profile_info_filename(info))
@@ -147,63 +149,61 @@ def measure(offset, multiplier):
     return total
 
 # offset, multiplier
-initialStepSizes = [300, 300]
+initialStepSizes = [400, 400]
 epsilon = .01
 def hill_climb(startingPoint):
     currentPoint = startingPoint
     stepSize = initialStepSizes
-    acceleration = 1.2
-    candidate = [ -acceleration,
-                  -1 / acceleration,
-                  0,
-                  1 / acceleration,
-                  acceleration ]
-    
+    candidate = [ -1,
+                  -0.5,
+                  0.5,
+                  1 ]
     best = currentPoint
     bestScore = measure(currentPoint[0], currentPoint[1]);
-    bestCandidate = 0
+    bestPoint = currentPoint
     while True:
         before = bestScore
         for i in range(0, len(currentPoint)):
-            for j in range(0, len(candidate)): # try each of 5 candidate locations
+            for j in range(0, len(candidate)): # try each candidate location
                 testPoint = list(currentPoint)
-                testPoint[i] = testPoint[i] + stepSize[i] * candidate[j];
-                temp = measure(currentPoint[0], currentPoint[1]);
+                testPoint[i] = testPoint[i] + stepSize[i] * candidate[j]
+                temp = measure(testPoint[0], testPoint[1])
                 if(temp < bestScore):
-                    bestScore = temp;
-                    bestCandidate = j;
-                    print("new best = " + str(bestScore))
-            if(candidate[bestCandidate] != 0):
-                print("move current point from: ", currentPoint)
-                currentPoint[i] = currentPoint[i] + stepSize[i] * candidate[bestCandidate];
-                print("to ", currentPoint)
-        if ((before - bestScore) < epsilon):
-            print("best at offset: ", currentPoint[0], " multiplier: ", currentPoint[1])
-            return currentPoint;
+                    bestScore = temp
+                    bestPoint = testPoint
+                    print("new best = ", bestScore, " at ", bestPoint)
+        # if we found a new best, move to there
+        if(currentPoint != bestPoint):
+            print("move current point from: ", currentPoint)
+            currentPoint = bestPoint
+            print("to ", currentPoint)
+        else:
+            print("hill climb found best at: ", currentPoint)
+            return currentPoint
 
 # A simple search that will look along the line I think has a
 # possibility to give good results.
 def straight_search():
     best = measure(0,0)
     bestAt = [0, 0]
-    # search in steps of 500 out to -5000, 10000
+    # search in steps of 500 out to -10000, 20000
     step = 500
-    for i in range(1, 11):
+    for i in range(1, 21):
         offset = -1 * step * i
         multiplier = 2 * step * i
         r = measure(offset=offset, multiplier=multiplier)
         if(r < best):
             best = r
             bestAt = [offset, multiplier]
-    # Search in steps of 1000 from -6000, 12000 to -10000, 20000
-    step = 1000
-    for i in range(6, 11):
-        offset = -1 * step * i
-        multiplier = 2 * step * i
-        r = measure(offset=offset, multiplier=multiplier)
-        if(r < best):
-            best = r
-            bestAt = [offset, multiplier]
+    # # Search in steps of 1000 from -6000, 12000 to -10000, 20000
+    # step = 1000
+    # for i in range(6, 11):
+    #     offset = -1 * step * i
+    #     multiplier = 2 * step * i
+    #     r = measure(offset=offset, multiplier=multiplier)
+    #     if(r < best):
+    #         best = r
+    #         bestAt = [offset, multiplier]
     print("best: ", best, " at offset: ", bestAt[0], " multiplier: ", bestAt[1])
     return bestAt
 
@@ -238,6 +238,8 @@ def main():
     pgo_build_linear_default = True
     linear_straight_best = straight_search()
     print("starting hill climb")
-    log_hill_best = hill_climb(linear_straight_best)
+    linear_hill_best = hill_climb(linear_straight_best)
     print("---------- end search over linear heuristic ----------\n")
+    print("log best at offset: ", log_hill_best[0], " multiplier: ", log_hill_best[1])
+    print("linear best at offset: ", linear_hill_best[0], " multiplier: ", linear_hill_best[1])
 main()
