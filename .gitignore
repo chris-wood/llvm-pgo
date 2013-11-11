@@ -1,2 +1,4 @@
 /build
+/cmake-xcode
+/cmake-sublime
 .DS_Store
