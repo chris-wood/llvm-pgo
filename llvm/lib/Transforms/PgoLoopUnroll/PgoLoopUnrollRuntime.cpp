@@ -383,6 +383,6 @@ bool llvm::PgoUnrollLoop(Loop *L, unsigned Count, LoopInfo *LI, LPPassManager *L
 //  if (CompletelyUnroll && LPM != NULL)
 //    LPM->deleteLoopFromQueue(L);
 
-  DEBUG(dbgs() << "Loop unrolled!");
+  DEBUG(dbgs() << "PGO loop unrollment: SUCCESS!\n");
   return true;
 }
