@@ -11,18 +11,12 @@ from datetime import datetime, timedelta
 # the command line argument, the remaining args should be any
 # additional compiler args (if needed)
 programs = [
-    ["spectral_norm.c",  "5500", "-lm"],
+    ["factor.c", "4000000"],
+    ["blocked.c", "1300"],
     ["kmeans.c", "1000000 20", "-lm"],
     ["huffman.c", "100000"],
     ["aes.c", "1000000"]
 ]
-
-# programs = [
-#     ["spectral_norm.c",  "550", "-lm"],
-#     ["kmeans.c", "100000 10", "-lm"],
-#     ["huffman.c", "10000"],
-#     ["aes.c", "100000"]
-# ]
 
 clang = "bin/clang"
 opt = "bin/opt"
@@ -142,8 +136,8 @@ def measure(offset, multiplier):
     total = 0
     for info in programs:
         build_pgo(info, offset=offset, multiplier=multiplier)
-        # run 3 times to average out differences in measurments
-        for i in range(0,3):
+        # run 5 times to average out differences in measurments
+        for i in range(0,5):
             total += time(["./" + pgo_build_out(info), input_args(info)])
     print("result: ", total)
     return total
