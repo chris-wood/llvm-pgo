@@ -103,7 +103,7 @@ def main():
             for i in optAverages:
                 for j in unoptAverages:
                     if i == j and optAverages[i] > 0:
-                        totalSpeedup = totalSpeedup + (((unoptAverages[i]) / optAverages[i]) * 100.0)
+                        totalSpeedup = totalSpeedup + (((unoptAverages[i]) / optAverages[i]))
                         totalSpeedupCount = totalSpeedupCount + 1
                         csv = csv + prefix + "," + str(i) + "," + str(optAverages[i]) + "," + str(unoptAverages[i]) + "\n"
             
@@ -147,7 +147,7 @@ def main():
             for i in optAverages:
                 for j in unoptAverages:
                     if i == j and optAverages[i] > 0:
-                        totalSpeedup = totalSpeedup + (((unoptAverages[i]) / optAverages[i]) * 100.0)
+                        totalSpeedup = totalSpeedup + (((unoptAverages[i]) / optAverages[i]))
                         totalSpeedupCount = totalSpeedupCount + 1
                         csv = csv + prefix + "," + str(i) + "," + str(optAverages[i]) + "," + str(unoptAverages[i]) + "\n"
             
@@ -192,7 +192,7 @@ def main():
             for i in optAverages:
                 for j in unoptAverages:
                     if i == j and optAverages[i] > 0:
-                        totalSpeedup = totalSpeedup + (((unoptAverages[i]) / optAverages[i]) * 100.0)
+                        totalSpeedup = totalSpeedup + (((unoptAverages[i]) / optAverages[i]))
                         totalSpeedupCount = totalSpeedupCount + 1
                         csv = csv + prefix + "," + str(i) + "," + str(optAverages[i]) + "," + str(unoptAverages[i]) + "\n"
             
