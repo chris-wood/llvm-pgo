@@ -100,7 +100,7 @@ def main():
             totalDiffCount = 0
             for i in avg1:
                 for j in avg2:
-                    if i == j:
+                    if i == j and avg1[i] > 0:
                         totalDiff = totalDiff + (((avg2[i] - avg1[i]) / avg1[i]) * 100.0)
                         totalDiffCount = totalDiffCount + 1
                         csv = csv + prefix + "," + str(i) + "," + str(avg1[i]) + "," + str(avg2[i]) + "\n"
@@ -144,7 +144,7 @@ def main():
             totalDiffCount = 0
             for i in avg1:
                 for j in avg2:
-                    if i == j:
+                    if i == j and avg1[i] > 0:
                         totalDiff = totalDiff + (((avg2[i] - avg1[i]) / avg1[i]) * 100.0)
                         totalDiffCount = totalDiffCount + 1
                         csv = csv + prefix + "," + str(i) + "," + str(avg1[i]) + "," + str(avg2[i]) + "\n"
@@ -189,7 +189,7 @@ def main():
             totalDiffCount = 0
             for i in avg1:
                 for j in avg2:
-                    if i == j:
+                    if i == j and avg1[i] > 0:
                         totalDiff = totalDiff + (((avg2[i] - avg1[i]) / avg1[i]) * 100.0)
                         totalDiffCount = totalDiffCount + 1
                         csv = csv + prefix + "," + str(i) + "," + str(avg1[i]) + "," + str(avg2[i]) + "\n"
