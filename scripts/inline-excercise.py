@@ -18,9 +18,9 @@ programs = [
     ["aes.c", "500000"]
 ]
 
-clang = "bin/clang"
-opt = "bin/opt"
-libprofilert = "lib/libprofile_rt.so"
+clang = "./clang"
+opt = "./opt"
+libprofilert = "../lib/libprofile_rt.so"
 
 default_profileout = "llvmprof.out"
 
@@ -202,14 +202,12 @@ def straight_search():
     return bestAt
 
 def main():
+    global clang, opt, libprofilert, pgo_build_linear_default
     if(len(argv) > 1):
         builddir = argv[1]
-    else:
-        builddir = "/home/brian/Code/llvm-pgo/build/Release+Asserts/"
-    global clang, opt, libprofilert, pgo_build_linear_default
-    clang = builddir + clang
-    opt = builddir + opt
-    libprofilert = builddir + libprofilert
+        clang = builddir + clang
+        opt = builddir + opt
+        libprofilert = builddir + libprofilert
     # generate profiling information for unoptimized versions of each
     # benchmark
     for info in programs:
