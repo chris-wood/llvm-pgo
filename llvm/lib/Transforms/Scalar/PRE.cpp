@@ -84,10 +84,10 @@ public:
       for (unsigned int index = i; i < nodes.size(); index++)
       {
         subPath->nodes.push_back(nodes.at(index));
-        if (index != i)
+        if (index != nodes.size() - 1)
         {
-          subPath->edges.push_back(edges.at(index - 1));
-          subPath->weights.push_back(weights.at(index - 1));
+          subPath->edges.push_back(edges.at(index));
+          subPath->weights.push_back(weights.at(index));
         }
       }
 
@@ -108,10 +108,10 @@ public:
     for (unsigned int i = 0; i < nodes.size(); i++)
     {
       newPath->nodes.push_back(nodes.at(i));
-      if (i != 0)
+      if (i != nodes.size() - 1)
       {
-        newPath->edges.push_back(edges.at(i - 1));
-        newPath->weights.push_back(weights.at(i - 1));
+        newPath->edges.push_back(edges.at(i));
+        newPath->weights.push_back(weights.at(i));
       }
       hinge = nodes.at(i);
     }
@@ -126,10 +126,10 @@ public:
     for (unsigned int i = 0; i < p2->nodes.size(); i++)
     {
       newPath->nodes.push_back(p2->nodes.at(i));
-      if (i != 0)
+      if (i != p2->nodes.size())
       {
-        newPath->edges.push_back(p2->edges.at(i - 1));
-        newPath->weights.push_back(p2->weights.at(i - 1));
+        newPath->edges.push_back(p2->edges.at(i));
+        newPath->weights.push_back(p2->weights.at(i));
       }
     }
 
@@ -461,7 +461,8 @@ bool PgoPre::runOnFunction(Function &F) {
 
   // Initialize the instructionContainsMap for each instruction for each graph path
   // instructionContainsMap
-  for (inst_iterator instItr = inst_begin(&F), E = inst_end(&F); instItr != E; ++instItr)
+  /*
+for (inst_iterator instItr = inst_begin(&F), E = inst_end(&F); instItr != E; ++instItr)
   {
     Instruction& inst = *instItr;
     Value* instValue = dyn_cast<Value>(&inst); // cast instruction to value
@@ -471,9 +472,11 @@ bool PgoPre::runOnFunction(Function &F) {
       paths.at(i)->checkForValue(instValue);
     }
   }
+*/
 
   // Walk the instructions in the function to build up the available, unavailable, anticipable, unanticipable sets
-  startItr = F.begin();
+/*  
+startItr = F.begin();
   for (inst_iterator instItr = inst_begin(&F), E = inst_end(&F); instItr != E; ++instItr)
   {
     Instruction& inst = *instItr; // this is the expression (exp) used in all of the sets
@@ -667,14 +670,16 @@ bool PgoPre::runOnFunction(Function &F) {
   }
   ////////////////////////////////////////////////////////////
 
+*/
+
   //// OLD PRE CODE BELOW
 
   // // Traverse the current function depth-first in dominator-tree order.  This
   // // ensures that we see all definitions before their uses (except for PHI
   // // nodes), allowing us to hoist dependent expressions correctly.
-  bool Changed = false;
-  for (unsigned i = 0, e = BlockMapping.size(); i != e; ++i)
-    Changed |= ProcessBlock(BlockMapping[i]);
+//  bool Changed = false;
+//  for (unsigned i = 0, e = BlockMapping.size(); i != e; ++i)
+//    Changed |= ProcessBlock(BlockMapping[i]);
 
   // // Free memory
   // BlockMapping.clear();
@@ -749,7 +754,7 @@ bool PgoPre::EnableSpec(Value* val, const BasicBlock* n)
 //
 bool PgoPre::ProcessBlock(const BasicBlock *BB) 
 {
-  bool Changed = false;
+/*  bool Changed = false;
 
   // PgoPre expressions first defined in this block...
   const Instruction *PrevInst = 0;
@@ -769,12 +774,14 @@ bool PgoPre::ProcessBlock(const BasicBlock *BB)
   }
 
   return Changed;
+*/
 }
 
 void PgoPre::MarkPostDominatingBlocksAnticipatible(DomTreeNode *N,
                                                 std::vector<char> &AntBlocks,
                                                 Instruction *Occurrence) {
-  unsigned BlockNo = BlockNumbering[N->getBlock()];
+
+/*  unsigned BlockNo = BlockNumbering[N->getBlock()];
 
   if (AntBlocks[BlockNo]) return;  // Already known to be anticipatible??
 
@@ -794,6 +801,7 @@ void PgoPre::MarkPostDominatingBlocksAnticipatible(DomTreeNode *N,
 
   for (DomTreeNode::iterator I = N->begin(), E = N->end(); I != E; ++I)
     MarkPostDominatingBlocksAnticipatible(*I, AntBlocks, Occurrence);
+*/
 }
 
 // /// caw: this is where profile-guided data is actually leveraged
