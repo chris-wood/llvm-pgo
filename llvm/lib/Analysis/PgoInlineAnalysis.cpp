@@ -17,13 +17,13 @@ INITIALIZE_AG_DEPENDENCY(ProfileInfo)
 INITIALIZE_PASS_END(PgoInlineAnalysis, "pgo-inline-analysis", "Profile guided weighting to inlining information",
 		    false, false)
 
-static cl::opt<int> pgiMultiplier("pgi-mul", cl::Hidden, cl::init(20000),
+static cl::opt<int> pgiMultiplier("pgi-mul", cl::Hidden, cl::init(17800),
 				  cl::Optional, cl::desc("multiplyer for computing profile guided inlining"));
 
-static cl::opt<int> pgiOffset("pgi-off",  cl::Hidden, cl::init(-10000),
+static cl::opt<int> pgiOffset("pgi-off",  cl::Hidden, cl::init(-9000),
 			      cl::Optional, cl::desc("offset for computing profile guided inlining"));
 
-static cl::opt<bool> pgiLinear("pgi-linear", cl::Hidden, cl::init(true),
+static cl::opt<bool> pgiLinear("pgi-linear", cl::Hidden, cl::init(false),
 				  cl::Optional, cl::desc("If true, use a linear heuristic for assigning the threshold bonus, if false use a logarithmic one instead"));
 
 // exc: execution count for call site
