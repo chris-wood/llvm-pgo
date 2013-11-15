@@ -1,0 +1,32 @@
+===-------------------------------------------------------------------------===
+LLVM profiling output for executions:
+  1. ./euler_method.profile 16384 
+  2. ./euler_method.profile 32768 
+  3. ./euler_method.profile 65536 
+  4. ./euler_method.profile 98304 
+
+===-------------------------------------------------------------------------===
+Function execution frequencies:
+
+ ##   Frequency
+  1. 6.4e+05/851976 ivp_euler
+  2. 2.1e+05/851976 cooling
+  3.     4/851976 run_benchmark
+  4.     4/851976 main
+
+===-------------------------------------------------------------------------===
+Top 20 most frequently executed basic blocks:
+
+ ##      %% 	Frequency
+  1. 33.2046% 18317312/5.51649e+07	ivp_euler() - do.body
+  2. 32.0463% 17678336/5.51649e+07	ivp_euler() - do.cond
+  3. 30.888% 17039360/5.51649e+07	ivp_euler() - do.cond.do.body_crit_edge
+  4. 1.1583% 638976/5.51649e+07	ivp_euler() - entry
+  5. 1.1583% 638976/5.51649e+07	ivp_euler() - do.end
+  6. 0.386108% 212996/5.51649e+07	main() - for.cond
+  7. 0.3861% 212992/5.51649e+07	cooling() - entry
+  8. 0.3861% 212992/5.51649e+07	main() - for.inc
+  9. 0.3861% 212992/5.51649e+07	main() - for.end
+ 10. 7.25098e-06%     4/5.51649e+07	run_benchmark() - entry
+ 11. 7.25098e-06%     4/5.51649e+07	main() - entry
+ 12. 7.25098e-06%     4/5.51649e+07	main() - for.body

@@ -1,0 +1,46 @@
+===-------------------------------------------------------------------------===
+LLVM profiling output for executions:
+  1. ./aes.profile 250000 
+  2. ./aes.profile 500000 
+  3. ./aes.profile 750000 
+  4. ./aes.profile 1000000 
+  5. ./aes.profile 1250000 
+  6. ./aes.profile 250000 
+
+===-------------------------------------------------------------------------===
+Function execution frequencies:
+
+ ##   Frequency
+  1. 1.1e+09/1.852e+09 getSBoxValue
+  2. 2.4e+08/1.852e+09 AddRoundKey
+  3. 2.2e+08/1.852e+09 SubBytes
+  4. 2.1e+08/1.852e+09 MixColumns
+  5. 5.2e+07/1.852e+09 ShiftRows
+  6. 1.6e+07/1.852e+09 Cipher
+  7. 4e+06/1.852e+09 KeyExpansion
+  8. 4e+06/1.852e+09 main
+
+===-------------------------------------------------------------------------===
+Top 20 most frequently executed basic blocks:
+
+ ##      %% 	Frequency
+  1. 6.86738% 1104000000/1.6076e+10	getSBoxValue() - entry
+  2. 6.46927% 1040000000/1.6076e+10	KeyExpansion() - for.cond23
+  3. 5.97163% 960000000/1.6076e+10	AddRoundKey() - for.end
+  4. 5.97163% 960000000/1.6076e+10	AddRoundKey() - for.body3
+  5. 5.97163% 960000000/1.6076e+10	AddRoundKey() - for.end13
+  6. 5.57353% 896000000/1.6076e+10	SubBytes() - for.body3
+  7. 5.57353% 896000000/1.6076e+10	SubBytes() - for.end
+  8. 5.57353% 896000000/1.6076e+10	SubBytes() - for.end10
+  9. 5.17542% 832000000/1.6076e+10	KeyExpansion() - for.body25
+ 10. 5.17542% 832000000/1.6076e+10	KeyExpansion() - for.inc30
+ 11. 2.98582% 480000000/1.6076e+10	AddRoundKey() - for.cond1
+ 12. 2.78676% 448000000/1.6076e+10	SubBytes() - for.cond1
+ 13. 2.56283% 412000000/1.6076e+10	KeyExpansion() - if.end
+ 14. 1.49291% 240000000/1.6076e+10	AddRoundKey() - for.body
+ 15. 1.49291% 240000000/1.6076e+10	AddRoundKey() - entry
+ 16. 1.49291% 240000000/1.6076e+10	AddRoundKey() - for.inc
+ 17. 1.39338% 224000000/1.6076e+10	SubBytes() - for.inc
+ 18. 1.39338% 224000000/1.6076e+10	SubBytes() - entry
+ 19. 1.39338% 224000000/1.6076e+10	SubBytes() - for.body
+ 20. 1.29385% 208000000/1.6076e+10	MixColumns() - for.body

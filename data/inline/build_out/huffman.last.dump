@@ -1,0 +1,41 @@
+===-------------------------------------------------------------------------===
+LLVM profiling output for execution:
+  ./huffman.profile 1000000 
+
+===-------------------------------------------------------------------------===
+Function execution frequencies:
+
+ ##   Frequency
+  1. 5e+05/799001 _heap_sort
+  2. 2.6e+05/799001 free_huffman_codes
+  3. 3.9e+04/799001 _heap_create
+  4. 1e+03/799001 create_huffman_codes
+  5. 1e+03/799001 _heap_destroy
+  6.     1/799001 main
+
+  NOTE: 3 functions were never executed!
+
+===-------------------------------------------------------------------------===
+Top 20 most frequently executed basic blocks:
+
+ ##      %% 	Frequency
+  1. 49.8271% 1345294336/2.69993e+09	main() - for.end18
+  2. 49.8271% 1345294336/2.69993e+09	main() - while.body
+  3. 0.0384825% 1039000/2.69993e+09	main() - return
+  4. 0.0370381% 1000000/2.69993e+09	main() - for.end
+  5. 0.0370381% 1000000/2.69993e+09	main() - for.body
+  6. 0.0240377% 649000/2.69993e+09	_heap_sort() - cond.end
+  7. 0.0185931% 502000/2.69993e+09	_heap_sort() - entry
+  8. 0.0185931% 502000/2.69993e+09	_heap_sort() - while.cond
+  9. 0.0131485% 355000/2.69993e+09	_heap_sort() - while.body
+ 10. 0.0131485% 355000/2.69993e+09	_heap_sort() - if.then
+ 11. 0.0102225% 276000/2.69993e+09	create_huffman_codes() - if.end5
+ 12. 0.0102225% 276000/2.69993e+09	create_huffman_codes() - for.inc41
+ 13. 0.00951878% 257000/2.69993e+09	create_huffman_codes() - for.cond18
+ 14. 0.00948174% 256000/2.69993e+09	create_huffman_codes() - for.inc
+ 15. 0.00948174% 256000/2.69993e+09	free_huffman_codes() - for.end
+ 16. 0.00948174% 256000/2.69993e+09	create_huffman_codes() - for.body
+ 17. 0.00948174% 256000/2.69993e+09	free_huffman_codes() - for.body
+ 18. 0.00948174% 256000/2.69993e+09	free_huffman_codes() - entry
+ 19. 0.00874098% 236000/2.69993e+09	create_huffman_codes() - for.body.if.end5_crit_edge
+ 20. 0.00874098% 236000/2.69993e+09	create_huffman_codes() - if.end25

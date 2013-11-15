@@ -1,0 +1,39 @@
+===-------------------------------------------------------------------------===
+LLVM profiling output for executions:
+  1. ./mandlebrot_seq.profile 1000 
+  2. ./mandlebrot_seq.profile 1250 
+  3. ./mandlebrot_seq.profile 1500 
+  4. ./mandlebrot_seq.profile 1750 
+  5. ./mandlebrot_seq.profile 2000 
+  6. ./mandlebrot_seq.profile 2250 
+
+===-------------------------------------------------------------------------===
+Function execution frequencies:
+
+ ##   Frequency
+  1.     6/6 main
+
+===-------------------------------------------------------------------------===
+Top 20 most frequently executed basic blocks:
+
+ ##      %% 	Frequency
+  1. 20.023% 404072079/2.01804e+09	main() - for.cond20
+  2. 19.3439% 390368085/2.01804e+09	main() - land.end
+  3. 19.2638% 388751332/2.01804e+09	main() - for.cond20.land.end_crit_edge
+  4. 18.5046% 373430585/2.01804e+09	main() - for.end
+  5. 18.5046% 373430585/2.01804e+09	main() - for.body26
+  6. 1.67861% 33875000/2.01804e+09	main() - if.end36
+  7. 0.839787% 16947250/2.01804e+09	main() - for.cond11
+  8. 0.839304% 16937500/2.01804e+09	main() - for.end40
+  9. 0.759189% 15320747/2.01804e+09	main() - if.else
+ 10. 0.0801149% 1616753/2.01804e+09	main() - land.rhs
+ 11. 0.0801149% 1616753/2.01804e+09	main() - if.then35
+ 12. 0.0801149% 1616753/2.01804e+09	main() - for.inc
+ 13. 0.000483439%  9756/2.01804e+09	main() - if.end
+ 14. 0.000483439%  9756/2.01804e+09	main() - for.cond
+ 15. 0.000483142%  9750/2.01804e+09	main() - for.body14
+ 16. 0.000483142%  9750/2.01804e+09	main() - for.body
+ 17. 0.000483142%  9750/2.01804e+09	main() - for.inc38
+ 18. 0.000482844%  9744/2.01804e+09	main() - for.body.if.end_crit_edge
+ 19. 2.97318e-07%     6/2.01804e+09	main() - for.end43
+ 20. 2.97318e-07%     6/2.01804e+09	main() - entry

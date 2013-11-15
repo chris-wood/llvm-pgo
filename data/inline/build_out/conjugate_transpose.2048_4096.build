@@ -62,6 +62,6 @@ conjugate_transpose.c:165:43: warning: plain '_Complex' requires a type specifie
 #define complex         _Complex
                         ^
 9 warnings generated.
-/tmp/conjugate_transpose-D15mU6.o: In function `transpose':
+/tmp/conjugate_transpose-rj4EEd.o: In function `transpose':
 conjugate_transpose.profile.bc:(.text+0xe9): undefined reference to `conj'
 clang: error: linker command failed with exit code 1 (use -v to see invocation)

@@ -1,0 +1,42 @@
+===-------------------------------------------------------------------------===
+LLVM profiling output for execution:
+  ./kmeans.profile 10000 10 
+
+===-------------------------------------------------------------------------===
+Function execution frequencies:
+
+ ##   Frequency
+  1. 6e+06/6.61056e+06 dist2
+  2. 6.4e+05/6.61056e+06 nearest
+  3. 2e+04/6.61056e+06 randf
+  4. 5.4e+02/6.61056e+06 lloyd
+  5.     9/6.61056e+06 kpp
+  6.     1/6.61056e+06 gen_xy
+  7.     1/6.61056e+06 main
+
+  NOTE: 1 function was never executed!
+
+===-------------------------------------------------------------------------===
+Top 20 most frequently executed basic blocks:
+
+ ##      %% 	Frequency
+  1. 18.4716% 7694916/4.16582e+07	nearest() - if.end
+  2. 14.2829% 5950000/4.16582e+07	nearest() - for.inc
+  3. 14.2829% 5950000/4.16582e+07	dist2() - entry
+  4. 14.2829% 5950000/4.16582e+07	nearest() - for.body3
+  5. 10.0943% 4205084/4.16582e+07	nearest() - for.body3.if.end_crit_edge
+  6. 4.18865% 1744916/4.16582e+07	nearest() - if.then
+  7. 3.07263% 1280000/4.16582e+07	nearest() - for.cond1
+  8. 1.75236% 730000/4.16582e+07	nearest() - for.cond
+  9. 1.53631% 640000/4.16582e+07	nearest() - for.body
+ 10. 1.53631% 640000/4.16582e+07	nearest() - for.inc5
+ 11. 1.53631% 640000/4.16582e+07	nearest() - for.end
+ 12. 1.53631% 640000/4.16582e+07	nearest() - entry
+ 13. 1.53631% 640000/4.16582e+07	nearest() - for.end8
+ 14. 1.32027% 550000/4.16582e+07	nearest() - if.then9
+ 15. 1.29639% 540054/4.16582e+07	lloyd() - for.cond1
+ 16. 1.29626% 540000/4.16582e+07	lloyd() - for.inc
+ 17. 1.29626% 540000/4.16582e+07	lloyd() - for.body3
+ 18. 1.29626% 540000/4.16582e+07	lloyd() - for.inc25
+ 19. 1.29626% 540000/4.16582e+07	lloyd() - for.body32.if.end_crit_edge
+ 20. 1.29626% 540000/4.16582e+07	lloyd() - if.then

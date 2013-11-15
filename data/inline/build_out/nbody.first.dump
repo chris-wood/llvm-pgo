@@ -1,0 +1,3 @@
+./run_inline.sh: line 67: ./nbody.profile: No such file or directory
+./llvm-prof: Error opening 'llvmprof.out': No such file or directory
+./run_inline.sh: line 74: ./nbody.mod: No such file or directory

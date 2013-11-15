@@ -1,0 +1,45 @@
+===-------------------------------------------------------------------------===
+LLVM profiling output for executions:
+  1. ./huffman.profile 100 
+  2. ./huffman.profile 1000 
+  3. ./huffman.profile 10000 
+  4. ./huffman.profile 100000 
+  5. ./huffman.profile 1000000 
+
+===-------------------------------------------------------------------------===
+Function execution frequencies:
+
+ ##   Frequency
+  1. 2.5e+06/3.995e+06 _heap_sort
+  2. 1.3e+06/3.995e+06 free_huffman_codes
+  3. 2e+05/3.995e+06 _heap_create
+  4. 5e+03/3.995e+06 create_huffman_codes
+  5. 5e+03/3.995e+06 _heap_destroy
+  6.     5/3.995e+06 main
+
+  NOTE: 3 functions were never executed!
+
+===-------------------------------------------------------------------------===
+Top 20 most frequently executed basic blocks:
+
+ ##      %% 	Frequency
+  1. 49.4209% 1494327040/3.02367e+09	main() - for.end18
+  2. 49.4209% 1494327040/3.02367e+09	main() - while.body
+  3. 0.10732% 3245000/3.02367e+09	_heap_sort() - cond.end
+  4. 0.0830116% 2510000/3.02367e+09	_heap_sort() - entry
+  5. 0.0830116% 2510000/3.02367e+09	_heap_sort() - while.cond
+  6. 0.0587034% 1775000/3.02367e+09	_heap_sort() - while.body
+  7. 0.0587034% 1775000/3.02367e+09	_heap_sort() - if.then
+  8. 0.0456399% 1380000/3.02367e+09	create_huffman_codes() - if.end5
+  9. 0.0456399% 1380000/3.02367e+09	create_huffman_codes() - for.inc41
+ 10. 0.0431958% 1306100/3.02367e+09	main() - return
+ 11. 0.042498% 1285000/3.02367e+09	create_huffman_codes() - for.cond18
+ 12. 0.0423326% 1280000/3.02367e+09	create_huffman_codes() - for.body
+ 13. 0.0423326% 1280000/3.02367e+09	create_huffman_codes() - for.inc
+ 14. 0.0423326% 1280000/3.02367e+09	free_huffman_codes() - for.end
+ 15. 0.0423326% 1280000/3.02367e+09	free_huffman_codes() - entry
+ 16. 0.0423326% 1280000/3.02367e+09	free_huffman_codes() - for.body
+ 17. 0.0390254% 1180000/3.02367e+09	create_huffman_codes() - for.end43
+ 18. 0.0390254% 1180000/3.02367e+09	create_huffman_codes() - if.end25
+ 19. 0.0390254% 1180000/3.02367e+09	create_huffman_codes() - for.body.if.end5_crit_edge
+ 20. 0.0367467% 1111100/3.02367e+09	main() - for.end

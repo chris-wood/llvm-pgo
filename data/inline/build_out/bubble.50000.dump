@@ -1,0 +1,33 @@
+===-------------------------------------------------------------------------===
+LLVM profiling output for execution:
+  ./bubble.profile 50000 
+
+===-------------------------------------------------------------------------===
+Function execution frequencies:
+
+ ##   Frequency
+  1. 5e+04/50001 main
+  2.     1/50001 bubbleSort
+
+===-------------------------------------------------------------------------===
+Top 20 most frequently executed basic blocks:
+
+ ##      %% 	Frequency
+  1. 44.4445% 2499927048/5.62483e+09	bubbleSort() - if.end
+  2. 22.2223% 1249963525/5.62483e+09	bubbleSort() - for.cond1
+  3. 11.1211% 625541624/5.62483e+09	bubbleSort() - if.then
+  4. 11.1012% 624421900/5.62483e+09	bubbleSort() - for.body3.if.end_crit_edge
+  5. 11.1012% 624421900/5.62483e+09	bubbleSort() - for.end
+  6. 0.00177783% 100000/5.62483e+09	main() - for.cond
+  7. 0.00177241% 99695/5.62483e+09	bubbleSort() - for.end16
+  8. 0.000888917% 50000/5.62483e+09	main() - for.end
+  9. 0.000888917% 50000/5.62483e+09	main() - for.body
+ 10. 0.000888917% 50000/5.62483e+09	main() - entry
+ 11. 0.000886214% 49848/5.62483e+09	bubbleSort() - for.body3
+ 12. 0.000886214% 49848/5.62483e+09	bubbleSort() - for.body
+ 13. 0.000886196% 49847/5.62483e+09	bubbleSort() - for.inc
+ 14. 0.000886196% 49847/5.62483e+09	bubbleSort() - if.then12
+ 15. 3.55567e-08%     2/5.62483e+09	bubbleSort() - for.cond
+ 16. 1.77783e-08%     1/5.62483e+09	bubbleSort() - if.end13
+ 17. 1.77783e-08%     1/5.62483e+09	bubbleSort() - for.inc14
+ 18. 1.77783e-08%     1/5.62483e+09	bubbleSort() - entry

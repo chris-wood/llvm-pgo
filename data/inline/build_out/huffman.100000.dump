@@ -1,0 +1,44 @@
+===-------------------------------------------------------------------------===
+LLVM profiling output for executions:
+  1. ./huffman.profile 100 
+  2. ./huffman.profile 1000 
+  3. ./huffman.profile 10000 
+  4. ./huffman.profile 100000 
+
+===-------------------------------------------------------------------------===
+Function execution frequencies:
+
+ ##   Frequency
+  1. 2e+06/3.196e+06 _heap_sort
+  2. 1e+06/3.196e+06 free_huffman_codes
+  3. 1.6e+05/3.196e+06 _heap_create
+  4. 4e+03/3.196e+06 create_huffman_codes
+  5. 4e+03/3.196e+06 _heap_destroy
+  6.     4/3.196e+06 main
+
+  NOTE: 3 functions were never executed!
+
+===-------------------------------------------------------------------------===
+Top 20 most frequently executed basic blocks:
+
+ ##      %% 	Frequency
+  1. 46.0337% 149032704/3.23747e+08	main() - while.body
+  2. 46.0337% 149032704/3.23747e+08	main() - for.end18
+  3. 0.801861% 2596000/3.23747e+08	_heap_sort() - cond.end
+  4. 0.620238% 2008000/3.23747e+08	_heap_sort() - while.cond
+  5. 0.620238% 2008000/3.23747e+08	_heap_sort() - entry
+  6. 0.438614% 1420000/3.23747e+08	_heap_sort() - if.then
+  7. 0.438614% 1420000/3.23747e+08	_heap_sort() - while.body
+  8. 0.341007% 1104000/3.23747e+08	create_huffman_codes() - if.end5
+  9. 0.341007% 1104000/3.23747e+08	create_huffman_codes() - for.inc41
+ 10. 0.317532% 1028000/3.23747e+08	create_huffman_codes() - for.cond18
+ 11. 0.316297% 1024000/3.23747e+08	free_huffman_codes() - for.end
+ 12. 0.316297% 1024000/3.23747e+08	create_huffman_codes() - for.inc
+ 13. 0.316297% 1024000/3.23747e+08	create_huffman_codes() - for.body
+ 14. 0.316297% 1024000/3.23747e+08	free_huffman_codes() - for.body
+ 15. 0.316297% 1024000/3.23747e+08	free_huffman_codes() - entry
+ 16. 0.291586% 944000/3.23747e+08	create_huffman_codes() - for.body.if.end5_crit_edge
+ 17. 0.291586% 944000/3.23747e+08	create_huffman_codes() - for.end43
+ 18. 0.291586% 944000/3.23747e+08	create_huffman_codes() - if.end25
+ 19. 0.181623% 588000/3.23747e+08	_heap_sort() - if.else
+ 20. 0.181623% 588000/3.23747e+08	_heap_sort() - while.end
