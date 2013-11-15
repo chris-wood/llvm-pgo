@@ -81,7 +81,9 @@ public:
     {
       GraphPath* subPath = new GraphPath();
       if (i != 0) subPath->fromStart = false;
-      for (unsigned int index = i; i < nodes.size(); index++)
+	cout << "Nodes Edges Weights" << endl;
+	cout << nodes.size() << " " << edges.size() << " " << weights.size() << endl;
+      for (unsigned int index = i; index < nodes.size(); index++)
       {
         subPath->nodes.push_back(nodes.at(index));
         if (index != nodes.size() - 1)
@@ -175,6 +177,7 @@ public:
 
     // wasn't in any of the basic blocks above... so set to false and return
     valueContainsMap[val] = false;
+	valueBlockMap[val] = -1;
     return;
   }
 
@@ -401,6 +404,9 @@ bool PgoPre::runOnFunction(Function &F) {
             newPath->edges.push_back(paths.at(i)->edges.at(j));
             newPath->weights.push_back(paths.at(i)->weights.at(j));
           }
+	cout << "New path edges   = " << newPath->edges.size() << endl;
+	cout << "New path weights = " << newPath->weights.size() << endl;
+	cout << "New path nodes   = " << numNodes << endl;
 
           // Fetch the weight of this new edge
           std::pair<const BasicBlock*, const BasicBlock*> e = PI->getEdge(parent, curr);
@@ -461,7 +467,6 @@ bool PgoPre::runOnFunction(Function &F) {
 
   // Initialize the instructionContainsMap for each instruction for each graph path
   // instructionContainsMap
-  /*
 for (inst_iterator instItr = inst_begin(&F), E = inst_end(&F); instItr != E; ++instItr)
   {
     Instruction& inst = *instItr;
@@ -472,11 +477,9 @@ for (inst_iterator instItr = inst_begin(&F), E = inst_end(&F); instItr != E; ++i
       paths.at(i)->checkForValue(instValue);
     }
   }
-*/
 
-  // Walk the instructions in the function to build up the available, unavailable, anticipable, unanticipable sets
-/*  
-startItr = F.begin();
+  // Walk the instructions in the function to build up the available, unavailable, anticipable, unanticipable sets  
+   startItr = F.begin();
   for (inst_iterator instItr = inst_begin(&F), E = inst_end(&F); instItr != E; ++instItr)
   {
     Instruction& inst = *instItr; // this is the expression (exp) used in all of the sets
@@ -669,8 +672,6 @@ startItr = F.begin();
     }
   }
   ////////////////////////////////////////////////////////////
-
-*/
 
   //// OLD PRE CODE BELOW
 
