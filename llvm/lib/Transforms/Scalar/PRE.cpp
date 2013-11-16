@@ -678,9 +678,9 @@ for (inst_iterator instItr = inst_begin(&F), E = inst_end(&F); instItr != E; ++i
   // // Traverse the current function depth-first in dominator-tree order.  This
   // // ensures that we see all definitions before their uses (except for PHI
   // // nodes), allowing us to hoist dependent expressions correctly.
-//  bool Changed = false;
-//  for (unsigned i = 0, e = BlockMapping.size(); i != e; ++i)
-//    Changed |= ProcessBlock(BlockMapping[i]);
+  bool Changed = false;
+  for (unsigned i = 0, e = BlockMapping.size(); i != e; ++i)
+    Changed |= ProcessBlock(BlockMapping[i]);
 
   // // Free memory
   // BlockMapping.clear();
