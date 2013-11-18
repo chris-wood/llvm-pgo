@@ -1,0 +1,109 @@
+===-------------------------------------------------------------------------===
+LLVM profiling output for executions:
+  1. ./is_prime.profile 65536 
+  2. ./is_prime.profile 131072 
+  3. ./is_prime.profile 262144 
+  4. ./is_prime.profile 524288 
+  5. ./is_prime.profile 1048576 
+  6. ./is_prime.profile 65536 
+  7. ./is_prime.profile 1048576 
+  8. ./block_test.profile 5000 
+  9. ./block_test.profile 7500 
+  10. ./block_test.profile 10000 
+  11. ./block_test.profile 12500 
+  12. ./block_test.profile 15000 
+  13. ./block_test.profile 5000 
+  14. ./block_test.profile 15000 
+  15. ./blocked.profile 900 
+  16. ./blocked.profile 1000 
+  17. ./blocked.profile 1100 
+  18. ./blocked.profile 1200 
+  19. ./blocked.profile 1300 
+  20. ./blocked.profile 1400 
+  21. ./blocked.profile 900 
+  22. ./blocked.profile 1400 
+  23. ./factor.profile 2000000 
+  24. ./factor.profile 3000000 
+  25. ./factor.profile 4000000 
+  26. ./factor.profile 5000000 
+  27. ./factor.profile 6000000 
+  28. ./factor.profile 2000000 
+  29. ./factor.profile 6000000 
+  30. ./bubble.profile 50000 
+  31. ./bubble.profile 100000 
+  32. ./bubble.profile 150000 
+  33. ./bubble.profile 200000 
+  34. ./bubble.profile 250000 
+  35. ./bubble.profile 50000 
+  36. ./bubble.profile 250000 
+  37. ./quicksort.profile 50000 
+  38. ./quicksort.profile 100000 
+  39. ./quicksort.profile 150000 
+  40. ./quicksort.profile 50000 
+  41. ./kmeans.profile 10000 10 
+  42. ./kmeans.profile 100000 10 
+  43. ./kmeans.profile 1000000 10 
+  44. ./kmeans.profile 1000000 20 
+  45. ./kmeans.profile 1000000 50 
+  46. ./kmeans.profile 10000 10 
+  47. ./kmeans.profile 1000000 50 
+  48. ./permutations.profile 8 
+  49. ./permutations.profile 9 
+  50. ./permutations.profile 10 
+  51. ./permutations.profile 11 
+  52. ./permutations.profile 12 
+  53. ./permutations.profile 8 
+  54. ./permutations.profile 12 
+  55. ./mandlebrot_seq.profile 1000 
+  56. ./mandlebrot_seq.profile 1250 
+  57. ./mandlebrot_seq.profile 1500 
+  58. ./mandlebrot_seq.profile 1750 
+  59. ./mandlebrot_seq.profile 2000 
+  60. ./mandlebrot_seq.profile 2250 
+  61. ./mandlebrot_seq.profile 1000 
+  62. ./mandlebrot_seq.profile 2250 
+  63. ./fft.profile 128 
+  64. ./fft.profile 256 
+  65. ./fft.profile 1024 
+  66. ./fft.profile 4096 
+  67. ./fft.profile 8192 
+  68. ./fft.profile 128 
+  69. ./fft.profile 8192 
+  70. ./huffman_priority_queue.profile 100 
+
+===-------------------------------------------------------------------------===
+Function execution frequencies:
+
+ ##   Frequency
+  1. 1.4e+09/1.82387e+09 new_node
+  2. 1.8e+08/1.82387e+09 qinsert
+  3. 1.6e+08/1.82387e+09 build_code
+  4. 1.3e+08/1.82387e+09 init
+  5. 1.1e+07/1.82387e+09 qremove
+
+  NOTE: 3 functions were never executed!
+
+===-------------------------------------------------------------------------===
+Top 20 most frequently executed basic blocks:
+
+ ##      %% 	Frequency
+  1. 9.25673% 5754209861/6.21625e+10	qinsert() - while.end
+  2. 5.91755% 3678493749/6.21625e+10	qremove() - return
+  3. 5.76435% 3583262625/6.21625e+10	qremove() - land.lhs.true
+  4. 5.50169% 3419985332/6.21625e+10	qremove() - while.body
+  5. 5.42329% 3371251267/6.21625e+10	qremove() - while.end
+  6. 4.52047% 2810037668/6.21625e+10	build_code() - if.then
+  7. 4.389% 2728308660/6.21625e+10	init() - if.end9.i83
+  8. 3.96403% 2464136160/6.21625e+10	qremove() - if.end.while.body_crit_edge
+  9. 3.57563% 2222701503/6.21625e+10	init() - while.end.i
+ 10. 2.87545% 1787453276/6.21625e+10	qinsert() - while.body
+ 11. 2.41784% 1502988770/6.21625e+10	init() - while.end21
+ 12. 2.41784% 1502988487/6.21625e+10	init() - if.end.i65
+ 13. 2.3158% 1439558473/6.21625e+10	init() - qinsert.exit45
+ 14. 2.17855% 1354241333/6.21625e+10	new_node() - entry
+ 15. 1.95611% 1215967000/6.21625e+10	qinsert() - while.body.lr.ph
+ 16. 1.89578% 1178463337/6.21625e+10	new_node() - if.end
+ 17. 1.89522% 1178113325/6.21625e+10	new_node() - if.else
+ 18. 1.61194% 1002024313/6.21625e+10	init() - while.body.i57
+ 19. 1.61189% 1001992328/6.21625e+10	init() - if.end.i56
+ 20. 1.61189% 1001992320/6.21625e+10	init() - if.end.i42.while.body.i39_crit_edge

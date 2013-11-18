@@ -1,0 +1,84 @@
+===-------------------------------------------------------------------------===
+LLVM profiling output for executions:
+  1. ./is_prime.profile 65536 
+  2. ./is_prime.profile 131072 
+  3. ./is_prime.profile 262144 
+  4. ./is_prime.profile 524288 
+  5. ./is_prime.profile 1048576 
+  6. ./is_prime.profile 65536 
+  7. ./is_prime.profile 1048576 
+  8. ./block_test.profile 5000 
+  9. ./block_test.profile 7500 
+  10. ./block_test.profile 10000 
+  11. ./block_test.profile 12500 
+  12. ./block_test.profile 15000 
+  13. ./block_test.profile 5000 
+  14. ./block_test.profile 15000 
+  15. ./blocked.profile 900 
+  16. ./blocked.profile 1000 
+  17. ./blocked.profile 1100 
+  18. ./blocked.profile 1200 
+  19. ./blocked.profile 1300 
+  20. ./blocked.profile 1400 
+  21. ./blocked.profile 900 
+  22. ./blocked.profile 1400 
+  23. ./factor.profile 2000000 
+  24. ./factor.profile 3000000 
+  25. ./factor.profile 4000000 
+  26. ./factor.profile 5000000 
+  27. ./factor.profile 6000000 
+  28. ./factor.profile 2000000 
+  29. ./factor.profile 6000000 
+  30. ./bubble.profile 50000 
+  31. ./bubble.profile 100000 
+  32. ./bubble.profile 150000 
+  33. ./bubble.profile 200000 
+  34. ./bubble.profile 250000 
+  35. ./bubble.profile 50000 
+  36. ./bubble.profile 250000 
+  37. ./quicksort.profile 50000 
+  38. ./quicksort.profile 100000 
+  39. ./quicksort.profile 150000 
+  40. ./quicksort.profile 50000 
+  41. ./kmeans.profile 10000 10 
+  42. ./kmeans.profile 100000 10 
+  43. ./kmeans.profile 1000000 10 
+  44. ./kmeans.profile 1000000 20 
+
+===-------------------------------------------------------------------------===
+Function execution frequencies:
+
+ ##   Frequency
+  1. 3.1e+07/5.98596e+07 dist2
+  2. 2.8e+07/5.98596e+07 nearest
+  3. 1.4e+04/5.98596e+07 kpp
+  4. 1.8e+02/5.98596e+07 lloyd
+  5.    12/5.98596e+07 randf
+  6.     4/5.98596e+07 gen_xy
+
+  NOTE: 2 functions were never executed!
+
+===-------------------------------------------------------------------------===
+Top 20 most frequently executed basic blocks:
+
+ ##      %% 	Frequency
+  1. 12.7847% 3674373558/2.87404e+10	nearest() - for.inc5.us
+  2. 12.4677% 3583262465/2.87404e+10	nearest() - if.then9
+  3. 11.8022% 3391985232/2.87404e+10	nearest() - for.end8.if.end10_crit_edge
+  4. 11.7192% 3368155446/2.87404e+10	nearest() - for.body3.us
+  5. 9.70776% 2790050051/2.87404e+10	nearest() - for.body3.lr.ph.us
+  6. 9.66242% 2777018802/2.87404e+10	nearest() - for.body.lr.ph.split.us
+  7. 8.57377% 2464136157/2.87404e+10	nearest() - for.body3.us.for.body3.us_crit_edge
+  8. 6.2192% 1787424084/2.87404e+10	nearest() - for.inc5.us.for.body3.lr.ph.us_crit_edge
+  9. 5.25382% 1509970000/2.87404e+10	kpp() - for.cond3.preheader
+ 10. 3.30711% 950475477/2.87404e+10	nearest() - if.end10
+ 11. 2.61145% 750541773/2.87404e+10	nearest() - for.end8
+ 12. 0.754197% 216759181/2.87404e+10	nearest() - entry.for.end8_crit_edge
+ 13. 0.734019% 210960007/2.87404e+10	kpp() - for.body25.lr.ph.nearest.exit94_crit_edge
+ 14. 0.572469% 164529853/2.87404e+10	kpp() - for.end30
+ 15. 0.468126% 134541158/2.87404e+10	kpp() - for.cond23.preheader
+ 16. 0.374178% 107540179/2.87404e+10	kpp() - for.body11
+ 17. 0.374177% 107540000/2.87404e+10	kpp() - if.end
+ 18. 0.374177% 107540000/2.87404e+10	kpp() - for.inc20.for.cond3.preheader_crit_edge
+ 19. 0.374177% 107540000/2.87404e+10	kpp() - for.inc20.for.cond23.preheader_crit_edge
+ 20. 0.374177% 107539821/2.87404e+10	kpp() - for.body11.lr.ph
