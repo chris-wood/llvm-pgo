@@ -69,6 +69,9 @@ def reference_bc_build_out(info):
 def reference_ll_build_out(info):
     return add_suffix(info, ".opt.ll")
 
+def reference_debug_out(info):
+    return add_suffix(info, ".opt.output")
+
 def pgo_build_out(info):
     return add_suffix(info, ".pgo_opt." + input_args(info))
 
@@ -77,6 +80,9 @@ def pgo_bc_build_out(info):
 
 def pgo_ll_build_out(info):
     return add_suffix(info, ".pgo_opt." + input_args(info) + ".ll")
+
+def pgo_debug_out(info):
+    return add_suffix(info, ".pgo_opt." + input_args(info) + ".output")
 
 def bc_build_out(info):
     return add_suffix(info, ".bc")
@@ -95,12 +101,16 @@ def build_with_profile(info):
                           + compile_args(info))
 
 def build_reference(info):
-    subprocess.check_call([opt, "-inline", bc_build_out(info), "-o", reference_bc_build_out(info)])
+    outfile = open(reference_debug_out(info), 'wb')
+    proc = subprocess.Popen([opt, "-debug-only=inline", "-inline", bc_build_out(info), "-o", reference_bc_build_out(info)], stderr=outfile)
+    proc.wait()
+    outfile.close()
     subprocess.check_call([llvm_dis, reference_bc_build_out(info), "-o", reference_ll_build_out(info)])
     subprocess.check_call([clang, "-O0", reference_bc_build_out(info), "-o", reference_build_out(info)]
                           + compile_args(info))
 pgo_build_linear_default = False
 def build_pgo(info, multiplier=False, offset=False, linear=pgo_build_linear_default):
+    outfile = open(pgo_debug_out(info), 'wb')
     additionalArgs = []
     if(offset):
         additionalArgs.append("-pgi-off=" + str(offset))
@@ -110,10 +120,12 @@ def build_pgo(info, multiplier=False, offset=False, linear=pgo_build_linear_defa
         additionalArgs.append("-pgi-linear=" + "true")
     else:
         additionalArgs.append("-pgi-linear=" + "false")
-    args = [opt] + additionalArgs + ["-profile-loader", "-profile-info-file",
+    args = [opt] + additionalArgs + ["-debug-only=inline", "-profile-loader", "-profile-info-file",
                                      profile_info_filename(info), "-inline", bc_build_out(info),
                                      "-o", pgo_bc_build_out(info)]
-    subprocess.check_call(args)
+    proc = subprocess.Popen(args, stderr=outfile)
+    proc.wait()
+    outfile.close()
     subprocess.check_call([llvm_dis, pgo_bc_build_out(info), "-o", pgo_ll_build_out(info)])
     subprocess.check_call([clang, "-O0", pgo_bc_build_out(info), "-o", pgo_build_out(info)] + compile_args(info))
 
