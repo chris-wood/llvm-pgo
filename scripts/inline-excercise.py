@@ -11,11 +11,11 @@ from datetime import datetime, timedelta
 # the command line argument, the remaining args should be any
 # additional compiler args (if needed)
 programs = [
-    ["factor.c", "2000000"],
-    ["blocked.c", "900"],
-    ["kmeans.c", "1000000 10", "-lm"],
-    ["huffman.c", "50000"],
-    ["aes.c", "500000"]
+    ["factor.c", "200000"],
+    ["blocked.c", "90"],
+    ["kmeans.c", "100000 10", "-lm"],
+    ["huffman.c", "5000"],
+    ["aes.c", "50000"]
 ]
 
 clang = "./clang"
@@ -81,9 +81,13 @@ def pgo_ll_build_out(info):
 def bc_build_out(info):
     return add_suffix(info, ".bc")
 
+def ll_build_out(info):
+    return add_suffix(info, ".ll")
+
 def compile_bc(info):
     subprocess.check_call([clang, "-O0", "-emit-llvm", benchmark_name(info),
                            "-c", "-o", bc_build_out(info)] + compile_args(info))
+    subprocess.check_call([llvm_dis, bc_build_out(info), "-o", ll_build_out(info)])
 
 def build_with_profile(info):
     subprocess.check_call([opt, "-insert-edge-profiling", bc_build_out(info), "-o", profiled_bc_build_out(info)])
