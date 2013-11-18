@@ -20,6 +20,7 @@ programs = [
 
 clang = "./clang"
 opt = "./opt"
+llvm_dis = "./llvm-dis"
 libprofilert = "../lib/libprofile_rt.so"
 
 default_profileout = "llvmprof.out"
@@ -65,11 +66,17 @@ def reference_build_out(info):
 def reference_bc_build_out(info):
     return add_suffix(info, ".opt.bc")
 
+def reference_ll_build_out(info):
+    return add_suffix(info, ".opt.ll")
+
 def pgo_build_out(info):
     return add_suffix(info, ".pgo_opt." + input_args(info))
 
 def pgo_bc_build_out(info):
     return add_suffix(info, ".pgo_opt." + input_args(info) + ".bc")
+
+def pgo_ll_build_out(info):
+    return add_suffix(info, ".pgo_opt." + input_args(info) + ".ll")
 
 def bc_build_out(info):
     return add_suffix(info, ".bc")
@@ -85,6 +92,7 @@ def build_with_profile(info):
 
 def build_reference(info):
     subprocess.check_call([opt, "-inline", bc_build_out(info), "-o", reference_bc_build_out(info)])
+    subprocess.check_call([llvm_dis, reference_bc_build_out(info), "-o", reference_ll_build_out(info)])
     subprocess.check_call([clang, "-O0", reference_bc_build_out(info), "-o", reference_build_out(info)]
                           + compile_args(info))
 pgo_build_linear_default = False
@@ -102,6 +110,7 @@ def build_pgo(info, multiplier=False, offset=False, linear=pgo_build_linear_defa
                                      profile_info_filename(info), "-inline", bc_build_out(info),
                                      "-o", pgo_bc_build_out(info)]
     subprocess.check_call(args)
+    subprocess.check_call([llvm_dis, pgo_bc_build_out(info), "-o", pgo_ll_build_out(info)])
     subprocess.check_call([clang, "-O0", pgo_bc_build_out(info), "-o", pgo_build_out(info)] + compile_args(info))
 
 def generate_profile(info):
@@ -202,12 +211,13 @@ def straight_search():
     return bestAt
 
 def main():
-    global clang, opt, libprofilert, pgo_build_linear_default
+    global clang, opt, libprofilert, pgo_build_linear_default, llvm_dis
     if(len(argv) > 1):
         builddir = argv[1]
         clang = builddir + clang
         opt = builddir + opt
         libprofilert = builddir + libprofilert
+        llvm_dis = builddir + llvm_dis
     # generate profiling information for unoptimized versions of each
     # benchmark
     for info in programs:
@@ -218,20 +228,9 @@ def main():
         build_with_profile(info)
         print("generating profile for " + name)
         generate_profile(info)
-
-    print("Starting straight search of logarithmic heuristic")
-    pgo_build_linear_default = False
-    log_straight_best = straight_search()
-    print("starting hill climb")
-    log_hill_best = hill_climb(log_straight_best)
-    print("---------- end search over log heuristic ----------\n")
-
-    print("Starting straight search of linear heuristic")
-    pgo_build_linear_default = True
-    linear_straight_best = straight_search()
-    print("starting hill climb")
-    linear_hill_best = hill_climb(linear_straight_best)
-    print("---------- end search over linear heuristic ----------\n")
-    print("log best at offset: ", log_hill_best[0], " multiplier: ", log_hill_best[1])
-    print("linear best at offset: ", linear_hill_best[0], " multiplier: ", linear_hill_best[1])
+        print("compiling reference build of ", name)
+        build_reference(info)
+        print("compiling pgo build of ", name)
+        build_pgo(info)
+        
 main()
