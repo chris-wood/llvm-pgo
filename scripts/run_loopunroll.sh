@@ -30,7 +30,7 @@ do
 	./llvm-prof $execName.profile.bc >> $execName.${i// /_}.dump 2>&1
 
 	# Now do the block placement and gather the results...
-	./opt -profile-loader -load ../lib/PgoLoopUnroll.dylib -simple-pgo-loop-unroll $execName.bc >> $execName.${i// /_}.optbuild 2>&1
+	./opt -profile-loader -load ../lib/PgoLoopUnroll.so -simple-pgo-loop-unroll $execName.bc >> $execName.${i// /_}.optbuild 2>&1
 	./llc $execName.bc -o $execName.mod.s >> $execName.${i// /_}.optbuild 2>&1
 	./clang -o $execName.mod $execName.mod.s ../lib/libprofile_rt.so $compilerArgs >> $execName.${i// /_}.optbuild 2>&1
 	./$execName.mod $i > $execName.mod.out >> $execName.${i// /_}.dump 2>&1
@@ -68,7 +68,7 @@ echo ----------------------------------------
 ./llvm-prof $execName.profile.bc >> $execName.first.dump 2>&1
 
 # Now do the block placement and gather the results...
-./opt -profile-loader -load ../lib/PgoLoopUnroll.dylib -simple-pgo-loop-unroll $execName.bc >> $execName.first.optbuild 2>&1
+./opt -profile-loader -load ../lib/PgoLoopUnroll.so -simple-pgo-loop-unroll $execName.bc >> $execName.first.optbuild 2>&1
 ./llc $execName.bc -o $execName.mod.s >> $execName.first.optbuild 2>&1
 ./clang -o $execName.mod $execName.mod.s ../lib/libprofile_rt.so $compilerArgs >> $execName.first.optbuild 2>&1
 ./$execName.mod $first > $execName.mod.out >> $execName.first.dump 2>&1
@@ -106,7 +106,7 @@ echo ----------------------------------------
 ./llvm-prof $execName.profile.bc >> $execName.last.dump 2>&1
 
 # Now do the block placement and gather the results...
-./opt -profile-loader -load ../lib/PgoLoopUnroll.dylib -simple-pgo-loop-unroll $execName.bc >> $execName.last.optbuild 2>&1
+./opt -profile-loader -load ../lib/PgoLoopUnroll.so -simple-pgo-loop-unroll $execName.bc >> $execName.last.optbuild 2>&1
 ./llc $execName.bc -o $execName.mod.s >> $execName.last.optbuild 2>&1
 ./clang -o $execName.mod $execName.mod.s ../lib/libprofile_rt.so $compilerArgs >> $execName.last.optbuild 2>&1
 ./$execName.mod $last > $execName.mod.out >> $execName.last.dump 2>&1
