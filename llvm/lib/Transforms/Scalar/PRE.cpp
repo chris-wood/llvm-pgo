@@ -56,7 +56,7 @@ public:
 
   // Function* function;
   // Instruction* start;
-  map<Instruction, vector<Instruction> > dominatorMap;
+  map<Instruction*, vector<Instruction*> > dominatorMap;
 
   void buildDominatorSet(Function* function)
   {
@@ -73,10 +73,10 @@ public:
     {
       if (instItr != inst_begin(&function))
       {
-        Instruction& inst = *instItr;
+        Instruction* inst = &(*instItr);
         for (inst_iterator allItr = inst_begin(function), E2 = inst_end(function); allItr != E2; ++allItr)
         {
-          dominatorMap[inst].push_back(*allItr)
+          dominatorMap[inst].push_back(&(*allItr));
         }
       }
     }
@@ -89,26 +89,26 @@ public:
     bool changes = false;
     for (inst_iterator instItr = inst_begin(function), E = inst_end(function); instItr != E; ++instItr)
     {
-      if (instItr != inst_begin(&function))
+      if (instItr != inst_begin(function))
       {
-        Instruction& inst = *instItr;
+        Instruction* inst = &(*instItr);
         vector<Instruction> predecessors;
-        BasicBlock* currBB = inst.getParent();
-        BasicBlock* prevBB = (inst.getParent())->getSinglePredecessor();
+        BasicBlock* currBB = inst->getParent();
+        BasicBlock* prevBB = (inst->getParent())->getSinglePredecessor();
 
         // Check this BB and parent BB to find all predecessors
         if (currBB != null)
         {
-          Instruction& prevInst = null;
+          Instruction* prevInst = NULL;
           for (BasicBlock::iterator i = currBB->begin(), e = currBB->end(); i != e; ++i)
           {
             if (prevInst == null)
             {
-              prevInst = *(i);
+              prevInst = &(*(i));
             }
             else
             {
-              if (inst == *(i))
+              if (inst == &(*(i)))
               {
                 predecessors.push_back(prevInst);
                 break; // don't bother going father since we'll pass the instructon
@@ -123,16 +123,16 @@ public:
 
         if (prevBB != null)
         {
-          Instruction& prevInst = null;
+          Instruction* prevInst = NULL;
           for (BasicBlock::iterator i = prevBB->begin(), e = prevBB->end(); i != e; ++i)
           {
             if (prevInst == null)
             {
-              prevInst = *(i);
+              prevInst = &(*(i));
             }
             else
             {
-              if (inst == *(i))
+              if (inst == &(*(i)))
               {
                 predecessors.push_back(prevInst);
                 break; // don't bother going father since we'll pass the instructon
@@ -143,29 +143,29 @@ public:
 
         // Build the the intersection of all dominators of the instructions in predecessor...
         //    Dom(n) = {n} union with intersection over Dom(p) for all p in pred(n)
-        vector<Instruction> temp_intersect;
-        vector<Instruction> intersect;
-        Instruction& candPred = *(predecessors.begin());
-        for (vector<Instruction>::iterator setItr = dominatorMap[candPred].begin(); setItr != dominatorMap[candPred].end(); setItr++)
+        vector<Instruction*> temp_intersect;
+        vector<Instruction*> intersect;
+        Instruction* candPred = *(predecessors.begin());
+        for (vector<Instruction*>::iterator setItr = dominatorMap[candPred].begin(); setItr != dominatorMap[candPred].end(); setItr++)
         {
           temp_intersect.push_back(*setItr);
         }
-        for (vector<Instruction>::iterator predItr = temp_intersect.begin(); predItr != temp_intersect.end(); predItr++)
+        for (vector<Instruction*>::iterator predItr = temp_intersect.begin(); predItr != temp_intersect.end(); predItr++)
         {
           candPred = *predItr;
           bool inAllSets = true;
 
           // Traverse all predecessor dominators and see if this instruction is in each...
-          for (vector<Instruction>::iterator otherPredItr = predecessors.begin(); otherPredItr != predecessors.end(); otherPredItr++)
+          for (vector<Instruction*>::iterator otherPredItr = predecessors.begin(); otherPredItr != predecessors.end(); otherPredItr++)
           {
-            Instruction& otherCandPred = *otherPredItr;
+            Instruction* otherCandPred = *otherPredItr;
             if (otherPredItr != predecessors.begin()) 
             {
               bool inThisSet = false;
               // traverse over the domination set of this predecessor
-              for (vector<Instruction>::iterator setItr = dominatorMap[otherCandPred].begin(); setItr != dominatorMap[otherCandPred].end(); setItr++)
+              for (vector<Instruction*>::iterator setItr = dominatorMap[otherCandPred].begin(); setItr != dominatorMap[otherCandPred].end(); setItr++)
               {
-                Instruction& cand = *setItr;
+                Instruction* cand = *setItr;
                 if (cand == candPred)
                 {
                   inThisSet = true;
@@ -186,10 +186,10 @@ public:
 
   bool dominates(Instruction* I, Instruction* BI) // I dominates BI
   {
-    for (vector<Instruction>::iterator itr = dominatorMap[BI].begin(); itr != dominatorMap[BI].end(); itr++)
+    for (vector<Instruction*>::iterator itr = dominatorMap[BI].begin(); itr != dominatorMap[BI].end(); itr++)
     {
-      Instruction& tmp = *itr;
-      if ((&tmp) == I) // I is in the set of nodes that dominate BI, so I dominates BI
+      Instruction* tmp = *itr;
+      if (tmp == I) // I is in the set of nodes that dominate BI, so I dominates BI
       {
         return true;
       }
