@@ -1,0 +1,8 @@
+Error opening '../lib/PgoLoopUnroll.dylib': ../lib/PgoLoopUnroll.dylib: cannot open shared object file: No such file or directory
+  -load request ignored.
+opt: Unknown command line argument '-simple-pgo-loop-unroll'.  Try: './opt -help'
+opt: Did you mean '-loop-unroll'?
+lucas.c:36:28: warning: implicit declaration of function 'atol' is invalid in C99 [-Wimplicit-function-declaration]
+  unsigned long long upb = atol(argv[1]); // log2l(ULLONG_MAX)/2; 
+                           ^
+1 warning generated.

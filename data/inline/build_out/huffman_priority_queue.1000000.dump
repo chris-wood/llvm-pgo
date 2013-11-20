@@ -1,0 +1,45 @@
+===-------------------------------------------------------------------------===
+LLVM profiling output for executions:
+  1. ./huffman_priority_queue.profile 100 
+  2. ./huffman_priority_queue.profile 1000 
+  3. ./huffman_priority_queue.profile 10000 
+  4. ./huffman_priority_queue.profile 100000 
+  5. ./huffman_priority_queue.profile 1000000 
+
+===-------------------------------------------------------------------------===
+Function execution frequencies:
+
+ ##   Frequency
+  1. 6.6e+08/1.01333e+09 decode
+  2. 3.6e+08/1.01333e+09 encode
+  3. 1.6e+03/1.01333e+09 new_node
+  4. 1.6e+03/1.01333e+09 qinsert
+  5. 8e+02/1.01333e+09 build_code
+  6.    40/1.01333e+09 init
+
+  NOTE: 2 functions were never executed!
+
+===-------------------------------------------------------------------------===
+Top 20 most frequently executed basic blocks:
+
+ ##      %% 	Frequency
+  1. 19.9925% 1831092800/9.15888e+09	decode() - if.end
+  2. 16.1105% 1475540800/9.15888e+09	encode() - while.end
+  3. 12.2285% 1119988800/9.15888e+09	decode() - if.else
+  4. 8.92871% 817769600/9.15888e+09	decode() - while.cond
+  5. 8.92871% 817769600/9.15888e+09	decode() - while.end
+  6. 7.18179% 657771200/9.15888e+09	decode() - entry
+  7. 7.18179% 657771200/9.15888e+09	decode() - while.body
+  8. 3.88205% 355552040/9.15888e+09	init() - while.cond
+  9. 3.88205% 355552000/9.15888e+09	init() - while.end21
+ 10. 3.88205% 355552000/9.15888e+09	encode() - entry
+ 11. 3.88205% 355552000/9.15888e+09	init() - for.inc
+ 12. 3.88205% 355552000/9.15888e+09	decode() - if.then
+ 13. 0.0121318% 1111140/9.15888e+09	main() - if.then9
+ 14. 0.0121314% 1111100/9.15888e+09	main() - lor.lhs.false.if.then9_crit_edge
+ 15. 0.0121314% 1111100/9.15888e+09	main() - if.end.if.then9_crit_edge
+ 16. 5.85225e-05%  5360/9.15888e+09	qremove() - if.end9
+ 17. 5.63388e-05%  5160/9.15888e+09	init() - for.cond
+ 18. 5.63388e-05%  5160/9.15888e+09	build_code() - return
+ 19. 5.5902e-05%  5120/9.15888e+09	init() - while.end
+ 20. 5.5902e-05%  5120/9.15888e+09	init() - for.body

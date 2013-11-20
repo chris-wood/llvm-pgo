@@ -1,0 +1,3 @@
+/tmp/nbody-wISELf.o: In function `bodies_energy':
+nbody.profile.bc:(.text+0x85f): undefined reference to `sqrt'
+clang: error: linker command failed with exit code 1 (use -v to see invocation)

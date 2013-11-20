@@ -1,0 +1,36 @@
+===-------------------------------------------------------------------------===
+LLVM profiling output for execution:
+  ./factor.profile 6000000 
+
+===-------------------------------------------------------------------------===
+Function execution frequencies:
+
+ ##   Frequency
+  1. 6e+06/1.20001e+07 xferFactors
+  2. 6e+06/1.20001e+07 factor
+  3.     1/1.20001e+07 main
+
+===-------------------------------------------------------------------------===
+Top 20 most frequently executed basic blocks:
+
+ ##      %% 	Frequency
+  1. 45.185% 2362760386/5.22909e+09	factor() - for.inc
+  2. 23.0446% 1205022134/5.22909e+09	factor() - for.body
+  3. 22.1404% 1157738252/5.22909e+09	factor() - if.then
+  4. 1.92329% 100570271/5.22909e+09	xferFactors() - for.cond
+  5. 1.80854% 94570212/5.22909e+09	xferFactors() - for.body
+  6. 1.80854% 94570212/5.22909e+09	xferFactors() - for.inc
+  7. 0.904249% 47283943/5.22909e+09	factor() - if.end5
+  8. 0.904248% 47283882/5.22909e+09	factor() - if.end
+  9. 0.904246% 47283821/5.22909e+09	factor() - if.end.if.end5_crit_edge
+ 10. 0.11479% 6002446/5.22909e+09	factor() - for.cond
+ 11. 0.114744% 6000059/5.22909e+09	xferFactors() - if.end
+ 12. 0.114744% 6000059/5.22909e+09	xferFactors() - for.end
+ 13. 0.114744% 6000059/5.22909e+09	xferFactors() - entry
+ 14. 0.114743% 5999999/5.22909e+09	factor() - if.end18
+ 15. 0.114743% 5999998/5.22909e+09	factor() - for.end
+ 16. 0.114743% 5999998/5.22909e+09	factor() - if.then16
+ 17. 0.114743% 5999998/5.22909e+09	factor() - if.end14
+ 18. 0.114743% 5999998/5.22909e+09	factor() - entry
+ 19. 0.114743% 5999998/5.22909e+09	xferFactors() - if.else
+ 20. 0.114743% 5999998/5.22909e+09	main() - for.body

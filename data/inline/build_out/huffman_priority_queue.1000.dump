@@ -1,0 +1,42 @@
+===-------------------------------------------------------------------------===
+LLVM profiling output for executions:
+  1. ./huffman_priority_queue.profile 100 
+  2. ./huffman_priority_queue.profile 1000 
+
+===-------------------------------------------------------------------------===
+Function execution frequencies:
+
+ ##   Frequency
+  1. 6.5e+05/1.00478e+06 decode
+  2. 3.5e+05/1.00478e+06 encode
+  3. 6.2e+02/1.00478e+06 new_node
+  4. 6.2e+02/1.00478e+06 qinsert
+  5. 3.2e+02/1.00478e+06 build_code
+  6.    16/1.00478e+06 init
+
+  NOTE: 2 functions were never executed!
+
+===-------------------------------------------------------------------------===
+Top 20 most frequently executed basic blocks:
+
+ ##      %% 	Frequency
+  1. 19.9221% 1812800/9.09946e+06	decode() - if.end
+  2. 16.0537% 1460800/9.09946e+06	encode() - while.end
+  3. 12.1853% 1108800/9.09946e+06	decode() - if.else
+  4. 8.89723% 809600/9.09946e+06	decode() - while.cond
+  5. 8.89723% 809600/9.09946e+06	decode() - while.end
+  6. 7.15647% 651200/9.09946e+06	decode() - entry
+  7. 7.15647% 651200/9.09946e+06	decode() - while.body
+  8. 3.86854% 352016/9.09946e+06	init() - while.cond
+  9. 3.86836% 352000/9.09946e+06	init() - while.end21
+ 10. 3.86836% 352000/9.09946e+06	encode() - entry
+ 11. 3.86836% 352000/9.09946e+06	init() - for.inc
+ 12. 3.86836% 352000/9.09946e+06	decode() - if.then
+ 13. 0.0235618%  2144/9.09946e+06	qremove() - if.end9
+ 14. 0.0226827%  2064/9.09946e+06	init() - for.cond
+ 15. 0.0226827%  2064/9.09946e+06	build_code() - return
+ 16. 0.0225068%  2048/9.09946e+06	init() - while.end
+ 17. 0.0225068%  2048/9.09946e+06	init() - for.body
+ 18. 0.0225068%  2048/9.09946e+06	init() - for.body6.if.end_crit_edge
+ 19. 0.0225068%  2048/9.09946e+06	init() - if.then
+ 20. 0.0193418%  1760/9.09946e+06	qremove() - while.cond

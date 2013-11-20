@@ -1,0 +1,68 @@
+WARNING: profile information is inconsistent with the current program!
+===-------------------------------------------------------------------------===
+LLVM profiling output for executions:
+  1. ./is_prime.profile 65536 
+  2. ./is_prime.profile 131072 
+  3. ./is_prime.profile 262144 
+  4. ./is_prime.profile 524288 
+  5. ./is_prime.profile 1048576 
+  6. ./is_prime.profile 65536 
+  7. ./is_prime.profile 1048576 
+  8. ./block_test.profile 5000 
+  9. ./block_test.profile 7500 
+  10. ./block_test.profile 10000 
+  11. ./block_test.profile 12500 
+  12. ./block_test.profile 15000 
+  13. ./block_test.profile 5000 
+  14. ./block_test.profile 15000 
+  15. ./blocked.profile 900 
+  16. ./blocked.profile 1000 
+  17. ./blocked.profile 1100 
+  18. ./blocked.profile 1200 
+  19. ./blocked.profile 1300 
+  20. ./blocked.profile 1400 
+  21. ./blocked.profile 900 
+  22. ./blocked.profile 1400 
+  23. ./factor.profile 2000000 
+  24. ./factor.profile 3000000 
+  25. ./factor.profile 4000000 
+  26. ./factor.profile 5000000 
+  27. ./factor.profile 6000000 
+  28. ./factor.profile 2000000 
+  29. ./factor.profile 6000000 
+  30. ./bubble.profile 50000 
+  31. ./bubble.profile 100000 
+  32. ./bubble.profile 150000 
+  33. ./bubble.profile 200000 
+
+===-------------------------------------------------------------------------===
+Function execution frequencies:
+
+ ##   Frequency
+  1. 1.1e+07/1.09407e+07 main
+  2.     8/1.09407e+07 bubbleSort
+
+===-------------------------------------------------------------------------===
+Top 20 most frequently executed basic blocks:
+
+ ##      %% 	Frequency
+  1. 19.2459% 3446337116/1.79069e+10	main() - for.body
+  2. 17.8458% 3195629601/1.79069e+10	main() - bubbleSort.exit
+  3. 15.51% 2777353865/1.79069e+10	bubbleSort() - for.end16
+  4. 15.5082% 2777027995/1.79069e+10	bubbleSort() - for.cond1.outer
+  5. 9.94117% 1780154425/1.79069e+10	main() - for.end.for.cond1.preheader.i_crit_edge
+  6. 8.73408% 1564001196/1.79069e+10	main() - for.body.for.body_crit_edge
+  7. 5.14845% 921927683/1.79069e+10	main() - for.end.bubbleSort.exit_crit_edge
+  8. 4.11108% 736165887/1.79069e+10	bubbleSort() - for.end.for.end16_crit_edge
+  9. 1.21137% 216918271/1.79069e+10	bubbleSort() - for.cond1.preheader
+ 10. 1.20852% 216409185/1.79069e+10	bubbleSort() - for.end.for.cond1.preheader_crit_edge
+ 11. 0.312651% 55986113/1.79069e+10	main() - for.cond1.outer.i
+ 12. 0.173931% 31145701/1.79069e+10	bubbleSort() - for.body3.for.cond1_crit_edge
+ 13. 0.156441% 28013672/1.79069e+10	main() - for.cond1.preheader.i
+ 14. 0.156364% 28000008/1.79069e+10	bubbleSort() - for.cond1
+ 15. 0.156364% 27999986/1.79069e+10	main() - for.body3.i
+ 16. 0.156364% 27999986/1.79069e+10	main() - for.end.i.for.cond1.preheader.i_crit_edge
+ 17. 0.156363% 27999813/1.79069e+10	main() - for.body3.i.for.cond1.i_crit_edge
+ 18. 0.0783268% 14025887/1.79069e+10	main() - entry.bubbleSort.exit_crit_edge
+ 19. 0.0639329% 11448399/1.79069e+10	main() - entry.for.body_crit_edge
+ 20. 0.0610979% 10940740/1.79069e+10	main() - entry

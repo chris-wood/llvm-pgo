@@ -1,0 +1,44 @@
+Multiying...
+Result...
+===-------------------------------------------------------------------------===
+LLVM profiling output for executions:
+  1. ./blocked.profile 900 
+  2. ./blocked.profile 1000 
+  3. ./blocked.profile 1100 
+  4. ./blocked.profile 1200 
+
+===-------------------------------------------------------------------------===
+Function execution frequencies:
+
+ ##   Frequency
+  1.     4/8 main
+  2.     4/8 mmult
+
+  NOTE: 1 function was never executed!
+
+===-------------------------------------------------------------------------===
+Top 20 most frequently executed basic blocks:
+
+ ##      %% 	Frequency
+  1. 32.5476% 493036904/1.51482e+09	mmult() - for.cond4
+  2. 32.5473% 493032704/1.51482e+09	mmult() - for.body3
+  3. 32.5473% 493032704/1.51482e+09	mmult() - for.body6
+  4. 0.294425% 4460004/1.51482e+09	main() - for.cond14
+  5. 0.294424% 4460000/1.51482e+09	mmult() - for.inc
+  6. 0.294424% 4460000/1.51482e+09	mmult() - for.end
+  7. 0.294424% 4460000/1.51482e+09	mmult() - for.cond1
+  8. 0.294424% 4460000/1.51482e+09	main() - for.body
+  9. 0.294424% 4460000/1.51482e+09	mmult() - for.body
+ 10. 0.294424% 4460000/1.51482e+09	main() - for.body16
+ 11. 0.294424% 4460000/1.51482e+09	mmult() - for.end20
+ 12. 0.000554521%  8400/1.51482e+09	main() - for.cond
+ 13. 0.000277261%  4200/1.51482e+09	mmult() - for.end23
+ 14. 0.000277261%  4200/1.51482e+09	mmult() - for.cond
+ 15. 0.000277261%  4200/1.51482e+09	main() - for.end28
+ 16. 0.000277261%  4200/1.51482e+09	mmult() - for.inc18
+ 17. 0.000277261%  4200/1.51482e+09	main() - for.end
+ 18. 0.000277261%  4200/1.51482e+09	main() - for.inc
+ 19. 0.000277261%  4200/1.51482e+09	main() - if.end
+ 20. 5.28116e-07%     8/1.51482e+09	main() - if.then
+Multiying...
+Result...

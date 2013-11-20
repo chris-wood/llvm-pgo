@@ -8,6 +8,21 @@ def main():
     dataBucket = {} # map to list of lists
     fname = sys.argv[1]
     prefix_fnames = open(fname, 'r')
+
+    all_csvf = open("data.csv", 'w')
+    all_csvf.write("prefix,size,optimized,unoptimized\n")
+    first_csvf = open("first.data.csv", 'w')
+    first_csvf.write("prefix,size,optimized,unoptimized\n")
+    last_csvf = open("last.data.csv", 'w')
+    last_csvf.write("prefix,size,optimized,unoptimized\n")
+
+    all_pdf = open("data.pdf.csv", 'w')
+    all_pdf.write("prefix,average diff\n")
+    first_pdf = open("first.data.pdf.csv", 'w')
+    first_pdf.write("prefix, average diff\n")
+    last_pdf = open("last.data.pdf.csv", 'w')
+    last_pdf.write("prefix, average diff\n")
+
     for prefix in prefix_fnames:
         prefix = prefix.strip()
         if len(prefix) > 0:
@@ -22,6 +37,7 @@ def main():
 
             dataBucket[prefix].append([]) # last modified
             dataBucket[prefix].append([]) # last unmodified
+
             print >> sys.stderr, "Parsing prefix: " + str(prefix)
 
             for dirpath, dnames, fnames in os.walk("."):
@@ -52,8 +68,10 @@ def main():
                         else:
                             dataBucket[prefix][1].append((size, time))
 
+            ##### NOTE: unoptAverages is unoptimized and optAverages is optimized
+
             # Generate CSV output for first comparison
-            csv = "size,optimized,unoptimized\n"
+            csv = ""
             total1 = {}
             count1 = {}
             for i in range(len(dataBucket[prefix][0])):
@@ -63,9 +81,9 @@ def main():
                     count1[size] = 0
                 total1[size] = total1[size] + dataBucket[prefix][0][i][1]
                 count1[size] = count1[size] + 1
-            avg1 = {}
+            optAverages = {}
             for i in total1:
-                avg1[i] = total1[i] / count1[i]
+                optAverages[i] = total1[i] / count1[i]
 
             total2 = {}
             count2 = {}
@@ -76,24 +94,28 @@ def main():
                     count2[size] = 0
                 total2[size] = total2[size] + dataBucket[prefix][1][i][1]
                 count2[size] = count2[size] + 1
-            avg2 = {}
+            unoptAverages = {}
             for i in total2:
-                avg2[i] = total2[i] / count2[i]
+                unoptAverages[i] = total2[i] / count2[i]
 
-            for i in avg1:
-                for j in avg2:
-                    if i == j:
-                        csv = csv + str(i) + "," + str(avg1[i]) + "," + str(avg2[i]) + "\n"
+            totalSpeedup = 0
+            totalSpeedupCount = 0
+            for i in optAverages:
+                for j in unoptAverages:
+                    if i == j and optAverages[i] > 0:
+                        totalSpeedup = totalSpeedup + (((unoptAverages[i]) / optAverages[i]))
+                        totalSpeedupCount = totalSpeedupCount + 1
+                        csv = csv + prefix + "," + str(i) + "," + str(optAverages[i]) + "," + str(unoptAverages[i]) + "\n"
             
             # Write the data to a CSV file
-            csvf = open(prefix + ".data.csv", 'w')
-            csvf.write(csv + "\n")
-            csvf.close()
+            all_csvf.write(csv + "\n")
+            all_pdf.write(prefix + "," + str(float(totalSpeedup) / float(totalSpeedupCount)) + "\n")
+            # all_csvf.close()
 
             ###### FIRST
 
             # Generate CSV output for first comparison
-            csv = "size,optimized,unoptimized\n"
+            csv = ""
             total1 = {}
             count1 = {}
             for i in range(len(dataBucket[prefix][2])):
@@ -103,9 +125,9 @@ def main():
                     count1[size] = 0
                 total1[size] = total1[size] + dataBucket[prefix][2][i][1]
                 count1[size] = count1[size] + 1
-            avg1 = {}
+            optAverages = {}
             for i in total1:
-                avg1[i] = total1[i] / count1[i]
+                optAverages[i] = total1[i] / count1[i]
 
             total2 = {}
             count2 = {}
@@ -116,24 +138,29 @@ def main():
                     count2[size] = 0
                 total2[size] = total2[size] + dataBucket[prefix][3][i][1]
                 count2[size] = count2[size] + 1
-            avg2 = {}
+            unoptAverages = {}
             for i in total2:
-                avg2[i] = total2[i] / count2[i]
+                unoptAverages[i] = total2[i] / count2[i]
 
-            for i in avg1:
-                for j in avg2:
-                    if i == j:
-                        csv = csv + str(i) + "," + str(avg1[i]) + "," + str(avg2[i]) + "\n"
+            totalSpeedup = 0
+            totalSpeedupCount = 0
+            for i in optAverages:
+                for j in unoptAverages:
+                    if i == j and optAverages[i] > 0:
+                        totalSpeedup = totalSpeedup + (((unoptAverages[i]) / optAverages[i]))
+                        totalSpeedupCount = totalSpeedupCount + 1
+                        csv = csv + prefix + "," + str(i) + "," + str(optAverages[i]) + "," + str(unoptAverages[i]) + "\n"
             
             # Write the data to a CSV file
-            csvf = open(prefix + ".first.data.csv", 'w')
-            csvf.write(csv + "\n")
-            csvf.close()
+            # csvf = open("first.data.csv", 'a')
+            first_csvf.write(csv + "\n")
+            first_pdf.write(prefix + "," + str(float(totalSpeedup) / float(totalSpeedupCount)) + "\n")
+            # csvf.close()
 
             ###### LAST
 
             # Generate CSV output for first comparison
-            csv = "size,optimized,unoptimized\n"
+            csv = ""
             total1 = {}
             count1 = {}
             for i in range(len(dataBucket[prefix][4])):
@@ -143,9 +170,9 @@ def main():
                     count1[size] = 0
                 total1[size] = total1[size] + dataBucket[prefix][4][i][1]
                 count1[size] = count1[size] + 1
-            avg1 = {}
+            optAverages = {}
             for i in total1:
-                avg1[i] = total1[i] / count1[i]
+                optAverages[i] = total1[i] / count1[i]
 
             total2 = {}
             count2 = {}
@@ -156,19 +183,24 @@ def main():
                     count2[size] = 0
                 total2[size] = total2[size] + dataBucket[prefix][5][i][1]
                 count2[size] = count2[size] + 1
-            avg2 = {}
+            unoptAverages = {}
             for i in total2:
-                avg2[i] = total2[i] / count2[i]
+                unoptAverages[i] = total2[i] / count2[i]
 
-            for i in avg1:
-                for j in avg2:
-                    if i == j:
-                        csv = csv + str(i) + "," + str(avg1[i]) + "," + str(avg2[i]) + "\n"
+            totalSpeedup = 0
+            totalSpeedupCount = 0
+            for i in optAverages:
+                for j in unoptAverages:
+                    if i == j and optAverages[i] > 0:
+                        totalSpeedup = totalSpeedup + (((unoptAverages[i]) / optAverages[i]))
+                        totalSpeedupCount = totalSpeedupCount + 1
+                        csv = csv + prefix + "," + str(i) + "," + str(optAverages[i]) + "," + str(unoptAverages[i]) + "\n"
             
             # Write the data to a CSV file
-            csvf = open(prefix + ".last.data.csv", 'w')
-            csvf.write(csv + "\n")
-            csvf.close()
+            # csvf = open("last.data.csv", 'a')
+            last_csvf.write(csv + "\n")
+            last_pdf.write(prefix + "," + str(float(totalSpeedup) / float(totalSpeedupCount)) + "\n")
+            # csvf.close()
 
 if __name__ == "__main__":
     main()

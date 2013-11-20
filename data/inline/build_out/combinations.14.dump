@@ -1,0 +1,30 @@
+===-------------------------------------------------------------------------===
+LLVM profiling output for executions:
+  1. ./combinations.profile 13 
+  2. ./combinations.profile 14 
+
+===-------------------------------------------------------------------------===
+Function execution frequencies:
+
+ ##   Frequency
+  1. 2e+08/1.95234e+08 comb
+
+  NOTE: 1 function was never executed!
+
+===-------------------------------------------------------------------------===
+Top 20 most frequently executed basic blocks:
+
+ ##      %% 	Frequency
+  1. 29.4173% 2090520600/7.10643e+09	comb() - if.end6
+  2. 19.6115% 1393680400/7.10643e+09	comb() - for.body
+  3. 19.6115% 1393680400/7.10643e+09	comb() - for.inc
+  4. 9.80577% 696840200/7.10643e+09	comb() - for.body.if.end6_crit_edge
+  5. 9.80577% 696840200/7.10643e+09	comb() - if.then4
+  6. 2.74729% 195234118/7.10643e+09	comb() - entry
+  7. 2.08451% 148134258/7.10643e+09	comb() - if.end
+  8. 2.03642% 144716920/7.10643e+09	comb() - return
+  9. 1.42173% 101034400/7.10643e+09	comb() - for.cond
+ 10. 1.37364% 97617058/7.10643e+09	comb() - if.end7
+ 11. 0.710866% 50517200/7.10643e+09	comb() - if.then1
+ 12. 0.710866% 50517200/7.10643e+09	comb() - for.end
+ 13. 0.662778% 47099860/7.10643e+09	comb() - if.then

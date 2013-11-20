@@ -1,0 +1,4 @@
+is_prime.c:23:21: warning: implicit declaration of function 'atoi' is invalid in C99 [-Wimplicit-function-declaration]
+        unsigned int cap = atoi(argv[1]);
+                           ^
+1 warning generated.

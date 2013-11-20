@@ -12,7 +12,7 @@
 #include <malloc.h>
 #include <emmintrin.h>
 
-inline double A(int i, int j) {
+double A(int i, int j) {
    return ((i+j) * (i+j+1) / 2 + i + 1);
 }
 

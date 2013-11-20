@@ -1,0 +1,42 @@
+===-------------------------------------------------------------------------===
+LLVM profiling output for executions:
+  1. ./aes.profile 250000 
+  2. ./aes.profile 500000 
+
+===-------------------------------------------------------------------------===
+Function execution frequencies:
+
+ ##   Frequency
+  1. 2.1e+08/3.4725e+08 getSBoxValue
+  2. 4.5e+07/3.4725e+08 AddRoundKey
+  3. 4.2e+07/3.4725e+08 SubBytes
+  4. 3.9e+07/3.4725e+08 MixColumns
+  5. 9.8e+06/3.4725e+08 ShiftRows
+  6. 3e+06/3.4725e+08 Cipher
+  7. 7.5e+05/3.4725e+08 KeyExpansion
+  8. 7.5e+05/3.4725e+08 main
+
+===-------------------------------------------------------------------------===
+Top 20 most frequently executed basic blocks:
+
+ ##      %% 	Frequency
+  1. 6.86738% 207000000/3.01425e+09	getSBoxValue() - entry
+  2. 6.46927% 195000000/3.01425e+09	KeyExpansion() - for.cond23
+  3. 5.97163% 180000000/3.01425e+09	AddRoundKey() - for.end
+  4. 5.97163% 180000000/3.01425e+09	AddRoundKey() - for.body3
+  5. 5.97163% 180000000/3.01425e+09	AddRoundKey() - for.end13
+  6. 5.57353% 168000000/3.01425e+09	SubBytes() - for.body3
+  7. 5.57353% 168000000/3.01425e+09	SubBytes() - for.end
+  8. 5.57353% 168000000/3.01425e+09	SubBytes() - for.end10
+  9. 5.17542% 156000000/3.01425e+09	KeyExpansion() - for.body25
+ 10. 5.17542% 156000000/3.01425e+09	KeyExpansion() - for.inc30
+ 11. 2.98582% 90000000/3.01425e+09	AddRoundKey() - for.cond1
+ 12. 2.78676% 84000000/3.01425e+09	SubBytes() - for.cond1
+ 13. 2.56283% 77250000/3.01425e+09	KeyExpansion() - if.end
+ 14. 1.49291% 45000000/3.01425e+09	AddRoundKey() - for.body
+ 15. 1.49291% 45000000/3.01425e+09	AddRoundKey() - entry
+ 16. 1.49291% 45000000/3.01425e+09	AddRoundKey() - for.inc
+ 17. 1.39338% 42000000/3.01425e+09	SubBytes() - for.inc
+ 18. 1.39338% 42000000/3.01425e+09	SubBytes() - entry
+ 19. 1.39338% 42000000/3.01425e+09	SubBytes() - for.body
+ 20. 1.29385% 39000000/3.01425e+09	MixColumns() - for.body

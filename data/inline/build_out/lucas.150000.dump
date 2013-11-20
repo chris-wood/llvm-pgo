@@ -1,0 +1,41 @@
+Number of Mersenne primes up to 150000 = 1957
+===-------------------------------------------------------------------------===
+LLVM profiling output for executions:
+  1. ./lucas.profile 75000 
+  2. ./lucas.profile 100000 
+  3. ./lucas.profile 125000 
+  4. ./lucas.profile 150000 
+
+===-------------------------------------------------------------------------===
+Function execution frequencies:
+
+ ##   Frequency
+  1. 4.5e+05/450004 is_prime
+  2.     4/450004 is_mersenne_prime
+  3.     4/450004 main
+
+===-------------------------------------------------------------------------===
+Top 20 most frequently executed basic blocks:
+
+ ##      %% 	Frequency
+  1. 33.1945% 2397799241/7.22349e+09	is_mersenne_prime() - for.cond
+  2. 33.1945% 2397799237/7.22349e+09	is_mersenne_prime() - for.body
+  3. 33.1945% 2397799237/7.22349e+09	is_mersenne_prime() - if.else
+  4. 0.0898077% 6487254/7.22349e+09	is_prime() - return
+  5. 0.0866929% 6262254/7.22349e+09	is_prime() - if.end
+  6. 0.0866929% 6262254/7.22349e+09	is_prime() - if.then9
+  7. 0.0866929% 6262254/7.22349e+09	is_prime() - for.body
+  8. 0.00681885% 492559/7.22349e+09	is_mersenne_prime() - return
+  9. 0.00622962% 449996/7.22349e+09	is_prime() - entry
+ 10. 0.00622962% 449996/7.22349e+09	main() - if.then
+ 11. 0.00622956% 449992/7.22349e+09	is_prime() - if.then3
+ 12. 0.00622956% 449992/7.22349e+09	is_prime() - lor.lhs.false
+ 13. 0.00622956% 449992/7.22349e+09	is_prime() - if.else
+ 14. 0.0057238% 413458/7.22349e+09	main() - for.cond
+ 15. 0.00564033% 407429/7.22349e+09	is_prime() - for.end
+ 16. 0.00564033% 407429/7.22349e+09	main() - for.body
+ 17. 0.00311478% 224996/7.22349e+09	is_prime() - if.else4
+ 18. 0.00311478% 224996/7.22349e+09	is_prime() - lor.lhs.false.if.then3_crit_edge
+ 19. 0.00252555% 182433/7.22349e+09	is_prime() - for.cond.for.end_crit_edge
+ 20. 0.000589285% 42567/7.22349e+09	is_prime() - for.cond
+Number of Mersenne primes up to 150000 = 1957

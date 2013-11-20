@@ -1,0 +1,72 @@
+profile-loader: Error opening 'llvmprof.out': No such file or directory
+/tmp/conjugate_transpose-oJTstC.o: In function `transpose':
+conjugate_transpose.bc:(.text+0xb3): undefined reference to `conj'
+clang: error: linker command failed with exit code 1 (use -v to see invocation)
+clang: warning: argument unused during compilation: '-inline'
+conjugate_transpose.c:13:3: warning: plain '_Complex' requires a type specifier; assuming '_Complex double'
+  complex **z;
+  ^
+          double
+/usr/include/complex.h:39:18: note: expanded from macro 'complex'
+#define complex         _Complex
+                        ^
+conjugate_transpose.c:25:34: warning: plain '_Complex' requires a type specifier; assuming '_Complex double'
+  b.z = malloc (b.rows * sizeof (complex *));
+                                 ^
+                                         double
+/usr/include/complex.h:39:18: note: expanded from macro 'complex'
+#define complex         _Complex
+                        ^
+conjugate_transpose.c:29:41: warning: plain '_Complex' requires a type specifier; assuming '_Complex double'
+      b.z[i] = malloc (b.cols * sizeof (complex));
+                                        ^
+                                                double
+/usr/include/complex.h:39:18: note: expanded from macro 'complex'
+#define complex         _Complex
+                        ^
+conjugate_transpose.c:74:39: warning: plain '_Complex' requires a type specifier; assuming '_Complex double'
+      c.z = malloc (c.rows * (sizeof (complex *)));
+                                      ^
+                                              double
+/usr/include/complex.h:39:18: note: expanded from macro 'complex'
+#define complex         _Complex
+                        ^
+conjugate_transpose.c:78:45: warning: plain '_Complex' requires a type specifier; assuming '_Complex double'
+          c.z[i] = malloc (c.cols * sizeof (complex));
+                                            ^
+                                                    double
+/usr/include/complex.h:39:18: note: expanded from macro 'complex'
+#define complex         _Complex
+                        ^
+conjugate_transpose.c:140:3: warning: plain '_Complex' requires a type specifier; assuming '_Complex double'
+  complex z = 3 + 4 * I;
+  ^
+          double
+/usr/include/complex.h:39:18: note: expanded from macro 'complex'
+#define complex         _Complex
+                        ^
+conjugate_transpose.c:146:34: warning: plain '_Complex' requires a type specifier; assuming '_Complex double'
+  a.z = malloc (a.rows * sizeof (complex *));
+                                 ^
+                                         double
+/usr/include/complex.h:39:18: note: expanded from macro 'complex'
+#define complex         _Complex
+                        ^
+conjugate_transpose.c:151:41: warning: plain '_Complex' requires a type specifier; assuming '_Complex double'
+      a.z[i] = malloc (a.cols * sizeof (complex));
+                                        ^
+                                                double
+/usr/include/complex.h:39:18: note: expanded from macro 'complex'
+#define complex         _Complex
+                        ^
+conjugate_transpose.c:165:43: warning: plain '_Complex' requires a type specifier; assuming '_Complex double'
+      aT.z[i] = malloc (aT.cols * sizeof (complex));
+                                          ^
+                                                  double
+/usr/include/complex.h:39:18: note: expanded from macro 'complex'
+#define complex         _Complex
+                        ^
+9 warnings generated.
+/tmp/conjugate_transpose-Zo1eSx.o: In function `transpose':
+conjugate_transpose.c:(.text+0xc3): undefined reference to `conj'
+clang: error: linker command failed with exit code 1 (use -v to see invocation)

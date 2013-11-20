@@ -1,0 +1,46 @@
+===-------------------------------------------------------------------------===
+LLVM profiling output for executions:
+  1. ./huffman_priority_queue.profile 100 
+  2. ./huffman_priority_queue.profile 1000 
+  3. ./huffman_priority_queue.profile 10000 
+  4. ./huffman_priority_queue.profile 100000 
+  5. ./huffman_priority_queue.profile 1000000 
+  6. ./huffman_priority_queue.profile 100 
+
+===-------------------------------------------------------------------------===
+Function execution frequencies:
+
+ ##   Frequency
+  1. 6.6e+08/1.01342e+09 decode
+  2. 3.6e+08/1.01342e+09 encode
+  3. 1.9e+03/1.01342e+09 new_node
+  4. 1.9e+03/1.01342e+09 qinsert
+  5. 9.6e+02/1.01342e+09 build_code
+  6.    48/1.01342e+09 init
+
+  NOTE: 2 functions were never executed!
+
+===-------------------------------------------------------------------------===
+Top 20 most frequently executed basic blocks:
+
+ ##      %% 	Frequency
+  1. 19.9925% 1831257600/9.15972e+09	decode() - if.end
+  2. 16.1105% 1475673600/9.15972e+09	encode() - while.end
+  3. 12.2284% 1120089600/9.15972e+09	decode() - if.else
+  4. 8.92869% 817843200/9.15972e+09	decode() - while.cond
+  5. 8.92869% 817843200/9.15972e+09	decode() - while.end
+  6. 7.18178% 657830400/9.15972e+09	decode() - entry
+  7. 7.18178% 657830400/9.15972e+09	decode() - while.body
+  8. 3.88204% 355584048/9.15972e+09	init() - while.cond
+  9. 3.88204% 355584000/9.15972e+09	init() - while.end21
+ 10. 3.88204% 355584000/9.15972e+09	encode() - entry
+ 11. 3.88204% 355584000/9.15972e+09	init() - for.inc
+ 12. 3.88204% 355584000/9.15972e+09	decode() - if.then
+ 13. 0.0121319% 1111248/9.15972e+09	main() - if.then9
+ 14. 0.0121314% 1111200/9.15972e+09	main() - lor.lhs.false.if.then9_crit_edge
+ 15. 0.0121314% 1111200/9.15972e+09	main() - if.end.if.then9_crit_edge
+ 16. 7.02205e-05%  6432/9.15972e+09	qremove() - if.end9
+ 17. 6.76003e-05%  6192/9.15972e+09	init() - for.cond
+ 18. 6.76003e-05%  6192/9.15972e+09	build_code() - return
+ 19. 6.70763e-05%  6144/9.15972e+09	init() - while.end
+ 20. 6.70763e-05%  6144/9.15972e+09	init() - for.body

@@ -1,0 +1,169 @@
+compiling factor.c to bitcode
+adding profiling information to factor.c
+generating profile for factor.c
+compiling blocked.c to bitcode
+adding profiling information to blocked.c
+generating profile for blocked.c
+compiling kmeans.c to bitcode
+adding profiling information to kmeans.c
+generating profile for kmeans.c
+compiling huffman.c to bitcode
+adding profiling information to huffman.c
+generating profile for huffman.c
+compiling aes.c to bitcode
+adding profiling information to aes.c
+generating profile for aes.c
+Starting straight search of logarithmic heuristic
+measuring offset = 0 multiplier = 0
+('result: ', 125.52000000000001)
+measuring offset = -500 multiplier = 1000
+('result: ', 125.45)
+measuring offset = -1000 multiplier = 2000
+('result: ', 124.64000000000003)
+measuring offset = -1500 multiplier = 3000
+('result: ', 124.26000000000002)
+measuring offset = -2000 multiplier = 4000
+('result: ', 125.22)
+measuring offset = -2500 multiplier = 5000
+('result: ', 124.35)
+measuring offset = -3000 multiplier = 6000
+('result: ', 124.49999999999999)
+measuring offset = -3500 multiplier = 7000
+('result: ', 124.74999999999999)
+measuring offset = -4000 multiplier = 8000
+('result: ', 124.87000000000003)
+measuring offset = -4500 multiplier = 9000
+('result: ', 124.37)
+measuring offset = -5000 multiplier = 10000
+('result: ', 125.02000000000001)
+measuring offset = -5500 multiplier = 11000
+('result: ', 125.0)
+measuring offset = -6000 multiplier = 12000
+('result: ', 124.15000000000002)
+measuring offset = -6500 multiplier = 13000
+('result: ', 124.19000000000004)
+measuring offset = -7000 multiplier = 14000
+('result: ', 124.26000000000003)
+measuring offset = -7500 multiplier = 15000
+('result: ', 124.62)
+measuring offset = -8000 multiplier = 16000
+('result: ', 124.54000000000002)
+measuring offset = -8500 multiplier = 17000
+('result: ', 125.33000000000003)
+measuring offset = -9000 multiplier = 18000
+('result: ', 123.74000000000004)
+measuring offset = -9500 multiplier = 19000
+('result: ', 124.32000000000004)
+measuring offset = -10000 multiplier = 20000
+('result: ', 123.96)
+('best: ', 123.74000000000004, ' at offset: ', -9000, ' multiplier: ', 18000)
+starting hill climb
+measuring offset = -9000 multiplier = 18000
+('result: ', 124.08)
+measuring offset = -9400 multiplier = 18000
+('result: ', 125.22000000000004)
+measuring offset = -9200 multiplier = 18000
+('result: ', 123.68)
+('new best = ', 123.68, ' at ', [-9200.0, 18000])
+measuring offset = -8800 multiplier = 18000
+('result: ', 124.18000000000004)
+measuring offset = -8600 multiplier = 18000
+('result: ', 124.28000000000003)
+measuring offset = -9000 multiplier = 17600
+('result: ', 124.36000000000004)
+measuring offset = -9000 multiplier = 17800
+('result: ', 123.66)
+('new best = ', 123.66, ' at ', [-9000, 17800.0])
+measuring offset = -9000 multiplier = 18200
+('result: ', 125.39)
+measuring offset = -9000 multiplier = 18400
+('result: ', 124.59000000000002)
+('move current point from: ', [-9000, 18000])
+('to ', [-9000, 17800.0])
+measuring offset = -9400 multiplier = 17800
+('result: ', 124.47)
+measuring offset = -9200 multiplier = 17800
+('result: ', 124.77)
+measuring offset = -8800 multiplier = 17800
+('result: ', 124.21000000000001)
+measuring offset = -8600 multiplier = 17800
+('result: ', 124.20999999999998)
+measuring offset = -9000 multiplier = 17400
+('result: ', 124.04)
+measuring offset = -9000 multiplier = 17600
+('result: ', 124.2)
+measuring offset = -9000 multiplier = 18000
+('result: ', 123.96)
+measuring offset = -9000 multiplier = 18200
+('result: ', 124.9)
+('hill climb found best at: ', [-9000, 17800.0])
+---------- end search over log heuristic ----------
+
+Starting straight search of linear heuristic
+measuring offset = 0 multiplier = 0
+('result: ', 124.00999999999999)
+measuring offset = -500 multiplier = 1000
+('result: ', 124.69)
+measuring offset = -1000 multiplier = 2000
+('result: ', 125.07)
+measuring offset = -1500 multiplier = 3000
+('result: ', 124.20000000000002)
+measuring offset = -2000 multiplier = 4000
+('result: ', 123.62)
+measuring offset = -2500 multiplier = 5000
+('result: ', 123.48000000000003)
+measuring offset = -3000 multiplier = 6000
+('result: ', 123.59000000000003)
+measuring offset = -3500 multiplier = 7000
+('result: ', 124.58)
+measuring offset = -4000 multiplier = 8000
+('result: ', 123.97000000000001)
+measuring offset = -4500 multiplier = 9000
+('result: ', 123.85)
+measuring offset = -5000 multiplier = 10000
+('result: ', 124.94000000000004)
+measuring offset = -5500 multiplier = 11000
+('result: ', 125.54)
+measuring offset = -6000 multiplier = 12000
+('result: ', 124.37000000000005)
+measuring offset = -6500 multiplier = 13000
+('result: ', 123.35999999999997)
+measuring offset = -7000 multiplier = 14000
+('result: ', 124.71)
+measuring offset = -7500 multiplier = 15000
+('result: ', 124.24000000000002)
+measuring offset = -8000 multiplier = 16000
+('result: ', 123.78999999999999)
+measuring offset = -8500 multiplier = 17000
+('result: ', 124.02000000000001)
+measuring offset = -9000 multiplier = 18000
+('result: ', 125.07000000000004)
+measuring offset = -9500 multiplier = 19000
+('result: ', 123.39000000000004)
+measuring offset = -10000 multiplier = 20000
+('result: ', 123.92000000000002)
+('best: ', 123.35999999999997, ' at offset: ', -6500, ' multiplier: ', 13000)
+starting hill climb
+measuring offset = -6500 multiplier = 13000
+('result: ', 123.52)
+measuring offset = -6900 multiplier = 13000
+('result: ', 124.70000000000002)
+measuring offset = -6700 multiplier = 13000
+('result: ', 124.49000000000001)
+measuring offset = -6300 multiplier = 13000
+('result: ', 123.92000000000003)
+measuring offset = -6100 multiplier = 13000
+('result: ', 124.41000000000003)
+measuring offset = -6500 multiplier = 12600
+('result: ', 124.63000000000002)
+measuring offset = -6500 multiplier = 12800
+('result: ', 123.52)
+measuring offset = -6500 multiplier = 13200
+('result: ', 125.79999999999998)
+measuring offset = -6500 multiplier = 13400
+('result: ', 124.10000000000001)
+('hill climb found best at: ', [-6500, 13000])
+---------- end search over linear heuristic ----------
+
+('log best at offset: ', -9000, ' multiplier: ', 17800.0)
+('linear best at offset: ', -6500, ' multiplier: ', 13000)

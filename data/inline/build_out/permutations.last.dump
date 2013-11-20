@@ -1,0 +1,41 @@
+===-------------------------------------------------------------------------===
+LLVM profiling output for execution:
+  ./permutations.profile 12 
+
+===-------------------------------------------------------------------------===
+Function execution frequencies:
+
+ ##   Frequency
+  1. 1.4e+09/2.73907e+09 show
+  2. 4.8e+08/2.73907e+09 next_lex_perm
+  3. 4.8e+08/2.73907e+09 boothroyd
+  4. 3.4e+08/2.73907e+09 perm3
+  5.     1/2.73907e+09 perm1
+  6.     1/2.73907e+09 perm2
+
+  NOTE: 1 function was never executed!
+
+===-------------------------------------------------------------------------===
+Top 20 most frequently executed basic blocks:
+
+ ##      %% 	Frequency
+  1. 5.81632% 1501193216/2.581e+10	show() - for.cond
+  2. 5.56763% 1437004800/2.581e+10	show() - for.end
+  3. 5.56763% 1437004800/2.581e+10	show() - entry
+  4. 4.52196% 1167117889/2.581e+10	next_lex_perm() - land.end
+  5. 3.71175% 958003199/2.581e+10	next_lex_perm() - for.cond
+  6. 3.71175% 958003199/2.581e+10	perm1() - if.end
+  7. 3.71175% 958003198/2.581e+10	boothroyd() - cond.end
+  8. 3.18892% 823059745/2.581e+10	perm3() - if.end
+  9. 3.18892% 823059744/2.581e+10	next_lex_perm() - land.rhs
+ 10. 3.18892% 823059744/2.581e+10	perm1() - do.body
+ 11. 3.02901% 781788358/2.581e+10	perm3() - while.cond2
+ 12. 2.86377% 739138086/2.581e+10	next_lex_perm() - for.cond19
+ 13. 2.5224% 651030666/2.581e+10	next_lex_perm() - for.cond6
+ 14. 1.85588% 479001601/2.581e+10	perm2() - if.end
+ 15. 1.85588% 479001600/2.581e+10	next_lex_perm() - for.body
+ 16. 1.85588% 479001600/2.581e+10	perm1() - do.body.if.end_crit_edge
+ 17. 1.85588% 479001600/2.581e+10	boothroyd() - entry
+ 18. 1.85588% 479001600/2.581e+10	next_lex_perm() - entry
+ 19. 1.85588% 479001600/2.581e+10	next_lex_perm() - return
+ 20. 1.85588% 479001600/2.581e+10	perm3() - if.then
