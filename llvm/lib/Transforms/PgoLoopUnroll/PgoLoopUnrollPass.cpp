@@ -105,7 +105,8 @@ namespace {
     }
   private:
     unsigned getExecutionCount(Loop* loop);
-    unsigned computeUnrollCount(unsigned executionCount);
+    unsigned getContainingFunctionExecutionCount(Loop* loop);
+    unsigned computeUnrollCount(unsigned executionCount, unsigned functionExexecutionCount);
     unsigned getNextHighestPowerOf2(unsigned number);
     unsigned isPowerOf2(unsigned number);
   };
@@ -161,6 +162,14 @@ unsigned LoopUnroll::getExecutionCount(Loop* loop) {
   return count;
 }
 
+unsigned LoopUnroll::getContainingFunctionExecutionCount(Loop* loop) {
+  ProfileInfo *PI = &getAnalysis<ProfileInfo>();
+  BasicBlock* header = loop->getHeader();
+  Function* containingFunction = header->getParent();
+
+  return (unsigned) (PI->getExecutionCount(containingFunction) + 0.5);
+}
+
 unsigned LoopUnroll::isPowerOf2(unsigned number) {
   return (number & (number - 1)) == 0;
 }
@@ -177,10 +186,11 @@ unsigned LoopUnroll::getNextHighestPowerOf2(unsigned number) {
   return 1 << pow;
 }
 
-unsigned LoopUnroll::computeUnrollCount(unsigned executionCount) {
-  const unsigned maxUnrollCount = 128;
-  unsigned count = getNextHighestPowerOf2(executionCount);
+unsigned LoopUnroll::computeUnrollCount(unsigned executionCount, unsigned functionExexecutionCount) {
+  unsigned averageExecutionCount = executionCount / functionExexecutionCount;
+  unsigned count = getNextHighestPowerOf2(averageExecutionCount);
   
+  const unsigned maxUnrollCount = 128;
   return std::min(count, maxUnrollCount);
 }
 
@@ -233,11 +243,19 @@ bool LoopUnroll::runOnLoop(Loop *L, LPPassManager &LPM) {
     if (TripCount == 0) {
       DEBUG(dbgs() << "We don't know trip count, try profile guided unrolling!\n");
       
-      unsigned executionCount = getExecutionCount(L);
-      DEBUG(dbgs() << "Execution count: " << executionCount << "\n");
+      unsigned loopExecutionCount = getExecutionCount(L);
+      DEBUG(dbgs() << "Loop execution count: " << loopExecutionCount << "\n");
+
+      unsigned containingFunctionExecutionCount = getContainingFunctionExecutionCount(L);
+      DEBUG(dbgs() << "Function execution count: " << containingFunctionExecutionCount << "\n");
       
-      unsigned unrollCount = computeUnrollCount(executionCount);
+      unsigned unrollCount = computeUnrollCount(loopExecutionCount, containingFunctionExecutionCount);
       DEBUG(dbgs() << "Unroll count: " << unrollCount << "\n");
+
+      if (unrollCount <=2) {
+        DEBUG(dbgs() << "Unroll count is <= 2, ABORTING!" << unrollCount << "\n");
+        return false;
+      }
       
       return PgoUnrollLoop(L, unrollCount, LI, &LPM);
     }
@@ -293,6 +311,7 @@ bool LoopUnroll::runOnLoop(Loop *L, LPPassManager &LPM) {
   // Unroll the loop.
   // 
   DEBUG(dbgs()
+        << "STATIC LOOP unrolling with the following parameters.\n"
         << "Count: " << Count << "\n"
         << "TripCount: " << TripCount << "\n"
         << "TripMultiple: " << TripMultiple << "\n"
