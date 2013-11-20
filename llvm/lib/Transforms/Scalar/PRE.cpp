@@ -398,7 +398,7 @@ namespace {
 
     // ProcessedExpressions - Keep track of which expressions have already been
     // processed.
-    set<Instruction*> ProcessedExpressions;
+    set<const Instruction*> ProcessedExpressions;
 
     // Provide access to the various analyses used...
     // DominatorSet      *DS;
@@ -1084,7 +1084,7 @@ void PgoPre::MarkPostDominatingBlocksAnticipatible(DomTreeNode *N,
 bool PgoPre::ProcessExpression(const Instruction *Expr) 
 {
   // Check to see if we should even try to deal with this expression (SSA instruction)
-  if (Expr->mayWriteToMemory() || Expr->getType() == Type::VoidTy || isa<PHINode>(Expr))
+  if (Expr->mayWriteToMemory() || isa<PHINode>(Expr)) // Expr->getType() == Type::VoidTy || 
     return false;         // Cannot move expression
   if (ProcessedExpressions.count(Expr)) return false; // Already processed.
 
