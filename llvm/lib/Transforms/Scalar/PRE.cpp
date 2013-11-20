@@ -141,41 +141,60 @@ public:
           } 
         }
 
-        // TODO:finish this set intersection code and then the dominates function below...
-
         // Build the the intersection of all dominators of the instructions in predecessor...
         //    Dom(n) = {n} union with intersection over Dom(p) for all p in pred(n)
+        vector<Instruction> temp_intersect;
         vector<Instruction> intersect;
-        for (Intruction::iterator predItr = predecessors.begin(); predItr != predecessors.end(); predItr++)
+        Instruction& candPred = *(predecessors.begin());
+        for (Instruction::iterator setItr = dominatorMap[candPred].begin(); setItr != dominatorMap[candPred].end(); setItr++)
         {
-          Instruction& candPred = *predItr;
-          if (predItr == predecessors.begin()) 
+          temp_intersect.push_back(*setItr);
+        }
+        for (Instruction::iterator predItr = temp_intersect.begin(); predItr != temp_intersect.end(); predItr++)
+        {
+          candPred = *predItr;
+          bool inAllSets = true;
+
+          // Traverse all predecessor dominators and see if this instruction is in each...
+          for (Intruction::iterator otherPredItr = predecessors.begin(); otherPredItr != predecessors.end(); otherPredItr++)
           {
-            for (Instruction::iterator setItr = dominatorMap[candPred].begin(); setItr != dominatorMap[candPred].end(); setItr++)
+            Instruction& otherCandPred = *otherPredItr;
+            if (otherPredItr != predecessors.begin()) 
             {
-              intersect.push_back(*setItr);
+              bool inThisSet = false;
+              // traverse over the domination set of this predecessor
+              for (Instruction::iterator setItr = dominatorMap[otherCandPred].begin(); setItr != dominatorMap[otherCandPred].end(); setItr++)
+              {
+                Instruction& cand = *setItr;
+                if (cand == candPred)
+                {
+                  inThisSet = true;
+                }
+              }
+              inAllSets = inThisSet ? true : false;
             }
           }
-          else
+
+          if (inAllSets == true) // def of set intersection
           {
-            for (Instruction::iterator setItr = dominatorMap[candPred].begin(); setItr != dominatorMap[candPred].end(); setItr++)
-            {
-              // remove this instruction 
-              intersect.push_back(*setItr);
-            }
+            intersect.push_back(candPred);
           }
         }
       }
     }
   }
 
-  bool dominates(Instruction *I, Instruction *BI) // I dominates BI
+  bool dominates(Instruction I, Instruction BI) // I dominates BI
   {
-    bool result = false;
-
-    // TODO: traverse the domainator map to find the answer
-
-    return result;
+    for (Instruction::iterator itr = dominatorMap[BI].begin(); itr != dominatorMap[BI].end(); itr++)
+    {
+      Instruction& tmp = *itr;
+      if (tmp == I) // I is in the set of nodes that dominate BI, so I dominates BI
+      {
+        return true;
+      }
+    }
+    return false;
   }
 private:
 };
