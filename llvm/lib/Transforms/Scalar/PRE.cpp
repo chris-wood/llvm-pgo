@@ -86,99 +86,105 @@ public:
     // while changes in any Dom(n)
     //  for each n in N - {n0}:
     //    Dom(n) = {n} union with intersection over Dom(p) for all p in pred(n)
-    bool changes = false;
-    for (inst_iterator instItr = inst_begin(function), E = inst_end(function); instItr != E; ++instItr)
+    bool changes = true;
+    while (changes == true)
     {
-      if (instItr != inst_begin(function))
+      for (inst_iterator instItr = inst_begin(function), E = inst_end(function); instItr != E; ++instItr)
       {
-        Instruction* inst = &(*instItr);
-        vector<Instruction> predecessors;
-        BasicBlock* currBB = inst->getParent();
-        BasicBlock* prevBB = (inst->getParent())->getSinglePredecessor();
-
-        // Check this BB and parent BB to find all predecessors
-        if (currBB != NULL)
+        if (instItr != inst_begin(function))
         {
-          Instruction* prevInst = NULL;
-          for (BasicBlock::iterator i = currBB->begin(), e = currBB->end(); i != e; ++i)
+          Instruction* inst = &(*instItr);
+          vector<Instruction*> predecessors;
+          BasicBlock* currBB = inst->getParent();
+          BasicBlock* prevBB = (inst->getParent())->getSinglePredecessor();
+
+          // Check this BB and parent BB to find all predecessors
+          if (currBB != NULL)
           {
-            if (prevInst == NULL)
+            Instruction* prevInst = NULL;
+            for (BasicBlock::iterator i = currBB->begin(), e = currBB->end(); i != e; ++i)
             {
-              prevInst = &(*(i));
-            }
-            else
-            {
-              if (inst == &(*(i)))
+              if (prevInst == NULL)
               {
-                predecessors.push_back(prevInst);
-                break; // don't bother going father since we'll pass the instructon
+                prevInst = &(*(i));
               }
-            }
-          } 
-        }
-        else
-        {
-          cout << "ERROR: INSTRUCTION PARENT BASIC BLOCK CANNOT BE NULL." << endl;
-        }
-
-        if (prevBB != NULL)
-        {
-          Instruction* prevInst = NULL;
-          for (BasicBlock::iterator i = prevBB->begin(), e = prevBB->end(); i != e; ++i)
-          {
-            if (prevInst == NULL)
-            {
-              prevInst = &(*(i));
-            }
-            else
-            {
-              if (inst == &(*(i)))
+              else
               {
-                predecessors.push_back(prevInst);
-                break; // don't bother going father since we'll pass the instructon
-              }
-            }
-          } 
-        }
-
-        // Build the the intersection of all dominators of the instructions in predecessor...
-        //    Dom(n) = {n} union with intersection over Dom(p) for all p in pred(n)
-        vector<Instruction*> temp_intersect;
-        vector<Instruction*> intersect;
-        Instruction* candPred = *(predecessors.begin());
-        for (vector<Instruction*>::iterator setItr = dominatorMap[candPred].begin(); setItr != dominatorMap[candPred].end(); setItr++)
-        {
-          temp_intersect.push_back(*setItr);
-        }
-        for (vector<Instruction*>::iterator predItr = temp_intersect.begin(); predItr != temp_intersect.end(); predItr++)
-        {
-          candPred = *predItr;
-          bool inAllSets = true;
-
-          // Traverse all predecessor dominators and see if this instruction is in each...
-          for (vector<Instruction*>::iterator otherPredItr = predecessors.begin(); otherPredItr != predecessors.end(); otherPredItr++)
-          {
-            Instruction* otherCandPred = *otherPredItr;
-            if (otherPredItr != predecessors.begin()) 
-            {
-              bool inThisSet = false;
-              // traverse over the domination set of this predecessor
-              for (vector<Instruction*>::iterator setItr = dominatorMap[otherCandPred].begin(); setItr != dominatorMap[otherCandPred].end(); setItr++)
-              {
-                Instruction* cand = *setItr;
-                if (cand == candPred)
+                if (inst == &(*(i)))
                 {
-                  inThisSet = true;
+                  predecessors.push_back(prevInst);
+                  break; // don't bother going father since we'll pass the instructon
                 }
               }
-              inAllSets = inThisSet ? true : false;
+            } 
+          }
+          else
+          {
+            cout << "ERROR: INSTRUCTION PARENT BASIC BLOCK CANNOT BE NULL." << endl;
+          }
+
+          if (prevBB != NULL)
+          {
+            Instruction* prevInst = NULL;
+            for (BasicBlock::iterator i = prevBB->begin(), e = prevBB->end(); i != e; ++i)
+            {
+              if (prevInst == NULL)
+              {
+                prevInst = &(*(i));
+              }
+              else
+              {
+                if (inst == &(*(i)))
+                {
+                  predecessors.push_back(prevInst);
+                  break; // don't bother going father since we'll pass the instructon
+                }
+              }
+            } 
+          }
+
+          // Build the the intersection of all dominators of the instructions in predecessor...
+          //    Dom(n) = {n} union with intersection over Dom(p) for all p in pred(n)
+          vector<Instruction*> temp_intersect;
+          vector<Instruction*> intersect;
+          Instruction* candPred = *(predecessors.begin());
+          for (vector<Instruction*>::iterator setItr = dominatorMap[candPred].begin(); setItr != dominatorMap[candPred].end(); setItr++)
+          {
+            temp_intersect.push_back(*setItr);
+          }
+          for (vector<Instruction*>::iterator predItr = temp_intersect.begin(); predItr != temp_intersect.end(); predItr++)
+          {
+            candPred = *predItr;
+            bool inAllSets = true;
+
+            // Traverse all predecessor dominators and see if this instruction is in each...
+            for (vector<Instruction*>::iterator otherPredItr = predecessors.begin(); otherPredItr != predecessors.end(); otherPredItr++)
+            {
+              Instruction* otherCandPred = *otherPredItr;
+              if (otherPredItr != predecessors.begin()) 
+              {
+                bool inThisSet = false;
+                // traverse over the domination set of this predecessor
+                for (vector<Instruction*>::iterator setItr = dominatorMap[otherCandPred].begin(); setItr != dominatorMap[otherCandPred].end(); setItr++)
+                {
+                  Instruction* cand = *setItr;
+                  if (cand == candPred)
+                  {
+                    inThisSet = true;
+                  }
+                }
+                inAllSets = inThisSet ? true : false;
+              }
+            }
+
+            if (inAllSets == true) // def of set intersection
+            {
+              intersect.push_back(candPred);
             }
           }
 
-          if (inAllSets == true) // def of set intersection
-          {
-            intersect.push_back(candPred);
-          }
+          // intersect is the intersection of dominators
+          // TODO: set union here and check for change
         }
       }
     }
