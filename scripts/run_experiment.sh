@@ -10,14 +10,14 @@ echo ----------------------------------------
 ./$1.sh factor factor "" 5 2000000 3000000 4000000 5000000 6000000
 ./$1.sh bubble bubble "" 5 50000 100000 150000 200000 250000
 ./$1.sh quicksort quicksort "" 5 50000 100000 150000 200000 250000
-./$1.sh kmeans kmeans "-lm" 5 "10000 10" "100000 10" "1000000 10" "1000000 20" "1000000 50"
+./$1.sh kmeans kmeans "-lm" 5 "0" "1" "2" "3" "4"
 ./$1.sh permutations permutations "" 5 8 9 10 11 12
 ./$1.sh mandlebrot_seq mandlebrot_seq "" 5 1000 1250 1500 1750 2000 2250
 ./$1.sh fft fft "-std=c99 -lm" 5 128 256 1024 4096 8192
 ./$1.sh huffman_priority_queue huffman_priority_queue "" 5 100 1000 10000 100000 1000000
 ./$1.sh huffman huffman "" 5 100 1000 10000 100000 1000000
 ./$1.sh combinations combinations "" 5 13 14 15 16 17
-./$1.sh conjugate_transpose conjugate_transpose "" 5 "16 32" "512 1024" "1024 2048" "2048 4096"
+./$1.sh conjugate_transpose conjugate_transpose "-lm" 5 "16" "512" "1024" "2048"
 ./$1.sh cholesky cholesky "-std=c99 -lm" 5 65536 262144 524288 786432 1310720
 ./$1.sh deconvolution deconvolution "-std=c99 -lm" 5 256 512 1024 2048
 ./$1.sh euler_method euler_method "-std=c99 -lm" 5 16384 32768 65536 98304 131072
