@@ -117,6 +117,8 @@ static BasicBlock *FoldBlockIntoPredecessor(BasicBlock *BB, LoopInfo* LI,
 
 bool llvm::PgoUnrollLoop(Loop *L, unsigned Count, LoopInfo *LI, LPPassManager *LPM) {
 
+  DEBUG(dbgs() << "DYNAMIC loop unrolling with jump offsets.\n");
+
   assert(L != 0);
   assert(Count > 2);
   assert(LI != 0);
@@ -167,7 +169,7 @@ bool llvm::PgoUnrollLoop(Loop *L, unsigned Count, LoopInfo *LI, LPPassManager *L
     SE->forgetLoop(L);
 
   // Let's do the real work!
-  DEBUG(dbgs() << "UNROLLING loop %" << Header->getName() << " by " << Count);
+  DEBUG(dbgs() << "UNROLLING loop %" << Header->getName() << " by " << Count << "\n");
   
   std::vector<BasicBlock*> LoopBlocks = L->getBlocks();
 
