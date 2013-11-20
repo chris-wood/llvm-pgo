@@ -81,8 +81,8 @@ public:
     {
       GraphPath* subPath = new GraphPath();
       if (i != 0) subPath->fromStart = false;
-	cout << "Nodes Edges Weights" << endl;
-	cout << nodes.size() << " " << edges.size() << " " << weights.size() << endl;
+      cout << "Nodes Edges Weights" << endl;
+      cout << nodes.size() << " " << edges.size() << " " << weights.size() << endl;
       for (unsigned int index = i; index < nodes.size(); index++)
       {
         subPath->nodes.push_back(nodes.at(index));
@@ -177,7 +177,7 @@ public:
 
     // wasn't in any of the basic blocks above... so set to false and return
     valueContainsMap[val] = false;
-	valueBlockMap[val] = -1;
+    valueBlockMap[val] = -1;
     return;
   }
 
@@ -220,7 +220,7 @@ namespace {
       AU.addRequiredID(BreakCriticalEdgesID);  // No critical edges for now!
       AU.addRequired<PostDominatorTree>();
       //AU.addRequired<PostDominanceFrontier>();
-      // AU.addRequired<DominatorSet>();
+      AU.addRequired<DominatorSet>();
       AU.addRequired<DominatorTree>();
       //AU.addRequired<DominanceFrontier>();
       //AU.addRequired<ValueNumbering>();
@@ -246,7 +246,7 @@ namespace {
     set<Instruction*> ProcessedExpressions;
 
     // Provide access to the various analyses used...
-    //DominatorSet      *DS;
+    DominatorSet      *DS;
     DominatorTree     *DT; 
     PostDominatorTree *PDT;
     //DominanceFrontier *DF; 
@@ -755,7 +755,7 @@ bool PgoPre::EnableSpec(Value* val, const BasicBlock* n)
 //
 bool PgoPre::ProcessBlock(const BasicBlock *BB) 
 {
-/*  bool Changed = false;
+  bool Changed = false;
 
   // PgoPre expressions first defined in this block...
   const Instruction *PrevInst = 0;
@@ -775,7 +775,6 @@ bool PgoPre::ProcessBlock(const BasicBlock *BB)
   }
 
   return Changed;
-*/
 }
 
 void PgoPre::MarkPostDominatingBlocksAnticipatible(DomTreeNode *N,
@@ -919,67 +918,78 @@ void PgoPre::MarkPostDominatingBlocksAnticipatible(DomTreeNode *N,
 /// the entire equivalence class at once, which may leave expressions later in
 /// the control path.
 ///
-bool PgoPre::ProcessExpression(const Instruction *Expr) {
-//   if (Expr->mayWriteToMemory() || Expr->getType() == Type::VoidTy ||
-//       isa<PHINode>(Expr))
-//     return false;         // Cannot move expression
-//   if (ProcessedExpressions.count(Expr)) return false; // Already processed.
+bool PgoPre::ProcessExpression(const Instruction *Expr) 
+{
+  // Check to see if we should even try to deal with this expression (SSA instruction)
+  if (Expr->mayWriteToMemory() || Expr->getType() == Type::VoidTy || isa<PHINode>(Expr))
+    return false;         // Cannot move expression
+  if (ProcessedExpressions.count(Expr)) return false; // Already processed.
 
-//   // Ok, this is the first time we have seen the expression.  Build a set of
-//   // equivalent expressions using SSA def/use information.  We consider
-//   // expressions to be equivalent if they are the same opcode and have
-//   // equivalent operands.  As a special case for SSA, values produced by PHI
-//   // nodes are considered to be equivalent to all of their operands.
-//   //
-//   std::vector<Value*> Values;
-//   VN->getEqualNumberNodes(Expr, Values);
+  // Ok, this is the first time we have seen the expression.  Build a set of
+  // equivalent expressions using SSA def/use information.  We consider
+  // expressions to be equivalent if they are the same opcode and have
+  // equivalent operands.  As a special case for SSA, values produced by PHI
+  // nodes are considered to be equivalent to all of their operands.
+  //
+  std::vector<Value*> Values;
+  VN->getEqualNumberNodes(Expr, Values);
 
-// #if 0
-//   // FIXME: This should handle PHI nodes correctly.  To do this, we need to
-//   // consider expressions of the following form equivalent to this set of
-//   // expressions:
-//   //
-//   // If an operand is a PHI node, add any occurrences of the expression with the
-//   // PHI operand replaced with the PHI node operands.  This is only valid if the
-//   // PHI operand occurrences exist in blocks post-dominated by the incoming edge
-//   // of the PHI node.
-// #endif
+#if 0
+  // FIXME: This should handle PHI nodes correctly.  To do this, we need to
+  // consider expressions of the following form equivalent to this set of
+  // expressions:
+  //
+  // If an operand is a PHI node, add any occurrences of the expression with the
+  // PHI operand replaced with the PHI node operands.  This is only valid if the
+  // PHI operand occurrences exist in blocks post-dominated by the incoming edge
+  // of the PHI node.
+#endif
 
-//   // We have to be careful to handle expression definitions which dominated by
-//   // other expressions.  These can be directly eliminated in favor of their
-//   // dominating value.  Keep track of which blocks contain definitions (the key)
-//   // and if a block contains a definition, which instruction it is.
-//   //
-//   std::map<unsigned, Instruction*> Definitions;
-//   Definitions.insert(std::make_pair(BlockNumbering[Expr->getParent()], Expr));
+  // We have to be careful to handle expression definitions which dominated by
+  // other expressions.  These can be directly eliminated in favor of their
+  // dominating value.  Keep track of which blocks contain definitions (the key)
+  // and if a block contains a definition, which instruction it is.
+  //
+  std::map<unsigned, Instruction*> Definitions;
+  Definitions.insert(std::make_pair(BlockNumbering[Expr->getParent()], Expr));
 
-//   bool Changed = false;
+  bool Changed = false;
 
-//   // Look at all of the equal values.  If any of the values is not an
-//   // instruction, replace all other expressions immediately with it (it must be
-//   // an argument or a constant or something). Otherwise, convert the list of
-//   // values into a list of expression (instruction) definitions ordering
-//   // according to their dominator tree ordering.
-//   //
-//   Value *NonInstValue = 0;
-//   for (unsigned i = 0, e = Values.size(); i != e; ++i)
-//     if (Instruction *I = dyn_cast<Instruction>(Values[i])) {
-//       Instruction *&BlockInst = Definitions[BlockNumbering[I->getParent()]];
-//       if (BlockInst && BlockInst != I) {    // Eliminate direct redundancy
-//         if (DS->dominates(I, BlockInst)) {  // I dom BlockInst
-//           BlockInst->replaceAllUsesWith(I);
-//           BlockInst->getParent()->getInstList().erase(BlockInst);
-//         } else {                            // BlockInst dom I
-//           I->replaceAllUsesWith(BlockInst);
-//           I->getParent()->getInstList().erase(I);
-//           I = BlockInst;
-//         }
-//         ++NumRedundant;
-//       }
-//       BlockInst = I;
-//     } else {
-//       NonInstValue = Values[i];
-//     }
+  // Look at all of the equal values.  If any of the values is not an
+  // instruction, replace all other expressions immediately with it (it must be
+  // an argument or a constant or something). Otherwise, convert the list of
+  // values into a list of expression (instruction) definitions ordering
+  // according to their dominator tree ordering.
+  //
+  Value *NonInstValue = 0;
+  for (unsigned i = 0, e = Values.size(); i != e; ++i)
+  {
+    if (Instruction *I = dyn_cast<Instruction>(Values[i])) 
+    {
+      Instruction *&BlockInst = Definitions[BlockNumbering[I->getParent()]];
+      if (BlockInst && BlockInst != I)  // Eliminate direct redundancy
+      {    
+
+        if (DS->dominates(I, BlockInst)) // I dom BlockInst
+        {  
+          BlockInst->replaceAllUsesWith(I);
+          BlockInst->getParent()->getInstList().erase(BlockInst);
+        } 
+        else // BlockInst dom I
+        {                            
+          I->replaceAllUsesWith(BlockInst);
+          I->getParent()->getInstList().erase(I);
+          I = BlockInst;
+        }
+        ++NumRedundant;
+      }
+      BlockInst = I;
+    } else {
+      NonInstValue = Values[i];
+    }
+  }
+
+  /// TODO: left off here...
 
 //   std::vector<Value*>().swap(Values);  // Done with the values list
 
@@ -1248,7 +1258,7 @@ bool PgoPre::ProcessExpression(const Instruction *Expr) {
 
 //   AvailableBlocks.clear();
 
-  // return Changed;
+//   return Changed;
 
   return false;
 }
