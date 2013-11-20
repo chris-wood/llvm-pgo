@@ -1113,7 +1113,7 @@ bool PgoPre::ProcessExpression(const Instruction *Expr)
   // dominating value.  Keep track of which blocks contain definitions (the key)
   // and if a block contains a definition, which instruction it is.
   //
-  std::map<unsigned, Instruction*> Definitions;
+  std::map<unsigned, const Instruction*> Definitions;
   Definitions.insert(std::make_pair(BlockNumbering[Expr->getParent()], Expr));
 
   bool Changed = false;
