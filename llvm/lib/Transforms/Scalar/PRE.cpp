@@ -63,7 +63,7 @@ public:
     // dominator of the start node is the start itself:
     //
     // Dom(n0) = {n0}
-    dominatorMap[*(inst_begin(function))].push_back(*(inst_begin(function)));
+    dominatorMap[&(*(inst_begin(function)))].push_back(&(*(inst_begin(function))));
 
     // for all other nodes, set all nodes as the dominators:
     // 
@@ -71,7 +71,7 @@ public:
     //  Dom(n) = N;
     for (inst_iterator instItr = inst_begin(function), E = inst_end(function); instItr != E; ++instItr)
     {
-      if (instItr != inst_begin(&function))
+      if (instItr != inst_begin(function))
       {
         Instruction* inst = &(*instItr);
         for (inst_iterator allItr = inst_begin(function), E2 = inst_end(function); allItr != E2; ++allItr)
