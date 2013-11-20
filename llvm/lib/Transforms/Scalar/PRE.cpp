@@ -624,8 +624,9 @@ bool PgoPre::runOnFunction(Function &F) {
 
   // Set the start node for the dominator set
   DS = new DominatorSet();
-  DS->function = &F;
-  DS->start = &(inst_begin(&F)); // pull out first instruction in the function CFG
+  // DS->function = &F;
+  // DS->start = &(inst_begin(&F)); // pull out first instruction in the function CFG
+  DS->buildDominatorSet(&function);
 
   // Initialize the instructionContainsMap for each instruction for each graph path
   // instructionContainsMap
