@@ -146,24 +146,24 @@ public:
         vector<Instruction> temp_intersect;
         vector<Instruction> intersect;
         Instruction& candPred = *(predecessors.begin());
-        for (Instruction::iterator setItr = dominatorMap[candPred].begin(); setItr != dominatorMap[candPred].end(); setItr++)
+        for (vector<Instruction>::iterator setItr = dominatorMap[candPred].begin(); setItr != dominatorMap[candPred].end(); setItr++)
         {
           temp_intersect.push_back(*setItr);
         }
-        for (Instruction::iterator predItr = temp_intersect.begin(); predItr != temp_intersect.end(); predItr++)
+        for (vector<Instruction>::iterator predItr = temp_intersect.begin(); predItr != temp_intersect.end(); predItr++)
         {
           candPred = *predItr;
           bool inAllSets = true;
 
           // Traverse all predecessor dominators and see if this instruction is in each...
-          for (Intruction::iterator otherPredItr = predecessors.begin(); otherPredItr != predecessors.end(); otherPredItr++)
+          for (vector<Instruction>::iterator otherPredItr = predecessors.begin(); otherPredItr != predecessors.end(); otherPredItr++)
           {
             Instruction& otherCandPred = *otherPredItr;
             if (otherPredItr != predecessors.begin()) 
             {
               bool inThisSet = false;
               // traverse over the domination set of this predecessor
-              for (Instruction::iterator setItr = dominatorMap[otherCandPred].begin(); setItr != dominatorMap[otherCandPred].end(); setItr++)
+              for (vector<Instruction>::iterator setItr = dominatorMap[otherCandPred].begin(); setItr != dominatorMap[otherCandPred].end(); setItr++)
               {
                 Instruction& cand = *setItr;
                 if (cand == candPred)
