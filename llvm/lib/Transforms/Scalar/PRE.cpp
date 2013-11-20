@@ -97,12 +97,12 @@ public:
         BasicBlock* prevBB = (inst->getParent())->getSinglePredecessor();
 
         // Check this BB and parent BB to find all predecessors
-        if (currBB != null)
+        if (currBB != NULL)
         {
           Instruction* prevInst = NULL;
           for (BasicBlock::iterator i = currBB->begin(), e = currBB->end(); i != e; ++i)
           {
-            if (prevInst == null)
+            if (prevInst == NULL)
             {
               prevInst = &(*(i));
             }
@@ -121,12 +121,12 @@ public:
           cout << "ERROR: INSTRUCTION PARENT BASIC BLOCK CANNOT BE NULL." << endl;
         }
 
-        if (prevBB != null)
+        if (prevBB != NULL)
         {
           Instruction* prevInst = NULL;
           for (BasicBlock::iterator i = prevBB->begin(), e = prevBB->end(); i != e; ++i)
           {
-            if (prevInst == null)
+            if (prevInst == NULL)
             {
               prevInst = &(*(i));
             }
