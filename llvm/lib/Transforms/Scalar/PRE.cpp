@@ -375,7 +375,7 @@ namespace {
       AU.addRequiredID(BreakCriticalEdgesID);  // No critical edges for now!
       AU.addRequired<PostDominatorTree>();
       //AU.addRequired<PostDominanceFrontier>();
-      AU.addRequired<DominatorSet>();
+      // AU.addRequired<DominatorSet>();
       AU.addRequired<DominatorTree>();
       //AU.addRequired<DominanceFrontier>();
       //AU.addRequired<ValueNumbering>();
