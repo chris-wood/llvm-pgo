@@ -50,6 +50,136 @@ using namespace std;
 
 typedef std::pair<const BasicBlock*, const BasicBlock*> GraphEdge;
 
+class DominatorSet 
+{
+public:
+
+  // Function* function;
+  // Instruction* start;
+  map<Instruction, vector<Instruction> > dominatorMap;
+
+  void buildDominatorSet(Function* function)
+  {
+    // dominator of the start node is the start itself:
+    //
+    // Dom(n0) = {n0}
+    dominatorMap[*(inst_begin(&function))].push_back(*(inst_begin(&function)));
+
+    // for all other nodes, set all nodes as the dominators:
+    // 
+    // for each n in N - {n0}
+    //  Dom(n) = N;
+    for (inst_iterator instItr = inst_begin(&function), E = inst_end(&function); instItr != E; ++instItr)
+    {
+      if (instItr != inst_begin(&function))
+      {
+        Instruction& inst = *instItr;
+        for (inst_iterator allItr = inst_begin(&function), E2 = inst_end(&function); allItr != E2; ++allItr)
+        {
+          dominatorMap[inst].push_back(*allItr)
+        }
+      }
+    }
+
+    // iteratively eliminate nodes that are not dominators:
+    //
+    // while changes in any Dom(n)
+    //  for each n in N - {n0}:
+    //    Dom(n) = {n} union with intersection over Dom(p) for all p in pred(n)
+    bool changes = false;
+    for (inst_iterator instItr = inst_begin(&function), E = inst_end(&function); instItr != E; ++instItr)
+    {
+      if (instItr != inst_begin(&function))
+      {
+        Instruction& inst = *instItr;
+        vector<Instruction> predecessors;
+        BasicBlock* currBB = inst.getParent();
+        BasicBlock* prevBB = (inst.getParent())->getSinglePredecessor();
+
+        // Check this BB and parent BB to find all predecessors
+        if (currBB != null)
+        {
+          Instruction& prevInst = null;
+          for (BasicBlock::iterator i = currBB->begin(), e = currBB->end(); i != e; ++i)
+          {
+            if (prevInst == null)
+            {
+              prevInst = *(i);
+            }
+            else
+            {
+              if (inst == *(i))
+              {
+                predecessors.push_back(prevInst);
+                break; // don't bother going father since we'll pass the instructon
+              }
+            }
+          } 
+        }
+        else
+        {
+          cout << "ERROR: INSTRUCTION PARENT BASIC BLOCK CANNOT BE NULL." << endl;
+        }
+
+        if (prevBB != null)
+        {
+          Instruction& prevInst = null;
+          for (BasicBlock::iterator i = prevBB->begin(), e = prevBB->end(); i != e; ++i)
+          {
+            if (prevInst == null)
+            {
+              prevInst = *(i);
+            }
+            else
+            {
+              if (inst == *(i))
+              {
+                predecessors.push_back(prevInst);
+                break; // don't bother going father since we'll pass the instructon
+              }
+            }
+          } 
+        }
+
+        // TODO:finish this set intersection code and then the dominates function below...
+
+        // Build the the intersection of all dominators of the instructions in predecessor...
+        //    Dom(n) = {n} union with intersection over Dom(p) for all p in pred(n)
+        vector<Instruction> intersect;
+        for (Intruction::iterator predItr = predecessors.begin(); predItr != predecessors.end(); predItr++)
+        {
+          Instruction& candPred = *predItr;
+          if (predItr == predecessors.begin()) 
+          {
+            for (Instruction::iterator setItr = dominatorMap[candPred].begin(); setItr != dominatorMap[candPred].end(); setItr++)
+            {
+              intersect.push_back(*setItr);
+            }
+          }
+          else
+          {
+            for (Instruction::iterator setItr = dominatorMap[candPred].begin(); setItr != dominatorMap[candPred].end(); setItr++)
+            {
+              // remove this instruction 
+              intersect.push_back(*setItr);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  bool dominates(Instruction *I, Instruction *BI) // I dominates BI
+  {
+    bool result = false;
+
+    // TODO: traverse the domainator map to find the answer
+
+    return result;
+  }
+private:
+};
+
 // Helpful class/container for CFG subpaths - just a set of ordered pairs/edges
 class GraphPath
 {
@@ -246,6 +376,7 @@ namespace {
     set<Instruction*> ProcessedExpressions;
 
     // Provide access to the various analyses used...
+    // DominatorSet      *DS;
     DominatorSet      *DS;
     DominatorTree     *DT; 
     PostDominatorTree *PDT;
@@ -404,9 +535,10 @@ bool PgoPre::runOnFunction(Function &F) {
             newPath->edges.push_back(paths.at(i)->edges.at(j));
             newPath->weights.push_back(paths.at(i)->weights.at(j));
           }
-	cout << "New path edges   = " << newPath->edges.size() << endl;
-	cout << "New path weights = " << newPath->weights.size() << endl;
-	cout << "New path nodes   = " << numNodes << endl;
+
+          cout << "New path edges   = " << newPath->edges.size() << endl;
+          cout << "New path weights = " << newPath->weights.size() << endl;
+          cout << "New path nodes   = " << numNodes << endl;
 
           // Fetch the weight of this new edge
           std::pair<const BasicBlock*, const BasicBlock*> e = PI->getEdge(parent, curr);
@@ -465,9 +597,14 @@ bool PgoPre::runOnFunction(Function &F) {
     }
   }
 
+  // Set the start node for the dominator set
+  DS = new DominatorSet();
+  DS->function = &F;
+  DS->start = &(inst_begin(&F)); // pull out first instruction in the function CFG
+
   // Initialize the instructionContainsMap for each instruction for each graph path
   // instructionContainsMap
-for (inst_iterator instItr = inst_begin(&F), E = inst_end(&F); instItr != E; ++instItr)
+  for (inst_iterator instItr = inst_begin(&F), E = inst_end(&F); instItr != E; ++instItr)
   {
     Instruction& inst = *instItr;
     Value* instValue = dyn_cast<Value>(&inst); // cast instruction to value
@@ -479,7 +616,7 @@ for (inst_iterator instItr = inst_begin(&F), E = inst_end(&F); instItr != E; ++i
   }
 
   // Walk the instructions in the function to build up the available, unavailable, anticipable, unanticipable sets  
-   startItr = F.begin();
+  startItr = F.begin();
   for (inst_iterator instItr = inst_begin(&F), E = inst_end(&F); instItr != E; ++instItr)
   {
     Instruction& inst = *instItr; // this is the expression (exp) used in all of the sets
