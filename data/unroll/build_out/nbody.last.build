@@ -1,6 +1,0 @@
-/tmp/nbody-8wxoDZ.o: In function `bodies_energy':
-nbody.profile.bc:(.text+0x5ff): undefined reference to `sqrt'
-/tmp/nbody-8wxoDZ.o: In function `main':
-nbody.profile.bc:(.text+0x8ab): undefined reference to `sqrt'
-nbody.profile.bc:(.text+0xa7b): undefined reference to `sqrt'
-clang: error: linker command failed with exit code 1 (use -v to see invocation)
