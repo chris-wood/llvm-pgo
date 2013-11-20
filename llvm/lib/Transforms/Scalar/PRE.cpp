@@ -1095,7 +1095,7 @@ bool PgoPre::ProcessExpression(const Instruction *Expr)
   // nodes are considered to be equivalent to all of their operands.
   //
   std::vector<Value*> Values;
-  VN->getEqualNumberNodes(Expr, Values);
+  // VN->getEqualNumberNodes(Expr, Values);
 
 #if 0
   // FIXME: This should handle PHI nodes correctly.  To do this, we need to
@@ -1125,6 +1125,7 @@ bool PgoPre::ProcessExpression(const Instruction *Expr)
   // according to their dominator tree ordering.
   //
   Value *NonInstValue = 0;
+  int NumRedundant = 0;
   for (unsigned i = 0, e = Values.size(); i != e; ++i)
   {
     if (Instruction *I = dyn_cast<Instruction>(Values[i])) 
