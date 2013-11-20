@@ -1130,10 +1130,9 @@ bool PgoPre::ProcessExpression(const Instruction *Expr)
   {
     if (Instruction *I = dyn_cast<Instruction>(Values[i])) 
     {
-      Instruction *&BlockInst = Definitions[BlockNumbering[I->getParent()]];
-      if (BlockInst && BlockInst != I)  // Eliminate direct redundancy
+      const Instruction* BlockInst = Definitions[BlockNumbering[I->getParent()]];
+      if (BlockInst != NULL && BlockInst != I)  // Eliminate direct redundancy
       {    
-
         if (DS->dominates(I, BlockInst)) // I dom BlockInst
         {  
           BlockInst->replaceAllUsesWith(I);
