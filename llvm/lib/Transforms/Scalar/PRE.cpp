@@ -184,12 +184,12 @@ public:
     }
   }
 
-  bool dominates(Instruction I, Instruction BI) // I dominates BI
+  bool dominates(Instruction* I, Instruction* BI) // I dominates BI
   {
-    for (Instruction::iterator itr = dominatorMap[BI].begin(); itr != dominatorMap[BI].end(); itr++)
+    for (vector<Instruction>::iterator itr = dominatorMap[BI].begin(); itr != dominatorMap[BI].end(); itr++)
     {
       Instruction& tmp = *itr;
-      if (tmp == I) // I is in the set of nodes that dominate BI, so I dominates BI
+      if ((&tmp) == I) // I is in the set of nodes that dominate BI, so I dominates BI
       {
         return true;
       }
