@@ -966,10 +966,15 @@ namespace {
     bool EnableSpec(Value* val, const BasicBlock* n);
 
     static char ID; // Pass identification, replacement for typeid
-    explicit PgoPre(bool noloads = false)
-        : FunctionPass(ID), NoLoads(noloads), MD(0) {
+    explicit PgoPre() : FunctionPass(ID), NoLoads(noloads), MD(0) {
       initializePgoPrePass(*PassRegistry::getPassRegistry());
     }
+
+    //   struct PgoPre : public FunctionPass {
+    // static char ID; // Pass identification, replacement for typeid
+    // PgoPre() : FunctionPass(ID) {
+    //   initializePgoPrePass(*PassRegistry::getPassRegistry());
+    // }
 
     bool runOnFunction(Function &F);
 
