@@ -953,16 +953,6 @@ namespace {
     map<ExpressionNodePair, vector<GraphPath*> > CostPaths;
     map<const BasicBlock*, int> BlockFreqMap;
 
-    // Containers of CFG paths (and subpaths)
-    // TODO: this should really be a map from pairs of (expressions/instructions exp, block n) to a path
-    map<ExpressionNodePair, vector<GraphPath*> > AvailableSubPaths;
-    map<ExpressionNodePair, vector<GraphPath*> > UnAvailableSubPaths;
-    map<ExpressionNodePair, vector<GraphPath*> > AnticipableSubPaths;
-    map<ExpressionNodePair, vector<GraphPath*> > UnAnticipableSubPaths;
-    map<ExpressionNodePair, vector<GraphPath*> > BenefitPaths;
-    map<ExpressionNodePair, vector<GraphPath*> > CostPaths;
-    map<const BasicBlock*, int> BlockFreqMap;
-
     bool ProcessBlock(const BasicBlock *BB);
 
     // Functions to compute the cost and benefit of a path
