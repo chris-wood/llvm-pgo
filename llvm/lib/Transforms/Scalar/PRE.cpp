@@ -1,4 +1,4 @@
-//===- PRE.cpp - Eliminate redundant values and loads ---------------------===//
+//===- PgoPre.cpp - Eliminate redundant values and loads ---------------------===//
 //
 //                     The LLVM Compiler Infrastructure
 //
@@ -71,17 +71,17 @@
 using namespace llvm;
 using namespace PatternMatch;
 
-STATISTIC(NumPREInstr,  "Number of instructions deleted");
-// STATISTIC(NumPRELoad,   "Number of loads deleted");
-STATISTIC(NumPREPRE,    "Number of instructions PRE'd");
-STATISTIC(NumPREBlocks, "Number of blocks merged");
-STATISTIC(NumPRESimpl,  "Number of instructions simplified");
-STATISTIC(NumPREEqProp, "Number of equalities propagated");
-STATISTIC(NumPRELoad,   "Number of loads PRE'd");
+STATISTIC(NumPgoPreInstr,  "Number of instructions deleted");
+// STATISTIC(NumPgoPreLoad,   "Number of loads deleted");
+STATISTIC(NumPgoPrePgoPre,    "Number of instructions PgoPre'd");
+STATISTIC(NumPgoPreBlocks, "Number of blocks merged");
+STATISTIC(NumPgoPreSimpl,  "Number of instructions simplified");
+STATISTIC(NumPgoPreEqProp, "Number of equalities propagated");
+STATISTIC(NumPgoPreLoad,   "Number of loads PgoPre'd");
 
-static cl::opt<bool> EnablePRE("enable-pre",
+static cl::opt<bool> EnablePgoPre("enable-pre",
                                cl::init(true), cl::Hidden);
-static cl::opt<bool> EnableLoadPRE("enable-load-pre", cl::init(true));
+static cl::opt<bool> EnableLoadPgoPre("enable-load-pre", cl::init(true));
 
 // Maximum allowed recursion depth.
 static cl::opt<uint32_t>
@@ -833,11 +833,11 @@ void ValueTable::verifyRemoved(const Value *V) const {
 }
 
 //===----------------------------------------------------------------------===//
-//                                PRE Pass
+//                                PgoPre Pass
 //===----------------------------------------------------------------------===//
 
 namespace {
-  class PRE;
+  class PgoPre;
   struct AvailableValueInBlock {
     /// BB - The basic block in question.
     BasicBlock *BB;
@@ -904,10 +904,10 @@ namespace {
   
     /// MaterializeAdjustedValue - Emit code into this block to adjust the value
     /// defined here to the specified type.  This handles various coercion cases.
-    Value *MaterializeAdjustedValue(Type *LoadTy, PRE &gvn) const;
+    Value *MaterializeAdjustedValue(Type *LoadTy, PgoPre &gvn) const;
   };
 
-  class PRE : public FunctionPass {
+  class PgoPre : public FunctionPass {
     bool NoLoads;
     MemoryDependenceAnalysis *MD;
     DominatorTree *DT;
@@ -966,9 +966,9 @@ namespace {
     bool EnableSpec(Value* val, const BasicBlock* n);
 
     static char ID; // Pass identification, replacement for typeid
-    explicit PRE(bool noloads = false)
+    explicit PgoPre(bool noloads = false)
         : FunctionPass(ID), NoLoads(noloads), MD(0) {
-      initializePREPass(*PassRegistry::getPassRegistry());
+      initializePgoPrePass(*PassRegistry::getPassRegistry());
     }
 
     bool runOnFunction(Function &F);
@@ -1050,7 +1050,7 @@ namespace {
     void AnalyzeLoadAvailability(LoadInst *LI, LoadDepVect &Deps, 
                                  AvailValInBlkVect &ValuesPerBlock,
                                  UnavailBlkVect &UnavailableBlocks);
-    bool PerformLoadPRE(LoadInst *LI, AvailValInBlkVect &ValuesPerBlock, 
+    bool PerformLoadPgoPre(LoadInst *LI, AvailValInBlkVect &ValuesPerBlock, 
                         UnavailBlkVect &UnavailableBlocks);
 
     // Other helper routines
@@ -1058,7 +1058,7 @@ namespace {
     bool processBlock(BasicBlock *BB);
     void dump(DenseMap<uint32_t, Value*> &d);
     bool iterateOnFunction(Function &F);
-    bool performPRE(Function &F);
+    bool performPgoPre(Function &F);
     Value *findLeader(const BasicBlock *BB, uint32_t num);
     void cleanupGlobalSets();
     void verifyRemoved(const Instruction *I) const;
@@ -1068,23 +1068,23 @@ namespace {
     bool propagateEquality(Value *LHS, Value *RHS, const BasicBlockEdge &Root);
   };
 
-  char PRE::ID = 0;
+  char PgoPre::ID = 0;
 }
 
-// createPREPass - The public interface to this file...
-FunctionPass *llvm::createPREPass(bool NoLoads) {
-  return new PRE(NoLoads);
+// createPgoPrePass - The public interface to this file...
+FunctionPass *llvm::createPgoPrePass(bool NoLoads) {
+  return new PgoPre(NoLoads);
 }
 
-INITIALIZE_PASS_BEGIN(PRE, "pre", "PRE", false, false)
+INITIALIZE_PASS_BEGIN(PgoPre, "pre", "PgoPre", false, false)
 INITIALIZE_PASS_DEPENDENCY(MemoryDependenceAnalysis)
 INITIALIZE_PASS_DEPENDENCY(DominatorTree)
 INITIALIZE_PASS_DEPENDENCY(TargetLibraryInfo)
 INITIALIZE_AG_DEPENDENCY(AliasAnalysis)
-INITIALIZE_PASS_END(PRE, "pre", "PRE", false, false)
+INITIALIZE_PASS_END(PgoPre, "pre", "PgoPre", false, false)
 
 #if !defined(NDEBUG) || defined(LLVM_ENABLE_DUMP)
-void PRE::dump(DenseMap<uint32_t, Value*>& d) {
+void PgoPre::dump(DenseMap<uint32_t, Value*>& d) {
   errs() << "{\n";
   for (DenseMap<uint32_t, Value*>::iterator I = d.begin(),
        E = d.end(); I != E; ++I) {
@@ -1499,7 +1499,7 @@ static Value *GetStoreValueForLoad(Value *SrcVal, unsigned Offset,
 /// anything more we can do before we give up.
 static Value *GetLoadValueForLoad(LoadInst *SrcVal, unsigned Offset,
                                   Type *LoadTy, Instruction *InsertPt,
-                                  PRE &gvn) {
+                                  PgoPre &gvn) {
   const DataLayout &TD = *gvn.getDataLayout();
   // If Offset+LoadTy exceeds the size of SrcVal, then we must be wanting to
   // widen SrcVal out to a larger load.
@@ -1530,7 +1530,7 @@ static Value *GetLoadValueForLoad(LoadInst *SrcVal, unsigned Offset,
     NewLoad->takeName(SrcVal);
     NewLoad->setAlignment(SrcVal->getAlignment());
 
-    DEBUG(dbgs() << "PRE WIDENED LOAD: " << *SrcVal << "\n");
+    DEBUG(dbgs() << "PgoPre WIDENED LOAD: " << *SrcVal << "\n");
     DEBUG(dbgs() << "TO: " << *NewLoad << "\n");
 
     // Replace uses of the original load with the wider load.  On a big endian
@@ -1543,7 +1543,7 @@ static Value *GetLoadValueForLoad(LoadInst *SrcVal, unsigned Offset,
     SrcVal->replaceAllUsesWith(RV);
 
     // We would like to use gvn.markInstructionForDeletion here, but we can't
-    // because the load is already memoized into the leader map table that PRE
+    // because the load is already memoized into the leader map table that PgoPre
     // tracks.  It is potentially possible to remove the load from the table,
     // but then there all of the operations based on it would need to be
     // rehashed.  Just leave the dead load around.
@@ -1616,7 +1616,7 @@ static Value *GetMemInstValueForLoad(MemIntrinsic *SrcInst, unsigned Offset,
 /// that should be used at LI's definition site.
 static Value *ConstructSSAForLoadSet(LoadInst *LI,
                          SmallVectorImpl<AvailableValueInBlock> &ValuesPerBlock,
-                                     PRE &gvn) {
+                                     PgoPre &gvn) {
   // Check for the fully redundant, dominating load case.  In this case, we can
   // just use the dominating value directly.
   if (ValuesPerBlock.size() == 1 &&
@@ -1666,7 +1666,7 @@ static Value *ConstructSSAForLoadSet(LoadInst *LI,
   return V;
 }
 
-Value *AvailableValueInBlock::MaterializeAdjustedValue(Type *LoadTy, PRE &gvn) const {
+Value *AvailableValueInBlock::MaterializeAdjustedValue(Type *LoadTy, PgoPre &gvn) const {
   Value *Res;
   if (isSimpleValue()) {
     Res = getSimpleValue();
@@ -1676,7 +1676,7 @@ Value *AvailableValueInBlock::MaterializeAdjustedValue(Type *LoadTy, PRE &gvn) c
       Res = GetStoreValueForLoad(Res, Offset, LoadTy, BB->getTerminator(),
                                  *TD);
   
-      DEBUG(dbgs() << "PRE COERCED NONLOCAL VAL:\nOffset: " << Offset << "  "
+      DEBUG(dbgs() << "PgoPre COERCED NONLOCAL VAL:\nOffset: " << Offset << "  "
                    << *getSimpleValue() << '\n'
                    << *Res << '\n' << "\n\n\n");
     }
@@ -1688,7 +1688,7 @@ Value *AvailableValueInBlock::MaterializeAdjustedValue(Type *LoadTy, PRE &gvn) c
       Res = GetLoadValueForLoad(Load, Offset, LoadTy, BB->getTerminator(),
                                 gvn);
   
-      DEBUG(dbgs() << "PRE COERCED NONLOCAL LOAD:\nOffset: " << Offset << "  "
+      DEBUG(dbgs() << "PgoPre COERCED NONLOCAL LOAD:\nOffset: " << Offset << "  "
                    << *getCoercedLoadValue() << '\n'
                    << *Res << '\n' << "\n\n\n");
     }
@@ -1697,7 +1697,7 @@ Value *AvailableValueInBlock::MaterializeAdjustedValue(Type *LoadTy, PRE &gvn) c
     assert(TD && "Need target data to handle type mismatch case");
     Res = GetMemInstValueForLoad(getMemIntrinValue(), Offset,
                                  LoadTy, BB->getTerminator(), *TD);
-    DEBUG(dbgs() << "PRE COERCED NONLOCAL MEM INTRIN:\nOffset: " << Offset
+    DEBUG(dbgs() << "PgoPre COERCED NONLOCAL MEM INTRIN:\nOffset: " << Offset
                  << "  " << *getMemIntrinValue() << '\n'
                  << *Res << '\n' << "\n\n\n");
   }
@@ -1710,7 +1710,7 @@ static bool isLifetimeStart(const Instruction *Inst) {
   return false;
 }
 
-void PRE::AnalyzeLoadAvailability(LoadInst *LI, LoadDepVect &Deps, 
+void PgoPre::AnalyzeLoadAvailability(LoadInst *LI, LoadDepVect &Deps, 
                                   AvailValInBlkVect &ValuesPerBlock,
                                   UnavailBlkVect &UnavailableBlocks) {
 
@@ -1837,11 +1837,11 @@ void PRE::AnalyzeLoadAvailability(LoadInst *LI, LoadDepVect &Deps,
   }
 }
 
-bool PRE::PerformLoadPRE(LoadInst *LI, AvailValInBlkVect &ValuesPerBlock, 
+bool PgoPre::PerformLoadPgoPre(LoadInst *LI, AvailValInBlkVect &ValuesPerBlock, 
                          UnavailBlkVect &UnavailableBlocks) {
   // Okay, we have *some* definitions of the value.  This means that the value
   // is available in some of our (transitive) predecessors.  Lets think about
-  // doing PRE of this load.  This will involve inserting a new load into the
+  // doing PgoPre of this load.  This will involve inserting a new load into the
   // predecessor when it's not available.  We could do this in general, but
   // prefer to not increase code size.  As such, we only do this when we know
   // that we only have to insert *one* load (which means we're basically moving
@@ -1895,14 +1895,14 @@ bool PRE::PerformLoadPRE(LoadInst *LI, AvailValInBlkVect &ValuesPerBlock,
 
     if (Pred->getTerminator()->getNumSuccessors() != 1) {
       if (isa<IndirectBrInst>(Pred->getTerminator())) {
-        DEBUG(dbgs() << "COULD NOT PRE LOAD BECAUSE OF INDBR CRITICAL EDGE '"
+        DEBUG(dbgs() << "COULD NOT PgoPre LOAD BECAUSE OF INDBR CRITICAL EDGE '"
               << Pred->getName() << "': " << *LI << '\n');
         return false;
       }
 
       if (LoadBB->isLandingPad()) {
         DEBUG(dbgs()
-              << "COULD NOT PRE LOAD BECAUSE OF LANDING PAD CRITICAL EDGE '"
+              << "COULD NOT PgoPre LOAD BECAUSE OF LANDING PAD CRITICAL EDGE '"
               << Pred->getName() << "': " << *LI << '\n');
         return false;
       }
@@ -1917,7 +1917,7 @@ bool PRE::PerformLoadPRE(LoadInst *LI, AvailValInBlkVect &ValuesPerBlock,
     return false;
   }
 
-  // Decide whether PRE is profitable for this load.
+  // Decide whether PgoPre is profitable for this load.
   unsigned NumUnavailablePreds = PredLoads.size();
   assert(NumUnavailablePreds != 0 &&
          "Fully available value should be eliminated above!");
@@ -1930,7 +1930,7 @@ bool PRE::PerformLoadPRE(LoadInst *LI, AvailValInBlkVect &ValuesPerBlock,
       return false;
 
   // Check if the load can safely be moved to all the unavailable predecessors.
-  bool CanDoPRE = true;
+  bool CanDoPgoPre = true;
   SmallVector<Instruction*, 8> NewInsts;
   for (DenseMap<BasicBlock*, Value*>::iterator I = PredLoads.begin(),
          E = PredLoads.end(); I != E; ++I) {
@@ -1948,18 +1948,18 @@ bool PRE::PerformLoadPRE(LoadInst *LI, AvailValInBlkVect &ValuesPerBlock,
                                                 *DT, NewInsts);
 
     // If we couldn't find or insert a computation of this phi translated value,
-    // we fail PRE.
+    // we fail PgoPre.
     if (LoadPtr == 0) {
       DEBUG(dbgs() << "COULDN'T INSERT PHI TRANSLATED VALUE OF: "
             << *LI->getPointerOperand() << "\n");
-      CanDoPRE = false;
+      CanDoPgoPre = false;
       break;
     }
 
     I->second = LoadPtr;
   }
 
-  if (!CanDoPRE) {
+  if (!CanDoPgoPre) {
     while (!NewInsts.empty()) {
       Instruction *I = NewInsts.pop_back_val();
       if (MD) MD->removeInstruction(I);
@@ -1971,7 +1971,7 @@ bool PRE::PerformLoadPRE(LoadInst *LI, AvailValInBlkVect &ValuesPerBlock,
   // Okay, we can eliminate this load by inserting a reload in the predecessor
   // and using PHI construction to get the value in the other predecessors, do
   // it.
-  DEBUG(dbgs() << "PRE REMOVING PRE LOAD: " << *LI << '\n');
+  DEBUG(dbgs() << "PgoPre REMOVING PgoPre LOAD: " << *LI << '\n');
   DEBUG(if (!NewInsts.empty())
           dbgs() << "INSERTED " << NewInsts.size() << " INSTS: "
                  << *NewInsts.back() << '\n');
@@ -2005,7 +2005,7 @@ bool PRE::PerformLoadPRE(LoadInst *LI, AvailValInBlkVect &ValuesPerBlock,
     ValuesPerBlock.push_back(AvailableValueInBlock::get(UnavailablePred,
                                                         NewLoad));
     MD->invalidateCachedPointerInfo(LoadPtr);
-    DEBUG(dbgs() << "PRE INSERTED " << *NewLoad << '\n');
+    DEBUG(dbgs() << "PgoPre INSERTED " << *NewLoad << '\n');
   }
 
   // Perform PHI construction.
@@ -2016,13 +2016,13 @@ bool PRE::PerformLoadPRE(LoadInst *LI, AvailValInBlkVect &ValuesPerBlock,
   if (V->getType()->getScalarType()->isPointerTy())
     MD->invalidateCachedPointerInfo(V);
   markInstructionForDeletion(LI);
-  ++NumPRELoad;
+  ++NumPgoPreLoad;
   return true;
 }
 
 /// processNonLocalLoad - Attempt to eliminate a load whose dependencies are
 /// non-local by performing PHI construction.
-bool PRE::processNonLocalLoad(LoadInst *LI) {
+bool PgoPre::processNonLocalLoad(LoadInst *LI) {
   // Step 1: Find the non-local dependencies of the load.
   LoadDepVect Deps;
   AliasAnalysis::Location Loc = VN.getAliasAnalysis()->getLocation(LI);
@@ -2040,7 +2040,7 @@ bool PRE::processNonLocalLoad(LoadInst *LI) {
   if (NumDeps == 1 &&
       !Deps[0].getResult().isDef() && !Deps[0].getResult().isClobber()) {
     DEBUG(
-      dbgs() << "PRE: non-local load ";
+      dbgs() << "PgoPre: non-local load ";
       WriteAsOperand(dbgs(), LI);
       dbgs() << " has unknown dependencies\n";
     );
@@ -2063,7 +2063,7 @@ bool PRE::processNonLocalLoad(LoadInst *LI) {
   // load, then it is fully redundant and we can use PHI insertion to compute
   // its value.  Insert PHIs and remove the fully redundant value now.
   if (UnavailableBlocks.empty()) {
-    DEBUG(dbgs() << "PRE REMOVING NONLOCAL LOAD: " << *LI << '\n');
+    DEBUG(dbgs() << "PgoPre REMOVING NONLOCAL LOAD: " << *LI << '\n');
 
     // Perform PHI construction.
     Value *V = ConstructSSAForLoadSet(LI, ValuesPerBlock, *this);
@@ -2074,15 +2074,15 @@ bool PRE::processNonLocalLoad(LoadInst *LI) {
     if (V->getType()->getScalarType()->isPointerTy())
       MD->invalidateCachedPointerInfo(V);
     markInstructionForDeletion(LI);
-    ++NumPRELoad;
+    ++NumPgoPreLoad;
     return true;
   }
 
   // Step 4: Eliminate partial redundancy.
-  if (!EnablePRE || !EnableLoadPRE)
+  if (!EnablePgoPre || !EnableLoadPgoPre)
     return false;
 
-  return PerformLoadPRE(LI, ValuesPerBlock, UnavailableBlocks);
+  return PerformLoadPgoPre(LI, ValuesPerBlock, UnavailableBlocks);
 }
 
 
@@ -2135,7 +2135,7 @@ static void patchAndReplaceAllUsesWith(Instruction *I, Value *Repl) {
 
 /// processLoad - Attempt to eliminate a load, first by eliminating it
 /// locally, and then attempting non-local elimination if that fails.
-bool PRE::processLoad(LoadInst *L) {
+bool PgoPre::processLoad(LoadInst *L) {
   if (!MD)
     return false;
 
@@ -2201,7 +2201,7 @@ bool PRE::processLoad(LoadInst *L) {
     }
 
     if (AvailVal) {
-      DEBUG(dbgs() << "PRE COERCED INST:\n" << *Dep.getInst() << '\n'
+      DEBUG(dbgs() << "PgoPre COERCED INST:\n" << *Dep.getInst() << '\n'
             << *AvailVal << '\n' << *L << "\n\n\n");
 
       // Replace the load!
@@ -2209,7 +2209,7 @@ bool PRE::processLoad(LoadInst *L) {
       if (AvailVal->getType()->getScalarType()->isPointerTy())
         MD->invalidateCachedPointerInfo(AvailVal);
       markInstructionForDeletion(L);
-      ++NumPRELoad;
+      ++NumPgoPreLoad;
       return true;
     }
   }
@@ -2218,7 +2218,7 @@ bool PRE::processLoad(LoadInst *L) {
   if (Dep.isClobber()) {
     DEBUG(
       // fast print dep, using operator<< on instruction is too slow.
-      dbgs() << "PRE: load ";
+      dbgs() << "PgoPre: load ";
       WriteAsOperand(dbgs(), L);
       Instruction *I = Dep.getInst();
       dbgs() << " is clobbered by " << *I << '\n';
@@ -2233,7 +2233,7 @@ bool PRE::processLoad(LoadInst *L) {
   if (!Dep.isDef()) {
     DEBUG(
       // fast print dep, using operator<< on instruction is too slow.
-      dbgs() << "PRE: load ";
+      dbgs() << "PgoPre: load ";
       WriteAsOperand(dbgs(), L);
       dbgs() << " has unknown dependence\n";
     );
@@ -2254,7 +2254,7 @@ bool PRE::processLoad(LoadInst *L) {
         if (StoredVal == 0)
           return false;
 
-        DEBUG(dbgs() << "PRE COERCED STORE:\n" << *DepSI << '\n' << *StoredVal
+        DEBUG(dbgs() << "PgoPre COERCED STORE:\n" << *DepSI << '\n' << *StoredVal
                      << '\n' << *L << "\n\n\n");
       }
       else
@@ -2266,7 +2266,7 @@ bool PRE::processLoad(LoadInst *L) {
     if (StoredVal->getType()->getScalarType()->isPointerTy())
       MD->invalidateCachedPointerInfo(StoredVal);
     markInstructionForDeletion(L);
-    ++NumPRELoad;
+    ++NumPgoPreLoad;
     return true;
   }
 
@@ -2283,7 +2283,7 @@ bool PRE::processLoad(LoadInst *L) {
         if (AvailableVal == 0)
           return false;
 
-        DEBUG(dbgs() << "PRE COERCED LOAD:\n" << *DepLI << "\n" << *AvailableVal
+        DEBUG(dbgs() << "PgoPre COERCED LOAD:\n" << *DepLI << "\n" << *AvailableVal
                      << "\n" << *L << "\n\n\n");
       }
       else
@@ -2295,7 +2295,7 @@ bool PRE::processLoad(LoadInst *L) {
     if (DepLI->getType()->getScalarType()->isPointerTy())
       MD->invalidateCachedPointerInfo(DepLI);
     markInstructionForDeletion(L);
-    ++NumPRELoad;
+    ++NumPgoPreLoad;
     return true;
   }
 
@@ -2305,7 +2305,7 @@ bool PRE::processLoad(LoadInst *L) {
   if (isa<AllocaInst>(DepInst) || isMallocLikeFn(DepInst, TLI)) {
     L->replaceAllUsesWith(UndefValue::get(L->getType()));
     markInstructionForDeletion(L);
-    ++NumPRELoad;
+    ++NumPgoPreLoad;
     return true;
   }
 
@@ -2315,7 +2315,7 @@ bool PRE::processLoad(LoadInst *L) {
     if (II->getIntrinsicID() == Intrinsic::lifetime_start) {
       L->replaceAllUsesWith(UndefValue::get(L->getType()));
       markInstructionForDeletion(L);
-      ++NumPRELoad;
+      ++NumPgoPreLoad;
       return true;
     }
   }
@@ -2328,7 +2328,7 @@ bool PRE::processLoad(LoadInst *L) {
 // and then scan the list to find one whose block dominates the block in
 // question.  This is fast because dominator tree queries consist of only
 // a few comparisons of DFS numbers.
-Value *PRE::findLeader(const BasicBlock *BB, uint32_t num) {
+Value *PgoPre::findLeader(const BasicBlock *BB, uint32_t num) {
   LeaderTableEntry Vals = LeaderTable[num];
   if (!Vals.Val) return 0;
 
@@ -2354,7 +2354,7 @@ Value *PRE::findLeader(const BasicBlock *BB, uint32_t num) {
 /// replaceAllDominatedUsesWith - Replace all uses of 'From' with 'To' if the
 /// use is dominated by the given basic block.  Returns the number of uses that
 /// were replaced.
-unsigned PRE::replaceAllDominatedUsesWith(Value *From, Value *To,
+unsigned PgoPre::replaceAllDominatedUsesWith(Value *From, Value *To,
                                           const BasicBlockEdge &Root) {
   unsigned Count = 0;
   for (Value::use_iterator UI = From->use_begin(), UE = From->use_end();
@@ -2377,7 +2377,7 @@ static bool isOnlyReachableViaThisEdge(const BasicBlockEdge &E,
   // While in theory it is interesting to consider the case in which Dst has
   // more than one predecessor, because Dst might be part of a loop which is
   // only reachable from Src, in practice it is pointless since at the time
-  // PRE runs all such loops have preheaders, which means that Dst will have
+  // PgoPre runs all such loops have preheaders, which means that Dst will have
   // been changed to have only one predecessor, namely Src.
   const BasicBlock *Pred = E.getEnd()->getSinglePredecessor();
   const BasicBlock *Src = E.getStart();
@@ -2389,7 +2389,7 @@ static bool isOnlyReachableViaThisEdge(const BasicBlockEdge &E,
 /// propagateEquality - The given values are known to be equal in every block
 /// dominated by 'Root'.  Exploit this, for example by replacing 'LHS' with
 /// 'RHS' everywhere in the scope.  Returns whether a change was made.
-bool PRE::propagateEquality(Value *LHS, Value *RHS,
+bool PgoPre::propagateEquality(Value *LHS, Value *RHS,
                             const BasicBlockEdge &Root) {
   SmallVector<std::pair<Value*, Value*>, 4> Worklist;
   Worklist.push_back(std::make_pair(LHS, RHS));
@@ -2434,7 +2434,7 @@ bool PRE::propagateEquality(Value *LHS, Value *RHS,
     // the invariant that instructions only occur in the leader table for their
     // own value number (this is used by removeFromLeaderTable), do not do this
     // if RHS is an instruction (if an instruction in the scope is morphed into
-    // LHS then it will be turned into RHS by the next PRE iteration anyway, so
+    // LHS then it will be turned into RHS by the next PgoPre iteration anyway, so
     // using the leader table is about compiling faster, not optimizing better).
     // The leader table only tracks basic blocks, not edges. Only add to if we
     // have the simple case where the edge dominates the end.
@@ -2447,7 +2447,7 @@ bool PRE::propagateEquality(Value *LHS, Value *RHS,
     if (!LHS->hasOneUse()) {
       unsigned NumReplacements = replaceAllDominatedUsesWith(LHS, RHS, Root);
       Changed |= NumReplacements > 0;
-      NumPREEqProp += NumReplacements;
+      NumPgoPreEqProp += NumReplacements;
     }
 
     // Now try to deduce additional equalities from this one.  For example, if the
@@ -2503,7 +2503,7 @@ bool PRE::propagateEquality(Value *LHS, Value *RHS,
           unsigned NumReplacements =
             replaceAllDominatedUsesWith(NotCmp, NotVal, Root);
           Changed |= NumReplacements > 0;
-          NumPREEqProp += NumReplacements;
+          NumPgoPreEqProp += NumReplacements;
         }
       }
       // Ensure that any instruction in scope that gets the "A < B" value number
@@ -2522,7 +2522,7 @@ bool PRE::propagateEquality(Value *LHS, Value *RHS,
 
 /// processInstruction - When calculating availability, handle an instruction
 /// by inserting it into the appropriate sets
-bool PRE::processInstruction(Instruction *I) {
+bool PgoPre::processInstruction(Instruction *I) {
   // Ignore dbg info intrinsics.
   if (isa<DbgInfoIntrinsic>(I))
     return false;
@@ -2536,7 +2536,7 @@ bool PRE::processInstruction(Instruction *I) {
     if (MD && V->getType()->getScalarType()->isPointerTy())
       MD->invalidateCachedPointerInfo(V);
     markInstructionForDeletion(I);
-    ++NumPRESimpl;
+    ++NumPgoPreSimpl;
     return true;
   }
 
@@ -2640,7 +2640,7 @@ bool PRE::processInstruction(Instruction *I) {
 }
 
 /// runOnFunction - This is the main transformation entry point for a function.
-bool PRE::runOnFunction(Function& F) {
+bool PgoPre::runOnFunction(Function& F) {
 
   // Gather the profile information.
   PI = &getAnalysis<ProfileInfo>();
@@ -2995,20 +2995,20 @@ bool PRE::runOnFunction(Function& F) {
   bool Changed = false;
   bool ShouldContinue = true;
 
-  // Merge unconditional branches, allowing PRE to catch more
+  // Merge unconditional branches, allowing PgoPre to catch more
   // optimization opportunities.
   for (Function::iterator FI = F.begin(), FE = F.end(); FI != FE; ) {
     BasicBlock *BB = FI++;
 
     bool removedBlock = MergeBlockIntoPredecessor(BB, this);
-    if (removedBlock) ++NumPREBlocks;
+    if (removedBlock) ++NumPgoPreBlocks;
 
     Changed |= removedBlock;
   }
 
   unsigned Iteration = 0;
   while (ShouldContinue) {
-    DEBUG(dbgs() << "PRE iteration: " << Iteration << "\n");
+    DEBUG(dbgs() << "PgoPre iteration: " << Iteration << "\n");
     ShouldContinue = iterateOnFunction(F);
     if (splitCriticalEdges())
       ShouldContinue = true;
@@ -3016,18 +3016,18 @@ bool PRE::runOnFunction(Function& F) {
     ++Iteration;
   }
 
-  EnablePRE = true;
-  if (EnablePRE) {
-    bool PREChanged = true;
-    while (PREChanged) {
-      PREChanged = performPRE(F);
-      Changed |= PREChanged;
+  EnablePgoPre = true;
+  if (EnablePgoPre) {
+    bool PgoPreChanged = true;
+    while (PgoPreChanged) {
+      PgoPreChanged = performPgoPre(F);
+      Changed |= PgoPreChanged;
     }
   }
-  // FIXME: Should perform PRE again after PRE does something.  PRE can move
+  // FIXME: Should perform PgoPre again after PgoPre does something.  PgoPre can move
   // computations into blocks where they become fully redundant.  Note that
-  // we can't do this until PRE's critical edge splitting updates memdep.
-  // Actually, when this happens, we should just fully integrate PRE into PRE.
+  // we can't do this until PgoPre's critical edge splitting updates memdep.
+  // Actually, when this happens, we should just fully integrate PgoPre into PgoPre.
 
   cleanupGlobalSets();
 
@@ -3035,7 +3035,7 @@ bool PRE::runOnFunction(Function& F) {
 }
 
 
-bool PRE::processBlock(BasicBlock *BB) {
+bool PgoPre::processBlock(BasicBlock *BB) {
   // FIXME: Kill off InstrsToErase by doing erasing eagerly in a helper function
   // (and incrementing BI before processing an instruction).
   assert(InstrsToErase.empty() &&
@@ -3051,7 +3051,7 @@ bool PRE::processBlock(BasicBlock *BB) {
     }
 
     // If we need some instructions deleted, do it now.
-    NumPREInstr += InstrsToErase.size();
+    NumPgoPreInstr += InstrsToErase.size();
 
     // Avoid iterator invalidation.
     bool AtStart = BI == BB->begin();
@@ -3060,7 +3060,7 @@ bool PRE::processBlock(BasicBlock *BB) {
 
     for (SmallVector<Instruction*, 4>::iterator I = InstrsToErase.begin(),
          E = InstrsToErase.end(); I != E; ++I) {
-      DEBUG(dbgs() << "PRE removed: " << **I << '\n');
+      DEBUG(dbgs() << "PgoPre removed: " << **I << '\n');
       if (MD) MD->removeInstruction(*I);
       DEBUG(verifyRemoved(*I));
       (*I)->eraseFromParent();
@@ -3076,19 +3076,19 @@ bool PRE::processBlock(BasicBlock *BB) {
   return ChangedFunction;
 }
 
-/// performPRE - Perform a purely local form of PRE that looks for diamond
-/// control flow patterns and attempts to perform simple PRE at the join point.
-bool PRE::performPRE(Function &F) {
+/// performPgoPre - Perform a purely local form of PgoPre that looks for diamond
+/// control flow patterns and attempts to perform simple PgoPre at the join point.
+bool PgoPre::performPgoPre(Function &F) {
   bool Changed = false;
   SmallVector<std::pair<Value*, BasicBlock*>, 8> predMap;
   for (df_iterator<BasicBlock*> DI = df_begin(&F.getEntryBlock()),
        DE = df_end(&F.getEntryBlock()); DI != DE; ++DI) {
     BasicBlock *CurrentBlock = *DI;
 
-    // Nothing to PRE in the entry block.
+    // Nothing to PgoPre in the entry block.
     if (CurrentBlock == &F.getEntryBlock()) continue;
 
-    // Don't perform PRE on a landing pad.
+    // Don't perform PgoPre on a landing pad.
     if (CurrentBlock->isLandingPad()) continue;
 
     for (BasicBlock::iterator BI = CurrentBlock->begin(),
@@ -3102,7 +3102,7 @@ bool PRE::performPRE(Function &F) {
           isa<DbgInfoIntrinsic>(CurInst))
         continue;
 
-      // Don't do PRE on compares. The PHI would prevent CodeGenPrepare from
+      // Don't do PgoPre on compares. The PHI would prevent CodeGenPrepare from
       // sinking the compare again, and it would force the code generator to
       // move the i1 from processor flags or predicate registers into a general
       // purpose register.
@@ -3116,7 +3116,7 @@ bool PRE::performPRE(Function &F) {
 
       uint32_t ValNo = VN.lookup(CurInst);
 
-      // Look for the predecessors for PRE opportunities.  We're
+      // Look for the predecessors for PgoPre opportunities.  We're
       // only trying to solve the basic diamond case, where
       // a value is computed in the successor and one predecessor,
       // but not the other.  We also explicitly disallow cases
@@ -3124,13 +3124,13 @@ bool PRE::performPRE(Function &F) {
       // more complicated to get right.
       unsigned NumWith = 0;
       unsigned NumWithout = 0;
-      BasicBlock *PREPred = 0;
+      BasicBlock *PgoPrePred = 0;
       predMap.clear();
 
       for (pred_iterator PI = pred_begin(CurrentBlock),
            PE = pred_end(CurrentBlock); PI != PE; ++PI) {
         BasicBlock *P = *PI;
-        // We're not interested in PRE where the block is its
+        // We're not interested in PgoPre where the block is its
         // own predecessor, or in blocks with predecessors
         // that are not reachable.
         if (P == CurrentBlock) {
@@ -3144,7 +3144,7 @@ bool PRE::performPRE(Function &F) {
         Value* predV = findLeader(P, ValNo);
         if (predV == 0) {
           predMap.push_back(std::make_pair(static_cast<Value *>(0), P));
-          PREPred = P;
+          PgoPrePred = P;
           ++NumWithout;
         } else if (predV == CurInst) {
           /* CurInst dominates this predecessor. */
@@ -3156,21 +3156,21 @@ bool PRE::performPRE(Function &F) {
         }
       }
 
-      // Don't do PRE when it might increase code size, i.e. when
+      // Don't do PgoPre when it might increase code size, i.e. when
       // we would need to insert instructions in more than one pred.
       if (NumWithout != 1 || NumWith == 0)
         continue;
 
-      // Don't do PRE across indirect branch.
-      if (isa<IndirectBrInst>(PREPred->getTerminator()))
+      // Don't do PgoPre across indirect branch.
+      if (isa<IndirectBrInst>(PgoPrePred->getTerminator()))
         continue;
 
-      // We can't do PRE safely on a critical edge, so instead we schedule
-      // the edge to be split and perform the PRE the next time we iterate
+      // We can't do PgoPre safely on a critical edge, so instead we schedule
+      // the edge to be split and perform the PgoPre the next time we iterate
       // on the function.
-      unsigned SuccNum = GetSuccessorNumber(PREPred, CurrentBlock);
-      if (isCriticalEdge(PREPred->getTerminator(), SuccNum)) {
-        toSplit.push_back(std::make_pair(PREPred->getTerminator(), SuccNum));
+      unsigned SuccNum = GetSuccessorNumber(PgoPrePred, CurrentBlock);
+      if (isCriticalEdge(PgoPrePred->getTerminator(), SuccNum)) {
+        toSplit.push_back(std::make_pair(PgoPrePred->getTerminator(), SuccNum));
         continue;
       }
 
@@ -3179,15 +3179,15 @@ bool PRE::performPRE(Function &F) {
       // will be available in the predecessor by the time we need them.  Any
       // that weren't originally present will have been instantiated earlier
       // in this loop.
-      Instruction *PREInstr = CurInst->clone();
+      Instruction *PgoPreInstr = CurInst->clone();
       bool success = true;
       for (unsigned i = 0, e = CurInst->getNumOperands(); i != e; ++i) {
-        Value *Op = PREInstr->getOperand(i);
+        Value *Op = PgoPreInstr->getOperand(i);
         if (isa<Argument>(Op) || isa<Constant>(Op) || isa<GlobalValue>(Op))
           continue;
 
-        if (Value *V = findLeader(PREPred, VN.lookup(Op))) {
-          PREInstr->setOperand(i, V);
+        if (Value *V = findLeader(PgoPrePred, VN.lookup(Op))) {
+          PgoPreInstr->setOperand(i, V);
         } else {
           success = false;
           break;
@@ -3195,22 +3195,22 @@ bool PRE::performPRE(Function &F) {
       }
 
       // Fail out if we encounter an operand that is not available in
-      // the PRE predecessor.  This is typically because of loads which
+      // the PgoPre predecessor.  This is typically because of loads which
       // are not value numbered precisely.
       if (!success) {
-        DEBUG(verifyRemoved(PREInstr));
-        delete PREInstr;
+        DEBUG(verifyRemoved(PgoPreInstr));
+        delete PgoPreInstr;
         continue;
       }
 
-      PREInstr->insertBefore(PREPred->getTerminator());
-      PREInstr->setName(CurInst->getName() + ".pre");
-      PREInstr->setDebugLoc(CurInst->getDebugLoc());
-      VN.add(PREInstr, ValNo);
-      ++NumPREPRE;
+      PgoPreInstr->insertBefore(PgoPrePred->getTerminator());
+      PgoPreInstr->setName(CurInst->getName() + ".pre");
+      PgoPreInstr->setDebugLoc(CurInst->getDebugLoc());
+      VN.add(PgoPreInstr, ValNo);
+      ++NumPgoPrePgoPre;
 
       // Update the availability map to include the new instruction.
-      addToLeaderTable(ValNo, PREInstr, PREPred);
+      addToLeaderTable(ValNo, PgoPreInstr, PgoPrePred);
 
       // Create a PHI to make the value available in this block.
       PHINode* Phi = PHINode::Create(CurInst->getType(), predMap.size(),
@@ -3220,7 +3220,7 @@ bool PRE::performPRE(Function &F) {
         if (Value *V = predMap[i].first)
           Phi->addIncoming(V, predMap[i].second);
         else
-          Phi->addIncoming(PREInstr, PREPred);
+          Phi->addIncoming(PgoPreInstr, PgoPrePred);
       }
 
       VN.add(Phi, ValNo);
@@ -3243,7 +3243,7 @@ bool PRE::performPRE(Function &F) {
       VN.erase(CurInst);
       removeFromLeaderTable(ValNo, CurInst, CurrentBlock);
 
-      DEBUG(dbgs() << "PRE PRE removed: " << *CurInst << '\n');
+      DEBUG(dbgs() << "PgoPre PgoPre removed: " << *CurInst << '\n');
       if (MD) MD->removeInstruction(CurInst);
       DEBUG(verifyRemoved(CurInst));
       CurInst->eraseFromParent();
@@ -3259,7 +3259,7 @@ bool PRE::performPRE(Function &F) {
 
 /// splitCriticalEdges - Split critical edges found during the previous
 /// iteration that may enable further optimization.
-bool PRE::splitCriticalEdges() {
+bool PgoPre::splitCriticalEdges() {
   if (toSplit.empty())
     return false;
   do {
@@ -3270,8 +3270,8 @@ bool PRE::splitCriticalEdges() {
   return true;
 }
 
-/// iterateOnFunction - Executes one iteration of PRE
-bool PRE::iterateOnFunction(Function &F) {
+/// iterateOnFunction - Executes one iteration of PgoPre
+bool PgoPre::iterateOnFunction(Function &F) {
   cleanupGlobalSets();
 
   // Top-down walk of the dominator tree
@@ -3291,7 +3291,7 @@ bool PRE::iterateOnFunction(Function &F) {
   return Changed;
 }
 
-void PRE::cleanupGlobalSets() {
+void PgoPre::cleanupGlobalSets() {
   VN.clear();
   LeaderTable.clear();
   TableAllocator.Reset();
@@ -3299,7 +3299,7 @@ void PRE::cleanupGlobalSets() {
 
 /// verifyRemoved - Verify that the specified instruction does not occur in our
 /// internal data structures.
-void PRE::verifyRemoved(const Instruction *Inst) const {
+void PgoPre::verifyRemoved(const Instruction *Inst) const {
   VN.verifyRemoved(Inst);
 
   // Walk through the value number scope to make sure the instruction isn't
@@ -3687,11 +3687,11 @@ void PRE::verifyRemoved(const Instruction *Inst) const {
 //   //Statistic<> NumRedundant      ("pgo-pre", "Number of redundant exprs eliminated");
 //   //Statistic<> NumInserted       ("pgo-pre", "Number of expressions inserted");
 
-//   struct PgoPre : public FunctionPass {
-//     static char ID; // Pass identification, replacement for typeid
-//     PgoPre() : FunctionPass(ID) {
-//       initializePgoPrePass(*PassRegistry::getPassRegistry());
-//     }
+  // struct PgoPre : public FunctionPass {
+  //   static char ID; // Pass identification, replacement for typeid
+  //   PgoPre() : FunctionPass(ID) {
+  //     initializePgoPrePass(*PassRegistry::getPassRegistry());
+  //   }
 
 //     virtual void getAnalysisUsage(AnalysisUsage &AU) const {
 //       AU.addRequiredID(BreakCriticalEdgesID);  // No critical edges for now!
@@ -3812,9 +3812,9 @@ void PRE::verifyRemoved(const Instruction *Inst) const {
 
 // // register the pass information
 // char PgoPre::ID = 0;
-// INITIALIZE_PASS_BEGIN(PgoPre, "pgo-pre", "Profile Guided PRE", false, false)
+// INITIALIZE_PASS_BEGIN(PgoPre, "pgo-pre", "Profile Guided PgoPre", false, false)
 // INITIALIZE_AG_DEPENDENCY(ProfileInfo)
-// INITIALIZE_PASS_END(PgoPre, "pgo-pre", "Profile Guided PRE", false, false)
+// INITIALIZE_PASS_END(PgoPre, "pgo-pre", "Profile Guided PgoPre", false, false)
 
 // FunctionPass *llvm::createPgoPrePass() { return new PgoPre(); }
 
@@ -4169,7 +4169,7 @@ void PRE::verifyRemoved(const Instruction *Inst) const {
 //   }
 //   ////////////////////////////////////////////////////////////
 
-//   //// OLD PRE CODE BELOW
+//   //// OLD PgoPre CODE BELOW
 
 //   // // Traverse the current function depth-first in dominator-tree order.  This
 //   // // ensures that we see all definitions before their uses (except for PHI
