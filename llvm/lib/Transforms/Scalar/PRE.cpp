@@ -937,6 +937,7 @@ namespace {
     // New content fancy shmancy
     ProfileInfo *PI;
     vector<GraphPath*> paths;
+    DominatorSet *DS;
 
     // Block information - Map basic blocks in a function back and forth to
     // unsigned integers.
