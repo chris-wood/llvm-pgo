@@ -407,7 +407,7 @@ namespace {
     PostDominatorTree *PDT;
     //DominanceFrontier *DF; 
     //PostDominanceFrontier *PDF;
-    ValueTracking    *VN;
+    ValueNumbering    *VN;
 
     // AvailableBlocks - Contain a mapping of blocks with available expression
     // values to the expression value itself.  This can be used as an efficient
