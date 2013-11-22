@@ -11,11 +11,14 @@ from datetime import datetime, timedelta
 # the command line argument, the remaining args should be any
 # additional compiler args (if needed)
 programs = [
-    ["factor.c", "200000"],
-    ["blocked.c", "90"],
-    ["kmeans.c", "100000 10", "-lm"],
-    ["huffman.c", "5000"],
-    ["aes.c", "50000"]
+    # ["factor.c", "200000"],
+    # ["blocked.c", "90"],
+    # ["kmeans.c", "100000 10", "-lm"],
+    # ["huffman.c", "5000"],
+    # ["aes.c", "50000"],
+    # ["factor.c", "2000000"],
+    # ["combinations.c", "13"],
+    ["nbody.c", "10000000", "-lm"]
 ]
 
 clang = "./clang"
