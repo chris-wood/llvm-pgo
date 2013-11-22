@@ -378,7 +378,7 @@ namespace {
       // AU.addRequired<DominatorSet>();
       AU.addRequired<DominatorTree>();
       //AU.addRequired<DominanceFrontier>();
-      //AU.addRequired<ValueNumbering>();
+      AU.addRequired<ValueNumbering>();
 
       // PGO additions
       AU.addRequired<ProfileInfo>();
@@ -407,7 +407,7 @@ namespace {
     PostDominatorTree *PDT;
     //DominanceFrontier *DF; 
     //PostDominanceFrontier *PDF;
-    // ValueTracking    *VN;
+    ValueTracking    *VN;
 
     // AvailableBlocks - Contain a mapping of blocks with available expression
     // values to the expression value itself.  This can be used as an efficient
@@ -487,7 +487,7 @@ FunctionPass *llvm::createPgoPrePass() { return new PgoPre(); }
 
 
 bool PgoPre::runOnFunction(Function &F) {
-  //VN  = &getAnalysis<ValueNumbering>();
+  VN  = &getAnalysis<ValueNumbering>();
   //DS  = &getAnalysis<DominatorSet>();
   DT  = &getAnalysis<DominatorTree>();
   //DF  = &getAnalysis<DominanceFrontier>();
@@ -1095,7 +1095,7 @@ bool PgoPre::ProcessExpression(const Instruction *Expr)
   // nodes are considered to be equivalent to all of their operands.
   //
   std::vector<Value*> Values;
-  // VN->getEqualNumberNodes(Expr, Values);
+  VN->getEqualNumberNodes(Expr, Values);
 
 #if 0
   // FIXME: This should handle PHI nodes correctly.  To do this, we need to
@@ -1154,7 +1154,7 @@ bool PgoPre::ProcessExpression(const Instruction *Expr)
 
   /// TODO: left off here...
 
-//   std::vector<Value*>().swap(Values);  // Done with the values list
+  std::vector<Value*>().swap(Values);  // Done with the values list
 
 //   if (NonInstValue) {
 //     // This is the good, though unlikely, case where we find out that this
