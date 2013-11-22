@@ -45,11 +45,34 @@
 #include "llvm/Target/TargetLibraryInfo.h"
 #include "llvm/Transforms/Utils/BasicBlockUtils.h"
 #include "llvm/Transforms/Utils/SSAUpdater.h"
+#include "llvm/Analysis/ProfileInfo.h"
+#include "llvm/Pass.h"
+#include "llvm/IR/Function.h"
+#include "llvm/IR/Type.h"
+#include "llvm/IR/Instructions.h"
+#include "llvm/Support/CFG.h"
+#include "llvm/Support/InstIterator.h"
+#include "llvm/Analysis/Dominators.h"
+#include "llvm/Analysis/PostDominators.h"
+#include "llvm/Analysis/ValueTracking.h"
+// #include "llvm/Analysis/ValueNumbering.h"
+#include "llvm/Transforms/Scalar.h"
+//#include "Support/Debug.h"
+//#include "Support/DepthFirstIterator.h"
+#include "llvm/ADT/PostOrderIterator.h"
+//#include "Support/Statistic.h"
+//#include "Support/hash_set"
+#include <vector>
+#include <algorithm>
+#include <map>
+#include <set>
+#include <queue>
+
 using namespace llvm;
 using namespace PatternMatch;
 
 STATISTIC(NumPREInstr,  "Number of instructions deleted");
-STATISTIC(NumPRELoad,   "Number of loads deleted");
+// STATISTIC(NumPRELoad,   "Number of loads deleted");
 STATISTIC(NumPREPRE,    "Number of instructions PRE'd");
 STATISTIC(NumPREBlocks, "Number of blocks merged");
 STATISTIC(NumPRESimpl,  "Number of instructions simplified");
