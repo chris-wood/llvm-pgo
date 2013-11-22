@@ -1077,16 +1077,16 @@ namespace {
 }
 
 // createPgoPrePass - The public interface to this file...
-FunctionPass *llvm::createPgoPrePass(bool NoLoads) {
-  return new PgoPre(NoLoads);
+FunctionPass *llvm::createPgoPrePass() {
+  return new PgoPre();
 }
 
-INITIALIZE_PASS_BEGIN(PgoPre, "pre", "PgoPre", false, false)
+INITIALIZE_PASS_BEGIN(PgoPre, "pgo-pre", "PgoPre", false, false)
 INITIALIZE_PASS_DEPENDENCY(MemoryDependenceAnalysis)
 INITIALIZE_PASS_DEPENDENCY(DominatorTree)
 INITIALIZE_PASS_DEPENDENCY(TargetLibraryInfo)
 INITIALIZE_AG_DEPENDENCY(AliasAnalysis)
-INITIALIZE_PASS_END(PgoPre, "pre", "PgoPre", false, false)
+INITIALIZE_PASS_END(PgoPre, "pgo-pre", "PgoPre", false, false)
 
 #if !defined(NDEBUG) || defined(LLVM_ENABLE_DUMP)
 void PgoPre::dump(DenseMap<uint32_t, Value*>& d) {
