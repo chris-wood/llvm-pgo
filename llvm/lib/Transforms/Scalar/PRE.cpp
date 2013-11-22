@@ -966,7 +966,7 @@ namespace {
     bool EnableSpec(Value* val, const BasicBlock* n);
 
     static char ID; // Pass identification, replacement for typeid
-    explicit PgoPre() : FunctionPass(ID), NoLoads(noloads), MD(0) {
+    explicit PgoPre() : FunctionPass(ID), NoLoads(false), MD(0) {
       initializePgoPrePass(*PassRegistry::getPassRegistry());
     }
 
