@@ -79,14 +79,13 @@ STATISTIC(NumPgoPreSimpl,  "Number of instructions simplified");
 STATISTIC(NumPgoPreEqProp, "Number of equalities propagated");
 STATISTIC(NumPgoPreLoad,   "Number of loads PgoPre'd");
 
-static cl::opt<bool> EnablePgoPre("enable-pre",
-                               cl::init(true), cl::Hidden);
-static cl::opt<bool> EnableLoadPgoPre("enable-load-pre", cl::init(true));
+static cl::opt<bool> EnablePgoPre("enable-pgopre", cl::init(true), cl::Hidden);
+static cl::opt<bool> EnableLoadPgoPre("enable-load-pgopre", cl::init(true));
 
 // Maximum allowed recursion depth.
 static cl::opt<uint32_t>
-MaxRecurseDepth("max-recurse-depth", cl::Hidden, cl::init(1000), cl::ZeroOrMore,
-                cl::desc("Max recurse depth (default = 1000)"));
+MaxRecurseDepth("max-pgo-recurse-depth", cl::Hidden, cl::init(1000), cl::ZeroOrMore,
+                cl::desc("Max pgo recurse depth (default = 1000)"));
 
 // for convenience
 #include <iostream>
