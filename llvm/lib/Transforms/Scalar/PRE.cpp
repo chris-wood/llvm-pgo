@@ -3208,13 +3208,24 @@ bool PgoPre::performPgoPre(Function &F) {
         continue;
       }
 
-
-      // Perform PRE instruction insertion here...
-      PgoPreInstr->insertBefore(PgoPrePred->getTerminator());
-      PgoPreInstr->setName(CurInst->getName() + ".pre");
-      PgoPreInstr->setDebugLoc(CurInst->getDebugLoc());
-      VN.add(PgoPreInstr, ValNo);
-      ++NumPgoPrePgoPre;
+      // Perform PRE instruction insertion here... if we have enabled speculation up to this point
+      // bool PgoPre::EnableSpec(Value* val, const BasicBlock* n)
+      Value* instVal = dyn_cast<Value*>(PgoPreInstr);
+      if (EnableSpec(instVal, PgoPrePred))
+      {
+        PgoPreInstr->insertBefore(PgoPrePred->getTerminator());
+        PgoPreInstr->setName(CurInst->getName() + ".pre");
+        PgoPreInstr->setDebugLoc(CurInst->getDebugLoc());
+        VN.add(PgoPreInstr, ValNo);
+        ++NumPgoPrePgoPre;
+      }
+      else
+      {
+        cout << "Speculation not enabled at predecessor, so we skip PRE injection." << endl;
+        cout << "BAILOUT" << endl;
+        delete PgoPreInstr;
+        continue;
+      }
 
       // Update the availability map to include the new instruction.
       addToLeaderTable(ValNo, PgoPreInstr, PgoPrePred);
