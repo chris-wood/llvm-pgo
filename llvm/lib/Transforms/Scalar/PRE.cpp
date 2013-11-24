@@ -1046,6 +1046,9 @@ namespace {
 
       AU.addPreserved<DominatorTree>();
       AU.addPreserved<AliasAnalysis>();
+
+      // AU.setPreservesCFG();
+      AU.addRequired<ProfileInfo>();
     }
 
 
