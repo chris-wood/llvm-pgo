@@ -3210,7 +3210,7 @@ bool PgoPre::performPgoPre(Function &F) {
 
       // Perform PRE instruction insertion here... if we have enabled speculation up to this point
       // bool PgoPre::EnableSpec(Value* val, const BasicBlock* n)
-      Value* instVal = dyn_cast<Value*>(PgoPreInstr);
+      Value* instVal = (Value*)(PgoPreInstr);
       if (EnableSpec(instVal, PgoPrePred))
       {
         PgoPreInstr->insertBefore(PgoPrePred->getTerminator());
