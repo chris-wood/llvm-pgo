@@ -1085,6 +1085,7 @@ INITIALIZE_PASS_BEGIN(PgoPre, "pgo-pre", "PgoPre", false, false)
 INITIALIZE_PASS_DEPENDENCY(MemoryDependenceAnalysis)
 INITIALIZE_PASS_DEPENDENCY(DominatorTree)
 INITIALIZE_PASS_DEPENDENCY(TargetLibraryInfo)
+INITIALIZE_AG_DEPENDENCY(ProfileInfo) // don't forget to mark profile data as dependency
 INITIALIZE_AG_DEPENDENCY(AliasAnalysis)
 INITIALIZE_PASS_END(PgoPre, "pgo-pre", "PgoPre", false, false)
 
@@ -2776,10 +2777,10 @@ bool PgoPre::runOnFunction(Function& F) {
   }
 
   // Set the start node for the dominator set
-  DS = new DominatorSet();
+  // DS = new DominatorSet();
   // DS->function = &F;
   // DS->start = &(inst_begin(&F)); // pull out first instruction in the function CFG
-  DS->buildDominatorSet(&F);
+  // DS->buildDominatorSet(&F);
 
   // Initialize the instructionContainsMap for each instruction for each graph path
   // instructionContainsMap
@@ -3021,7 +3022,7 @@ bool PgoPre::runOnFunction(Function& F) {
     ++Iteration;
   }
 
-  EnablePgoPre = true;
+  EnablePgoPre = true; // force PRE to happen for the purposes of testing PGO-PRE
   if (EnablePgoPre) {
     bool PgoPreChanged = true;
     while (PgoPreChanged) {
@@ -3381,11 +3382,21 @@ int PgoPre::Cost(Value* val, const BasicBlock* n)
 
 double PgoPre::ProbCost(Value* val, const BasicBlock* n)
 {
+  if (BlockFreqMap[n] == 0)
+  {
+    cout << "ERROR: BlockFreqMap[n] == 0 for cost" << endl;
+    return 0;
+  }
   return (double)Cost(val, n) / (double)BlockFreqMap[n];
 }
 
 double PgoPre::ProbBenefit(Value* val, const BasicBlock* n)
 {
+  if (BlockFreqMap[n] == 0)
+  {
+    cout << "ERROR: BlockFreqMap[n] == 0 for benefit" << endl;
+    return 0;
+  }
   return (double)Benefit(val, n) / (double)BlockFreqMap[n];
 }
 
