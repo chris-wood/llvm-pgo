@@ -3088,6 +3088,7 @@ bool PgoPre::processBlock(BasicBlock *BB) {
 /// performPgoPre - Perform a purely local form of PgoPre that looks for diamond
 /// control flow patterns and attempts to perform simple PgoPre at the join point.
 bool PgoPre::performPgoPre(Function &F) {
+  cout << "Trying to perform PGO-PRE" << endl;
   bool Changed = false;
   SmallVector<std::pair<Value*, BasicBlock*>, 8> predMap;
   for (df_iterator<BasicBlock*> DI = df_begin(&F.getEntryBlock()),
@@ -3214,6 +3215,7 @@ bool PgoPre::performPgoPre(Function &F) {
 
       // Perform PRE instruction insertion here... if we have enabled speculation up to this point
       // bool PgoPre::EnableSpec(Value* val, const BasicBlock* n)
+      cout << "EnableSpec?" << endl;
       Value* instVal = (Value*)(PgoPreInstr);
       if (EnableSpec(instVal, PgoPrePred))
       {
