@@ -3096,15 +3096,18 @@ bool PgoPre::performPgoPre(Function &F) {
     BasicBlock *CurrentBlock = *DI;
 
     // Nothing to PgoPre in the entry block.
+    cout << "(CurrentBlock == &F.getEntryBlock())" << endl;
     if (CurrentBlock == &F.getEntryBlock()) continue;
 
     // Don't perform PgoPre on a landing pad.
+    cout << "(CurrentBlock->isLandingPad())" << endl;
     if (CurrentBlock->isLandingPad()) continue;
 
     for (BasicBlock::iterator BI = CurrentBlock->begin(),
          BE = CurrentBlock->end(); BI != BE; ) {
       Instruction *CurInst = BI++;
 
+      cout << "checking instruction type" << endl;
       if (isa<AllocaInst>(CurInst) ||
           isa<TerminatorInst>(CurInst) || isa<PHINode>(CurInst) ||
           CurInst->getType()->isVoidTy() ||
@@ -3116,10 +3119,12 @@ bool PgoPre::performPgoPre(Function &F) {
       // sinking the compare again, and it would force the code generator to
       // move the i1 from processor flags or predicate registers into a general
       // purpose register.
+      cout << "(isa<CmpInst>(CurInst))" << endl;
       if (isa<CmpInst>(CurInst))
         continue;
 
       // We don't currently value number ANY inline asm calls.
+      cout << "(CallInst *CallI = dyn_cast<CallInst>(CurInst))" << endl;
       if (CallInst *CallI = dyn_cast<CallInst>(CurInst))
         if (CallI->isInlineAsm())
           continue;
@@ -3168,16 +3173,19 @@ bool PgoPre::performPgoPre(Function &F) {
 
       // Don't do PgoPre when it might increase code size, i.e. when
       // we would need to insert instructions in more than one pred.
+      cout << "(NumWithout != 1 || NumWith == 0)" << endl;
       if (NumWithout != 1 || NumWith == 0)
         continue;
 
       // Don't do PgoPre across indirect branch.
+      cout << "(isa<IndirectBrInst>(PgoPrePred->getTerminator()))" << endl;
       if (isa<IndirectBrInst>(PgoPrePred->getTerminator()))
         continue;
 
       // We can't do PgoPre safely on a critical edge, so instead we schedule
       // the edge to be split and perform the PgoPre the next time we iterate
       // on the function.
+      cout << "(isCriticalEdge(PgoPrePred->getTerminator(), SuccNum))" << endl;
       unsigned SuccNum = GetSuccessorNumber(PgoPrePred, CurrentBlock);
       if (isCriticalEdge(PgoPrePred->getTerminator(), SuccNum)) {
         toSplit.push_back(std::make_pair(PgoPrePred->getTerminator(), SuccNum));
@@ -3199,6 +3207,7 @@ bool PgoPre::performPgoPre(Function &F) {
         if (Value *V = findLeader(PgoPrePred, VN.lookup(Op))) {
           PgoPreInstr->setOperand(i, V);
         } else {
+          cout << "success = false" << endl;
           success = false;
           break;
         }
