@@ -1040,7 +1040,7 @@ namespace {
     virtual void getAnalysisUsage(AnalysisUsage &AU) const {
       AU.addRequired<DominatorTree>();
       AU.addRequired<TargetLibraryInfo>();
-      if (!NoLoads)
+      // if (!NoLoads)
         AU.addRequired<MemoryDependenceAnalysis>();
       AU.addRequired<AliasAnalysis>();
 
