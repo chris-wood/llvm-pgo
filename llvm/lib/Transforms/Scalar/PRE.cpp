@@ -3027,7 +3027,9 @@ bool PgoPre::runOnFunction(Function& F) {
     ++Iteration;
   }
 
-  EnablePgoPre = true; // force PRE to happen for the purposes of testing PGO-PRE
+  cout << "Should we perform PRE? " << EnablePgoPre << endl;
+
+  // EnablePgoPre = true; // force PRE to happen for the purposes of testing PGO-PRE
   if (EnablePgoPre) {
     bool PgoPreChanged = true;
     while (PgoPreChanged) {
