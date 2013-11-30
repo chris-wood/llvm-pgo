@@ -2992,6 +2992,8 @@ bool PgoPre::runOnFunction(Function& F) {
     }
   }
 
+  cout << "Done calculating sets and whatnot - preparing to run PRE" << endl;
+
   if (!NoLoads)
     MD = &getAnalysis<MemoryDependenceAnalysis>();
   DT = &getAnalysis<DominatorTree>();
