@@ -84,8 +84,7 @@ static cl::opt<bool> EnableLoadPgoPre("enable-load-pgopre", cl::init(true));
 
 // Maximum allowed recursion depth.
 static cl::opt<uint32_t>
-MaxRecurseDepth("max-pgo-recurse-depth", cl::Hidden, cl::init(1000), cl::ZeroOrMore,
-                cl::desc("Max pgo recurse depth (default = 1000)"));
+MaxRecurseDepth("max-pgo-recurse-depth", cl::Hidden, cl::init(1000), cl::ZeroOrMore, cl::desc("Max pgo-pre recurse depth (default = 1000)"));
 
 // for convenience
 #include <iostream>
@@ -3014,15 +3013,15 @@ bool PgoPre::runOnFunction(Function& F) {
     Changed |= removedBlock;
   }
 
-  unsigned Iteration = 0;
-  while (ShouldContinue) {
-    DEBUG(dbgs() << "PgoPre iteration: " << Iteration << "\n");
-    ShouldContinue = iterateOnFunction(F);
-    if (splitCriticalEdges())
-      ShouldContinue = true;
-    Changed |= ShouldContinue;
-    ++Iteration;
-  }
+  // unsigned Iteration = 0;
+  // while (ShouldContinue) {
+  //   DEBUG(dbgs() << "PgoPre iteration: " << Iteration << "\n");
+  //   ShouldContinue = iterateOnFunction(F);
+  //   if (splitCriticalEdges())
+  //     ShouldContinue = true;
+  //   Changed |= ShouldContinue;
+  //   ++Iteration;
+  // }
 
   cout << "Should we perform PRE? " << EnablePgoPre << endl;
 
