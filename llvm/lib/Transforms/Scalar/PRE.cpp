@@ -3129,7 +3129,8 @@ bool PgoPre::performPgoPre(Function &F) {
         if (CallI->isInlineAsm())
           continue;
 
-      uint32_t ValNo = VN.lookup(CurInst);
+      // uint32_t ValNo = VN.lookup(CurInst);
+        uint32_t ValNo = VN.lookup_or_add(CurInst);
 
       // Look for the predecessors for PgoPre opportunities.  We're
       // only trying to solve the basic diamond case, where
