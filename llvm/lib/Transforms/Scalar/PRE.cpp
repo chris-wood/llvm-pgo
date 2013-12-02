@@ -15,7 +15,7 @@
 //
 //===----------------------------------------------------------------------===//
 
-#define DEBUG_TYPE "gvn"
+#define DEBUG_TYPE "pgopre"
 #include "llvm/Transforms/Scalar.h"
 #include "llvm/ADT/DenseMap.h"
 #include "llvm/ADT/DepthFirstIterator.h"
@@ -1040,7 +1040,7 @@ namespace {
     virtual void getAnalysisUsage(AnalysisUsage &AU) const {
       AU.addRequired<DominatorTree>();
       AU.addRequired<TargetLibraryInfo>();
-      // if (!NoLoads)
+      if (!NoLoads)
         AU.addRequired<MemoryDependenceAnalysis>();
       AU.addRequired<AliasAnalysis>();
 
@@ -1088,8 +1088,8 @@ INITIALIZE_PASS_BEGIN(PgoPre, "pgo-pre", "PgoPre", false, false)
 INITIALIZE_PASS_DEPENDENCY(MemoryDependenceAnalysis)
 INITIALIZE_PASS_DEPENDENCY(DominatorTree)
 INITIALIZE_PASS_DEPENDENCY(TargetLibraryInfo)
-INITIALIZE_AG_DEPENDENCY(ProfileInfo) // don't forget to mark profile data as dependency
 INITIALIZE_AG_DEPENDENCY(AliasAnalysis)
+INITIALIZE_AG_DEPENDENCY(ProfileInfo) // don't forget to mark profile data as dependency
 INITIALIZE_PASS_END(PgoPre, "pgo-pre", "PgoPre", false, false)
 
 #if !defined(NDEBUG) || defined(LLVM_ENABLE_DUMP)
@@ -2650,9 +2650,18 @@ bool PgoPre::processInstruction(Instruction *I) {
 
 /// runOnFunction - This is the main transformation entry point for a function.
 bool PgoPre::runOnFunction(Function& F) {
-
-  // Gather the profile information.
+  if (!NoLoads)
+    MD = &getAnalysis<MemoryDependenceAnalysis>();
+  DT = &getAnalysis<DominatorTree>();
+  TD = getAnalysisIfAvailable<DataLayout>();
+  TLI = &getAnalysis<TargetLibraryInfo>();
   PI = &getAnalysis<ProfileInfo>();
+  VN.setAliasAnalysis(&getAnalysis<AliasAnalysis>());
+  VN.setMemDep(MD);
+  VN.setDomTree(DT);
+
+  bool Changed = false;
+  bool ShouldContinue = true;
 
   cout << endl << "*** Running PgoPre on func " << endl;
 
@@ -2993,18 +3002,6 @@ bool PgoPre::runOnFunction(Function& F) {
   }
 
   cout << "Done calculating sets and whatnot - preparing to run PRE" << endl;
-
-  if (!NoLoads)
-    MD = &getAnalysis<MemoryDependenceAnalysis>();
-  DT = &getAnalysis<DominatorTree>();
-  TD = getAnalysisIfAvailable<DataLayout>();
-  TLI = &getAnalysis<TargetLibraryInfo>();
-  VN.setAliasAnalysis(&getAnalysis<AliasAnalysis>());
-  VN.setMemDep(MD);
-  VN.setDomTree(DT);
-
-  bool Changed = false;
-  bool ShouldContinue = true;
 
   // Merge unconditional branches, allowing PgoPre to catch more
   // optimization opportunities.
