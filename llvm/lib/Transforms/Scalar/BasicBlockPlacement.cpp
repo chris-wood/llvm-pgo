@@ -356,7 +356,8 @@ void BlockPlacement::PlaceBlocks(BasicBlock *BB) {
     succ_iterator SI = succ_begin(BB); // reference to first successor of our block
     succ_iterator E = succ_end(BB); // refernce to last success of our block
 
-    // PlacedBlocks.count(*SI) returns the number of items the successor block at point SI is in the set of PlacedBlocks - this loop keeps going until we reach the end of all successors or the block has not been placed.
+    // PlacedBlocks.count(*SI) returns the number of items the successor block at point SI is in the set of 
+    // PlacedBlocks - this loop keeps going until we reach the end of all successors or the block has not been placed.
     for (; SI != E && PlacedBlocks.count(*SI); ++SI) { /* empty */ }
 
     // We traverse the list of successors and have no more to place. We're done.
