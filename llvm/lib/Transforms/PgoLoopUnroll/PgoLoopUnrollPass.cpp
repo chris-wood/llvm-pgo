@@ -1,16 +1,16 @@
-//===-- LoopUnroll.cpp - Loop unroller pass -------------------------------===//
+//===-- PgoLoopUnroll.cpp - Loop unroller pass ----------------------------===//
 //
-//                     The LLVM Compiler Infrastructure
+// This file (in combination with PgoLoop.h and PgoLoopUnrollRuntime.cpp) is
+// an attempt to implement the complex ("offset jumping") PGO loop unroll idea
+// described in the project report. It is based on the static loop unroll pass
+// (LoopUnrollPass.cpp) included in LLVM.
+// Although the actual pass contained in this file is deemed to be complete,
+// the utility funciton PgoUnrollLoop defined in PgoLoop.h does not do what
+// it should do to fully implement the idea.
 //
-// This file is distributed under the University of Illinois Open Source
-// License. See LICENSE.TXT for details.
-//
+// Author: Julian Lettner
 //===----------------------------------------------------------------------===//
 //
-// This pass implements a simple loop unroller.  It works best when loops have
-// been canonicalized by the -indvars pass, allowing it to determine the trip
-// counts of loops easily.
-//===----------------------------------------------------------------------===//
 
 #define DEBUG_TYPE "pgo-loop-unroll"
 #include "llvm/Transforms/Scalar.h"

@@ -1,7 +1,8 @@
 //===-- SimplePgoLoopUnrollPass.cpp - PGO loop unroll pass ----------------===//
 //
 // This file implements the simple PGO loop unroll pass as described in the
-// project report. It is based on the static LoopUnrollPass included in LLVM.
+// project report. It is based on the static loop unroll pass
+// (LoopUnrollPass.cpp) included in LLVM.
 // 
 // 1) First, it attempts to unroll the loop statically and if that fails then
 // 2) uses the profile data to unroll the loop according to the heuristic
@@ -9,10 +10,12 @@
 // 
 // The static part works best when loops have been canonicalized by the
 // -indvars pass, allowing it to determine the trip counts of loops easily.
+// 
+// Author: Julian Lettner 
 //===----------------------------------------------------------------------===//
 //
-#define DEBUG_TYPE "pgo-loop-unroll"
 
+#define DEBUG_TYPE "pgo-loop-unroll"
 #include "llvm/Transforms/Scalar.h"
 #include "llvm/Analysis/CodeMetrics.h"
 #include "llvm/Analysis/LoopPass.h"

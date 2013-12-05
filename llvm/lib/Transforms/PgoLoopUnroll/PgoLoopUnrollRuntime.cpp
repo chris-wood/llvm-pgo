@@ -1,16 +1,9 @@
-//===-- UnrollLoopRuntime.cpp - Runtime Loop unrolling utilities ----------===//
+//===-- PgoUnrollLoopRuntime.cpp - PGO runtime Loop unrolling utility ------===//
 //
-//                     The LLVM Compiler Infrastructure
-//
-// This file is distributed under the University of Illinois Open Source
-// License. See LICENSE.TXT for details.
-//
-//===----------------------------------------------------------------------===//
-//
-// This file implements some loop unrolling utilities for loops with run-time
-// trip counts.  See LoopUnroll.cpp for unrolling loops with compile-time
-// trip counts.
-//
+// This file is an attempt to implement a utility function that does PGO loop
+// unrolling based on the "offset jumping" idea described in the paper. It is
+// based on the file UnrollLoopRuntime.cpp included in LLVM.
+// 
 // The functions in this file are used to generate extra code when the
 // run-time trip count modulo the unroll factor is not 0.  When this is the
 // case, we need to generate code to execute these 'left over' iterations.
@@ -18,8 +11,13 @@
 // The current strategy generates an if-then-else sequence prior to the
 // unrolled loop to execute the 'left over' iterations.  Other strategies
 // include generate a loop before or after the unrolled loop.
+// 
+// Due to time constraints and lacking compiler development knowledge this
+// implementation is unfinished.
 //
+// Author: Julian Lettner
 //===----------------------------------------------------------------------===//
+//
 
 #define DEBUG_TYPE "pgo-loop-unroll"
 #include "PgoLoop.h"
