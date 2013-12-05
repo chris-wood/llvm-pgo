@@ -5,6 +5,8 @@
 // This file is distributed under the University of Illinois Open Source
 // License. See LICENSE.TXT for details.
 //
+// Modified by Christopher A. Wood, woodc1@uci.edu
+//
 //===----------------------------------------------------------------------===//
 //
 // This pass performs global value numbering to eliminate fully redundant
@@ -55,13 +57,8 @@
 #include "llvm/Analysis/Dominators.h"
 #include "llvm/Analysis/PostDominators.h"
 #include "llvm/Analysis/ValueTracking.h"
-// #include "llvm/Analysis/ValueNumbering.h"
 #include "llvm/Transforms/Scalar.h"
-//#include "Support/Debug.h"
-//#include "Support/DepthFirstIterator.h"
 #include "llvm/ADT/PostOrderIterator.h"
-//#include "Support/Statistic.h"
-//#include "Support/hash_set"
 #include <vector>
 #include <algorithm>
 #include <map>
@@ -72,7 +69,6 @@ using namespace llvm;
 using namespace PatternMatch;
 
 STATISTIC(NumPgoPreInstr,  "Number of instructions deleted");
-// STATISTIC(NumPgoPreLoad,   "Number of loads deleted");
 STATISTIC(NumPgoPrePgoPre,    "Number of instructions PgoPre'd");
 STATISTIC(NumPgoPreBlocks, "Number of blocks merged");
 STATISTIC(NumPgoPreSimpl,  "Number of instructions simplified");
@@ -92,161 +88,6 @@ using namespace std;
 
 typedef std::pair<const BasicBlock*, const BasicBlock*> GraphEdge;
 
-class DominatorSet 
-{
-public:
-
-  // Function* function;
-  // Instruction* start;
-  map<Instruction*, vector<Instruction*> > dominatorMap;
-
-  void buildDominatorSet(Function* function)
-  {
-    // dominator of the start node is the start itself:
-    //
-    // Dom(n0) = {n0}
-    dominatorMap[&(*(inst_begin(function)))].push_back(&(*(inst_begin(function))));
-
-    // for all other nodes, set all nodes as the dominators:
-    // 
-    // for each n in N - {n0}
-    //  Dom(n) = N;
-    for (inst_iterator instItr = inst_begin(function), E = inst_end(function); instItr != E; ++instItr)
-    {
-      if (instItr != inst_begin(function))
-      {
-        Instruction* inst = &(*instItr);
-        for (inst_iterator allItr = inst_begin(function), E2 = inst_end(function); allItr != E2; ++allItr)
-        {
-          dominatorMap[inst].push_back(&(*allItr));
-        }
-      }
-    }
-
-    // iteratively eliminate nodes that are not dominators:
-    //
-    // while changes in any Dom(n)
-    //  for each n in N - {n0}:
-    //    Dom(n) = {n} union with intersection over Dom(p) for all p in pred(n)
-    bool changes = true;
-    while (changes == true)
-    {
-      for (inst_iterator instItr = inst_begin(function), E = inst_end(function); instItr != E; ++instItr)
-      {
-        if (instItr != inst_begin(function))
-        {
-          Instruction* inst = &(*instItr);
-          vector<Instruction*> predecessors;
-          BasicBlock* currBB = inst->getParent();
-          BasicBlock* prevBB = (inst->getParent())->getSinglePredecessor();
-
-          // Check this BB and parent BB to find all predecessors
-          if (currBB != NULL)
-          {
-            Instruction* prevInst = NULL;
-            for (BasicBlock::iterator i = currBB->begin(), e = currBB->end(); i != e; ++i)
-            {
-              if (prevInst == NULL)
-              {
-                prevInst = &(*(i));
-              }
-              else
-              {
-                if (inst == &(*(i)))
-                {
-                  predecessors.push_back(prevInst);
-                  break; // don't bother going father since we'll pass the instructon
-                }
-              }
-            } 
-          }
-          else
-          {
-            cout << "ERROR: INSTRUCTION PARENT BASIC BLOCK CANNOT BE NULL." << endl;
-          }
-
-          if (prevBB != NULL)
-          {
-            Instruction* prevInst = NULL;
-            for (BasicBlock::iterator i = prevBB->begin(), e = prevBB->end(); i != e; ++i)
-            {
-              if (prevInst == NULL)
-              {
-                prevInst = &(*(i));
-              }
-              else
-              {
-                if (inst == &(*(i)))
-                {
-                  predecessors.push_back(prevInst);
-                  break; // don't bother going father since we'll pass the instructon
-                }
-              }
-            } 
-          }
-
-          // Build the the intersection of all dominators of the instructions in predecessor...
-          //    Dom(n) = {n} union with intersection over Dom(p) for all p in pred(n)
-          vector<Instruction*> temp_intersect;
-          vector<Instruction*> intersect;
-          Instruction* candPred = *(predecessors.begin());
-          for (vector<Instruction*>::iterator setItr = dominatorMap[candPred].begin(); setItr != dominatorMap[candPred].end(); setItr++)
-          {
-            temp_intersect.push_back(*setItr);
-          }
-          for (vector<Instruction*>::iterator predItr = temp_intersect.begin(); predItr != temp_intersect.end(); predItr++)
-          {
-            candPred = *predItr;
-            bool inAllSets = true;
-
-            // Traverse all predecessor dominators and see if this instruction is in each...
-            for (vector<Instruction*>::iterator otherPredItr = predecessors.begin(); otherPredItr != predecessors.end(); otherPredItr++)
-            {
-              Instruction* otherCandPred = *otherPredItr;
-              if (otherPredItr != predecessors.begin()) 
-              {
-                bool inThisSet = false;
-                // traverse over the domination set of this predecessor
-                for (vector<Instruction*>::iterator setItr = dominatorMap[otherCandPred].begin(); setItr != dominatorMap[otherCandPred].end(); setItr++)
-                {
-                  Instruction* cand = *setItr;
-                  if (cand == candPred)
-                  {
-                    inThisSet = true;
-                  }
-                }
-                inAllSets = inThisSet ? true : false;
-              }
-            }
-
-            if (inAllSets == true) // def of set intersection
-            {
-              intersect.push_back(candPred);
-            }
-          }
-
-          // intersect is the intersection of dominators
-          // TODO: set union here and check for change
-        }
-      }
-    }
-  }
-
-  bool dominates(Instruction* I, Instruction* BI) // I dominates BI
-  {
-    for (vector<Instruction*>::iterator itr = dominatorMap[BI].begin(); itr != dominatorMap[BI].end(); itr++)
-    {
-      Instruction* tmp = *itr;
-      if (tmp == I) // I is in the set of nodes that dominate BI, so I dominates BI
-      {
-        return true;
-      }
-    }
-    return false;
-  }
-private:
-};
-
 // Helpful class/container for CFG subpaths - just a set of ordered pairs/edges
 class GraphPath
 {
@@ -258,21 +99,9 @@ public:
   map<Value*, bool> valueContainsMap;
   map<Value*, int> valueBlockMap;
   bool fromStart;
-  // double freq;
 
-  // void addBlock(const BasicBlock* blk)
-  // {
-    // for (BasicBlock::iterator i = blk->begin(), e = blk->end(); i != e; ++i)
-    // {
-    //   Instruction* inst = *i;
-
-    // }
-  // }
-
-  // methods
-  // TODO: buildSubgraph() = returns new instance of this class, or emtpy
-
-  GraphPath* buildSubPath(unsigned int i) // return subpath from index i to end of the path
+  // return subpath from index i to end of the path
+  GraphPath* buildSubPath(unsigned int i) 
   {
     if (i < nodes.size())
     {
@@ -298,6 +127,7 @@ public:
     }
   }
 
+  // return the concatenation of two graph paths
   GraphPath* concat(GraphPath* p2)
   {
     GraphPath* newPath = new GraphPath();
@@ -335,11 +165,13 @@ public:
     return newPath;
   }
 
+  // lookup and return the inclusion flag for the specified instruction (expression)
   bool containsValue(Value* inst)
   {
-    return valueContainsMap[inst]; // we shouldn't need to do any error checking since the map is assumed to be initialized correctly
+    return valueContainsMap[inst]; 
   }
 
+  // check to see if the specified value is on the path
   void checkForValue(Value* val)
   {
     for (unsigned int i = 0; i < nodes.size(); i++)
@@ -372,13 +204,15 @@ public:
       }
     }
 
-    // wasn't in any of the basic blocks above... so set to false and return
+    // wasn't in any of the basic blocks above, so set to false and return
     valueContainsMap[val] = false;
     valueBlockMap[val] = -1;
     return;
   }
 
-  int freq() { // to me, using the minimum edge weight as the frequency of this whole path makes the most sense...
+  // Compute the frequency as the minimum edge weight of the graph path
+  int freq() 
+  { 
     int f = weights.at(0);
     for (unsigned int i = 1; i < weights.size(); i++)
     {
@@ -390,6 +224,7 @@ public:
     return f;
   }
 
+  // Compute the total edge weight of the path
   int totalWeight() {
     int acc = 0;
     for (unsigned int i = 0; i < weights.size(); i++)
@@ -969,12 +804,6 @@ namespace {
       initializePgoPrePass(*PassRegistry::getPassRegistry());
     }
 
-    //   struct PgoPre : public FunctionPass {
-    // static char ID; // Pass identification, replacement for typeid
-    // PgoPre() : FunctionPass(ID) {
-    //   initializePgoPrePass(*PassRegistry::getPassRegistry());
-    // }
-
     bool runOnFunction(Function &F);
 
     /// markInstructionForDeletion - This removes the specified instruction from
@@ -1046,7 +875,7 @@ namespace {
       AU.addPreserved<DominatorTree>();
       AU.addPreserved<AliasAnalysis>();
 
-      // AU.setPreservesCFG();
+      // Fetch and load the profile information necessary for PRE
       AU.addRequired<ProfileInfo>();
     }
 
@@ -2678,15 +2507,7 @@ bool PgoPre::runOnFunction(Function& F) {
     BlockMapping.push_back(BB);
   }
 
-  /* need to initialize the subpath collections with their frequencies here
-  hash_map<const BasicBlock*, GraphPath*> AvailableSubPaths;
-  hash_map<const BasicBlock*, GraphPath*> UnAvailableSubPaths;
-  hash_map<const BasicBlock*, GraphPath*> AnticipableSubPaths;
-  hash_map<const BasicBlock*, GraphPath*> UnAnticipableSubPaths;
-  */
-
   // Build all paths through the graph using BFS
-  // getSinglePredecessor().
   queue<const BasicBlock*> bfsQueue;
   bfsQueue.push(startNode);
   set<const BasicBlock*> visited;
@@ -2787,12 +2608,6 @@ bool PgoPre::runOnFunction(Function& F) {
     }
   }
 
-  // Set the start node for the dominator set
-  // DS = new DominatorSet();
-  // DS->function = &F;
-  // DS->start = &(inst_begin(&F)); // pull out first instruction in the function CFG
-  // DS->buildDominatorSet(&F);
-
   // Initialize the instructionContainsMap for each instruction for each graph path
   // instructionContainsMap
   for (inst_iterator instItr = inst_begin(&F), E = inst_end(&F); instItr != E; ++instItr)
@@ -2824,15 +2639,19 @@ bool PgoPre::runOnFunction(Function& F) {
     }
 
     // 1. Build AvailableSubPaths for all blocks that are not the start, using BFS of basic blocks to build paths
-    // 2. Build UnavailableSubPaths at the same time...
+    // 2. Build UnavailableSubPaths at the same time
     for (unsigned int pId = 0; pId < paths.size(); pId++) // check every path...
     {
       bool killed = false;
-      if (paths.at(pId)->fromStart == true && paths.at(pId)->containsValue(instValue)) // only check this path if it contains the instruction somewhere
-      {
-        int bId = paths.at(pId)->valueBlockMap[instValue]; // the block ID in this path that contains the instruction
 
-        for (int prevBlockId = 0; prevBlockId < bId; prevBlockId++) // check each instruction UP to the previous block to see if the expression is contained...
+      // only check this path if it contains the instruction somewhere
+      if (paths.at(pId)->fromStart == true && paths.at(pId)->containsValue(instValue)) 
+      {
+        // the block ID in this path that contains the instruction
+        int bId = paths.at(pId)->valueBlockMap[instValue]; 
+
+        // check each instruction UP to the previous block to see if the expression is contained...
+        for (int prevBlockId = 0; prevBlockId < bId; prevBlockId++) 
         {
           // check each instruction in this block
           BasicBlock* blk = const_cast<BasicBlock*>(paths.at(pId)->nodes.at(bId));
@@ -2841,19 +2660,14 @@ bool PgoPre::runOnFunction(Function& F) {
             Value* instValue = dyn_cast<Value>(&(*prevBlockInstItr)); // cast instruction to value
             for (unsigned int vId = 0; vId < operands.size(); vId++)
             {
-              if (instValue == operands.at(vId)) // match in the operand list (one of the operands was re-evaluated by a previous instruction)
+              // match in the operand list (one of the operands was re-evaluated by a previous instruction)
+              if (instValue == operands.at(vId)) 
               {
                 killed = true;
               }
             }
           }
         }
-
-        // Now check the instructions current block 
-        // TODO: is it even necessary to even check the current block?
-        // for (BasicBlock::iterator prevBlockInstItr = blk->begin(), prevBlockInstItrEnd = blk->end(); prevBlockInstItr != prevBlockInstItrEnd; ++prevBlockInstItr)
-        // {
-        // }
 
         // was not killed along some path from start to this node n
         if (killed == false)
@@ -2867,11 +2681,6 @@ bool PgoPre::runOnFunction(Function& F) {
           UnAvailableSubPaths[enpair].push_back(paths.at(pId)); // save this (exp, node/block, path) pair in the available subpaths
         }
       } 
-      // else // this instruction isn't even available on this path... so it belongs in the unavailable subpaths group
-      // {
-      //   ExpressionNodePair enpair = std::make_pair(instValue, NULL);
-      //   UnAvailableSubPaths[enpair].push_back(paths.at(pId)); // save this (exp, node/block, path) pair in the available subpaths
-      // }
     }
 
     // 3/4. Build Unanticipable sets
@@ -2881,11 +2690,14 @@ bool PgoPre::runOnFunction(Function& F) {
       bool opEvaluated = false;
       bool valEvaluated = false;
       bool includeInSet = true;
-      if (paths.at(pId)->fromStart == false && paths.at(pId)->containsValue(instValue)) // only check this path if it contains the instruction somewhere
+
+      // only check this path if it contains the instruction somewhere
+      if (paths.at(pId)->fromStart == false && paths.at(pId)->containsValue(instValue)) 
       {
         int bId = paths.at(pId)->valueBlockMap[instValue]; // the block ID in this path that contains the instruction
 
-        for (int prevBlockId = 0; prevBlockId < bId; prevBlockId++) // check each instruction UP to the previous block to see if the expression is contained...
+        // check each instruction UP to the previous block to see if the expression is contained...
+        for (int prevBlockId = 0; prevBlockId < bId; prevBlockId++) 
         {
           // check each instruction in this block
           BasicBlock* blk = const_cast<BasicBlock*>(paths.at(pId)->nodes.at(bId));
@@ -2902,7 +2714,8 @@ bool PgoPre::runOnFunction(Function& F) {
             }
             for (unsigned int vId = 0; vId < operands.size(); vId++)
             {
-              if (instValue == operands.at(vId)) // match in the operand list (one of the operands was re-evaluated by a previous instruction)
+              // match in the operand list (one of the operands was re-evaluated by a previous instruction)
+              if (instValue == operands.at(vId)) 
               {
                 opEvaluated = true;
               }
@@ -2922,15 +2735,7 @@ bool PgoPre::runOnFunction(Function& F) {
           UnAnticipableSubPaths[enpair].push_back(paths.at(pId)); // save this (exp, node/block, path) pair in the available subpaths
         }
       } 
-      // else // this instruction isn't even available on this path... so it belongs in the unavailable subpaths group
-      // {
-      //   ExpressionNodePair enpair = std::make_pair(instValue, NULL);
-      //   UnAnticipableSubPaths[enpair].push_back(paths.at(pId)); // save this (exp, node/block, path) pair in the available subpaths
-      // }
     }
-
-    // https://groups.google.com/forum/#!topic/llvm-dev/SJXFz0-Ck6A
-    // cast instruction to value, and compare against operands... if any are equal, then we assume they were KILLED, and yeah.... so on and so forth
   }
 
   ////////////////////////////////////////////////////////////
@@ -2960,16 +2765,6 @@ bool PgoPre::runOnFunction(Function& F) {
           }
         }
       }
-
-      // // check to see if these guys can be joined...
-      // // if the last node on path1 == first node on path2
-      // unsigned int n1 = iter1->second->nodes.size();
-      // unsigned int n2 = iter2->second->nodes.size();
-      // if (iter1->second->nodes.at(n1 - 1) == iter2->second->nodes.at(n2 - 1))
-      // {
-        // GraphPath* join = iter1->second->concat(iter2->second);
-        // CostPaths.push_back(join);
-      // }
     }
   }
 
@@ -3013,17 +2808,15 @@ bool PgoPre::runOnFunction(Function& F) {
     Changed |= removedBlock;
   }
 
-  // unsigned Iteration = 0;
-  // while (ShouldContinue) {
-  //   DEBUG(dbgs() << "PgoPre iteration: " << Iteration << "\n");
-  //   ShouldContinue = iterateOnFunction(F);
-  //   if (splitCriticalEdges())
-  //     ShouldContinue = true;
-  //   Changed |= ShouldContinue;
-  //   ++Iteration;
-  // }
-
-  cout << "Should we perform PRE? " << EnablePgoPre << endl;
+  unsigned Iteration = 0;
+  while (ShouldContinue) {
+    DEBUG(dbgs() << "PgoPre iteration: " << Iteration << "\n");
+    ShouldContinue = iterateOnFunction(F);
+    if (splitCriticalEdges())
+      ShouldContinue = true;
+    Changed |= ShouldContinue;
+    ++Iteration;
+  }
 
   // EnablePgoPre = true; // force PRE to happen for the purposes of testing PGO-PRE
   if (EnablePgoPre) {
@@ -3033,6 +2826,7 @@ bool PgoPre::runOnFunction(Function& F) {
       Changed |= PgoPreChanged;
     }
   }
+
   // FIXME: Should perform PgoPre again after PgoPre does something.  PgoPre can move
   // computations into blocks where they become fully redundant.  Note that
   // we can't do this until PgoPre's critical edge splitting updates memdep.
@@ -3386,11 +3180,6 @@ int PgoPre::Cost(Value* val, const BasicBlock* n)
       }
     }
   }
-  
-  // for (unsigned int i = 0; i < CostPaths.size(); i++)
-  // {
-  //   cost += CostPaths.at(i)->freq();
-  // }
 
   return cost;
 }
@@ -3399,7 +3188,7 @@ double PgoPre::ProbCost(Value* val, const BasicBlock* n)
 {
   if (BlockFreqMap[n] == 0)
   {
-    cout << "ERROR: BlockFreqMap[n] == 0 for cost" << endl;
+    cerr << "ERROR: BlockFreqMap[n] == 0 for cost" << endl;
     return 0;
   }
   return (double)Cost(val, n) / (double)BlockFreqMap[n];
@@ -3409,7 +3198,7 @@ double PgoPre::ProbBenefit(Value* val, const BasicBlock* n)
 {
   if (BlockFreqMap[n] == 0)
   {
-    cout << "ERROR: BlockFreqMap[n] == 0 for benefit" << endl;
+    cerr << "ERROR: BlockFreqMap[n] == 0 for benefit" << endl;
     return 0;
   }
   return (double)Benefit(val, n) / (double)BlockFreqMap[n];
