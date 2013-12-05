@@ -1,5 +1,15 @@
 #!/bin/bash
 
+#
+# File: run_experiment.sh
+# Description: Run the specified optimization pass experiment using the following
+#    hardcoded set of input sizes and applications. It is assumed that all application
+#    source files are in the same directory as this script.
+# Author: Christopher A. Wood, woodc1@uci.edu
+# Usage: run_experiment.sh <optimization_pass_prefix>
+#    ex: ./run_experiment.sh run_basicblock
+#
+
 echo ----------------------------------------  
 echo Running experiment for optimization: $1
 echo ----------------------------------------
@@ -24,13 +34,3 @@ echo ----------------------------------------
 ./$1.sh nbody nbody "" 5 10000000 20000000 30000000 40000000 50000000
 ./$1.sh lucas lucas "-lm" 5 75000 100000 125000 150000 175000
 ./$1.sh aes aes "" 5 250000 500000 750000 1000000 1250000
-
-## omitted below because the clang front-end is stupid and won't let me compile and link multiple files together at the same time...
-# ./$1.sh keccak-test keccak-test0 "" 5 "0 10000" "0 30000" "0 50000" "0 70000" "0 70000"
-# ./$1.sh keccak-test keccak-test1 "" 5 "1 10000" "1 30000" "1 50000" "1 70000" "1 70000"
-# ./$1.sh keccak-test keccak-test2 "" 5 "2 10000" "2 30000" "2 50000" "2 70000" "2 70000"
-# ./$1.sh keccak-test keccak-test3 "" 5 "3 100" "3 200" "3 300" "3 400" "3 500"
-# ./$1.sh keccak-test keccak-test0 "KeccakNISTInterface.c KeccakSponge.c KeccakF-1600-opt32.c genKAT.c KeccakDuplex.c" 5 "0 10000" "0 30000" "0 50000" "0 70000" "0 70000"
-# ./$1.sh keccak-test keccak-test1 "KeccakNISTInterface.c KeccakSponge.c KeccakF-1600-opt32.c genKAT.c KeccakDuplex.c" 5 "1 10000" "1 30000" "1 50000" "1 70000" "1 70000"
-# ./$1.sh keccak-test keccak-test2 "KeccakNISTInterface.c KeccakSponge.c KeccakF-1600-opt32.c genKAT.c KeccakDuplex.c" 5 "2 10000" "2 30000" "2 50000" "2 70000" "2 70000"
-# ./$1.sh keccak-test keccak-test3 "KeccakNISTInterface.c KeccakSponge.c KeccakF-1600-opt32.c genKAT.c KeccakDuplex.c" 5 "3 100" "3 200" "3 300" "3 400" "3 500"

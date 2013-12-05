@@ -1,3 +1,16 @@
+'''
+File: parse_experiment.py
+Description: Parse the output files output from the run_experiment script and generate
+    the corresponding speedup data files
+Author: Christopher A. Wood, woodc1@uci.edu
+Usage: python parse_experiment.py <prefix_file>
+    *** the prefix file contains a line-separated list of all application prefixes, e.g.:
+        is_prime
+        blocked
+        block_test
+        ...
+'''
+
 import sys
 import os
 
