@@ -1,5 +1,9 @@
 #!/usr/bin/perl -w
 
+# File: time.pl
+# Description: Time the execution of a particular command.
+# Author: Christopher A. Wood, woodc1@uci.edu
+
 use Time::HiRes qw/ time sleep /;
 
 my $start = time;

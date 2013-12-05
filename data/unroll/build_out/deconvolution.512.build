@@ -1,5 +1,0 @@
-clang: warning: -lm: 'linker' input unused
-deconvolution.c:175:1: warning: control reaches end of non-void function [-Wreturn-type]
-}
-^
-1 warning generated.

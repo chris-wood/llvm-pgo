@@ -5,6 +5,8 @@
 // This file is distributed under the University of Illinois Open Source
 // License. See LICENSE.TXT for details.
 //
+// Modified by: Christopher A. Wood, woodc1@uci.edu
+//
 //===----------------------------------------------------------------------===//
 //
 // This file implements a very simple profile guided basic block placement
@@ -27,9 +29,7 @@
 //===----------------------------------------------------------------------===//
 
 /*
-
-To run with the profile data in tact
-
+To run with the profile data in tact:
 ./clang -03 -emit-llvm mod_inverse.c -c -o mod_inverse.bc
 ./opt -insert-edge-profiling mod_inverse.bc -o mod_inverse.profile.bc
 ./llc mod_inverse.profile.bc -o mod_inverse.profile.s
@@ -37,7 +37,6 @@ To run with the profile data in tact
 ./mod_inverse.profile
 ./llvm-prof mod_inverse.profile.bc
 ./opt -profile-loader -block-placement mod_inverse.profile.bc
-
 */
 
 #define DEBUG_TYPE "block-placement"
@@ -75,7 +74,6 @@ namespace {
     virtual void getAnalysisUsage(AnalysisUsage &AU) const {
       AU.setPreservesCFG();
       AU.addRequired<ProfileInfo>();
-      //AU.addPreserved<ProfileInfo>();  // Does this work?
     }
   private:
     /// PI - The profile information that is guiding us.
@@ -96,10 +94,8 @@ namespace {
 
     /// PlaceBlocks - Recursively place the specified blocks and any unplaced
     /// successors.
+    /// NOTE: unused in this version
     void PlaceBlocks(BasicBlock *BB);
-
-    /// PlaceBlocksBottomUp - algo 2 for doing basic block placement
-    void PlaceBlocksBottomUp(vector< vector<BasicBlock*> > chains, vector<BBArc> arcs);
   };
 }
 
@@ -144,8 +140,7 @@ bool BlockPlacement::runOnFunction(Function &F) {
     bfsQueue.pop();
     visited.insert(curr);
 
-    // debug
-    cout << "Visited block @" << curr << endl;
+    cerr << "Visited block @" << curr << endl;
     for (llvm::succ_const_iterator itr = succ_begin(curr); itr != succ_end(curr); itr++)
     {
       // Determine arc weight using profile information
@@ -161,7 +156,6 @@ bool BlockPlacement::runOnFunction(Function &F) {
         if (weight < wt) continue; // try next spot
         else
         {
-
           // Create the arc and insert
           BBArc arc;
           arc.head = curr;
@@ -181,7 +175,6 @@ bool BlockPlacement::runOnFunction(Function &F) {
         arc.tail = *itr;
         arc.weight = weight;
         arcs.push_back(arc); // append to the end
-        // arcs.push_back(make_tuple(curr, *itr, weight));
       }
 
       // Append the new basic block to the queue to continue traversal (if we haven't visited it before...)
@@ -191,20 +184,20 @@ bool BlockPlacement::runOnFunction(Function &F) {
       }
       else
       {
-        cout << "Skipping block @" << *itr << endl;
+        cerr << "Skipping block @" << *itr << endl;
       }
     }
   }
 
-  cout << "Chain creation done." << endl << "Walking arcs now." << endl;
+  cerr << "Chain creation done." << endl << "Walking arcs now." << endl;
   assert(visited.size() == chains.size());
   
   // Merge chains together using arc information
   for (vector<BBArc>::iterator arcItr = arcs.begin(); arcItr != arcs.end(); arcItr++)
   {
     BBArc arc = *arcItr;
-    cout << "Visiting arc @" << &arc << endl;
-    cout << "Weight = " << arc.weight << endl;
+    cerr << "Visiting arc @" << &arc << endl;
+    cerr << "Weight = " << arc.weight << endl;
 
     // Walk each pair of head/tails and check to see if they satisfy this arc
     for (unsigned int i = 0; i < chains.size(); i++)
@@ -213,12 +206,12 @@ bool BlockPlacement::runOnFunction(Function &F) {
       {
         if (i != j && chains[i].size() > 0 && chains[j].size() > 0)
         {
-          // if arc connects the tail of one chain to the head of another
-          // append target/tail chain to source/head chain
-          // vectors store BB pointers, so we can just compare addresses for equality 
+          // If arc connects the tail of one chain to the head of another
+          //   append target/tail chain to source/head chain
+          //   vectors store BB pointers, so we can just compare addresses for equality 
           if (chains[i][0] == arc.tail && chains[j][chains[j].size() - 1] == arc.head) // chain j is the head, i is the tail
           {
-            cout << "Appending..." << endl;
+            cerr << "Appending..." << endl;
             for (unsigned int k = 0; k < chains[i].size(); k++) // append chains[i] to chains[j]
             {
               chains[j].push_back(chains[i][0]);
@@ -227,7 +220,7 @@ bool BlockPlacement::runOnFunction(Function &F) {
           }
           else if (chains[i][chains[i].size() - 1] == arc.head && chains[j][0] == arc.tail) // chain j is the tail, i is the head
           {
-            cout << "Appending..." << endl;
+            cerr << "Appending..." << endl;
             for (unsigned int k = 0; k < chains[j].size(); k++) // append chains[j] to chains[i]
             {
               chains[i].push_back(chains[j][0]);
@@ -239,37 +232,13 @@ bool BlockPlacement::runOnFunction(Function &F) {
     }
   }
 
-  cout << "Done with chain merging." << endl;
-  cout << "Total # chains = " << chains.size() << endl << "-----" << endl;
+  cerr << "Done with chain merging." << endl;
+  cerr << "Total # chains = " << chains.size() << endl << "-----" << endl;
   for (unsigned int i = 0; i < chains.size(); i++)
   {
-    cout << "Chain (" << i << ") size = " << chains[i].size() << endl;
+    cerr << "Chain (" << i << ") size = " << chains[i].size() << endl;
   }
-  cout << "-----" << endl << "Doing block placement now." << endl;
-
-  // precedence rule: "the chain containing the source is given precedence over the chain containing the target."
-  // Start with entry chain
-  // use functions moveBefore and moveAfter to place basicblocks in a line...
-  // BasicBlock::moveAfter(BasicBlock* movePos):  Unlink this basic block from its current function and insert it right after MovePos in the function MovePos lives in. 
-  // BasicBlock& entry = F.getEntryBlock();
-  // BasicBlock* curr = &entry; // this won't work, but the idea is there
-  // for (int i = 0; i < chains.size(); i++) 
-  // {
-  //   if (chains[i].size() > 0)
-  //   {
-  //     cout << "Comparing (" << i << ") " << chains[i][0] << " and " << curr << endl;
-  //     if (chains[i][0] == curr) // append all basic blocks in this chain to the "current" block
-  //     {
-        // cout << "Found a match." << endl;
-        // for (int j = 0; j < chains[i].size(); j++)
-        // {
-        //   chains[i][j]->moveAfter(curr);
-        //   curr = chains[i][j];
-        //   NumMovedBlocks++;
-        // }
-  //     }
-  //   }
-  // }
+  cerr << "-----" << endl << "Doing block placement now." << endl;
 
   // Find the chain starting with the entry block
   BasicBlock& entry = F.getEntryBlock();
@@ -287,7 +256,7 @@ bool BlockPlacement::runOnFunction(Function &F) {
     }
   }
 
-  // start with the TAIL of the entry chain, not the head
+  // Start with the TAIL of the entry chain, not the head
   curr = chains[chainIndex][chains[chainIndex].size() - 1]; 
 
   // Now do the appending as outline in the algorithm in the paper
@@ -338,27 +307,22 @@ bool BlockPlacement::runOnFunction(Function &F) {
       }
 
       // Do the chain appending
-	if (newChainIndex != -1)
-{
-      cout << "Appending chain " << newChainIndex << " to chain " << chainIndex << endl;
-      for (int j = 0; j < chains[newChainIndex].size(); j++)
+      if (newChainIndex != -1)
       {
-        chains[newChainIndex][j]->moveAfter(curr);
-        curr = chains[newChainIndex][j];
-        NumMovedBlocks++;
+        cout << "Appending chain " << newChainIndex << " to chain " << chainIndex << endl;
+        for (int j = 0; j < chains[newChainIndex].size(); j++)
+        {
+          chains[newChainIndex][j]->moveAfter(curr);
+          curr = chains[newChainIndex][j];
+          NumMovedBlocks++;
+        }
+        chainIndex = newChainIndex;
+        visitedChains.insert(newChainIndex);
       }
-      chainIndex = newChainIndex;
-      visitedChains.insert(newChainIndex);
-}
     }
   }
 
-  // Recursively place all blocks.
-  //PlaceBlocks(F.begin());
-  //PlacedBlocks.clear();
-  //NumMoved += NumMovedBlocks;
-
-  cout << "Blocks placed: " << NumMovedBlocks << endl;
+  cerr << "Blocks placed: " << NumMovedBlocks << endl;
 
   return NumMovedBlocks != 0;
 }
@@ -416,17 +380,4 @@ void BlockPlacement::PlaceBlocks(BasicBlock *BB) {
     // Now that we picked the maximally executed successor, place it.
     PlaceBlocks(MaxSuccessor);
   }
-}
-
-/// PlaceBlocks - Recursively place the specified blocks and any unplaced
-/// successors.
-
-// algo2 from http://pages.cs.wisc.edu/~fischer/cs701.f06/code.positioning.pdf
-// supposedly, this performs better than algo1 (top-down, which is already implemented...)
-
-
-void BlockPlacement::PlaceBlocksBottomUp(vector< vector<BasicBlock*> > chains, vector<BBArc> arcs) {
-  cout << "Inside BlockPlacement::PlaceBlocksBottomUp" << endl;
-
-  // TODO
 }

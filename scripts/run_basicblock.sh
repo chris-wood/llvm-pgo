@@ -1,4 +1,7 @@
 #!/bin/bash
+
+# Run the PGO basicblock optimization pass.
+
 echo Running script: "$0"
 program="$1"
 execName="$2"

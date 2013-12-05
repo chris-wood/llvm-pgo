@@ -141,7 +141,7 @@ int main(int argc, char *argv[])
   matrix a, aT;
   int i, j;
   a.rows = atoi(argv[1]);
-  a.cols = atoi(argv[2]);
+  a.cols = a.rows * 2;
 
   a.z = malloc (a.rows * sizeof (complex *));
   printf ("Randomly Generated Complex Matrix A is : ");

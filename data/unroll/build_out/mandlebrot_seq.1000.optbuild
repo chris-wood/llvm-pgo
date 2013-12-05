@@ -1,7 +1,35 @@
-Error opening '../lib/PgoLoopUnroll.dylib': ../lib/PgoLoopUnroll.dylib: cannot open shared object file: No such file or directory
-  -load request ignored.
-opt: Unknown command line argument '-simple-pgo-loop-unroll'.  Try: './opt -help'
-opt: Did you mean '-loop-unroll'?
+WARNING: profile information is inconsistent with the current program!
+terminate called after throwing an instance of 'std::bad_alloc'
+  what():  std::bad_alloc
+0  opt              0x08fede1f llvm::sys::PrintStackTrace(_IO_FILE*) + 47
+1  opt              0x08fee07f
+2  opt              0x08feda5c
+3                   0xb76fe400 __kernel_sigreturn + 0
+4                   0xb76fe424 __kernel_vsyscall + 16
+5  libc.so.6        0xb73f5b1f gsignal + 79
+6  libc.so.6        0xb73f90b3 abort + 323
+7  libstdc++.so.6   0xb762791d __gnu_cxx::__verbose_terminate_handler() + 333
+8  libstdc++.so.6   0xb7625563
+9  libstdc++.so.6   0xb762559f
+10 libstdc++.so.6   0xb762582e
+11 libstdc++.so.6   0xb7625e76 operator new(unsigned int) + 134
+12 opt              0x081e2817 std::vector<llvm::BasicBlock*, std::allocator<llvm::BasicBlock*> >::_M_insert_aux(__gnu_cxx::__normal_iterator<llvm::BasicBlock**, std::vector<llvm::BasicBlock*, std::allocator<llvm::BasicBlock*> > >, llvm::BasicBlock* const&) + 199
+13 opt              0x08c208b6 llvm::UnrollLoop(llvm::Loop*, unsigned int, unsigned int, bool, unsigned int, llvm::LoopInfo*, llvm::LPPassManager*) + 6966
+14 PgoLoopUnroll.so 0xb76f7e02
+15 opt              0x08d12ae6 llvm::LPPassManager::runOnFunction(llvm::Function&) + 1670
+16 opt              0x08f764ac llvm::FPPassManager::runOnFunction(llvm::Function&) + 796
+17 opt              0x08f764f8 llvm::FPPassManager::runOnModule(llvm::Module&) + 56
+18 opt              0x08f76054 llvm::MPPassManager::runOnModule(llvm::Module&) + 676
+19 opt              0x08f77f83 llvm::PassManagerImpl::run(llvm::Module&) + 243
+20 opt              0x08f78086 llvm::PassManager::run(llvm::Module&) + 38
+21 opt              0x081c839a main + 4106
+22 libc.so.6        0xb73e0935 __libc_start_main + 245
+23 opt              0x081dbce9
+Stack dump:
+0.	Program arguments: ./opt -profile-loader -load ../lib/PgoLoopUnroll.so -simple-pgo-loop-unroll mandlebrot_seq.bc 
+1.	Running pass 'Function Pass Manager' on module 'mandlebrot_seq.bc'.
+2.	Running pass 'Loop Pass Manager' on function '@main'
+3.	Running pass 'Unroll loops' on basic block '%for.body14.lr.ph.us'
 mandlebrot_seq.c:4:14: warning: implicit declaration of function 'atoi' is invalid in C99 [-Wimplicit-function-declaration]
         int iters = atoi(argv[1]);
                     ^
