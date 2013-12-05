@@ -2,11 +2,11 @@
 #
 # File: profile.sh
 # Description:  Compiles, instruments and runs the program to
-# 		gather profile data. The enabled type of profiling is
-# 		edge-profiling of LLVM in version 3.3. All intermediate
-# 		steps (compiled bitcode, instrumented bitcode) are also
-# 		saved in human readable format (*.s) for manual inspection
-# 		and debugging purposes.
+#     gather profile data. The enabled type of profiling is
+#     edge-profiling of LLVM in version 3.3. All intermediate
+#     steps (compiled bitcode, instrumented bitcode) are also
+#     saved in human readable format (*.s) for manual inspection
+#     and debugging purposes.
 # Author: Julian Lettner
 # Usage: profile.sh <path to program source> <input size>
 #    ex: ./profile.sh ~/some/path/kmeans.c 1000

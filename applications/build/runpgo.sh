@@ -2,10 +2,10 @@
 #
 # File: runpgo.sh
 # Description:  Runs the PGO loop unroll pass on the specified
-# 		program's bitcode file (which must be present, i.e., run
-# 		profile.sh before). Creates an executable and human readable
-# 		version of the optimized program. Add the -simple flag to
-# 		run the simple PGO loop unroll pass.
+#     program's bitcode file (which must be present, i.e., run
+#     profile.sh before). Creates an executable and human readable
+#     version of the optimized program. Add the -simple flag to
+#     run the simple PGO loop unroll pass.
 # Author: Julian Lettner
 # Usage: runpgo.sh <program name (without extension)> [-simple]
 #    ex: ./runpgo.sh kmeans -simple
