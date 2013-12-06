@@ -1,3 +1,14 @@
+//===-- PgoInlineAnalysis.h -----------------------------------------------===//
+//
+// This file implements an analysis pass which determines a bonus to
+// apply to the inline cost threshold based on profile information.
+// This analysis is utilized by the inliner as one of the factors used
+// to make inlining decisions.
+//
+// Author: Brian Belleville
+//===----------------------------------------------------------------------===//
+
+
 #include <cmath>
 #include "llvm/Analysis/PgoInlineAnalysis.h"
 #include "llvm/Support/CallSite.h"
@@ -39,7 +50,8 @@ static int computeThresholdBonus(double exc, double tex, double mex) {
 // tex: total execution count of all basic blocks
 // mex: maximum execution count of all basic blocks
 static int computeCostBonus(double exc, double tex, double mex) {
-  return 0;
+  return 0;			// nop, the bonus is only applied to
+				// the threshold
 }
 
 char PgoInlineAnalysis::ID = 0;
@@ -55,6 +67,9 @@ void PgoInlineAnalysis::getAnalysisUsage(AnalysisUsage &AU) const {
   AU.addRequired<ProfileInfo>();
 }
 
+// The pass determines the maximum execution count for any basic
+// block. This is then used to compare to the execution count of a
+// call site to determine it's relative "hotness"
 bool PgoInlineAnalysis::runOnModule(Module &M) {
   PI = &getAnalysis<ProfileInfo>();
   for (Module::iterator FI = M.begin(), FE = M.end(); FI != FE; ++FI) {

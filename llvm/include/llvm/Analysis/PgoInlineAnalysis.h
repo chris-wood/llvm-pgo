@@ -1,4 +1,13 @@
-// -*- mode: c++; -*-
+//===-- PgoInlineAnalysis.h --------------------------------------*- C++ -*-===//
+//
+// This file declares an analysis pass which determines a bonus to
+// apply to the inline cost threshold based on profile information.
+// This analysis is utilized by the inliner as one of the factors used
+// to make inlining decisions.
+//
+// Author: Brian Belleville
+//===----------------------------------------------------------------------===//
+
 #ifndef _PGOINLINEANALYSIS_H_
 #define _PGOINLINEANALYSIS_H_
 
