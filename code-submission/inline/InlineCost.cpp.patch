@@ -1,0 +1,84 @@
+diff --git a/llvm/lib/Analysis/IPA/InlineCost.cpp b/llvm/lib/Analysis/IPA/InlineCost.cpp
+index 35c45e6..ddb4e73 100644
+--- a/llvm/lib/Analysis/IPA/InlineCost.cpp
++++ b/llvm/lib/Analysis/IPA/InlineCost.cpp
+@@ -31,6 +31,7 @@
+ #include "llvm/Support/Debug.h"
+ #include "llvm/Support/GetElementPtrTypeIterator.h"
+ #include "llvm/Support/raw_ostream.h"
++#include "llvm/Analysis/PgoInlineAnalysis.h"
+ 
+ using namespace llvm;
+ 
+@@ -48,6 +49,8 @@ class CallAnalyzer : public InstVisitor<CallAnalyzer, bool> {
+   /// The TargetTransformInfo available for this compilation.
+   const TargetTransformInfo &TTI;
+ 
++  /// The profile guided inline analysis avalable for this analysis.
++  const PgoInlineAnalysis &PIA;
+   // The called function.
+   Function &F;
+ 
+@@ -135,8 +138,9 @@ class CallAnalyzer : public InstVisitor<CallAnalyzer, bool> {
+ 
+ public:
+   CallAnalyzer(const DataLayout *TD, const TargetTransformInfo &TTI,
++	       const PgoInlineAnalysis &PIA,
+                Function &Callee, int Threshold)
+-      : TD(TD), TTI(TTI), F(Callee), Threshold(Threshold), Cost(0),
++    : TD(TD), TTI(TTI), PIA(PIA), F(Callee), Threshold(Threshold), Cost(0),
+         IsCallerRecursive(false), IsRecursiveCall(false),
+         ExposesReturnsTwice(false), HasDynamicAlloca(false),
+         ContainsNoDuplicateCall(false), AllocatedSize(0), NumInstructions(0),
+@@ -771,7 +775,7 @@ bool CallAnalyzer::visitCallSite(CallSite CS) {
+   // during devirtualization and so we want to give it a hefty bonus for
+   // inlining, but cap that bonus in the event that inlining wouldn't pan
+   // out. Pretend to inline the function, with a custom threshold.
+-  CallAnalyzer CA(TD, TTI, *F, InlineConstants::IndirectCallThreshold);
++  CallAnalyzer CA(TD, TTI, PIA, *F, InlineConstants::IndirectCallThreshold);
+   if (CA.analyzeCall(CS)) {
+     // We were able to inline the indirect call! Subtract the cost from the
+     // bonus we want to apply, but don't go below zero.
+@@ -913,6 +917,10 @@ bool CallAnalyzer::analyzeCall(CallSite CS) {
+   FiftyPercentVectorBonus = Threshold;
+   TenPercentVectorBonus = Threshold / 2;
+ 
++  // Add the profile guided cost and threshold bonuses
++  Threshold += PIA.pgoInlineThresholdBonus(&CS);
++  Cost += PIA.pgoInlineCostBonus(&CS);
++
+   // Give out bonuses per argument, as the instructions setting them up will
+   // be gone after inlining.
+   for (unsigned I = 0, E = CS.arg_size(); I != E; ++I) {
+@@ -1142,6 +1150,7 @@ void CallAnalyzer::dump() {
+ INITIALIZE_PASS_BEGIN(InlineCostAnalysis, "inline-cost", "Inline Cost Analysis",
+                       true, true)
+ INITIALIZE_AG_DEPENDENCY(TargetTransformInfo)
++INITIALIZE_PASS_DEPENDENCY(PgoInlineAnalysis)
+ INITIALIZE_PASS_END(InlineCostAnalysis, "inline-cost", "Inline Cost Analysis",
+                     true, true)
+ 
+@@ -1154,12 +1163,14 @@ InlineCostAnalysis::~InlineCostAnalysis() {}
+ void InlineCostAnalysis::getAnalysisUsage(AnalysisUsage &AU) const {
+   AU.setPreservesAll();
+   AU.addRequired<TargetTransformInfo>();
++  AU.addRequired<PgoInlineAnalysis>();
+   CallGraphSCCPass::getAnalysisUsage(AU);
+ }
+ 
+ bool InlineCostAnalysis::runOnSCC(CallGraphSCC &SCC) {
+   TD = getAnalysisIfAvailable<DataLayout>();
+   TTI = &getAnalysis<TargetTransformInfo>();
++  PIA = &getAnalysis<PgoInlineAnalysis>();
+   return false;
+ }
+ 
+@@ -1194,7 +1205,7 @@ InlineCost InlineCostAnalysis::getInlineCost(CallSite CS, Function *Callee,
+   DEBUG(llvm::dbgs() << "      Analyzing call of " << Callee->getName()
+         << "...\n");
+ 
+-  CallAnalyzer CA(TD, *TTI, *Callee, Threshold);
++  CallAnalyzer CA(TD, *TTI, *PIA, *Callee, Threshold);
+   bool ShouldInline = CA.analyzeCall(CS);
+ 
+   DEBUG(CA.dump());

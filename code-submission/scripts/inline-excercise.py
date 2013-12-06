@@ -1,4 +1,25 @@
 #!/usr/bin/python3
+#===-- inline-excercise.py - Search for optimal inlining constants--------===
+#
+# This script performs a search across the space of constants used
+# for the PGO inline analysis. 
+#
+# basic idea:
+# 1. Generate profiling data for an input compiled with no optimizations.
+# 2. Perform a "straight search" along the line Multiplier = 2 * Offset and
+#    find the best point along this line. At each point along the line compile
+#    a subset of benchmarks and test their performance.
+# 3. Use a hill climbing algorithm to find the local maximum starting at
+#    the point found in the "straight search"
+# 4. Repeat steps 2 and 3 for the linear heuristic and the logarithmic heuristic
+#
+# Usage: inline-excercise.py [BINDIR]
+#   Execute the script in the same directory as the benchmark application source
+#   code. BINDIR is the path to the llvm bin directory containing clang and opt.
+# 
+# Author: Brian Belleville
+#===----------------------------------------------------------------------===
+
 
 import os
 import subprocess
@@ -33,10 +54,6 @@ def benchmark_name(info):
 def compile_args(info):
     return info[2:]
 
-# basic idea:
-# 1. Generate profiling data for a set input compiled with no optimizations.
-# 2. compile program with default inlining program and time (use time program)
-# 3. compile program with pgo inlining and time
 def run_no_output(args):
     null = open("/dev/null")
     proc = subprocess.Popen(args, stdout = null, stderr = null)
@@ -145,6 +162,9 @@ def measure(offset, multiplier):
 # offset, multiplier
 initialStepSizes = [400, 400]
 epsilon = .01
+
+# A simple hill climb search algorithm, with initial point
+# startingPoint
 def hill_climb(startingPoint):
     currentPoint = startingPoint
     stepSize = initialStepSizes
@@ -189,15 +209,6 @@ def straight_search():
         if(r < best):
             best = r
             bestAt = [offset, multiplier]
-    # # Search in steps of 1000 from -6000, 12000 to -10000, 20000
-    # step = 1000
-    # for i in range(6, 11):
-    #     offset = -1 * step * i
-    #     multiplier = 2 * step * i
-    #     r = measure(offset=offset, multiplier=multiplier)
-    #     if(r < best):
-    #         best = r
-    #         bestAt = [offset, multiplier]
     print("best: ", best, " at offset: ", bestAt[0], " multiplier: ", bestAt[1])
     return bestAt
 
@@ -218,20 +229,28 @@ def main():
         build_with_profile(info)
         print("generating profile for " + name)
         generate_profile(info)
-
+    # Test logarithmic heuristic first
     print("Starting straight search of logarithmic heuristic")
     pgo_build_linear_default = False
+    # Find best point from the straight search
     log_straight_best = straight_search()
     print("starting hill climb")
+    # Use the best point from the straight search to start the hill
+    # climb search
     log_hill_best = hill_climb(log_straight_best)
     print("---------- end search over log heuristic ----------\n")
 
+    # Test linear heuristic next
     print("Starting straight search of linear heuristic")
     pgo_build_linear_default = True
+    # Find best point from the straight search
     linear_straight_best = straight_search()
     print("starting hill climb")
+    # Use the best point from the straight search to start the hill
+    # climb search
     linear_hill_best = hill_climb(linear_straight_best)
     print("---------- end search over linear heuristic ----------\n")
+    # Print best points found
     print("log best at offset: ", log_hill_best[0], " multiplier: ", log_hill_best[1])
     print("linear best at offset: ", linear_hill_best[0], " multiplier: ", linear_hill_best[1])
 main()
